@@ -1,14 +1,14 @@
-// Prevent adjustments of font size after orientation changes in IE on Windows Phone an in iOS. 
+// Prevent adjustments of font size after orientation changes in IE on Windows Phone an in iOS.
 html {
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 // apply a natural box layout model to all elements
 * {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* ! header / navbar */
@@ -23,7 +23,7 @@ body {
 }
 
 .container {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -40,55 +40,74 @@ header::after {
 .logo {
   float: left;
   padding: 10px;
+  margin: 6px;
+  margin-left: 40px;
   font-size: 15px;
+  
   border: 5px double rgba(34, 34, 34, 0.73);
   color: #222;
 }
 
-nav {
-  float: right;
-}
-
-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-nav li {
-  display: inline-block;
-  margin-left: 70px;
-  padding-top: 23px;
-
-  position: relative;
-}
-
-nav a {
-  color: #444;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-nav a:hover {
-  color: #000;
-}
-
-nav a::before {
-  content: "";
-  display: block;
-  height: 5px;
-  background-color: #444;
-
+.icon{
   position: absolute;
-  top: 0;
-  width: 0%;
-
-  transition: all ease-in-out 250ms;
+ text-decoration: none;
+ color: #222;
+ text-align: center;
+  font-size: 30px;
+  right: 20px;
+  top: 14px;
+  z-index: 10;
+}
+.active{
+  display: block;
 }
 
-nav a:hover::before {
+nav {
+  position: absolute;
+  top: 20px;
   width: 100%;
+  display: none;
+  ul {
+    padding-top: 40px;
+    list-style: none;
+    height: 100%;
+    padding-bottom: 20px;
+  }
+
+  li {
+    padding-top: 20px;
+    position: relative;
+    background-color:#222;
+    &:last-child{
+      padding-bottom: 20px;
+    }
+  }
+
+  a {
+    color: #55d6aa;
+    margin-left: 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    &:hover {
+      color: #55d6aa;
+      &::before {
+          width: 100%;
+      }
+    }
+    &::before {
+      content: "";
+      display: block;
+      height: 5px;
+      background-color: #55d6aa;
+
+      position: absolute;
+      top: 0;
+      width: 0%;
+
+      transition: all ease-in-out 250ms;
+    }
+  }
 }
 
 /* ! homepage */
@@ -114,41 +133,31 @@ nav a:hover::before {
   flex-direction: revert;
   flex-direction: revert-layer;
   flex-direction: unset;
-}
 
-.project-home {
-  /* ! Also for Project page */
-  flex-direction: row;
-  margin: 2vh;
-  margin-bottom: 10vh;
-  border: #444 1px solid;
-  height: 50vh;
-  width: 50vh;
-  border-radius: 2vh;
-  text-align: center;
-}
+  .project-home {
+    /* ! Also for Project page */
+    flex-direction: row;
+    margin: 2vh;
+    margin-bottom: 10vh;
+    border: #444 1px solid;
+    height: 50vh;
+    width: 50vh;
+    border-radius: 2vh;
+    text-align: center;
 
-.project-home h1 {
-  margin-top: 51.5vh;
-  color: #55d6aa;
-}
+    h1 {
+      margin-top: 10px;
+      font-size: 30px;
+      color: #55d6aa;
+    }
+  }
 
-#home1 {
-  background-image: url("img/Gastenboek.png");
-  background-size: 90vh;
-  background-position: center;
-}
-
-#home2 {
-  background-image: url("img/duckhunt.png");
-  background-size: 90vh;
-  background-position: center;
-}
-
-#home3 {
-  background-image: url("img/radiogaga.png");
-  background-size: 90vh;
-  background-position: center;
+  .img-size {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 2vh;
+  }
 }
 
 /* ! About */
@@ -272,7 +281,6 @@ button:hover {
 
 /* ! projects */
 
-
 #pro1 {
   background-image: url("img/Gastenboek.png");
   background-size: 90vh;
@@ -305,4 +313,3 @@ button:hover {
   background-size: 90vh;
   background-position: center;
 }
-
