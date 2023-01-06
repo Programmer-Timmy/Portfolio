@@ -1,0 +1,17 @@
+#circle {
+    border-radius: 50%;
+    border: 1px black solid;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    position: relative;
+    transition: all 1s ease-in;
+}
+
+.button {
+    margin-top: 20px;
+    height: 40px;
+    width: 100px;
+    border: 1px black solid;
+    background-color: gray;
+}

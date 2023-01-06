@@ -1,0 +1,21 @@
+.game {
+    height: 400px;
+    width: 400px;
+    border: 1px solid black;
+    margin: 20px;
+    background-color: white;
+}
+form {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        margin: 10px;
+        color: #55d6aa;
+    }
+
+container {
+    background-color: #222;
+}
+header {
+  background: #55d6aa;
+}
