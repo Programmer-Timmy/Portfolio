@@ -1,3 +1,12 @@
+<?php
+$con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
+$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$stmt = $con->prepare("SELECT * FROM projecten ORDER BY date DESC LIMIT 3");
+$stmt->execute();
+$project = $stmt->fetchAll(pdo::FETCH_OBJ);
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -35,20 +44,19 @@
     </div>
     <!-- 3 projecten -->
     <div class="borderp">
-        <div class="project-home">
-            <a href="gastenboek/index.php"><img src="img/Gastenboek.png" class="img-size" alt=""></a>
-            <h1>Gastenboek</h1>
-        </div>
-        <div class="project-home">
-            <a href="duckhunt/index.html"><img src="img/duckhunt.png" class="img-size" alt=""></a>
-            <h1>Duckhunt</h1>
-        </div>
-        <div class="project-home">
-            <a href="radiogaga/index.html"><img src="img/radiogaga.png" class="img-size" alt=""></a>
-            <h1>RadioGaGa</h1>
-        </div>
+        <?php
+        foreach ($project as $project) {
+
+            echo "
+            <div class='project-home'>
+                <a href='$project->path'><img src='$project->img' class='img-size' alt=''></a>
+                <h1>$project->name</h1>
+            </div>";
+        }
+        ?>
     </div>
 
 </body>
 <script src="js/nav.js"></script>
+
 </html>
