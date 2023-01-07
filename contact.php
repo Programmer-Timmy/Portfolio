@@ -38,7 +38,8 @@
             <h2>You can contact me whit: </h2><br>
             <h3>School email: <a href="mailto:567589@edu.rocmn.nl">567589@edu.rocmn.nl</a><br>
                 Private email: <a href="mailto:Tim.vanderkloet@gmail.com">Tim.vanderkloet@gmail.com</a><br>
-                Telephone: <a href="tel:064361248">06 4361248</a></h3><br>
+                Telephone: <a href="tel:064361248">06 4361248</a>
+            </h3><br>
         </div>
         <div>
             <img src="img/profielfoto.JPG" id="foto" alt="">
