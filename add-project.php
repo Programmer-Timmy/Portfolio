@@ -4,14 +4,26 @@ if ($_POST) {
     include 'uploadzip.php';
 
     include 'upload.php';
+    $git = "";
+    if($_POST["git"] == ""){
+        $git = "empty";
+    } else {
+        $git = $_POST["git"];
+    }
+    $link = "";
+    if($_POST["link"] == ""){
+        $link = substr($target_path, 0, -4) . "/index";
+    } else {
+        $link = $_POST["link"];
+    }
 
     $con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $con->prepare("INSERT INTO projecten(name, github, path, img) VALUES (?, ?, ?, ?)");
     $stmt->bindValue(1, htmlspecialchars($_POST["name"]));
-    $stmt->bindValue(2, htmlspecialchars($_POST["git"]));
-    $stmt->bindValue(3, htmlspecialchars(substr($target_path, 0, -4) . "/index"));
+    $stmt->bindValue(2, htmlspecialchars($git));
+    $stmt->bindValue(3, htmlspecialchars($link));
     $stmt->bindValue(4, htmlspecialchars($target_file));
 
     $stmt->execute();
@@ -38,8 +50,8 @@ if ($_POST) {
         <input type="text" name="git" id="git"><br>
         Select image to upload:
         <input type="file" name="img" id="img" required><br>
-        Select your project
-        <input type="file" name="zip_file" id="img" required><br>
+        Select your project or link
+        <input type="file" name="zip_file" id="img"><input type="text" name="link" id="link"><br>
 
         <input type="submit" value="Toevoegen" name="submit">
     </form>
