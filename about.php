@@ -45,7 +45,7 @@
             <h3>Download my CV <a href="documenten/CV.pdf" download="">here</a></h3>
         </div>
     </div>
-    <script src="js/nav.js"></script>
-</body>
 
+</body>
+<script src="js/nav.js"></script>
 </html>
