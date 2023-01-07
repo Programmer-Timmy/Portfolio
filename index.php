@@ -46,11 +46,14 @@ $project = $stmt->fetchAll(pdo::FETCH_OBJ);
     <div class="borderp">
         <?php
         foreach ($project as $project) {
-
             echo "
             <div class='project-home'>
-                <a href='$project->path'><img src='$project->img' class='img-size' alt=''></a>
-                <h1>$project->name</h1>
+                <a href='$project->path'><img src='$project->img' class='img-size' alt=''></a>";
+
+            if($project->github !== NULL) {
+                echo "<a herf='$project->github'><i class='fa fa-github' aria-hidden='true'></i></a>";
+            } 
+            echo"<h1>$project->name</h1>
             </div>";
         }
         ?>
