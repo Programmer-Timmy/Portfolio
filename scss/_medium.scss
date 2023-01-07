@@ -68,16 +68,17 @@ header {
 .border {
   padding: 20px;
   display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
 
-
-  #tekst {
-    padding-top: 20px;
-    h2 {
-    }
-    h3 {
-    }
-  }
+.border-re {
+  padding: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
 }
