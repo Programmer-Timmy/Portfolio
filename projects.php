@@ -52,7 +52,7 @@
             <h1>Game controler</h1>
         </div>
         <div class="project-home">
-            <a href="database/index.html"><img src="img/database.jpg" class="img-size" alt=""></a>
+            <a href="database"><img src="img/database.jpg" class="img-size" alt=""></a>
             <h1>Game Database</h1>
         </div>
 </body>
