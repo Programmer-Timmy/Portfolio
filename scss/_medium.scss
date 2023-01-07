@@ -19,10 +19,10 @@ header {
       color: #222;
     }
     nav {
-      position: relative;
-      right: 0;
+      position: absolute;
+      left: 220px;
+      width: auto;
       top: -20px;
-      width: 100%;
       display: block;
       ul {
         list-style: none;
