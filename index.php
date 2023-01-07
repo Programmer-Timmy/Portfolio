@@ -49,7 +49,6 @@
         </div>
     </div>
 
-    <script src="js/nav.js"></script>
 </body>
-
+<script src="js/nav.js"></script>
 </html>
