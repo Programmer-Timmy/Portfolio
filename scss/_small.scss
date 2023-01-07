@@ -129,10 +129,8 @@ header {
   height: 58vh;
   display: flex;
   flex-wrap: wrap;
-  flex-direction:row;
+  flex-direction: row;
   justify-content: space-around;
-
-
 
   .project-home {
     /* ! Also for Project page */
@@ -160,37 +158,35 @@ header {
   }
 }
 
-/* ! About */
+// * About * //
 
-#foto {
-  border: white 1px solid;
-  height: 40vh;
-  width: 30vh;
-  border-radius: 50%;
-  background-image: url("img/profielfoto.JPG");
-  background-size: 140%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-position-y: 1vh;
-  background-color: white;
-  margin-left: 10vh;
-  float: left;
-  margin-right: 10vh;
-}
+.border {
+  padding: 15px;
 
-#border {
-  height: 45vh;
-}
-
-#tekst {
-  width: auto;
-}
-
-#tekst h2 {
-  color: #55d6aa;
-}
-#tekst h3 {
-  color: #777;
+  div:first-child {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items:center;
+  }
+  #foto {
+    border: white 1px solid;
+    height: 40vh;
+    width: 30vh;
+    border-radius: 50%;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    object-fit: cover;
+  }
+  #tekst {
+    padding-top: 20px;
+    h2 {
+      color: #55d6aa;
+    }
+    h3 {
+      color: #777;
+    }
+  }
 }
 
 /* ! contact */
