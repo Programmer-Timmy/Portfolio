@@ -1,0 +1,233 @@
+// Prevent adjustments of font size after orientation changes in IE on Windows Phone an in iOS.
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+// apply a natural box layout model to all elements
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// * global  * //
+
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
+body {
+  margin: 0;
+  padding: 0;
+  background: #222;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 800;
+}
+
+// * header / navbar * //
+
+header {
+  background: #55d6aa;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+  }
+
+  .logo {
+    float: left;
+    padding: 10px;
+    margin: 6px;
+    margin-left: 20px;
+    font-size: 15px;
+    border: 5px double rgba(34, 34, 34, 0.73);
+    color: #222;
+  }
+
+  .icon {
+    position: absolute;
+    text-decoration: none;
+    color: #222;
+    text-align: center;
+    font-size: 30px;
+    right: 20px;
+    top: 14px;
+    z-index: 10;
+  }
+  nav {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    display: none;
+    &.active {
+      display: block;
+    }
+    ul {
+      padding-top: 40px;
+      list-style: none;
+      height: 100%;
+      padding-bottom: 20px;
+    }
+
+    li {
+      z-index: 9;
+      padding-top: 20px;
+      position: relative;
+      background-color: #222;
+      &:last-child {
+        padding-bottom: 20px;
+      }
+    }
+
+    a {
+      color: #55d6aa;
+      margin-left: 20px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      &:hover {
+        color: #55d6aa;
+        &::before {
+          width: 100%;
+        }
+      }
+      &::before {
+        content: "";
+        display: block;
+        height: 5px;
+        background-color: #55d6aa;
+
+        position: absolute;
+        top: 0;
+        width: 0%;
+
+        transition: all ease-in-out 250ms;
+      }
+    }
+  }
+}
+
+// * homepage * //
+.welcome {
+  text-align: center;
+  margin: auto;
+
+  h1 {
+    color: #55d6aa;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 420%;
+    text-align: center;
+  }
+}
+
+.borderp {
+  height: 58vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+
+  .project-home {
+    /* ! Also for Project page */
+    flex-direction: row;
+    margin: 2vh;
+    margin-bottom: 10vh;
+    border: #444 1px solid;
+    height: 50vh;
+    width: 50vh;
+    border-radius: 2vh;
+    text-align: center;
+
+    h1 {
+      margin-top: 10px;
+      font-size: 30px;
+      color: #55d6aa;
+    }
+  }
+
+  .img-size {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 2vh;
+  }
+}
+
+// * About * //
+
+.border {
+  padding: 15px;
+
+  div:first-child {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  #foto {
+    border: white 1px solid;
+    height: 40vh;
+    width: 30vh;
+    border-radius: 50%;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    object-fit: cover;
+  }
+  #tekst {
+    padding-top: 20px;
+    h2 {
+      color: #55d6aa;
+    }
+    h3 {
+      color: #777;
+    }
+  }
+}
+
+// * contact * //
+
+.border-re {
+  padding: 15px;
+
+  div:last-child{
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+  }
+  #about-tekst {
+    width: 100%;
+    h2 {
+      color: #55d6aa;
+    }
+    h3 {
+      color: #777;
+      line-height: 20px;
+      a {
+        text-decoration: none;
+        color: #55d6aa;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  #foto {
+    border: white 1px solid;
+    height: 40vh;
+    width: 30vh;
+    border-radius: 50%;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    object-fit: cover;
+  }
+}
+
+/* ! projects */

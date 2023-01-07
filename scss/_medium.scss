@@ -1,0 +1,84 @@
+// * header / navbar * //
+.icon {
+  display: none;
+}
+
+header {
+  .container {
+    width: 100%;
+    float: left;
+    height: 57px;
+
+    .logo {
+      float: left;
+      padding: 10px;
+      margin: 6px;
+      margin-left: 40px;
+      font-size: 15px;
+      border: 5px double rgba(34, 34, 34, 0.73);
+      color: #222;
+    }
+    nav {
+      position: absolute;
+      left: 220px;
+      width: auto;
+      top: -20px;
+      display: block;
+      ul {
+        list-style: none;
+      }
+
+      li {
+        padding: 0;
+        float: left;
+        position: relative;
+        background-color: #55d6aa;
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+      a {
+        color: #333;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 14px;
+
+        &:hover {
+          color: #333;
+          &::before {
+            width: 75%;
+            bottom: 0;
+          }
+        }
+        &::before {
+          margin-left: 20px;
+          display: block;
+          height: 5px;
+          background-color: #333;
+          position: absolute;
+          top: 30px;
+          width: 0%;
+        }
+      }
+    }
+  }
+}
+
+.border {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.border-re {
+  padding: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
