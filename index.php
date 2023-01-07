@@ -13,7 +13,6 @@
         function MyFunction() {
             document.getElementById("nav").classList.toggle("active")
         }
-
     </script>
 </head>
 
@@ -42,15 +41,15 @@
     <!-- 3 projecten -->
     <div class="borderp">
         <div class="project-home">
-            <img src="img/Gastenboek.png" class="img-size" alt="">
+            <a href="gastenboek/index.php"><img src="img/Gastenboek.png" class="img-size" alt=""></a>
             <h1>Gastenboek</h1>
         </div>
         <div class="project-home">
-            <img src="img/duckhunt.png" class="img-size" alt="">
+            <a href="duckhunt/index.html"><img src="img/duckhunt.png" class="img-size" alt=""></a>
             <h1>Duckhunt</h1>
         </div>
         <div class="project-home">
-            <img src="img/radiogaga.png" class="img-size" alt="">
+            <a href="radiogaga/index.html"><img src="img/radiogaga.png" class="img-size" alt=""></a>
             <h1>RadioGaGa</h1>
         </div>
     </div>
