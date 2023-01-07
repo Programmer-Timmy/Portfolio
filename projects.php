@@ -19,7 +19,7 @@
             <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
                 <i class="fa fa-bars"></i>
             </a>
-            <nav>
+            <nav id="nav">
                 <ul>
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
