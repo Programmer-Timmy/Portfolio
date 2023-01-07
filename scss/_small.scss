@@ -42,7 +42,7 @@ header {
     float: left;
     padding: 10px;
     margin: 6px;
-    margin-left: 40px;
+    margin-left: 20px;
     font-size: 15px;
     border: 5px double rgba(34, 34, 34, 0.73);
     color: #222;
@@ -85,7 +85,7 @@ header {
 
     a {
       color: #55d6aa;
-      margin-left: 40px;
+      margin-left: 20px;
       text-decoration: none;
       text-transform: uppercase;
       font-size: 14px;
@@ -167,7 +167,7 @@ header {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    align-items:center;
+    align-items: center;
   }
   #foto {
     border: white 1px solid;
@@ -189,90 +189,45 @@ header {
   }
 }
 
-/* ! contact */
-
-#contekst {
-  width: 35%;
-}
-
-#contekst h2 {
-  color: #55d6aa;
-}
-#contekst h3 {
-  color: #777;
-  margin-left: 5vh;
-}
-#contekst ul li {
-  color: #777;
-}
-button {
-  height: 5vh;
-  font-size: 3vh;
-  background-color: #444;
-  color: #55d6aa;
-  border: 1px solid #222;
-  border-radius: 1vh;
-  transition: all ease-in-out 250ms;
-}
-button:hover {
-  cursor: pointer;
-  height: 6vh;
-  font-size: 4vh;
-}
-
-#revieuw {
-  width: 35%;
-  height: 50vh;
-  overflow: auto;
-  word-wrap: break-word;
-}
+// * contact * //
 
 .border-re {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
+  padding: 15px;
 
-.border-re h2 {
-  color: #55d6aa;
-}
-.popupbox {
-  width: 100vh;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -65vh;
-  border-radius: 10px;
-  padding: 2vh;
-  background-color: #444;
-  align-items: center;
-  overflow-x: hidden;
-}
+  div:last-child{
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+  }
+  #about-tekst {
+    width: 100%;
+    h2 {
+      color: #55d6aa;
+    }
+    h3 {
+      color: #777;
+      line-height: 20px;
+      a {
+        text-decoration: none;
+        color: #55d6aa;
 
-.popupbox h1 {
-  color: #55d6aa;
-  text-align: center;
-}
-
-.popupbox form {
-  text-align: center;
-}
-
-.popupbox form h3 {
-  color: #222;
-}
-
-#verstuur {
-  height: 4vh;
-  font-size: 3vh;
-  background-color: #222;
-  color: #55d6aa;
-  border: 1px solid #333;
-  border-radius: 1vh;
-  transition: all ease-in-out 250ms;
-}
-.text h3 {
-  color: #777;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  #foto {
+    border: white 1px solid;
+    height: 40vh;
+    width: 30vh;
+    border-radius: 50%;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    object-fit: cover;
+  }
 }
 
 /* ! projects */
