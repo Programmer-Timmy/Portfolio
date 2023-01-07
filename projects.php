@@ -1,3 +1,14 @@
+<?php
+$con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
+$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$stmt = $con->prepare("SELECT * FROM projecten ORDER BY date DESC");
+$stmt->execute();
+$project = $stmt->fetchAll(pdo::FETCH_OBJ);
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,27 +45,21 @@
         <h1>Projects</h1>
     </div>
 
+
+
     <div class="borderp">
-        <div class="project-home">
-            <a href="gastenboek/index.php"><img src="img/Gastenboek.png" class="img-size" alt=""></a>
-            <h1>Gastenboek</h1>
-        </div>
-        <div class="project-home">
-            <a href="duckhunt/index.html"><img src="img/duckhunt.png" class="img-size" alt=""></a>
-            <h1>Duckhunt</h1>
-        </div>
-        <div class="project-home">
-            <a href="radiogaga/index.html"><img src="img/radiogaga.png" class="img-size" alt=""></a>
-            <h1>RadioGaGa</h1>
-        </div>
-        <div class="project-home">
-            <a href="gamecontroler/index.html"><img src="img/gamecon.png" class="img-size" alt=""></a>
-            <h1>Game controler</h1>
-        </div>
-        <div class="project-home">
-            <a href="database"><img src="img/database.jpg" class="img-size" alt=""></a>
-            <h1>Game Database</h1>
-        </div>
+        <?php
+        foreach ($project as $project) {
+
+            echo "
+            <div class='project-home'>
+                <a href='$project->path'><img src='$project->img' class='img-size' alt=''></a>
+                <h1>$project->name</h1>
+            </div>";
+        }
+        ?>
+    </div>
+
 </body>
 <script src="js/nav.js"></script>
 
