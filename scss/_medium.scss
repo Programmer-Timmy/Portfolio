@@ -64,3 +64,20 @@ header {
     }
   }
 }
+
+.border {
+  padding: 20px;
+  display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
+
+  #tekst {
+    padding-top: 20px;
+    h2 {
+    }
+    h3 {
+    }
+  }
+}
