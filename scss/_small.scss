@@ -148,6 +148,11 @@ header {
       font-size: 30px;
       color: #55d6aa;
     }
+    .github {
+      font-size: 30px;
+      color: #55d6aa;
+      margin-right: 10px;
+    }
   }
 
   .img-size {
@@ -194,7 +199,7 @@ header {
 .border-re {
   padding: 15px;
 
-  div:last-child{
+  div:last-child {
     padding-top: 20px;
     display: flex;
     flex-wrap: nowrap;
@@ -213,7 +218,7 @@ header {
         text-decoration: none;
         color: #55d6aa;
 
-        &:hover{
+        &:hover {
           text-decoration: underline;
         }
       }
