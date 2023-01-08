@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if ($_POST) {
     include 'uploadzip.php';
@@ -43,7 +44,11 @@ if ($_POST) {
 </head>
 
 <body>
-    <form method="post" enctype="multipart/form-data">
+    <?php
+    if (!isset($_SESSION['loggedin'])) {
+        header('location: account');
+    } else {
+        echo'<form method="post" enctype="multipart/form-data">
         Naam van het project:
         <input type="text" name="name" id="name" required><br>
         Github link:
@@ -54,7 +59,9 @@ if ($_POST) {
         <input type="file" name="zip_file" id="img"><input type="text" name="link" id="link"><br>
 
         <input type="submit" value="Toevoegen" name="submit">
-    </form>
+    </form>';
+    }
+    ?>
 </body>
 
 </html>
