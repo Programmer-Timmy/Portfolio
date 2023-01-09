@@ -8,7 +8,6 @@ $stmt = $con->prepare("SELECT * FROM projecten ORDER BY date DESC");
 $stmt->execute();
 $project = $stmt->fetchAll(pdo::FETCH_OBJ);
 
-
 if (isset($_GET["id"])) {
 
     $stmt1 = $con->prepare("SELECT * FROM projecten WHERE id= ?");
@@ -46,6 +45,8 @@ if (isset($_GET["id"])) {
     $stmt2->execute();
 
     header("location: /index.php");
+
+    echo "<script>alert('Your project has been removed');</script>";
 }
 ?>
 
