@@ -11,26 +11,26 @@ if ($_FILES["zip_file"]["name"]) {
             $okay = true;
             break;
         }
-        echo"oke";
     }
 
     $continue = strtolower($name[1]) == 'zip' ? true : false;
     if (!$continue) {
-        echo"<script>alert('The file you are trying to upload is not a .zip file. Please try again');</script>";
-    }
-
-    $target_path = 'project/' . $filename;  // change this to the correct site path
-    if (move_uploaded_file($source, $target_path)) {
-        $zip = new ZipArchive();
-        $x = $zip->open($target_path);
-        if ($x === true) {
-            $zip->extractTo('project/'); // change this to the correct site path
-            $zip->close();
-
-            unlink($target_path);
-        }
-        echo"<script>alert('Your .zip file was uploaded and unpacked');</script>";
+        echo "<script>alert('The file you are trying to upload is not a .zip file. Please try again');</script>";
     } else {
-        echo"<script>alert('There was a problem with the upload. Please try again');</script>";
+
+        $target_path = 'project/' . $filename;  // change this to the correct site path
+        if (move_uploaded_file($source, $target_path)) {
+            $zip = new ZipArchive();
+            $x = $zip->open($target_path);
+            if ($x === true) {
+                $zip->extractTo('project/'); // change this to the correct site path
+                $zip->close();
+
+                unlink($target_path);
+            }
+            echo "<script>alert('Your .zip file was uploaded and unpacked');</script>";
+        } else {
+            echo "<script>alert('There was a problem with the upload. Please try again');</script>";
+        }
     }
 }
