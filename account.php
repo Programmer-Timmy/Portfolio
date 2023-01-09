@@ -12,18 +12,19 @@ if (!isset($_SESSION['loggedin'])) {
         $stmt->execute();
         $info = $stmt->fetchAll(pdo::FETCH_OBJ);
 
-        foreach ($info as $info) {
-            $hash = $info->password;
-            if (password_verify($_POST['password'], $hash)) {
-                $hash = "";
-                $_SESSION['loggedin'] = true;
+        if ($info == "") {
+            echo '<script>alert("Wrong username or password")</script>';
+        } else {
+            foreach ($info as $info) {
+                if (password_verify($_POST['password'], $info->password)) {
+                    $_SESSION['loggedin'] = true;
+                } else {
+                    echo '<script>alert("Wrong username or password")</script>';
+                }
             }
         }
     }
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -62,9 +63,7 @@ if (!isset($_SESSION['loggedin'])) {
         <div class="welcome">
         <h1>Welcome!</h1>
         <h2>You are loged in!</h2>
-        </div>
-
-        ';
+        </div>';
     }
     ?>
 
