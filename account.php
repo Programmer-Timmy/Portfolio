@@ -10,11 +10,9 @@ if (!isset($_SESSION['loggedin'])) {
         $stmt = $con->prepare("SELECT password FROM `account` WHERE username=?");
         $stmt->bindValue(1, htmlspecialchars($_POST["username"]));
         $stmt->execute();
-        $info = $stmt->fetchAll(pdo::FETCH_OBJ);
 
-        if ($info == "") {
-            echo '<script>alert("Wrong username or password")</script>';
-        } else {
+        if ($stmt->rowCount() !== 0) {
+            $info = $stmt->fetchAll(pdo::FETCH_OBJ);
             foreach ($info as $info) {
                 if (password_verify($_POST['password'], $info->password)) {
                     $_SESSION['loggedin'] = true;
@@ -22,6 +20,8 @@ if (!isset($_SESSION['loggedin'])) {
                     echo '<script>alert("Wrong username or password")</script>';
                 }
             }
+        }else{
+            echo '<script>alert("Wrong username or password")</script>';
         }
     }
 }
@@ -44,9 +44,9 @@ if (!isset($_SESSION['loggedin'])) {
     if (!isset($_SESSION['loggedin'])) {
         echo '<div class="admin"><form action="" method="post">
             username<br>
-            <input type="text" name="username" id="username"><br>
+            <input type="text" name="username" id="username" required><br>
             password<br>
-            <input type="password" name="password" id="password"><br>
+            <input type="password" name="password" id="password" required><br>
             <input type="submit" value="Inlogen">
             </form></div>';
     } else {
@@ -62,7 +62,7 @@ if (!isset($_SESSION['loggedin'])) {
         </nav></div></header>
         <div class="welcome">
         <h1>Welcome!</h1>
-        <h2>You are loged in!</h2>
+        <h2>You are logged in!</h2>
         </div>';
     }
     ?>
