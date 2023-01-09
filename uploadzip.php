@@ -16,7 +16,7 @@ if ($_FILES["zip_file"]["name"]) {
 
     $continue = strtolower($name[1]) == 'zip' ? true : false;
     if (!$continue) {
-        echo"The file you are trying to upload is not a .zip file. Please try again.";
+        echo"<script>alert('The file you are trying to upload is not a .zip file. Please try again');</script>";
     }
 
     $target_path = 'project/' . $filename;  // change this to the correct site path
@@ -29,8 +29,8 @@ if ($_FILES["zip_file"]["name"]) {
 
             unlink($target_path);
         }
-        echo"Your .zip file was uploaded and unpacked.";
+        echo"<script>alert('Your .zip file was uploaded and unpacked');</script>";
     } else {
-        echo"There was a problem with the upload. Please try again.";
+        echo"<script>alert('There was a problem with the upload. Please try again');</script>";
     }
 }
