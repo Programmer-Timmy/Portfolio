@@ -14,7 +14,9 @@ if ($_POST) {
     }
     $link = "";
     if ($_POST["link"] == "") {
-        $link = substr($target_path, 0, -4) . "/index";
+        if (isset($target_path)) {
+            $link = substr($target_path, 0, -4) . "/index";
+        }
     } else {
         $link = $_POST["link"];
     }
@@ -27,8 +29,9 @@ if ($_POST) {
     $stmt->bindValue(2, htmlspecialchars($git));
     $stmt->bindValue(3, htmlspecialchars($link));
     $stmt->bindValue(4, htmlspecialchars($target_file));
-
+    if($link !== '' and $target_file !== ""){
     $stmt->execute();
+    }
 }
 
 ?>
@@ -77,4 +80,5 @@ if ($_POST) {
     ?>
 </body>
 <script src="js/nav.js"></script>
+
 </html>
