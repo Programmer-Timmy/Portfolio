@@ -5,6 +5,7 @@ if ($_POST) {
     include 'uploadzip.php';
 
     include 'upload.php';
+
     $git = "";
     if ($_POST["git"] == "") {
         $git = "empty";
@@ -66,9 +67,9 @@ if ($_POST) {
         Github link:
         <input type="text" name="git" id="git"><br>
         Select image to upload:
-        <input type="file" name="img" id="img" required><br>
-        Select your project or link
-        <input type="file" name="zip_file" id="img"><input type="text" name="link" id="link"><br>
+        <input type="file" name="img" id="img" accept="image/png, image/jpeg" required><br>
+        Select your project or link:
+        <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip"><input type="text" name="link" id="link"><br>
 
         <input type="submit" value="Toevoegen" name="submit">
     </form></div>';
