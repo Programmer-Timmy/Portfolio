@@ -2,38 +2,51 @@
 session_start();
 
 if ($_POST) {
-    include 'uploadzip.php';
+    $filename = $_FILES["zip_file"]["name"];
+    $name = explode(".", $filename);
+    $continue = strtolower($name[1]) == 'zip' ? true : false;
 
-    include 'upload.php';
-
-    $git = "";
-    if ($_POST["git"] == "") {
-        $git = "empty";
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $target_dir = "img/";
+    $target_file = $target_dir . basename($_FILES["img"]["name"]);
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        echo '<script>alert("Your uploaded file is not a img");</script>';
+    } elseif ($continue != true) {
+        echo '<script>alert("Your uploaded file is not a zip");</script>';
     } else {
-        $git = $_POST["git"];
-    }
-    $link = "";
-    if ($_POST["link"] == "") {
-        if (isset($target_path)) {
-            $link = substr($target_path, 0, -4) . "/index";
+        include 'uploadzip.php';
+
+        include 'upload.php';
+
+        $git = "";
+        if ($_POST["git"] == "") {
+            $git = "empty";
+        } else {
+            $git = $_POST["git"];
         }
-    } else {
-        $link = $_POST["link"];
-    }
+        $link = "";
+        if ($_POST["link"] == "") {
+            if (isset($target_path)) {
+                $link = substr($target_path, 0, -4) . "/index";
+            }
+        } else {
+            $link = $_POST["link"];
+        }
 
-    $con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
-    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
+        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $con->prepare("INSERT INTO projecten(name, github, path, img) VALUES (?, ?, ?, ?)");
-    $stmt->bindValue(1, htmlspecialchars($_POST["name"]));
-    $stmt->bindValue(2, htmlspecialchars($git));
-    $stmt->bindValue(3, htmlspecialchars($link));
-    $stmt->bindValue(4, htmlspecialchars($target_file));
-    if($link !== '' and $target_file !== ""){
-    $stmt->execute();
+        $stmt = $con->prepare("INSERT INTO projecten(name, github, path, img) VALUES (?, ?, ?, ?)");
+        $stmt->bindValue(1, htmlspecialchars($_POST["name"]));
+        $stmt->bindValue(2, htmlspecialchars($git));
+        $stmt->bindValue(3, htmlspecialchars($link));
+        $stmt->bindValue(4, htmlspecialchars($target_file));
+        $stmt->execute();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
