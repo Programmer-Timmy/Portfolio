@@ -5,10 +5,14 @@ if ($_POST) {
     $filename = $_FILES["zip_file"]["name"];
     $name = explode(".", $filename);
     $continue = strtolower($name[1]) == 'zip' ? true : false;
+    if ($_POST["link"] !== "") {
+        $continue = true;
+    }
 
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    
     $target_dir = "img/";
     $target_file = $target_dir . basename($_FILES["img"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));    
     if (
         $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif"
