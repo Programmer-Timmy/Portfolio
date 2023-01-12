@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['access'])) {
+    $_SESSION['access'] = "none";
+}
 include 'db.php';
 
 $dbhost = 'localhost';
