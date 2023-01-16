@@ -16,7 +16,7 @@ header {
       margin-left: 40px;
       font-size: 15px;
       border: 5px double rgba(34, 34, 34, 0.73);
-      color: #222;
+      color: $secondary;
     }
     nav {
       position: absolute;
@@ -32,20 +32,20 @@ header {
         padding: 0;
         float: left;
         position: relative;
-        background-color: #55d6aa;
+        background-color: $primary;
         &:last-child {
           padding-bottom: 0;
         }
       }
 
       a {
-        color: #333;
+        color: $dark-gary;
         text-decoration: none;
         text-transform: uppercase;
         font-size: 14px;
 
         &:hover {
-          color: #333;
+          color: $dark-gary;
           &::before {
             width: 75%;
             bottom: 0;
@@ -55,7 +55,7 @@ header {
           margin-left: 20px;
           display: block;
           height: 5px;
-          background-color: #333;
+          background-color: $dark-gary;
           position: absolute;
           top: 30px;
           width: 0%;
