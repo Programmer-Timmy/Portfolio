@@ -1,13 +1,8 @@
 <?php
-$con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
-$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+include_once('requierd.php');
 
-$stmt = $con->prepare("SELECT * FROM projecten ORDER BY date DESC");
-$stmt->execute();
-$project = $stmt->fetchAll(pdo::FETCH_OBJ);
+$project = $db->query('SELECT * FROM projecten ORDER BY date DESC')->fetchAll();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +14,6 @@ $project = $stmt->fetchAll(pdo::FETCH_OBJ);
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Projects</title>
-
 </head>
 
 <body>
@@ -40,30 +34,25 @@ $project = $stmt->fetchAll(pdo::FETCH_OBJ);
             </nav>
         </div>
     </header>
-
     <div class="welcome">
         <h1>Projects</h1>
     </div>
-
-
-
     <div class="borderp">
         <?php
         foreach ($project as $project) {
             echo "
             <div class='project-home'>
-                <a href='$project->path'><img src='$project->img' class='img-size' alt=''></a>";
+                <a href=" . $project['path'] . "><img src=" . $project['img'] . " class='img-size' alt=''></a>";
 
-            if ($project->github !== "empty") {
-                echo "<h1><a class='github' href='$project->github'><i class='fa fa-github' aria-hidden='true'></i></a>$project->name</h1>";
+            if ($project['github'] !== "empty") {
+                echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>$project->name</h1>";
             } else {
-                echo "<h1>$project->name</h1>";
+                echo "<h1>" . $project['name'] . "</h1>";
             }
             echo "</div>";
         }
         ?>
     </div>
-
 </body>
 <script src="js/nav.js"></script>
 

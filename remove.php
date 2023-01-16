@@ -1,52 +1,40 @@
 <?php
-session_start();
+include("requierd.php");
 
-$con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
-$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+if ($_SESSION['access'] != "logged") {
+    header('location: account');
+}
 
-$stmt = $con->prepare("SELECT * FROM projecten ORDER BY date DESC");
-$stmt->execute();
-$project = $stmt->fetchAll(pdo::FETCH_OBJ);
+$project = $db->query('SELECT * FROM projecten ORDER BY date DESC')->fetchAll();
 
 if (isset($_GET["id"])) {
 
-    $stmt1 = $con->prepare("SELECT * FROM projecten WHERE id= ?");
-    $stmt1->bindValue(1, $_GET["id"]);
-    $stmt1->execute();
-    $links = $stmt1->fetchAll(pdo::FETCH_OBJ);
+    $account = $db->query('SELECT * FROM projecten WHERE id= ?', array($_GET["id"]))->fetchArray();
 
-    foreach ($links as $links) {
-        $img = $links->img;
-        $path = (substr($links->path, 0, -6));
-        unlink($img);
+    $path = (substr($account['path'], 0, -6));
+    unlink($account['img']);
 
-        function deleteDirectory($path)
-        {
-            if (is_dir($path)) {
-                $objects = scandir($path);
-                foreach ($objects as $object) {
-                    if ($object != "." && $object != "..") {
-                        if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
-                            deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
-                        } else {
-                            unlink($path . DIRECTORY_SEPARATOR . $object);
-                        }
+    function deleteDirectory($path)
+    {
+        if (is_dir($path)) {
+            $objects = scandir($path);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
+                        deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
+                    } else {
+                        unlink($path . DIRECTORY_SEPARATOR . $object);
                     }
                 }
-                reset($objects);
-                rmdir($path);
             }
+            reset($objects);
+            rmdir($path);
         }
-        deleteDirectory($path);
     }
+    deleteDirectory($path);
 
-    $stmt2 = $con->prepare("DELETE FROM projecten WHERE id= ?");
-    $stmt2->bindValue(1, $_GET["id"]);
-    $stmt2->execute();
-
-    header("location: /index.php");
-
-    echo "<script>alert('Your project has been removed');</script>";
+    $account = $db->query('DELETE FROM projecten WHERE id= ?', array($_GET["id"]));
+    header('location: /remove');
 }
 ?>
 
@@ -63,28 +51,25 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
+    <header>
+        <div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+            <nav id="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="add-project">Add project</a></li>
+                    <li><a href="remove">Remove</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <?php
-    if (!isset($_SESSION['loggedin'])) {
-        header('location: account');
-    } else {
-        echo '<header><div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
-        <i class="fa fa-bars"></i>
-        </a>
-        <nav id="nav">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="add-project">Add project</a></li>
-            <li><a href="remove">Remove</a></li>
-        </ul>
-        </nav></div></header>
-        ';
-        foreach ($project as $project) {
-            echo "<div class='admin'><div><h1>$project->name<a href='?id=$project->id' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
-        }
+    foreach ($project as $project) {
+        echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id= ".$project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
     }
-
-
     ?>
 </body>
 <script src="js/nav.js"></script>
+
 </html>
