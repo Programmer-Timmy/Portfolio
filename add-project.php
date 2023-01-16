@@ -1,5 +1,10 @@
 <?php
-session_start();
+include("requierd.php");
+
+if ($_SESSION['access'] != "logged") {
+    header('location: account');
+}
+
 
 if ($_POST) {
     if ($_POST["link"] !== "") {
@@ -12,7 +17,7 @@ if ($_POST) {
 
     $target_dir = "img/";
     $target_file = $target_dir . basename($_FILES["img"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));    
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     if (
         $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif"
@@ -40,15 +45,7 @@ if ($_POST) {
             $link = $_POST["link"];
         }
 
-        $con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $stmt = $con->prepare("INSERT INTO projecten(name, github, path, img) VALUES (?, ?, ?, ?)");
-        $stmt->bindValue(1, htmlspecialchars($_POST["name"]));
-        $stmt->bindValue(2, htmlspecialchars($git));
-        $stmt->bindValue(3, htmlspecialchars($link));
-        $stmt->bindValue(4, htmlspecialchars($target_file));
-        $stmt->execute();
+        $insert = $db->query('INSERT INTO projecten (name,github,path,img) VALUES (?,?,?,?)', $_POST["name"], $git, $link, $target_file);
     }
 }
 ?>
@@ -66,35 +63,33 @@ if ($_POST) {
 </head>
 
 <body>
-    <?php
-    if (!isset($_SESSION['loggedin'])) {
-        header('location: account');
-    } else {
-        echo '<header><div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
-        <i class="fa fa-bars"></i>
-        </a>
-        <nav id="nav">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="add-project">Add project</a></li>
-            <li><a href="remove">Remove</a></li>
-        </ul>
-        </nav></div></header>
-        ';
-        echo '<div class="admin"><form method="post" enctype="multipart/form-data">
-        Naam van het project:
-        <input type="text" name="name" id="name" required><br>
-        Github link:
-        <input type="text" name="git" id="git"><br>
-        Select image to upload:
-        <input type="file" name="img" id="img" accept="image/png, image/jpeg" required><br>
-        Select your project or link:
-        <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip"><input type="text" name="link" id="link"><br>
+    <header>
+        <div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+            <nav id="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="add-project">Add project</a></li>
+                    <li><a href="remove">Remove</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="admin">
+        <form method="post" enctype="multipart/form-data">
+            Naam van het project:
+            <input type="text" name="name" id="name" required><br>
+            Github link:
+            <input type="text" name="git" id="git"><br>
+            Select image to upload:
+            <input type="file" name="img" id="img" accept="image/png, image/jpeg" required><br>
+            Select your project or link:
+            <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip"><input type="text" name="link" id="link"><br>
 
-        <input type="submit" value="Toevoegen" name="submit">
-    </form></div>';
-    }
-    ?>
+            <input type="submit" value="Toevoegen" name="submit">
+        </form>
+    </div>
 </body>
 <script src="js/nav.js"></script>
 

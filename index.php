@@ -1,10 +1,7 @@
 <?php
-$con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
-$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+include_once('requierd.php');
 
-$stmt = $con->prepare("SELECT * FROM projecten ORDER BY date DESC LIMIT 3");
-$stmt->execute();
-$project = $stmt->fetchAll(pdo::FETCH_OBJ);
+$project = $db->query('SELECT * FROM projecten ORDER BY date DESC LIMIT 3')->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -48,12 +45,12 @@ $project = $stmt->fetchAll(pdo::FETCH_OBJ);
         foreach ($project as $project) {
             echo "
             <div class='project-home'>
-                <a href='$project->path'><img src='$project->img' class='img-size' alt=''></a>";
+                <a href=" . $project['path'] . "><img src=". $project['img'] . " class='img-size' alt=''></a>";
 
-            if ($project->github !== "empty") {
-                echo "<h1><a class='github' href='$project->github'><i class='fa fa-github' aria-hidden='true'></i></a>$project->name</h1>";
+            if ($project['github'] !== "empty") {
+                echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>$project->name</h1>";
             } else {
-                echo "<h1>$project->name</h1>";
+                echo "<h1>". $project['name'] . "</h1>";
             }
             echo "</div>";
         }

@@ -17,7 +17,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: #222;
+  background: $secondary;
   font-family: "Work Sans", sans-serif;
   font-weight: 800;
 }
@@ -25,7 +25,7 @@ body {
 // * header / navbar * //
 
 header {
-  background: #55d6aa;
+  background: $primary;
 
   &::after {
     content: "";
@@ -45,13 +45,13 @@ header {
     margin-left: 20px;
     font-size: 15px;
     border: 5px double rgba(34, 34, 34, 0.73);
-    color: #222;
+    color: $secondary;
   }
 
   .icon {
     position: absolute;
     text-decoration: none;
-    color: #222;
+    color: $secondary;
     text-align: center;
     font-size: 30px;
     right: 20px;
@@ -77,20 +77,20 @@ header {
       z-index: 9;
       padding-top: 20px;
       position: relative;
-      background-color: #222;
+      background-color: $secondary;
       &:last-child {
         padding-bottom: 20px;
       }
     }
 
     a {
-      color: #55d6aa;
+      color: $primary;
       margin-left: 20px;
       text-decoration: none;
       text-transform: uppercase;
       font-size: 14px;
       &:hover {
-        color: #55d6aa;
+        color: $primary;
         &::before {
           width: 100%;
         }
@@ -99,7 +99,7 @@ header {
         content: "";
         display: block;
         height: 5px;
-        background-color: #55d6aa;
+        background-color: $primary;
 
         position: absolute;
         top: 0;
@@ -117,7 +117,7 @@ header {
   margin: auto;
 
   h1 {
-    color: #55d6aa;
+    color: $primary;
     margin-top: 30px;
     margin-bottom: 30px;
     font-size: 420%;
@@ -137,7 +137,7 @@ header {
     flex-direction: row;
     margin: 2vh;
     margin-bottom: 10vh;
-    border: #444 1px solid;
+    border: $gary 1px solid;
     height: 50vh;
     width: 50vh;
     border-radius: 2vh;
@@ -146,11 +146,11 @@ header {
     h1 {
       margin-top: 10px;
       font-size: 30px;
-      color: #55d6aa;
+      color: $primary;
     }
     .github {
       font-size: 30px;
-      color: #55d6aa;
+      color: $primary;
       margin-right: 10px;
     }
   }
@@ -175,7 +175,7 @@ header {
     align-items: center;
   }
   #foto {
-    border: white 1px solid;
+    border: $white 1px solid;
     height: 40vh;
     width: 30vh;
     border-radius: 50%;
@@ -186,10 +186,10 @@ header {
   #tekst {
     padding-top: 20px;
     h2 {
-      color: #55d6aa;
+      color: $primary;
     }
     h3 {
-      color: #777;
+      color: $light-gray;
     }
   }
 }
@@ -209,14 +209,14 @@ header {
   #about-tekst {
     width: 100%;
     h2 {
-      color: #55d6aa;
+      color: $primary;
     }
     h3 {
-      color: #777;
+      color: $light-gray;
       line-height: 20px;
       a {
         text-decoration: none;
-        color: #55d6aa;
+        color: $primary;
 
         &:hover {
           text-decoration: underline;
@@ -225,7 +225,7 @@ header {
     }
   }
   #foto {
-    border: white 1px solid;
+    border: $white 1px solid;
     height: 40vh;
     width: 30vh;
     border-radius: 50%;
@@ -240,15 +240,15 @@ header {
 // * addmin * //
 
 .admin{
-  color: #777;
+  color: $light-gray;
   font-size: 20px;
   margin-top: 20px;
   text-align: center;
   input{
     margin: 10px;
-    background-color: #333;
+    background-color: $dark-gary;
     border-radius: 10px;
-    color: #55d6aa;
+    color: $primary;
     border-width: 0;
     height: 30px;
   }

@@ -1,30 +1,16 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['loggedin'])) {
-
+include('requierd.php');
     if ($_POST) {
-        $con = new PDO("mysql:host=localhost;dbname=portfolio", "root", "");
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $stmt = $con->prepare("SELECT password FROM `account` WHERE username=?");
-        $stmt->bindValue(1, htmlspecialchars($_POST["username"]));
-        $stmt->execute();
-
-        if ($stmt->rowCount() !== 0) {
-            $info = $stmt->fetchAll(pdo::FETCH_OBJ);
-            foreach ($info as $info) {
-                if (password_verify($_POST['password'], $info->password)) {
-                    $_SESSION['loggedin'] = true;
-                } else {
-                    echo '<script>alert("Wrong username or password")</script>';
-                }
-            }
-        }else{
+        $account = $db->query('SELECT password FROM account WHERE username = ?', array($_POST['username']))->fetchArray();
+        if (!isset($account['password'])) {
+            echo '<script>alert("Wrong username or password")</script>';
+        } elseif (password_verify($_POST['password'], $account['password'])) {
+            $_SESSION['access'] = "logged";
+        } else {
             echo '<script>alert("Wrong username or password")</script>';
         }
     }
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -36,12 +22,12 @@ if (!isset($_SESSION['loggedin'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>account</title>
+    <title>Account</title>
 </head>
 
 <body>
     <?php
-    if (!isset($_SESSION['loggedin'])) {
+    if ($_SESSION['access'] != "logged") {
         echo '<div class="admin"><form action="" method="post">
             username<br>
             <input type="text" name="username" id="username" required><br>
