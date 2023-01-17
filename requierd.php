@@ -3,7 +3,10 @@ session_start();
 if (!isset($_SESSION['access'])) {
     $_SESSION['access'] = "none";
 }
-include 'db.php';
+
+include 'classes/database.php';
+include 'classes/databaseUtilities.php';
+
 
 $dbhost = 'localhost';
 $dbuser = 'root';
