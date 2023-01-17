@@ -59,6 +59,7 @@ class Database {
                 ];
             } else {
                 $stmt->store_result();
+                @mysqli_next_result($mysqli);
                 return [
                     'success' => true,
                     'stmt'    => $stmt
@@ -83,7 +84,6 @@ class Database {
     public static function fetch($result) {
         $array = [];
         if ($result instanceof mysqli_stmt) {
-            $result->store_result();
             $variables = [];
             $data      = [];
             $meta      = $result->result_metadata();
@@ -232,5 +232,4 @@ class Database {
             return $result;
         }
     }
-
 }
