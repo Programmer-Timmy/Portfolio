@@ -48,7 +48,7 @@ $projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIM
                 <a href=" . $project['path'] . "><img src=". $project['img'] . " class='img-size' alt=''></a>";
 
             if ($project['github'] !== "empty") {
-                echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>$project->name</h1>";
+                echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>" . $project['name'] . "</h1>";
             } else {
                 echo "<h1>". $project['name'] . "</h1>";
             }
