@@ -5,12 +5,10 @@ if ($_SESSION['access'] != "logged") {
     header('location: account');
 }
 
-$project = $db->query('SELECT * FROM projecten ORDER BY date DESC')->fetchAll();
+$projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIMIT 3');
 
 if (isset($_GET["id"])) {
-
-    $account = $db->query('SELECT * FROM projecten WHERE id= ?', array($_GET["id"]))->fetchArray();
-
+    $account = $database::getRow('projecten', ['id'], 's', [$_POST['id']]);           
     $path = (substr($account['path'], 0, -6));
     unlink($account['img']);
 
@@ -32,7 +30,7 @@ if (isset($_GET["id"])) {
         }
     }
     deleteDirectory($path);
-
+    // ! needs to be changed!
     $account = $db->query('DELETE FROM projecten WHERE id= ?', array($_GET["id"]));
     header('location: /remove');
 }
@@ -65,7 +63,7 @@ if (isset($_GET["id"])) {
         </div>
     </header>
     <?php
-    foreach ($project as $project) {
+    foreach ($projects as $project) {
         echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id= ".$project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
     }
     ?>
