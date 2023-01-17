@@ -1,7 +1,8 @@
 <?php
 include_once('requierd.php');
 
-$project = $db->query('SELECT * FROM projecten ORDER BY date DESC LIMIT 3')->fetchAll();
+$projects = $database->getRows('projecten', '' , '', '', 'date DESC');
+echo $projects;
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +43,7 @@ $project = $db->query('SELECT * FROM projecten ORDER BY date DESC LIMIT 3')->fet
     <!-- 3 projecten -->
     <div class="borderp">
         <?php
-        foreach ($project as $project) {
+        foreach ($projects as $project) {
             echo "
             <div class='project-home'>
                 <a href=" . $project['path'] . "><img src=". $project['img'] . " class='img-size' alt=''></a>";
