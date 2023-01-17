@@ -1,8 +1,7 @@
 <?php
 include_once('requierd.php');
 
-$projects = $database->getRows('projecten', '' , '', '', 'date DESC');
-echo $projects;
+$projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIMIT 3');
 ?>
 
 <!DOCTYPE html>
