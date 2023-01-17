@@ -44,8 +44,7 @@ if ($_POST) {
         } else {
             $link = $_POST["link"];
         }
-
-        $insert = $db->query('INSERT INTO projecten (name,github,path,img) VALUES (?,?,?,?)', $_POST["name"], $git, $link, $target_file);
+        Database::add($projecten, ['name','github','path','img'], 'ssss', [$_POST["name"], $git, $link, $target_file]);
     }
 }
 ?>
