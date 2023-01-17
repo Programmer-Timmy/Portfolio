@@ -1,14 +1,15 @@
 <?php
 include('requierd.php');
     if ($_POST) {
-        $account = $db->query('SELECT password FROM account WHERE username = ?', array($_POST['username']))->fetchArray();
-        if (!isset($account['password'])) {
-            echo '<script>alert("Wrong username or password")</script>';
-        } elseif (password_verify($_POST['password'], $account['password'])) {
-            $_SESSION['access'] = "logged";
-        } else {
-            echo '<script>alert("Wrong username or password")</script>';
-        }
+        $account = $database->getRow('account', 'username', $_POST['username']);
+        echo $account;
+        // if (!isset($account['password'])) {
+        //     echo '<script>alert("Wrong username or password")</script>';
+        // } elseif (password_verify($_POST['password'], $account['password'])) {
+        //     $_SESSION['access'] = "logged";
+        // } else {
+        //     echo '<script>alert("Wrong username or password")</script>';
+        // }
     }
 
 ?>
