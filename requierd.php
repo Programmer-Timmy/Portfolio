@@ -13,4 +13,5 @@ $dbuser = 'root';
 $dbpass = '';
 $dbname = 'portfolio';
 
-$db = new db($dbhost, $dbuser, $dbpass, $dbname);
+$database = new Database;
+$database->connect($dbhost, $dbuser, $dbpass, $dbname);
