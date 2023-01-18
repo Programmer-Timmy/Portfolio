@@ -1,7 +1,7 @@
 <?php
-include_once('requierd.php');
+include 'requierd.php';
 
-$projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIMIT 3');
+$projects = Projects::loadprojects("3");
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +42,7 @@ $projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIM
     <!-- 3 projecten -->
     <div class="borderp">
         <?php
+        if($projects){
         foreach ($projects as $project) {
             echo "
             <div class='project-home'>
@@ -54,6 +55,9 @@ $projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIM
             }
             echo "</div>";
         }
+    } else {
+        echo "<h1>Helaas geen projecten</h1>";
+    }
         ?>
     </div>
 
