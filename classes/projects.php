@@ -3,7 +3,7 @@
 class Projects{
 
     public static function loadprojects($limit = 3) {
-        $results = database::getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIMIT ' . $limit);
+        $results = database::getRows('projecten', ['removed'] , 's', [0], 'date DESC LIMIT ' . $limit);
         if ($results) {
             return $results;
         } else {
@@ -24,7 +24,6 @@ class Projects{
     }
     
     public static function addproject($name, $git, $link, $file) {
-        $result = Database::add('projecten', ['name','github','path','img'], 'ssss', [$name, $git, $link, $file]);
-
+    Database::add('projecten', ['name','github','path','img'], 'ssss', [$name, $git, $link, $file]);
     }
 }
