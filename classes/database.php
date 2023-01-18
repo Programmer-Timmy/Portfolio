@@ -7,7 +7,7 @@ class Database {
 
     /**
      * Connect to the database
-     *
+     *ef
      * @param $host
      * @param $user
      * @param $password
