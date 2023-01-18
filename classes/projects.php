@@ -10,5 +10,17 @@ class Projects{
             return false;
         }
     }
+
+    public static function loadproject($id = 0) {
+        if($id == 0) {
+            return false;
+        }
+        $results = database::getRow('projecten', ['id'], 's', [$id]);
+        if ($results) {
+            return $results;
+        } else {
+            return false;
+        }
+    }
     
 }
