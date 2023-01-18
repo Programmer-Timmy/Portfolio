@@ -5,10 +5,10 @@ if ($_SESSION['access'] != "logged") {
     header('location: account');
 }
 
-$projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC LIMIT 3');
+$projects = Projects::loadprojects("100");
 
 if (isset($_GET["id"])) {
-    $account = $database::getRow('projecten', ['id'], 's', [$_POST['id']]);           
+    $account = Projects::loadproject($_POST["id"]);
     $path = (substr($account['path'], 0, -6));
     unlink($account['img']);
 
