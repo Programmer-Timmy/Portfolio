@@ -23,4 +23,8 @@ class Projects{
         }
     }
     
+    public static function addproject($name, $git, $link, $file) {
+        $result = Database::add('projecten', ['name','github','path','img'], 'ssss', [$name, $git, $link, $file]);
+
+    }
 }
