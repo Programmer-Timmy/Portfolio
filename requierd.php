@@ -6,8 +6,10 @@ if (!isset($_SESSION['access'])) {
     $_SESSION['access'] = "none";
 }
 
+include 'classes/projects.php';
 include 'classes/database.php';
 include 'classes/databaseUtilities.php';
+
 
 
 $dbhost = 'localhost';
