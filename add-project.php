@@ -44,7 +44,7 @@ if ($_POST) {
         } else {
             $link = $_POST["link"];
         }
-        Database::add($projecten, ['name','github','path','img'], 'ssss', [$_POST["name"], $git, $link, $target_file]);
+        Database::add('projecten', ['name','github','path','img'], 'ssss', [$_POST["name"], $git, $link, $target_file]);
     }
 }
 ?>
