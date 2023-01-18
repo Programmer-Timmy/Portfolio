@@ -39,17 +39,21 @@ $projects = Projects::loadprojects("100");
     </div>
     <div class="borderp">
         <?php
-        foreach ($projects as $project) {
-            echo "
+        if ($projects) {
+            foreach ($projects as $project) {
+                echo "
             <div class='project-home'>
                 <a href=" . $project['path'] . "><img src=" . $project['img'] . " class='img-size' alt=''></a>";
 
-            if ($project['github'] !== "empty") {
-                echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>" . $project['name'] . "</h1>";
-            } else {
-                echo "<h1>" . $project['name'] . "</h1>";
+                if ($project['github'] !== "empty") {
+                    echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>" . $project['name'] . "</h1>";
+                } else {
+                    echo "<h1>" . $project['name'] . "</h1>";
+                }
+                echo "</div>";
             }
-            echo "</div>";
+        } else {
+            echo "<h1>Helaas geen projecten</h1>";
         }
         ?>
     </div>
