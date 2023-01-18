@@ -1,7 +1,7 @@
 <?php
 include_once('requierd.php');
 
-$projects = $database->getRows('projecten', FALSE , FALSE, FALSE, 'date DESC');
+$projects = Projects::loadprojects("100");
 ?>
 
 <!DOCTYPE html>
