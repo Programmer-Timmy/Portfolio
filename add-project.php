@@ -9,6 +9,8 @@ if ($_SESSION['access'] != "logged") {
 if ($_POST) {
     if ($_POST["link"] !== "") {
         $continue = true;
+        $filename = false;
+        $name = false;
     } else {
         $filename = $_FILES["zip_file"]["name"];
         $name = explode(".", $filename);
@@ -26,25 +28,8 @@ if ($_POST) {
     } elseif ($continue != true) {
         echo '<script>alert("Your uploaded file is not a zip");</script>';
     } else {
-        include 'uploadzip.php';
 
-        include 'upload.php';
-
-        $git = "";
-        if ($_POST["git"] == "") {
-            $git = "empty";
-        } else {
-            $git = $_POST["git"];
-        }
-        $link = "";
-        if ($_POST["link"] == "") {
-            if (isset($target_path)) {
-                $link = substr($target_path, 0, -4) . "/index";
-            }
-        } else {
-            $link = $_POST["link"];
-        }
-        Projects::addproject($_POST["name"], $git, $link, $target_file);
+        projects::addproject($target_dir, $target_file, $imageFileType, $filename, $name, $continue, $_FILES, $_POST["name"], $_POST["git"], $_POST["link"]);
     }
 }
 ?>
