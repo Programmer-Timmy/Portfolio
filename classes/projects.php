@@ -2,6 +2,11 @@
 
 class Projects {
 
+    /**
+     * @function
+     * load projects on limit
+     */
+
     public static function loadprojects($limit = 3) {
         $results = database::getRows('projecten', ['removed'], 's', [0], 'date DESC LIMIT ' . $limit);
         if ($results) {
@@ -10,6 +15,11 @@ class Projects {
             return false;
         }
     }
+
+    /**
+     * @function
+     * load project by id
+     */
 
     public static function loadproject($id = 0) {
         if ($id == 0) {
@@ -22,6 +32,11 @@ class Projects {
             return false;
         }
     }
+
+    /**
+     * @function
+     * start and end of the add project function
+     */
 
     public static function addproject($target_dir, $target_file, $imageFileType, $filename, $name, $continue, $files, $title, $pgit, $plink) {
         $img = Projects::uploadimg($target_dir, $target_file, $imageFileType, $files);
@@ -53,10 +68,20 @@ class Projects {
             projects::dbaddproject($title, $git, $link, $img);
         }
     }
+    
+    /**
+     * @function
+     * add project to databse
+     */
 
     public static function dbaddproject($name, $git, $link, $file) {
         Database::add('projecten', ['name', 'github', 'path', 'img'], 'ssss', [$name, $git, $link, $file]);
     }
+
+    /**
+     * @function
+     * Upload the given img
+     */
 
     public static function uploadimg($target_dir, $target_file, $imageFileType, $files) {
         $uploadOk = 1;
@@ -86,6 +111,11 @@ class Projects {
             }
         }
     }
+
+    /**
+     * @function
+     * upload the given zip and unpack
+     */
 
     public static function uploadzip($filename, $name, $continue, $files) {
         if ($files["zip_file"]["name"]) {
