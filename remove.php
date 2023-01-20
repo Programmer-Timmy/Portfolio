@@ -4,34 +4,10 @@ include("requierd.php");
 if ($_SESSION['access'] != "logged") {
     header('location: account');
 }
-
 $projects = Projects::loadprojects("100");
 
 if (isset($_GET["id"])) {
-    $account = Projects::loadproject($_POST["id"]);
-    $path = (substr($account['path'], 0, -6));
-    unlink($account['img']);
-
-    function deleteDirectory($path)
-    {
-        if (is_dir($path)) {
-            $objects = scandir($path);
-            foreach ($objects as $object) {
-                if ($object != "." && $object != "..") {
-                    if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
-                        deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
-                    } else {
-                        unlink($path . DIRECTORY_SEPARATOR . $object);
-                    }
-                }
-            }
-            reset($objects);
-            rmdir($path);
-        }
-    }
-    deleteDirectory($path);
-    // ! needs to be changed!
-    $account = $db->query('DELETE FROM projecten WHERE id= ?', array($_GET["id"]));
+    projects::sdeleteproject($_GET["id"]);
     header('location: /remove');
 }
 ?>
@@ -64,7 +40,7 @@ if (isset($_GET["id"])) {
     </header>
     <?php
     foreach ($projects as $project) {
-        echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id= ".$project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
+        echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id=". $project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
     }
     ?>
 </body>
