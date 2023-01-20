@@ -75,7 +75,7 @@ class Projects {
      */
 
     public static function dbaddproject($name, $git, $link, $file) {
-        Database::add('projecten', ['name', 'github', 'path', 'img'], 'ssss', [$name, $git, $link, $file]);
+        Database::add('projecten', ['name', 'github', 'path', 'img', 'date'], 'sssss', [$name, $git, $link, $file, date('y-m-d h:m:s')]);
     }
 
     /**
@@ -83,7 +83,7 @@ class Projects {
      * Upload the given img
      */
 
-    public static function uploadimg($target_dir, $target_file, $imageFileType, $files) {
+    private static function uploadimg($target_dir, $target_file, $imageFileType, $files) {
         $uploadOk = 1;
 
         // Check if image file is a actual image or fake image
@@ -117,7 +117,7 @@ class Projects {
      * upload the given zip and unpack
      */
 
-    public static function uploadzip($filename, $name, $continue, $files) {
+    private static function uploadzip($filename, $name, $continue, $files) {
         if ($files["zip_file"]["name"]) {
             $source = $files["zip_file"]["tmp_name"];
             $type   = $files["zip_file"]["type"];
@@ -148,5 +148,38 @@ class Projects {
                 }
             }
         }
+    }
+
+    /**
+     * @function
+     * Softdelete the project
+     */
+    public static function sdeleteproject($id){
+        database::update('projecten', $id, ['removed'], 's', [1]);
+    }
+
+    public static function harddelete($id){
+        $account = Projects::loadproject($id);
+        $path = (substr($account['path'], 0, -6));
+        unlink($account['img']);
+
+        function deleteDirectory($path)
+        {
+            if (is_dir($path)) {
+                $objects = scandir($path);
+                foreach ($objects as $object) {
+                    if ($object != "." && $object != "..") {
+                        if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
+                            deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
+                        } else {
+                            unlink($path . DIRECTORY_SEPARATOR . $object);
+                        }
+                    }
+                }
+                reset($objects);
+                rmdir($path);
+            }
+        }
+        deleteDirectory($path);
     }
 }
