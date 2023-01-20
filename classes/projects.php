@@ -68,7 +68,7 @@ class Projects {
             projects::dbaddproject($title, $git, $link, $img);
         }
     }
-    
+
     /**
      * @function
      * add project to databse
@@ -142,7 +142,7 @@ class Projects {
                         $zip->close();
                         unlink($target_path);
                     }
-                    return $target_path;
+                    return str_replace(' ', '%20', $target_path);
                 } else {
                     return false;
                 }
