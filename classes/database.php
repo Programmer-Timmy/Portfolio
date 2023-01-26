@@ -1,87 +1,99 @@
 <?php
 
+/**
+ * Database
+ */
 class Database {
 
+    /**
+     * Connect to the database
+     *ef
+     * @param $host
+     * @param $user
+     * @param $password
+     * @param $database
+     * @return void
+     */
     public static function connect($host, $user, $password, $database) {
         global $mysqli;
         @$mysqli = new mysqli($host, $user, $password, $database);
-        if ($mysqli->connect_errno > 0)
-            die('Cannot connect to database! ' . $mysqli->connect_error);
+        if ($mysqli->connect_errno > 0) {
+            die(sprintf("Cannot connect to database! <br />%s", $mysqli->connect_error));
+        }
     }
 
+    /**
+     * Execute the query
+     *
+     * @param $query
+     * @param $types
+     * @param $values
+     * @return array
+     */
     public static function executeQuery($query, $types = null, $values = null) {
         global $mysqli;
-
         if ($query == '') {
-            return array(
+            return [
                 'success' => false,
-                'stage' => 'start',
-                'query' => $query,
-                'error' => 'no query provided'
-            );
-            //die('Empty query!');
+                'stage'   => 'start',
+                'query'   => $query,
+                'error'   => 'no query provided'
+            ];
         }
-
         if ($stmt = $mysqli->prepare($query)) {
-
             if ($values !== null && count($values)) {
-                $types = array($types);
-                $params = array_merge($types, $values);
-
-                $tmpArray = array();
+                $types    = [$types];
+                $params   = array_merge($types, $values);
+                $tmpArray = [];
                 foreach ($params as $i => $value) {
                     $tmpArray[$i] = &$params[$i];
                 }
-
-                call_user_func_array(array($stmt, 'bind_param'), $tmpArray);
+                call_user_func_array([$stmt, 'bind_param'], $tmpArray);
             }
-
             if (!$stmt->execute()) {
-                return array(
+                return [
                     'success' => false,
-                    'stage' => 'query execution',
-                    'query' => $query,
-                    'error' => $mysqli->error
-                );
-                //die('Query execution failed: '.$stmt->error.' in query: '.$query);
+                    'stage'   => 'query execution',
+                    'query'   => $query,
+                    'error'   => $mysqli->error
+                ];
             } else {
                 $stmt->store_result();
-
-                return array(
+                @mysqli_next_result($mysqli);
+                return [
                     'success' => true,
-                    'stmt' => $stmt
-                );
+                    'stmt'    => $stmt
+                ];
             }
         } else {
-            return array(
+            return [
                 'success' => false,
-                'stage' => 'query preparation',
-                'query' => $query,
-                'error' => $mysqli->error
-            );
-            //die('There is an error in your query "'.$query.'". Error message: '.);
+                'stage'   => 'query preparation',
+                'query'   => $query,
+                'error'   => $mysqli->error
+            ];
         }
     }
 
+    /**
+     * Fetch the results
+     *
+     * @param $result
+     * @return array
+     */
     public static function fetch($result) {
-        $array = array();
-
+        $array = [];
         if ($result instanceof mysqli_stmt) {
-            $result->store_result();
-
-            $variables = array();
-            $data = array();
-            $meta = $result->result_metadata();
-
+            $variables = [];
+            $data      = [];
+            $meta      = $result->result_metadata();
             while ($field = $meta->fetch_field()) {
                 $variables[] = &$data[$field->name];
             }
-
-            call_user_func_array(array($result, 'bind_result'), $variables);
-
+            call_user_func_array([$result, 'bind_result'], $variables);
             $i = 0;
             while ($result->fetch()) {
-                $array[$i] = array();
+                $array[$i] = [];
                 foreach ($data as $k => $v) {
                     $array[$i][$k] = $v;
                 }
@@ -92,13 +104,17 @@ class Database {
                 $array[] = $row;
             }
         }
-
         return $array;
     }
 
+    /**
+     * Fetch the row
+     *
+     * @param $result
+     * @return false|mixed
+     */
     public static function fetchRow($result) {
         $results = self::fetch($result);
-
         if (count($results)) {
             return $results[0];
         } else {
@@ -106,56 +122,75 @@ class Database {
         }
     }
 
+    /**
+     * Add a record to the database
+     *
+     * @param $table
+     * @param $fields
+     * @param $types
+     * @param $values
+     * @return array
+     */
     public static function add($table, $fields, $types, $values) {
-        $fieldQueries = array();
+        $fieldQueries = [];
         foreach ($fields as $field) {
             $fieldQueries[] = $field . ' = ?';
         }
         $fieldQuery = implode(',', $fieldQueries);
-
-        $query = "INSERT INTO " . $table . " SET " . $fieldQuery;
-
-        $result = self::executeQuery($query, $types, $values);
-        return $result;
+        $query      = "INSERT INTO " . $table . " SET " . $fieldQuery;
+        return self::executeQuery($query, $types, $values);
     }
 
+    /**
+     * Update a row in the database
+     *
+     * @param $table
+     * @param $id
+     * @param $fields
+     * @param $types
+     * @param $values
+     * @return array
+     */
     public static function update($table, $id, $fields, $types, $values) {
-        $fieldQueries = array();
+        $fieldQueries = [];
         foreach ($fields as $field) {
             $fieldQueries[] = $field . ' = ?';
         }
         $fieldQuery = implode(',', $fieldQueries);
-
-        $types .= 'i';
-        $values[] = $id;
-
-        $query = "UPDATE " . $table . " SET " . $fieldQuery . " WHERE id = ?";
-
-        $result = self::executeQuery($query, $types, $values);
-        return $result;
+        $types      .= 'i';
+        $values[]   = $id;
+        $query      = "UPDATE " . $table . " SET " . $fieldQuery . " WHERE id = ?";
+        return self::executeQuery($query, $types, $values);
     }
 
+    /**
+     * Get a single row from the database
+     *
+     * @param $table
+     * @param $fields
+     * @param $types
+     * @param $values
+     * @param $orderBy
+     * @return array|false|mixed
+     */
     public static function getRow($table, $fields = false, $types = false, $values = false, $orderBy = '') {
-
-        if (
-            $fields === false ||
-            $types === false ||
-            $values === false
-        ) {
-            $types = null;
-            $values = null;
+        if ($fields === false || $types === false || $values === false) {
+            $types      = null;
+            $values     = null;
             $fieldQuery = '1 = 1';
         } else {
-            $fieldQueries = array();
+            $fieldQueries = [];
             foreach ($fields as $field) {
                 $fieldQueries[] = $field . ' = ?';
             }
             $fieldQuery = implode(' AND ', $fieldQueries);
         }
-
-        $query = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . "" . $orderBy;
+        $orderByQuery = "";
+        if ($orderBy) {
+            $orderByQuery = "ORDER BY " . $orderBy;
+        }
+        $query  = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . " " . $orderByQuery;
         $result = self::executeQuery($query, $types, $values);
-
         if ($result['success']) {
             return self::fetchRow($result['stmt']);
         } else {
@@ -163,32 +198,34 @@ class Database {
         }
     }
 
+    /**
+     * Get all rows from the database
+     *
+     * @param $table
+     * @param $fields
+     * @param $types
+     * @param $values
+     * @param $orderBy
+     * @return array
+     */
     public static function getRows($table, $fields = false, $types = false, $values = false, $orderBy = false) {
-
-        if (
-            $fields === false ||
-            $types === false ||
-            $values === false
-        ) {
-            $types = null;
-            $values = null;
+        if ($fields === false || $types === false || $values === false) {
+            $types      = null;
+            $values     = null;
             $fieldQuery = '1 = 1';
         } else {
-            $fieldQueries = array();
+            $fieldQueries = [];
             foreach ($fields as $field) {
                 $fieldQueries[] = $field . ' = ?';
             }
             $fieldQuery = implode(' AND ', $fieldQueries);
         }
-
         $orderByQuery = "";
         if ($orderBy) {
             $orderByQuery = " ORDER BY " . $orderBy;
         }
-
-        $query = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . $orderByQuery;
+        $query  = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . $orderByQuery;
         $result = self::executeQuery($query, $types, $values);
-
         if ($result['success']) {
             return self::fetch($result['stmt']);
         } else {
