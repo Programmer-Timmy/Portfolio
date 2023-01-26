@@ -21,7 +21,7 @@ include('requierd.php');
 
 <body>
     <?php
-    if ($_SESSION['access'] != "logged" or $_SESSION['access'] != 'admin') {
+    if ($_SESSION['access'] != "logged") {
         echo '<div class="admin"><form action="" method="post">
             username<br>
             <input type="text" name="username" id="username" required><br>
