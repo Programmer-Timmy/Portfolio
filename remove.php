@@ -1,7 +1,7 @@
 <?php
 include("requierd.php");
 
-if ($_SESSION['access'] != "logged" or $_SESSION['access'] != 'admin' ) {
+if ($_SESSION['access'] != "logged") {
     header('location: account');
 }
 $projects = Projects::loadprojects("100");
