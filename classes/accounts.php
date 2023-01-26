@@ -6,7 +6,11 @@ class accounts {
         if (!isset($account['password'])) {
             return '<script>alert("Wrong username or password")</script>';
         } elseif (password_verify($password, $account['password'])) {
-            $_SESSION['access'] = "logged";
+            if ($account['Admin'] != 0){
+                $_SESSION['axxess'] = "admin";
+            } else{
+                $_SESSION['access'] = "logged";
+            }
         } else {
             return '<script>alert("Wrong username or password")</script>';
         }
