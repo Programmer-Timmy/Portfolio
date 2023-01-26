@@ -1,14 +1,8 @@
 <?php
 include('requierd.php');
     if ($_POST) {
-        $account = $database::getRow('account', ['username'], 's', [$_POST['username']]);        
-        if (!isset($account['password'])) {
-            echo '<script>alert("Wrong username or password")</script>';
-        } elseif (password_verify($_POST['password'], $account['password'])) {
-            $_SESSION['access'] = "logged";
-        } else {
-            echo '<script>alert("Wrong username or password")</script>';
-        }
+        $return = accounts::Login($_POST['password'], $_POST['username']);
+        echo $return;
     }
 
 ?>
