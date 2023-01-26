@@ -157,7 +157,7 @@ class Projects {
     public static function sdeleteproject($id){
         database::update('projecten', $id, ['removed'], 's', [1]);
     }
-
+    
     public static function harddelete($id){
         $account = Projects::loadproject($id);
         $path = (substr($account['path'], 0, -6));
