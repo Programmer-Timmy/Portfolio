@@ -4,7 +4,6 @@ include('requierd.php');
         $return = accounts::Login($_POST['password'], $_POST['username']);
         echo $return;
     }
-
 ?>
 
 <!DOCTYPE html>
