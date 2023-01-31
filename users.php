@@ -12,6 +12,10 @@ if($_POST){
     accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
     header('location: /users');
 }
+if(isset($_GET["id"])){
+    accounts::sdelete($_GET["id"]);
+    header('location: /users');
+}
 
 ?>
 
