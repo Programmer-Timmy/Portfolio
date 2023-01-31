@@ -3,6 +3,15 @@ include('requierd.php');
 if ($_SESSION['access'] != "logged") {
     header('location: account');
 }
+if($_POST){
+    $result = accounts::loadaccount($_GET['edit']);
+    $password = $_POST['password'];
+    if($_POST["password"] == ""){
+        $password = $result['password'];
+    };
+    
+
+}
 
 ?>
 
@@ -47,7 +56,8 @@ if ($_SESSION['access'] != "logged") {
 
         echo '<form method="post">
         <input type="text" name="username" value="'.$result['username'] .'">
-        <input type="text" name="password" value="' .$result['password'].'">
+        <input type="text" name="password" value="">
+        <input type="hidden" value="0" name="admin">
         <input type="checkbox" name="admin" id="admin" value="1"'. $check. '>
         <input type="submit" value="versturen">
     </form>';
