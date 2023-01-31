@@ -39,9 +39,7 @@ class accounts
     }
 
     public static function update($id, $password, $username, $admin){
-        if($id = 0){
-            return "mislukt";
-        }
         database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
+
     }
 }
