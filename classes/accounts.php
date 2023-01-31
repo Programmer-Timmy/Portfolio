@@ -2,7 +2,20 @@
 class accounts {
     public static function loadaccounts()
     {
-        $results = database::getRows('account', ['removed'], 's', [0]);
+        $results = database::getRows('account');
+        if ($results) {
+            return $results;
+        } else {
+            return false;
+        }
+    }
+
+    public static function loadaccount($id = 0)
+    {
+        if ($id == 0) {
+            return false;
+        }
+        $results = database::getRow('account', ['id'], 's', [$id]);
         if ($results) {
             return $results;
         } else {
