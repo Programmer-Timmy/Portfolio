@@ -5,11 +5,12 @@ if ($_SESSION['access'] != "logged") {
 }
 if($_POST){
     $result = accounts::loadaccount($_GET['edit']);
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     if($_POST["password"] == ""){
         $password = $result['password'];
     };
-    accounts::update($_GET['edit'], $password, $_POST['username'], $_POST['admin']);
+    $return = accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
+    echo $return;
 }
 
 ?>
