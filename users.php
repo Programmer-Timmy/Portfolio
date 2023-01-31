@@ -9,8 +9,7 @@ if($_POST){
     if($_POST["password"] == ""){
         $password = $result['password'];
     };
-    
-
+    accounts::update($_GET['edit'], $password, $_POST['username'], $_POST['admin']);
 }
 
 ?>
