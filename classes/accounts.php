@@ -1,5 +1,15 @@
 <?php
 class accounts {
+    public static function loadaccounts()
+    {
+        $results = database::getRows('account', ['removed'], 's', [0]);
+        if ($results) {
+            return $results;
+        } else {
+            return false;
+        }
+    }
+
     public static function Login($password, $username)
     {
         $account = database::getRow('account', ['username'], 's', [$username]);
