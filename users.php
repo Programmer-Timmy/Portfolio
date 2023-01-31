@@ -9,8 +9,8 @@ if($_POST){
     if($_POST["password"] == ""){
         $password = $result['password'];
     };
-    $return = accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
-    echo $return;
+    accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
+    header('location: /users');
 }
 
 ?>
