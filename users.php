@@ -38,14 +38,26 @@ if ($_SESSION['access'] != "logged") {
         <h1>Je hebt geen toegang</h1>
         
         </div>';
+    } elseif (isset($_GET['edit'])){
+        $result = accounts::loadaccount($_GET['edit']);
+        $check = "";
+        if ($result['admin'] == true) {
+            $check = "checked";
+        }
+
+        echo '<form method="post">
+        <input type="text" name="username" value="'.$result['username'] .'">
+        <input type="text" name="password" value="' .$result['password'].'">
+        <input type="checkbox" name="admin" id="admin" value="1"'. $check. '>
+        <input type="submit" value="versturen">
+    </form>';
     } else {
         $results = accounts::loadaccounts();
         foreach ($results as $result) {
-            echo "<div class='admin'><div><h1>" . $result['name'] . "<a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a><a herf='?id=" . $result["id"] . "'>edit</a></h1></div></div>";
+            echo "<div class='admin'><div><h1>" . $result['username'] . "<a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a><a href='?edit=" . $result["id"] . "'>edit</a></h1></div></div>";
         }
     }
     ?>
-
 </body>
 <script src="js/nav.js"></script>
 
