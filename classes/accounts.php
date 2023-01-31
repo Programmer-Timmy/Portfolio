@@ -40,6 +40,9 @@ class accounts
 
     public static function update($id, $password, $username, $admin){
         database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
+    }
 
+    public static function sdelete($id){
+        database::update('account', $id, ['removed'], 's', [1]);
     }
 }
