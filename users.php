@@ -39,11 +39,10 @@ if ($_SESSION['access'] != "logged") {
         
         </div>';
     } else {
-        echo '
-        <div class="welcome">
-        <h1>Welcome!</h1>
-        <h2>You are logged in!</h2>
-        </div>';
+        $results = accounts::loadaccounts();
+        foreach ($results as $result) {
+            echo "<div class='admin'><div><h1>" . $result['name'] . "<a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a><a herf='?id=" . $result["id"] . "'>edit</a></h1></div></div>";
+        }
     }
     ?>
 
