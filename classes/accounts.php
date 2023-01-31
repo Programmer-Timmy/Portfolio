@@ -38,7 +38,7 @@ class accounts
         }
     }
 
-    public static function update($id = 0, $password, $username, $admin){
+    public static function update($id, $password, $username, $admin){
         if($id = 0){
             return "mislukt";
         }
