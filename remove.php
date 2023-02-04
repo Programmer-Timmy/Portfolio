@@ -34,13 +34,17 @@ if (isset($_GET["id"])) {
                     <li><a href="/">Home</a></li>
                     <li><a href="add-project">Add project</a></li>
                     <li><a href="remove">Remove</a></li>
+                    <?php if (!isset($_SESSION["admin"])) {
+                        echo '<li><a href="users">Users</a></li>';
+                    } ?>
+
                 </ul>
             </nav>
         </div>
     </header>
     <?php
     foreach ($projects as $project) {
-        echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id=". $project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
+        echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id=" . $project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
     }
     ?>
 </body>
