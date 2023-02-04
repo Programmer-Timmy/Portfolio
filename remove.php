@@ -34,7 +34,7 @@ if (isset($_GET["id"])) {
                     <li><a href="/">Home</a></li>
                     <li><a href="add-project">Add project</a></li>
                     <li><a href="remove">Remove</a></li>
-                    <?php if (!isset($_SESSION["admin"])) {
+                    <?php if (isset($_SESSION["admin"])) {
                         echo '<li><a href="users">Users</a></li>';
                     } ?>
 
