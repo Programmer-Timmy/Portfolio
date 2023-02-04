@@ -3,16 +3,16 @@ include('requierd.php');
 if (!isset($_SESSION['access'])) {
     header('location: account');
 }
-if($_POST){
+if ($_POST) {
     $result = accounts::loadaccount($_GET['edit']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    if($_POST["password"] == ""){
+    if ($_POST["password"] == "") {
         $password = $result['password'];
     };
     accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
     header('location: /users');
 }
-if(isset($_GET["id"])){
+if (isset($_GET["id"])) {
     accounts::sdelete($_GET["id"]);
     header('location: /users');
 }
@@ -33,7 +33,8 @@ if(isset($_GET["id"])){
 
 <body>
     <header>
-        <div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
+        <div class="container">
+            <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
                 <i class="fa fa-bars"></i>
             </a>
             <nav id="nav">
@@ -41,7 +42,9 @@ if(isset($_GET["id"])){
                     <li><a href="/">Home</a></li>
                     <li><a href="add-project">Add project</a></li>
                     <li><a href="remove">Remove</a></li>
-                    <?php if(isset($_SESSION["admin"])) {echo '<li><a href="users">Users</a></li>';} ?>
+                    <?php if (isset($_SESSION["admin"])) {
+                        echo '<li><a href="users">Users</a></li>';
+                    } ?>
                 </ul>
             </nav>
         </div>
@@ -52,7 +55,7 @@ if(isset($_GET["id"])){
         <h1>Je hebt geen toegang</h1>
         
         </div>';
-    } elseif (isset($_GET['edit'])){
+    } elseif (isset($_GET['edit'])) {
         $result = accounts::loadaccount($_GET['edit']);
         $check = "";
         if ($result['admin'] == true) {
@@ -60,10 +63,10 @@ if(isset($_GET["id"])){
         }
 
         echo '<form method="post">
-        <input type="text" name="username" value="'.$result['username'] .'">
+        <input type="text" name="username" value="' . $result['username'] . '">
         <input type="text" name="password" value="">
         <input type="hidden" value="0" name="admin">
-        <input type="checkbox" name="admin" id="admin" value="1"'. $check. '>
+        <input type="checkbox" name="admin" id="admin" value="1"' . $check . '>
         <input type="submit" value="versturen">
     </form>';
     } else {
