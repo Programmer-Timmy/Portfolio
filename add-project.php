@@ -1,7 +1,7 @@
 <?php
 include("requierd.php");
 
-if ($_SESSION['access'] != "logged") {
+if (!isset($_SESSION['access'])) {
     header('location: account');
 }
 
