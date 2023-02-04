@@ -1,9 +1,9 @@
 <?php
 include('requierd.php');
-    if ($_POST) {
-        $return = accounts::Login($_POST['password'], $_POST['username']);
-        echo $return;
-    }
+if ($_POST) {
+    $return = accounts::Login($_POST['password'], $_POST['username']);
+    echo $return;
+}
 
 ?>
 
@@ -38,7 +38,9 @@ include('requierd.php');
             <li><a href="/">Home</a></li>
             <li><a href="add-project">Add project</a></li>
             <li><a href="remove">Remove</a></li>';
-        if(isset($_SESSION["admin"])) {echo '<li><a href="users">Users</a></li>';}
+        if (isset($_SESSION["admin"])) {
+            echo '<li><a href="users">Users</a></li>';
+        }
         echo '
         </ul>
         </nav></div></header>
