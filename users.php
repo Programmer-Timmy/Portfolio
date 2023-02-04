@@ -1,6 +1,6 @@
 <?php
 include('requierd.php');
-if ($_SESSION['access'] != "logged") {
+if (!isset($_SESSION['access'])) {
     header('location: account');
 }
 if($_POST){
@@ -46,7 +46,7 @@ if(isset($_GET["id"])){
         </div>
     </header>
     <?php
-    if ($_SESSION['admin'] != true) {
+    if (!isset($_SESSION['admin'])) {
         echo '<div class="welcome">
         <h1>Je hebt geen toegang</h1>
         
