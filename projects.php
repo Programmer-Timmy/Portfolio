@@ -1,5 +1,5 @@
 <?php
-include_once('requierd.php');
+include_once('requierd');
 
 $projects = Projects::loadprojects("100");
 ?>
@@ -26,9 +26,9 @@ $projects = Projects::loadprojects("100");
             </a>
             <nav id="nav">
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="about.php">About</a></li>
-                    <li><a href="Contact.php">Contact</a></li>
+                    <li><a href="index">Home</a></li>
+                    <li><a href="about">About</a></li>
+                    <li><a href="Contact">Contact</a></li>
                     <li><a href="">Projects</a></li>
                 </ul>
             </nav>

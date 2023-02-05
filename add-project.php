@@ -1,7 +1,7 @@
 <?php
 include("requierd.php");
 
-if ($_SESSION['access'] != "logged") {
+if (!isset($_SESSION['access'])) {
     header('location: account');
 }
 
@@ -41,6 +41,7 @@ if ($_POST) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>test</title>
 </head>
 
@@ -54,6 +55,10 @@ if ($_POST) {
                     <li><a href="/">Home</a></li>
                     <li><a href="add-project">Add project</a></li>
                     <li><a href="remove">Remove</a></li>
+                    <?php if (isset($_SESSION["admin"])) {
+                        echo '<li><a href="users">Users</a></li>';
+                    } ?>
+
                 </ul>
             </nav>
         </div>
