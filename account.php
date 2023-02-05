@@ -4,7 +4,6 @@ if ($_POST) {
     $return = accounts::Login($_POST['password'], $_POST['username']);
     echo $return;
 }
-
 ?>
 
 <!DOCTYPE html>
