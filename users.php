@@ -3,7 +3,7 @@ include('requierd.php');
 if (!isset($_SESSION['access'])) {
     header('location: account');
 }
-if ($_POST) {
+if ($_POST and isset($_GET['edit'])) {
     $result = accounts::loadaccount($_GET['edit']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     if ($_POST["password"] == "") {
@@ -12,6 +12,11 @@ if ($_POST) {
     accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
     header('location: /users');
 }
+if ($_POST and $_GET['add'] == 'account'){
+    $return = accounts::add($_POST['password'], $_POST['username'], $_POST['admin']);
+    echo $return;
+}
+
 if (isset($_GET["id"])) {
     accounts::sdelete($_GET["id"]);
     header('location: /users');
@@ -27,15 +32,18 @@ if (isset($_GET["id"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/65416f0144.js" crossorigin="anonymous"></script>
     <title>Account</title>
 </head>
 
 <body>
     <header>
         <div class="container">
-            <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
+            <a href="javascript:void(0);" class="icon" onclick=" MyFunction()">
                 <i class="fa fa-bars"></i>
+            </a>
+            <a href="?add=account" class="icon" style="display:block; margin-right:40px;">
+                <i class="fa-solid fa-plus"></i>
             </a>
             <nav id="nav">
                 <ul>
@@ -67,8 +75,20 @@ if (isset($_GET["id"])) {
         <input type="text" name="password" value="">
         <input type="hidden" value="0" name="admin">
         <input type="checkbox" name="admin" id="admin" value="1"' . $check . '>
-        <input type="submit" value="versturen">
+        <input type="submit" value="Versturen">
     </form>';
+    }elseif (isset($_GET['add']) == 'account') {
+        
+        echo '<div class="admin"><form method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="text" name="password" required><br>
+        <label for="admin">Admin:</label>
+        <input type="hidden" value="0" name="admin">
+        <input type="checkbox" name="admin" id="admin" value="1" class="checkbox"><br>
+        <input type="submit" value="Versturen">
+    </form></div>';
     } else {
         $results = accounts::loadaccounts();
         foreach ($results as $result) {
@@ -76,6 +96,7 @@ if (isset($_GET["id"])) {
         }
     }
     ?>
+    
 </body>
 <script src="js/nav.js"></script>
 
