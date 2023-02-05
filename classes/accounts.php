@@ -38,6 +38,18 @@ class accounts
         }
     }
 
+    public static function add($password, $username, $admin){
+        if ($password !== " "){
+        $hashpw = password_hash($password, PASSWORD_DEFAULT);
+        }
+        $retrun = database::add('account', ['password', 'username', 'admin'], 'sss', [$hashpw, $username, $admin]);
+        if($retrun['success']) {
+            return '<script>if(confirm("Account toegevoegt")) document.location = "users";</script>';
+        } else {
+            return '<script>alert("Toevoegen niet gelukt")</script>';
+        }
+    }
+
     public static function update($id, $password, $username, $admin){
         database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
     }
