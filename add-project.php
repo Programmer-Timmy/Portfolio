@@ -50,6 +50,9 @@ if ($_POST) {
         <div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
                 <i class="fa fa-bars"></i>
             </a>
+            <a href="logout" class="icon" style="display:block;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
             <nav id="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
