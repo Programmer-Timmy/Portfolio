@@ -29,6 +29,9 @@ if (isset($_GET["id"])) {
         <div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
                 <i class="fa fa-bars"></i>
             </a>
+            <a href="logout" class="icon" style="display:block;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
             <nav id="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
@@ -44,9 +47,10 @@ if (isset($_GET["id"])) {
     </header>
     <?php
     if ($projects)
-    foreach ($projects as $project) {
-        echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id=" . $project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
-    } else {
+        foreach ($projects as $project) {
+            echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id=" . $project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
+        }
+    else {
         echo "<div class='admin'><div><h1> Er zijn geen projecten</h1></div></div>";
     }
     ?>
