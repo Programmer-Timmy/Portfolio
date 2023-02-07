@@ -2,9 +2,6 @@
 error_reporting(E_ALL ^ E_DEPRECATED);
 
 session_start();
-if (!isset($_SESSION['access'])) {
-    $_SESSION['access'] = "none";
-}
 
 include 'classes/projects.php';
 include 'classes/database.php';

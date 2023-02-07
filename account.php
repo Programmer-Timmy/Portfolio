@@ -1,9 +1,9 @@
 <?php
 include('requierd.php');
-    if ($_POST) {
-        $return = accounts::Login($_POST['password'], $_POST['username']);
-        echo $return;
-    }
+if ($_POST) {
+    $return = accounts::Login($_POST['password'], $_POST['username']);
+    echo $return;
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ include('requierd.php');
 
 <body>
     <?php
-    if ($_SESSION['access'] != "logged") {
+    if (!isset($_SESSION['access'])) {
         echo '<div class="admin"><form action="" method="post">
             username<br>
             <input type="text" name="username" id="username" required><br>
@@ -36,7 +36,11 @@ include('requierd.php');
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="add-project">Add project</a></li>
-            <li><a href="remove">Remove</a></li>
+            <li><a href="remove">Remove</a></li>';
+        if (isset($_SESSION["admin"])) {
+            echo '<li><a href="users">Users</a></li>';
+        }
+        echo '
         </ul>
         </nav></div></header>
         <div class="welcome">
