@@ -20,13 +20,14 @@ if (isset($_GET["id"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/65416f0144.js" crossorigin="anonymous"></script>
     <title>remove</title>
 </head>
 
 <body>
     <header>
-        <div class="container"><a href="javascript:void(0);" class="icon" onclick="MyFunction()">
+        <div class="container">
+            <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
                 <i class="fa fa-bars"></i>
             </a>
             <a href="logout" class="icon" style="display:block;">
