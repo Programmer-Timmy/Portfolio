@@ -1,5 +1,5 @@
 <?php
-include_once('requierd');
+include('requierd.php');
 
 $projects = Projects::loadprojects("100");
 ?>
