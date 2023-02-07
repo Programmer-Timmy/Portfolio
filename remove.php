@@ -43,8 +43,11 @@ if (isset($_GET["id"])) {
         </div>
     </header>
     <?php
+    if ($projects)
     foreach ($projects as $project) {
         echo "<div class='admin'><div><h1>" . $project['name'] . "<a href='?id=" . $project['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a></h1></div></div>";
+    } else {
+        echo "<div class='admin'><div><h1> Er zijn geen projecten</h1></div></div>";
     }
     ?>
 </body>
