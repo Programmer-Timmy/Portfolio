@@ -12,7 +12,7 @@ if ($_POST and isset($_GET['edit'])) {
     accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
     header('location: /users');
 }
-if ($_POST and $_GET['add'] == 'account'){
+if ($_POST and $_GET['add'] == 'account') {
     $return = accounts::add($_POST['password'], $_POST['username'], $_POST['admin']);
     echo $return;
 }
@@ -42,9 +42,14 @@ if (isset($_GET["id"])) {
             <a href="javascript:void(0);" class="icon" onclick=" MyFunction()">
                 <i class="fa fa-bars"></i>
             </a>
+            <a href="logout" class="icon" style="display:block;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
             <a href="?add=account" class="icon" style="display:block; margin-right:40px;">
                 <i class="fa-solid fa-plus"></i>
             </a>
+
+
             <nav id="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
@@ -77,8 +82,8 @@ if (isset($_GET["id"])) {
         <input type="checkbox" name="admin" id="admin" value="1"' . $check . '>
         <input type="submit" value="Versturen">
     </form>';
-    }elseif (isset($_GET['add']) == 'account') {
-        
+    } elseif (isset($_GET['add']) == 'account') {
+
         echo '<div class="admin"><form method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" required><br>
@@ -96,7 +101,7 @@ if (isset($_GET["id"])) {
         }
     }
     ?>
-    
+
 </body>
 <script src="js/nav.js"></script>
 
