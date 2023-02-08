@@ -45,7 +45,6 @@ if (isset($_GET["id"])) {
                 <i class="fa-solid fa-plus"></i>
             </a>
 
-
             <nav id="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
