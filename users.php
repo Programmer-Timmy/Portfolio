@@ -4,13 +4,9 @@ if (!isset($_SESSION['access'])) {
     header('location: account');
 }
 if ($_POST and isset($_GET['edit'])) {
-    $result = accounts::loadaccount($_GET['edit']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    if ($_POST["password"] == "") {
-        $password = $result['password'];
-    };
-    accounts::update($_GET["edit"], $password, $_POST["username"], $_POST["admin"]);
+    $return = accounts::update($_GET['edit'], $_POST['password'], $_POST['username'], $_POST['admin']);
     header('location: /users');
+
 }
 if ($_POST and $_GET['add'] == 'account') {
     $return = accounts::add($_POST['password'], $_POST['username'], $_POST['admin']);
@@ -33,7 +29,7 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/65416f0144.js" crossorigin="anonymous"></script>
-    <title>Account</title>
+    <title>Users</title>
 </head>
 
 <body>
@@ -83,7 +79,6 @@ if (isset($_GET["id"])) {
         <input type="submit" value="Versturen">
     </form>';
     } elseif (isset($_GET['add']) == 'account') {
-
         echo '<div class="admin"><form method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" required><br>
