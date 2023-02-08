@@ -29,6 +29,7 @@ class accounts
         if ($account['attempts'] > 3){
             if (!isset($account['password'])) {
                 return '<script>alert("Wrong username or password")</script>';
+                
             } elseif (password_verify($password, $account['password'])) {
                 if ($account['admin'] == 1) {
                     $_SESSION['admin'] = $account['id'];
@@ -36,7 +37,10 @@ class accounts
                 $_SESSION['access'] = $account['id'];
             } else {
                 return '<script>alert("Wrong username or password")</script>';
+                database::update('account', $account['id'], ['attempts'], 's', [$account['attempts']++]);
             }
+        } else {
+            return '<script>alert("Too many attempts, Contact a admin!")</script>';
         }
     }
 
