@@ -24,43 +24,43 @@ class accounts
         }
     }
 
-    public static function Login($password, $username)
-    {
+    public static function Login($password, $username){
         $account = database::getRow('account', ['username'], 's', [$username]);
-        if ($account['attempts'] !== 3) {
-            if (!isset($account['password'])) {
-                return '<script>alert("Wrong username or password")</script>';
-            } elseif (password_verify($password, $account['password'])) {
-                if ($account['admin'] == 1) {
-                    $_SESSION['admin'] = $account['id'];
-                }
-                $_SESSION['access'] = $account['id'];
-            } else {
-                return '<script>alert("Wrong username or password")</script>';
+        if (!isset($account['password'])) {
+            return '<script>alert("Wrong username or password")</script>';
+        } elseif (password_verify($password, $account['password'])) {
+            if ($account['admin'] == 1) {
+                $_SESSION['admin'] = $account['id'];
             }
-        } else return '<script>alert("Too much login attemps")</script>';
+            $_SESSION['access'] = $account['id'];
+        } else {
+            return '<script>alert("Wrong username or password")</script>';
+        }
     }
 
-    public static function add($password, $username, $admin)
-    {
-        if ($password !== " ") {
-            $hashpw = password_hash($password, PASSWORD_DEFAULT);
+    public static function add($password, $username, $admin){
+        if ($password !== " "){
+        $hashpw = password_hash($password, PASSWORD_DEFAULT);
         }
         $retrun = database::add('account', ['password', 'username', 'admin'], 'sss', [$hashpw, $username, $admin]);
-        if ($retrun['success']) {
+        if($retrun['success']) {
             return '<script>if(confirm("Account toegevoegt")) document.location = "users";</script>';
         } else {
             return '<script>alert("Toevoegen niet gelukt")</script>';
         }
     }
 
-    public static function update($id, $password, $username, $admin)
-    {
+    public static function update($id, $password, $username, $admin){
+        if ($_POST["password"] == "") {
+            $result = accounts::loadaccount($id);
+            $password = $result['password'];
+        }else {
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        }
         database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
     }
 
-    public static function sdelete($id)
-    {
+    public static function sdelete($id){
         database::update('account', $id, ['removed'], 's', [1]);
     }
 }
