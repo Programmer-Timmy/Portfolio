@@ -26,7 +26,7 @@ class accounts
 
     public static function Login($password, $username){
         $account = database::getRow('account', ['username'], 's', [$username]);
-        if ($account['attempts'] > 3){
+        if ($account['attempts'] < 3){
             if (!isset($account['password'])) {
                 return '<script>alert("Wrong username or password")</script>';
                 
@@ -36,8 +36,10 @@ class accounts
                 }
                 $_SESSION['access'] = $account['id'];
             } else {
+                $attempts = $account['attempts'];
+                $attempts++;
+                database::update('account', $account['id'], ['attempts'], 's', [$attempts]);
                 return '<script>alert("Wrong username or password")</script>';
-                database::update('account', $account['id'], ['attempts'], 's', [$account['attempts']++]);
             }
         } else {
             return '<script>alert("Too many attempts, Contact a admin!")</script>';
