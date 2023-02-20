@@ -5,6 +5,7 @@ if (!isset($_SESSION['access'])) {
 }
 if ($_POST and isset($_GET['edit'])) {
     $return = Projects::update($_GET['edit'], $_POST['name'], $_POST['github']);
+    echo $return;
     header('location: projects');
 }
 
@@ -28,31 +29,8 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <a href="javascript:void(0);" class="icon" onclick=" MyFunction()">
-                <i class="fa fa-bars"></i>
-            </a>
-            <a href="logout" class="icon" style="display:block;">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            </a>
-            <a href="../add-project.php" class="icon" style="display:block; margin-right:40px;">
-                <i class="fa-solid fa-plus"></i>
-            </a>
-
-            <nav id="nav">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="add-project">Add project</a></li>
-                    <li><a href="remove">Remove</a></li>
-                    <?php if (isset($_SESSION["admin"])) {
-                        echo '<li><a href="users">Users</a></li>';
-                    } ?>
-                </ul>
-            </nav>
-        </div>
-    </header>
     <?php
+    require_once 'header.php';
     if (isset($_GET['edit'])) {
         $result = Projects::loadproject($_GET['edit']);
 
