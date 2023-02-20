@@ -1,7 +1,7 @@
 # Portfolio
 
 ## Created by
-- @programmer-timmy
+- @Programmer-Timmy
 
 ### Database:
 - https://www.dropbox.com/s/rncqacfljl46trw/portfolio.sql?dl=1
