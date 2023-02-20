@@ -21,7 +21,7 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/65416f0144.js" crossorigin="anonymous"></script>
-    <title>remove</title>
+    <title>Remove</title>
 </head>
 
 <body>

@@ -26,15 +26,23 @@ class accounts
 
     public static function Login($password, $username){
         $account = database::getRow('account', ['username'], 's', [$username]);
-        if (!isset($account['password'])) {
-            return '<script>alert("Wrong username or password")</script>';
-        } elseif (password_verify($password, $account['password'])) {
-            if ($account['admin'] == 1) {
-                $_SESSION['admin'] = $account['id'];
+        if ($account['attempts'] < 3){
+            if (!isset($account['password'])) {
+                return '<script>alert("Wrong username or password")</script>';
+                
+            } elseif (password_verify($password, $account['password'])) {
+                if ($account['admin'] == 1) {
+                    $_SESSION['admin'] = $account['id'];
+                }
+                $_SESSION['access'] = $account['id'];
+            } else {
+                $attempts = $account['attempts'];
+                $attempts++;
+                database::update('account', $account['id'], ['attempts'], 's', [$attempts]);
+                return '<script>alert("Wrong username or password")</script>';
             }
-            $_SESSION['access'] = $account['id'];
         } else {
-            return '<script>alert("Wrong username or password")</script>';
+            return '<script>alert("Too many attempts, Contact a admin!")</script>';
         }
     }
 
@@ -51,6 +59,12 @@ class accounts
     }
 
     public static function update($id, $password, $username, $admin){
+        if ($_POST["password"] == "") {
+            $result = accounts::loadaccount($id);
+            $password = $result['password'];
+        }else {
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        }
         database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
     }
 
