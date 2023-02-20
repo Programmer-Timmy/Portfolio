@@ -2,7 +2,7 @@
 include("../requierd.php");
 
 if (!isset($_SESSION['access'])) {
-    header('location: account');
+    header('location: ../admin');
 }
 
 if ($_POST) {

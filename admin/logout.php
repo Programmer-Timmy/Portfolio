@@ -2,5 +2,5 @@
 session_start();
 if (isset($_SESSION)); {
     session_destroy();
-    header('location: /');
+    header('location: ../admin');
 }

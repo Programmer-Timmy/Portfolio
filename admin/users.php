@@ -1,7 +1,7 @@
 <?php
 include('../requierd.php');
 if (!isset($_SESSION['access'])) {
-    header('location: account');
+    header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
     $return = accounts::update($_GET['edit'], $_POST['password'], $_POST['username'], $_POST['admin']);
