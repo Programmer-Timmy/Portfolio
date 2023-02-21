@@ -71,6 +71,14 @@ class Projects {
 
     /**
      * @function
+     * update the project
+     */
+    public static function update($id = 0, $name, $github){
+        database::update('projecten', $id, ['name', 'github'], 'ss', [$name, $github]);
+    }
+
+    /**
+     * @function
      * add project to databse
      */
 
@@ -98,7 +106,7 @@ class Projects {
 
         // Check if file already exists
         if (file_exists($target_file)) {
-            echo "<script>alert('file already exists');</script>";
+            echo "<script>alert('file already exists');</>";
             $uploadOk = 0;
         }
 

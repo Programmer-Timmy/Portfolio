@@ -1,8 +1,8 @@
 <?php
-include("requierd.php");
+include("../requierd.php");
 
 if (!isset($_SESSION['access'])) {
-    header('location: account');
+    header('location: ../admin');
 }
 
 if ($_POST) {
@@ -39,34 +39,14 @@ if ($_POST) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <script src="https://kit.fontawesome.com/65416f0144.js" crossorigin="anonymous"></script>
 
-    <title>test</title>
+    <title>Add project</title>
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
-                <i class="fa fa-bars"></i>
-            </a>
-            <a href="logout" class="icon" style="display:block;">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            </a>
-            <nav id="nav">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="add-project">Add project</a></li>
-                    <li><a href="remove">Remove</a></li>
-                    <?php if (isset($_SESSION["admin"])) {
-                        echo '<li><a href="users">Users</a></li>';
-                    } ?>
-
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <?php require_once 'header.php';?>
     <div class="admin">
         <form method="post" enctype="multipart/form-data">
             Naam van het project:
