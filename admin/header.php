@@ -21,7 +21,7 @@
         <nav id="nav">
         <ul>
             <li><a href="/">Portfolio</a></li>
-            <li><a href="account">Home</a></li>
+            <li><a href="../admin">Home</a></li>
             <li><a href="projects">Projects</a></li>';
         if (isset($_SESSION["admin"])) {
             echo '<li><a href="users">Users</a></li>';
