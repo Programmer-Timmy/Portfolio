@@ -16,7 +16,6 @@
             </a>';
         }
 
-
         echo'
         <nav id="nav">
         <ul>
