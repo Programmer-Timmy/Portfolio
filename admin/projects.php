@@ -45,13 +45,29 @@ if (isset($_GET["id"])) {
         </form>';
     } else {
         $results = Projects::loadprojects(100);
+        echo "<div class='admin'><table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Remove</th>
+                <th>Edit</th>
+            </tr>
+        </thead>";
+
         foreach ($results as $result) {
-            echo "<div class='admin'><div><h1>" . $result['name'] . "<a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a><a href='?edit=" . $result["id"] . "'>edit</a></h1></div></div>";
+            echo "<tbody>
+            <tr>
+                <td>" . $result['name'] . "</td>
+                <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
+                <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
+            </tr>
+            </tbody>";
         }
+
+        echo '</table></div>';
     }
     ?>
-
 </body>
-<script src="js/nav.js"></script>
+<script src="../js/nav.js"></script>
 
 </html>
