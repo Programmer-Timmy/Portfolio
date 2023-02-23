@@ -39,18 +39,32 @@ if (isset($_GET["id"])) {
             Naam van het project:
             <input type="text" name="name" id="name" value="' . $result['name'] . '" required><br>
             Github link:
-            <input type="text" name="github" id="git" value="'. $result['github'] .'"><br>
+            <input type="text" name="github" id="git" value="' . $result['github'] . '"><br>
             <input type="submit" value="Update" name="submit">
             </div>
         </form>';
     } else {
         $results = Projects::loadprojects(100);
+        echo "<div class='admin'><table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
+        </thead>";
         foreach ($results as $result) {
-            echo "<div class='admin'><div><h1>" . $result['name'] . "<a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a><a href='?edit=" . $result["id"] . "'>edit</a></h1></div></div>";
+            echo "<tbody>
+            <tr>
+                <td> " . $result['name'] . "</td>
+                <td> <a href='?id=" . $result['id'] . "' onclick='return confirm(\" weet je het zeker?\");'>X</a></td>
+                <td> <a href='?edit=" . $result["id"] . "'>Edit</a></td>
+            </tr>
+        </tbody>";
         }
+        echo "</table></div>";
     }
     ?>
-
 </body>
 <script src="js/nav.js"></script>
 
