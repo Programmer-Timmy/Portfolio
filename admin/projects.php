@@ -39,7 +39,7 @@ if (isset($_GET["id"])) {
             Naam van het project:
             <input type="text" name="name" id="name" value="' . $result['name'] . '" required><br>
             Github link:
-            <input type="text" name="github" id="git" value="'. $result['github'] .'"><br>
+            <input type="text" name="github" id="git" value="' . $result['github'] . '"><br>
             <input type="submit" value="Update" name="submit">
             </div>
         </form>';

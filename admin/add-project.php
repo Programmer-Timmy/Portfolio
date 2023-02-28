@@ -57,7 +57,6 @@ if ($_POST) {
             <input type="file" name="img" id="img" accept="image/png, image/jpeg" required><br>
             Select your project or link:
             <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip"><input type="text" name="link" id="link"><br>
-
             <input type="submit" value="Toevoegen" name="submit">
         </form>
     </div>
