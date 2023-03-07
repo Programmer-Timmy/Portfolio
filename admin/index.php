@@ -1,5 +1,6 @@
 <?php
-include('../requierd.php');
+require('../requierd.php');
+
 if ($_POST) {
     $return = accounts::Login($_POST['password'], $_POST['username']);
     echo $return;
