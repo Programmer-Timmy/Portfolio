@@ -1,12 +1,12 @@
-<?php
- echo '<header><div class="container">
-        <h1 class="logo">Tim van der Kloet</h1>
+<header>
+    <div class="container">
         <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
-        <i class="fa fa-bars"></i>
+            <i class="fa fa-bars"></i>
         </a>
         <a href="logout" class="icon" id="hicon1" style="display:block;">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        </a>';
+        </a>
+        <?php
         if ($_SERVER['REQUEST_URI'] == '/admin/users') {
             echo '<a href="?add=account" class="icon hicon2" style="display:block;">
                 <i class="fa-solid fa-plus"></i>
@@ -16,16 +16,18 @@
                 <i class="fa-solid fa-plus"></i>
             </a>';
         }
-
-        echo'
+        ?>
         <nav id="nav">
-        <ul>
-            <li><a href="/">Portfolio</a></li>
-            <li><a href="../admin">Home</a></li>
-            <li><a href="projects">Projects</a></li>';
-        if (isset($_SESSION["admin"])) {
-            echo '<li><a href="users">Users</a></li>';
-        }
-        echo '
-        </ul>
-        </nav></div></header>';
+            <ul>
+                <li><a href="/">Portfolio</a></li>
+                <li><a href="../admin">Home</a></li>
+                <li><a href="projects">Projects</a></li>
+                <?php
+                if (isset($_SESSION["admin"])) {
+                    echo '<li><a href="users">Users</a></li>';
+                }
+                ?>
+            </ul>
+        </nav>
+    </div>
+</header>
