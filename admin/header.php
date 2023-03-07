@@ -1,17 +1,18 @@
 <?php
  echo '<header><div class="container">
+        <h1 class="logo">Tim van der Kloet</h1>
         <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
         <i class="fa fa-bars"></i>
         </a>
-        <a href="logout" class="icon" style="display:block;">
+        <a href="logout" class="icon" id="hicon1" style="display:block;">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </a>';
         if ($_SERVER['REQUEST_URI'] == '/admin/users') {
-            echo '<a href="?add=account" class="icon" style="display:block; margin-right:40px;">
+            echo '<a href="?add=account" class="icon hicon2" style="display:block;">
                 <i class="fa-solid fa-plus"></i>
             </a>';
         } elseif ($_SERVER['REQUEST_URI'] == '/admin/projects') {
-            echo '<a href="add-project" class="icon" style="display:block; margin-right:40px;">
+            echo '<a href="add-project" class="icon hicon2" style="display:block;">
                 <i class="fa-solid fa-plus"></i>
             </a>';
         }

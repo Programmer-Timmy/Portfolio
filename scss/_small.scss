@@ -239,33 +239,51 @@ header {
 
 // * addmin * //
 
-.admin{
+#hicon1{
+  margin-right: 40px;
+}
+
+.hicon2{
+  margin-right: 80px;
+}
+
+.admin {
   color: $light-gray;
-  font-size: 20px;
+  font-size: 25px;
   margin-top: 20px;
   text-align: center;
-  input{
+
+  table {
+    margin: auto;
+    text-align: start;
+    .ticon {
+      text-align: center;
+    }
+    th {
+      color: $primary;
+      padding: 10px;
+    }
+  }
+  input {
     margin: 10px;
     background-color: $dark-gary;
     border-radius: 10px;
     color: $primary;
     border-width: 0;
     height: 30px;
-    
   }
 
-  .checkbox{
-      height: 13px;
-    }
+  .checkbox {
+    height: 13px;
+  }
 
-  a{
+  a {
     margin-left: 10px;
-    color: red;
     text-decoration: none;
+    color: #cf1b1b;
 
-    &:hover{
+    &:hover {
       text-decoration: underline;
     }
   }
-
 }

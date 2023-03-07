@@ -49,23 +49,25 @@ if (isset($_GET["id"])) {
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Delete</th>
+                <th>Remove</th>
                 <th>Edit</th>
             </tr>
         </thead>";
+
         foreach ($results as $result) {
             echo "<tbody>
             <tr>
-                <td> " . $result['name'] . "</td>
-                <td> <a href='?id=" . $result['id'] . "' onclick='return confirm(\" weet je het zeker?\");'>X</a></td>
-                <td> <a href='?edit=" . $result["id"] . "'>Edit</a></td>
+                <td>" . $result['name'] . "</td>
+                <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
+                <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
             </tr>
-        </tbody>";
+            </tbody>";
         }
-        echo "</table></div>";
+
+        echo '</table></div>';
     }
     ?>
 </body>
-<script src="js/nav.js"></script>
+<script src="../js/nav.js"></script>
 
 </html>

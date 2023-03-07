@@ -6,7 +6,6 @@ if (!isset($_SESSION['access'])) {
 if ($_POST and isset($_GET['edit'])) {
     $return = accounts::update($_GET['edit'], $_POST['password'], $_POST['username'], $_POST['admin']);
     header('location: users');
-
 }
 if ($_POST and $_GET['add'] == 'account') {
     $return = accounts::add($_POST['password'], $_POST['username'], $_POST['admin']);
@@ -72,13 +71,30 @@ if (isset($_GET["id"])) {
     </form></div>';
     } else {
         $results = accounts::loadaccounts();
+        echo "<div class='admin'><table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Remove</th>
+                <th>Edit</th>
+            </tr>
+        </thead>";
+
         foreach ($results as $result) {
-            echo "<div class='admin'><div><h1>" . $result['username'] . "<a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'>X</a><a href='?edit=" . $result["id"] . "'>edit</a></h1></div></div>";
+            echo "<tbody>
+            <tr>
+                <td>" . $result['username'] . "</td>
+                <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
+                <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
+            </tr>
+            </tbody>";
         }
+
+        echo '</table></div>';
     }
     ?>
 
 </body>
-<script src="js/nav.js"></script>
+<script src="../js/nav.js"></script>
 
 </html>

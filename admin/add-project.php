@@ -46,7 +46,7 @@ if ($_POST) {
 </head>
 
 <body>
-    <?php require_once 'header.php';?>
+    <?php require_once 'header.php'; ?>
     <div class="admin">
         <form method="post" enctype="multipart/form-data">
             Naam van het project:
@@ -61,6 +61,6 @@ if ($_POST) {
         </form>
     </div>
 </body>
-<script src="js/nav.js"></script>
+<script src="../js/nav.js"></script>
 
 </html>
