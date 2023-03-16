@@ -27,16 +27,13 @@
             </nav>
         </div>
     </header>
-
     <div class="welcome">
         <h1>About me!</h1>
     </div>
-
     <div class="border">
         <div>
             <img src="img/profielfoto.JPG" id="foto" alt="">
         </div>
-
         <div id="tekst">
             <h2>Hello my name is Tim. I am 17 years old.</h2><br>
             <h3>At the moment I am studying software development at the ICT Campus school. I learn the languages ​​HTML, CSS, PHP, Jquery and JavaScript.<br><br>
@@ -45,7 +42,6 @@
             <h3>Download my CV <a href="documenten/CV.pdf" download="">here</a></h3>
         </div>
     </div>
-
 </body>
 <script src="js/nav.js"></script>
 </html>
