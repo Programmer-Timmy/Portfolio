@@ -19,7 +19,6 @@ $projects = Projects::loadprojects("100");
 <body>
     <header>
         <div class="container">
-
             <h1 class="logo">Tim van der Kloet</h1>
             <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
                 <i class="fa fa-bars"></i>
@@ -59,5 +58,4 @@ $projects = Projects::loadprojects("100");
     </div>
 </body>
 <script src="js/nav.js"></script>
-
 </html>
