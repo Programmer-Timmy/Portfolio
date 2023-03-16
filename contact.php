@@ -45,7 +45,6 @@
             <img src="img/profielfoto.JPG" id="foto" alt="">
         </div>
     </div>
-
 </body>
 <script src="js/nav.js"></script>
 </html>
