@@ -16,7 +16,6 @@ if (isset($_GET["id"])) {
     accounts::sdelete($_GET["id"]);
     header('location: users');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -93,8 +92,6 @@ if (isset($_GET["id"])) {
         echo '</table></div>';
     }
     ?>
-
 </body>
 <script src="../js/nav.js"></script>
-
 </html>
