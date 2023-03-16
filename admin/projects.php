@@ -13,7 +13,6 @@ if (isset($_GET["id"])) {
     projects::sdeleteproject($_GET["id"]);
     header('location: projects');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -69,5 +68,4 @@ if (isset($_GET["id"])) {
     ?>
 </body>
 <script src="../js/nav.js"></script>
-
 </html>
