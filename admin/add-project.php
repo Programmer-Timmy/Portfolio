@@ -16,7 +16,7 @@ if ($_POST) {
         $continue = strtolower($name[1]) == 'zip' ? true : false;
     }
 
-    $target_dir = "img/";
+    $target_dir = "../img/";
     $target_file = $target_dir . basename($_FILES["img"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     if (

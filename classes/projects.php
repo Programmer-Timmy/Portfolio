@@ -48,9 +48,9 @@ class Projects {
         }
 
         if (!$img) {
-            echo "<script>alert('Sorry, there was an error uploading your img');</script>";
+            return "<script>alert('Sorry, there was an error uploading your img');</script>";
         } elseif (!$zip) {
-            echo "<script>alert('Your .zip file was not uploaded and unpacked');</script>";
+            return "<script>alert('Your .zip file was not uploaded and unpacked');</script>";
         } else {
             $git = "";
             if ($pgit == "") {
@@ -106,7 +106,6 @@ class Projects {
 
         // Check if file already exists
         if (file_exists($target_file)) {
-            echo "<script>alert('file already exists');</>";
             $uploadOk = 0;
         }
 
@@ -139,7 +138,7 @@ class Projects {
             }
 
             if (!$continue) {
-                echo "<script>alert('The file you are trying to upload is not a .zip file. Please try again');</script>";
+                return "<script>alert('The file you are trying to upload is not a .zip file. Please try again');</script>";
             } else {
                 $target_path = 'project/' . $filename;
                 if (move_uploaded_file($source, $target_path)) {
