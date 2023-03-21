@@ -3,7 +3,7 @@ class accounts
 {
     public static function loadaccounts()
     {
-        $results = database::getRows('account');
+        $results = database::getRows('account', ['removed'], 's', [0]);
         if ($results) {
             return $results;
         } else {
@@ -34,6 +34,7 @@ class accounts
                 if ($account['admin'] == 1) {
                     $_SESSION['admin'] = $account['id'];
                 }
+                database::update('account', $account['id'], ['attempts'], 's', [0]);
                 $_SESSION['access'] = $account['id'];
             } else {
                 $attempts = $account['attempts'];
