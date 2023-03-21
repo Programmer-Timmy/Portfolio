@@ -42,15 +42,14 @@ class Projects {
         $img = Projects::uploadimg($target_dir, $target_file, $imageFileType, $files);
         if ($filename and $name) {
             $zip = Projects::uploadzip($filename, $name, $continue, $files);
-
         } else {
             $zip = true;
         }
 
         if (!$img) {
-            return "<script>alert('Sorry, there was an error uploading your img');</script>";
+            return"<script>alert('Sorry, there was an error uploading your img');</script>";
         } elseif (!$zip) {
-            return "<script>alert('Your .zip file was not uploaded and unpacked');</script>";
+            return"<script>alert('Your .zip file was not uploaded and unpacked');</script>";
         } else {
             $git = "";
             if ($pgit == "") {
@@ -81,7 +80,6 @@ class Projects {
      * @function
      * add project to databse
      */
-
     public static function dbaddproject($name, $git, $link, $file) {
         Database::add('projecten', ['name', 'github', 'path', 'img', 'date'], 'sssss', [$name, $git, $link, $file, date('y-m-d h:m:s')]);
     }
@@ -90,7 +88,6 @@ class Projects {
      * @function
      * Upload the given img
      */
-
     private static function uploadimg($target_dir, $target_file, $imageFileType, $files) {
         $uploadOk = 1;
 
