@@ -77,19 +77,18 @@ if (isset($_GET["id"])) {
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
-        </thead>";
+        </thead><tbody>";
 
         foreach ($results as $result) {
-            echo "<tbody>
+            echo "
             <tr>
                 <td>" . $result['username'] . "</td>
                 <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
                 <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
-            </tr>
-            </tbody>";
+            </tr>";
         }
 
-        echo '</table></div>';
+        echo '</tbody></table></div>';
     }
     ?>
 </body>
