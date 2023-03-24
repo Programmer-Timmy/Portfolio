@@ -14,12 +14,21 @@ html {
 // * global  * //
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
+
 body {
   margin: 0;
   padding: 0;
   background: $secondary;
   font-family: "Work Sans", sans-serif;
   font-weight: 800;
+
+  .no-transition * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+  }
 }
 
 // * header / navbar * //
@@ -58,14 +67,17 @@ header {
     top: 14px;
     z-index: 10;
   }
+
   nav {
     position: absolute;
     top: 20px;
     width: 100%;
     display: none;
+
     &.active {
       display: block;
     }
+
     ul {
       padding-top: 40px;
       list-style: none;
@@ -78,6 +90,7 @@ header {
       padding-top: 20px;
       position: relative;
       background-color: $secondary;
+
       &:last-child {
         padding-bottom: 20px;
       }
@@ -89,12 +102,15 @@ header {
       text-decoration: none;
       text-transform: uppercase;
       font-size: 14px;
+
       &:hover {
         color: $primary;
+
         &::before {
           width: 100%;
         }
       }
+
       &::before {
         content: "";
         display: block;
@@ -148,6 +164,7 @@ header {
       font-size: 30px;
       color: $primary;
     }
+
     .github {
       font-size: 30px;
       color: $primary;
@@ -174,6 +191,7 @@ header {
     flex-wrap: nowrap;
     align-items: center;
   }
+
   #foto {
     border: $white 1px solid;
     height: 40vh;
@@ -183,13 +201,26 @@ header {
     margin-right: 10vh;
     object-fit: cover;
   }
+
   #tekst {
     padding-top: 20px;
+    line-height: 20px;
+
     h2 {
       color: $primary;
     }
+
     h3 {
       color: $light-gray;
+      a {
+        text-decoration: underline;
+        color: $primary;
+        transition: font-size 1s;
+
+        &:hover {
+          font-size: 16.5px;
+        }
+      }
     }
   }
 }
@@ -206,24 +237,30 @@ header {
     flex-direction: column;
     align-items: center;
   }
+
   #about-tekst {
     width: 100%;
+
     h2 {
       color: $primary;
     }
+
     h3 {
       color: $light-gray;
-      line-height: 20px;
+      line-height: 21px;
+
       a {
-        text-decoration: none;
+        text-decoration: underline;
         color: $primary;
+        transition: font-size 1s;
 
         &:hover {
-          text-decoration: underline;
+          font-size: 16.5px;
         }
       }
     }
   }
+
   #foto {
     border: $white 1px solid;
     height: 40vh;
@@ -239,11 +276,11 @@ header {
 
 // * addmin * //
 
-#hicon1{
+#hicon1 {
   margin-right: 40px;
 }
 
-.hicon2{
+.hicon2 {
   margin-right: 80px;
 }
 
@@ -256,14 +293,17 @@ header {
   table {
     margin: auto;
     text-align: start;
+
     .ticon {
       text-align: center;
     }
+
     th {
       color: $primary;
       padding: 10px;
     }
   }
+
   input {
     margin: 10px;
     background-color: $dark-gary;
