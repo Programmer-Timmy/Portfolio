@@ -40,8 +40,9 @@
                 When I'm not studying, I enjoy playing games and sailing during the summer months. In the winter, I enjoy repairing and painting boats, which is a fun and creative activity. Additionally, I have been a member of the scouting group Het ZuiderKruis for seven years, which has allowed me to develop important teamwork and leadership skills.</h3><br>
             <h2>Thank you for taking the time to view my portfolio.</h2><br>
             <h3>Please find my Curriculum Vitae (CV) attached for your reference.
-
-                To download my CV, please click <a href="doc/CV.pdf" download="CV.pdf">here</a>.</h3>
+                To download my CV, please click 
+                <a href="doc/CV.pdf" download="CV.pdf">here</a>.
+            </h3>
         </div>
     </div>
 </body>
