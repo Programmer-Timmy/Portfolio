@@ -38,10 +38,33 @@ class Projects {
      * start and end of the add project function
      */
 
-    public static function addproject($target_dir, $target_file, $imageFileType, $filename, $name, $continue, $files, $title, $pgit, $plink) {
-        $img = Projects::uploadimg($target_dir, $target_file, $imageFileType, $files);
+    public static function addproject($file, $title, $pgit, $plink) {
+        $continue = false;
+        if ($plink !== "") {
+            $continue = true;
+            $filename = false;
+            $name = false;
+        } else {
+            $filename = $file["zip_file"]["name"];
+            $name = explode(".", $filename);
+            $continue = strtolower($name[1]) == 'zip' ? true : false;
+        }
+
+        $target_dir = "../img/";
+        $target_file = $target_dir . basename($file["img"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        if (
+            $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+        ) {
+            return '<script>alert("Your uploaded file is not a img");</script>';
+        } elseif (!$continue) {
+            return '<script>alert("Your uploaded file is not a zip");</script>';
+        }
+        
+        $img = Projects::uploadimg($target_dir, $target_file, $imageFileType, $file);
         if ($filename and $name) {
-            $zip = Projects::uploadzip($filename, $name, $continue, $files);
+            $zip = Projects::uploadzip($filename, $name, $continue, $file);
         } else {
             $zip = true;
         }
@@ -55,14 +78,14 @@ class Projects {
             if ($pgit == "") {
                 $git = "empty";
             } else {
-                $git = $_POST["git"];
+                $git = $pgit;
             }
 
             $link = "";
             if ($plink == "") {
                 $link = substr($zip, 0, -4) . "/index";
             } else {
-                $link = $_POST["link"];
+                $link = $plink;
             }
             projects::dbaddproject($title, $git, $link, $img);
         }
@@ -137,12 +160,12 @@ class Projects {
             if (!$continue) {
                 return "<script>alert('The file you are trying to upload is not a .zip file. Please try again');</script>";
             } else {
-                $target_path = 'project/' . $filename;
+                $target_path = '../project/' . $filename;
                 if (move_uploaded_file($source, $target_path)) {
                     $zip = new ZipArchive();
                     $x   = $zip->open($target_path);
                     if ($x === true) {
-                        $zip->extractTo('project/');
+                        $zip->extractTo('../project/');
                         $zip->close();
                         unlink($target_path);
                     }
