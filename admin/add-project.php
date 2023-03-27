@@ -6,29 +6,8 @@ if (!isset($_SESSION['access'])) {
 }
 
 if ($_POST) {
-    if ($_POST["link"] !== "") {
-        $continue = true;
-        $filename = false;
-        $name = false;
-    } else {
-        $filename = $_FILES["zip_file"]["name"];
-        $name = explode(".", $filename);
-        $continue = strtolower($name[1]) == 'zip' ? true : false;
-    }
-
-    $target_dir = "../img/";
-    $target_file = $target_dir . basename($_FILES["img"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    if (
-        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"
-    ) {
-        echo '<script>alert("Your uploaded file is not a img");</script>';
-    } elseif (!$continue) {
-        echo '<script>alert("Your uploaded file is not a zip");</script>';
-    } else {
-        projects::addproject($target_dir, $target_file, $imageFileType, $filename, $name, $continue, $_FILES, $_POST["name"], $_POST["git"], $_POST["link"]);
-    }
+    $test = projects::addproject($_FILES, $_POST["name"], $_POST["git"], $_POST["link"]);
+    echo $test;
 }
 ?>
 
