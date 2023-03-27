@@ -63,7 +63,6 @@ if (isset($_GET["id"])) {
             </tr>
             ";
         }
-
         echo '</tbody></table></div>';
     }
     ?>
