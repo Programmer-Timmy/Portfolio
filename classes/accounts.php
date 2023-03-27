@@ -1,6 +1,12 @@
 <?php
 class accounts
 {
+
+    /**
+     * @function
+     * loading the accounts that are not deleted
+     * @return array/false
+     */
     public static function loadaccounts()
     {
         $results = database::getRows('account', ['removed'], 's', [0]);
@@ -11,6 +17,12 @@ class accounts
         }
     }
 
+    /**
+     * @function
+     * loading 1 account
+     * @param $id
+     * @return array/false
+     */
     public static function loadaccount($id = 0)
     {
         if ($id == 0) {
@@ -24,6 +36,13 @@ class accounts
         }
     }
 
+    /**
+     * @function
+     * login
+     * @param $password
+     * @param $username
+     * @return array
+     */
     public static function Login($password, $username){
         $account = database::getRow('account', ['username'], 's', [$username]);
         if ($account['attempts'] < 3){
@@ -49,6 +68,14 @@ class accounts
         }
     }
 
+    /**
+     * @function
+     * adding a account
+     * @param $password
+     * @param $username
+     * @param $admin
+     * @return array
+     */
     public static function add($password, $username, $admin){
         if ($password !== " "){
         $hashpw = password_hash($password, PASSWORD_DEFAULT);
@@ -61,6 +88,14 @@ class accounts
         }
     }
 
+    /**
+     * @function
+     * updating account
+     * @param $id
+     * @param $password
+     * @param $username
+     * @param $admin
+     */
     public static function update($id, $password, $username, $admin){
         if ($_POST["password"] == "") {
             $result = accounts::loadaccount($id);
@@ -71,6 +106,11 @@ class accounts
         database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
     }
 
+    /**
+     * @function
+     * soft delete account
+     * @param $id
+     */
     public static function sdelete($id){
         database::update('account', $id, ['removed'], 's', [1]);
     }

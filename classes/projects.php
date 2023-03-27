@@ -5,6 +5,7 @@ class Projects {
     /**
      * @function
      * load projects on limit
+     * @param $limit
      */
 
     public static function loadprojects($limit = 3) {
@@ -19,6 +20,7 @@ class Projects {
     /**
      * @function
      * load project by id
+     * @param $id
      */
 
     public static function loadproject($id = 0) {
@@ -36,6 +38,11 @@ class Projects {
     /**
      * @function
      * start and end of the add project function
+     * @param $file
+     * @param $title
+     * @param $pgit
+     * @param $plink
+     * @return array
      */
 
     public static function addproject($file, $title, $pgit, $plink) {
@@ -94,6 +101,9 @@ class Projects {
     /**
      * @function
      * update the project
+     * @param $id
+     * @param $name
+     * @param $github
      */
     public static function update($id = 0, $name, $github){
         database::update('projecten', $id, ['name', 'github'], 'ss', [$name, $github]);
@@ -102,6 +112,10 @@ class Projects {
     /**
      * @function
      * add project to databse
+     * @param $name
+     * @param $git
+     * @param $link
+     * @param $file
      */
     public static function dbaddproject($name, $git, $link, $file) {
         Database::add('projecten', ['name', 'github', 'path', 'img', 'date'], 'sssss', [$name, $git, $link, $file, date('y-m-d h:m:s')]);
@@ -110,6 +124,10 @@ class Projects {
     /**
      * @function
      * Upload the given img
+     * @param $target_dir
+     * @param $target file
+     * @param $files
+     * @return array/false
      */
     private static function uploadimg($target_dir, $target_file, $imageFileType, $files) {
         $uploadOk = 1;
@@ -142,6 +160,11 @@ class Projects {
     /**
      * @function
      * upload the given zip and unpack
+     * @param $filename
+     * @param $name
+     * @param $continue
+     * @param $files
+     * @return array/false
      */
 
     private static function uploadzip($filename, $name, $continue, $files) {
@@ -180,11 +203,17 @@ class Projects {
     /**
      * @function
      * Softdelete the project
+     * @param $id
      */
     public static function sdeleteproject($id){
         database::update('projecten', $id, ['removed'], 's', [1]);
     }
     
+    /**
+     * @function
+     * full delete project
+     * @param $id
+     */
     public static function harddelete($id){
         $account = Projects::loadproject($id);
         $path = (substr($account['path'], 0, -6));
