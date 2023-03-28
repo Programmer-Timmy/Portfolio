@@ -64,7 +64,6 @@ if (isset($_GET["id"])) {
         <label for="password">Password:</label>
         <input type="password" name="password" required><br>
         <label for="admin">Admin:</label>
-        <input type="hidden" value="0" name="admin">
         <input type="checkbox" name="admin" id="admin" value="1" class="checkbox"><br>
         <input type="submit" value="Versturen">
     </form></div>';
