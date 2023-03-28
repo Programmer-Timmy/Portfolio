@@ -47,7 +47,7 @@ class accounts
      * @return array
      */
     public static function Login($password, $username){
-        $account = database::getRow('account', ['username'], 's', [$username]);
+        $account = database::getRow('account', ['username', 'removed'], 'ss', [$username, 0]);
         if ($account['attempts'] < 3){
             if (!isset($account['password'])) {
                 return '<script>alert("Wrong username or password")</script>';
@@ -83,7 +83,7 @@ class accounts
         if ($password !== " "){
         $hashpw = password_hash($password, PASSWORD_DEFAULT);
         }
-        $retrun = database::add('account', ['password', 'username', 'admin'], 'sss', [$hashpw, $username, $admin]);
+        $retrun = database::add('account', ['password', 'username', 'admin'], 'sss', [$hashpw, $username, isset($admin)? 1 : 0]);
         if($retrun['success']) {
             return '<script>if(confirm("Account toegevoegt")) document.location = "users";</script>';
         } else {
