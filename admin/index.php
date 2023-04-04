@@ -35,6 +35,7 @@ if ($_POST) {
         <h1>Welcome!</h1>
         <h2>You are logged in!</h2>
         </div>';
+        accounts::delete();
     }
     ?>
 
