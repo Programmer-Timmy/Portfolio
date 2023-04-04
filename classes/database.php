@@ -232,4 +232,27 @@ class Database {
             return $result;
         }
     }
+
+    /**
+     * Update a row in the database
+     *
+     * @param $table
+     * @param $id
+     * @param $fields
+     * @param $types
+     * @param $values
+     * @return array
+     */
+    public static function delete($table, $id, $fields = false, $types = false, $values = false)
+    {
+        $fieldQueries = [];
+        foreach ($fields as $field) {
+            $fieldQueries[] = $field . ' = ?';
+        }
+        $fieldQuery = implode(',', $fieldQueries);
+        $types      .= 'i';
+        $values[]   = $id;
+        $query      = "delete from " . $table . " WHERE id = ?";
+        return self::executeQuery($query, $types, $values);
+    }
 }
