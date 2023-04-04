@@ -1,5 +1,6 @@
 <?php
 require('../requierd.php');
+echo Projects::delete();
 if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
