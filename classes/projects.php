@@ -216,28 +216,48 @@ class Projects {
      * full delete project
      * @param $id
      */
-    public static function harddelete($id){
-        $account = Projects::loadproject($id);
-        $path = (substr($account['path'], 0, -6));
-        unlink($account['img']);
+    public static function delete(){
+        $results = database::getRows('projecten', ['removed'], 's', [1]);
+        foreach ($results as $result) {
+            $date = date_create($result['updated']);
+            date_add($date, date_interval_create_from_date_string("6 day"));
+            $max_date = date_format($date, "y-m-d");
+            if ($max_date <= date("y-m-d")) {
+                echo Database::delete('projecten', $result['id']);
 
-        function deleteDirectory($path)
-        {
-            if (is_dir($path)) {
-                $objects = scandir($path);
-                foreach ($objects as $object) {
-                    if ($object != "." && $object != "..") {
-                        if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
-                            deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
-                        } else {
-                            unlink($path . DIRECTORY_SEPARATOR . $object);
+                $path = (substr($result['path'], 0, -6));
+                unlink($result['img']);
+
+                function deleteDirectory($path)
+                {
+                    if (is_dir($path)) {
+                        $objects = scandir($path);
+                        foreach ($objects as $object) {
+                            if ($object != "." && $object != "..") {
+                                if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
+                                    deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
+                                } else {
+                                    unlink($path . DIRECTORY_SEPARATOR . $object);
+                                }
+                            }
                         }
+                        reset($objects);
+                        rmdir($path);
                     }
                 }
-                reset($objects);
-                rmdir($path);
+                deleteDirectory($path);
             }
+           
         }
-        deleteDirectory($path);
-    }
+            
+        }
+
+        
+
+   
+    
+       
+        
+    
 }
+
