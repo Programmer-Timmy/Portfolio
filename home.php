@@ -1,17 +1,16 @@
 <?php
-$projects = Projects::loadprojects("100");
+$projects = Projects::loadprojects("3");
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Projects</title>
+    <title>Home</title>
 </head>
 
 <body>
@@ -32,7 +31,7 @@ $projects = Projects::loadprojects("100");
         </div>
     </header>
     <div class="welcome">
-        <h1>Projects</h1>
+        <h1>Welcome!</h1>
     </div>
     <div class="borderp">
         <?php
@@ -56,4 +55,5 @@ $projects = Projects::loadprojects("100");
     </div>
 </body>
 <script src="js/nav.js"></script>
+
 </html>

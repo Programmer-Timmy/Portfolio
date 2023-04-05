@@ -121,7 +121,6 @@ class accounts
     public static function delete(){
         $results = database::getRows('account', ['removed'], 's', [1]);
         foreach($results as $result){
-            print_r($result);
                 $date = date_create($result['updated']);
                 date_add($date, date_interval_create_from_date_string("6 day"));
                 $max_date = date_format($date, "y-m-d");

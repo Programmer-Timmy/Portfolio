@@ -1,5 +1,4 @@
 <?php
-require('../requierd.php');
 if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }

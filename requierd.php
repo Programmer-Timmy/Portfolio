@@ -1,9 +1,9 @@
 <?php
-error_reporting(E_ALL ^ E_DEPRECATED);
-error_reporting(E_ERROR | E_PARSE);
-set_exception_handler(function($exception){
-    echo "<h1> oops er is iets fout gegaan</h1>";
-});
+//error_reporting(E_ALL ^ E_DEPRECATED);
+//error_reporting(E_ERROR | E_PARSE);
+//set_exception_handler(function($exception){
+//    echo "<h1> oops er is iets fout gegaan</h1>";
+//});
 session_start();
 
 if (isset($_SESSION['discard_after']) && time() > $_SESSION['discard_after']) {
@@ -18,8 +18,8 @@ include 'classes/databaseUtilities.php';
 include 'classes/accounts.php';
 
 $dbhost = 'localhost';
-$dbuser = 'root';
-$dbpass = '';
+$dbuser = 'timmy';
+$dbpass = '9aRF8d6oZJSl6yX';
 $dbname = 'portfolio';
 
 $database = new Database;
