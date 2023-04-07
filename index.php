@@ -1,6 +1,6 @@
 <?php
 include 'requierd.php';
-$filename = substr($_SERVER['REQUEST_URI'], 1);
+$filename = substr($_SERVER['REDIRECT_URL'], 1);
 if($filename == ''){
 	$filename = 'home';
 }
