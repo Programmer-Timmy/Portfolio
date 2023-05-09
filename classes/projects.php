@@ -7,7 +7,8 @@ class Projects {
     /**
      * @function
      * load projects on limit
-     * @param $limit
+     * @param int $limit
+     * @return array|false
      */
 
     public static function loadprojects($limit = 3) {
@@ -22,7 +23,8 @@ class Projects {
     /**
      * @function
      * load project by id
-     * @param $id
+     * @param int $id
+     * @return array|false|mixed
      */
 
     public static function loadproject($id = 0) {
@@ -127,7 +129,8 @@ class Projects {
      * @function
      * Upload the given img
      * @param $target_dir
-     * @param $target file
+     * @param $target_file
+     * @param $imageFileType
      * @param $files
      * @return array/false
      */
@@ -210,11 +213,10 @@ class Projects {
     public static function sdeleteproject($id){
         database::update('projecten', $id, ['removed'], 's', [1]);
     }
-    
+
     /**
      * @function
      * full delete project
-     * @param $id
      */
     public static function delete(){
         $results = database::getRows('projecten', ['removed'], 's', [1]);

@@ -45,8 +45,8 @@ class DatabaseUtilities {
         if (count($filterArray)) {
             foreach ($filterArray as $filter) {
                 if (
-                    array_search($filter['property'], $allowedColumns) !== false &&
-                    array_search($filter['comparisonType'], $allowedFilters) !== false
+                    in_array($filter['property'], $allowedColumns) &&
+                    in_array($filter['comparisonType'], $allowedFilters)
                 ) {
                     if (
                     array_key_exists($filter['property'], $customFilters)
@@ -108,9 +108,9 @@ class DatabaseUtilities {
 
         foreach ($sortItemsArray as $sortItemArray) {
             if (
-                array_search($sortItemArray['property'], $allowedColumns) !== false &&
+                in_array($sortItemArray['property'], $allowedColumns) &&
                 (
-                    array_search($sortItemArray['direction'], $allowedSortDirections) !== false
+                in_array($sortItemArray['direction'], $allowedSortDirections)
                 )
             ) {
                 $sortItems[] = '' . $sortItemArray['property'] . ' ' . $sortItemArray['direction'];

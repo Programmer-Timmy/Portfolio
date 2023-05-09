@@ -41,7 +41,7 @@ if (isset($_GET["id"])) {
     } elseif (isset($_GET['edit'])) {
         $result = accounts::loadaccount($_GET['edit']);
         $check = "";
-        if ($result['admin'] == true) {
+        if ($result['admin']) {
             $check = "checked";
         }
 

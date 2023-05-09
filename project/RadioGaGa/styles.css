@@ -3,8 +3,8 @@
 html {
     height: 100%;
     width: 100%;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     background-color: lightgray;
     overflow: auto;
 }
@@ -14,7 +14,7 @@ body {
     margin-top: 0;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     border: 1px solid;
     overflow: inherit;
     background-color: #fff;
@@ -39,7 +39,7 @@ body {
 /* dit wel weer!! */
 
 h3 {
-    margin: 0.5;
+    margin: 0.5px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -83,7 +83,7 @@ nav ul li a:focus {
 }
 
 #Logo {
-    margin-top: 0px;
+    margin-top: 0;
     padding-top: 10%;
     background-image: url(images/logo.png);
     background-repeat: no-repeat;
@@ -91,6 +91,7 @@ nav ul li a:focus {
     background-size: 320px;
 }
 
+/*noinspection ALL*/
 #disc {
     margin-top: 10px;
     border-radius: 50%;

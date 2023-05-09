@@ -27,12 +27,12 @@ if($_POST){
         <title>Home</title>
         <style>
             html{
-                margin-top: 0px;
-                padding: 0px;
+                margin-top: 0;
+                padding: 0;
             }
             body{
-                padding: 0px;
-                margin-top: 0px;
+                padding: 0;
+                margin-top: 0;
                 background-image: url(img/the-sky-15.jpg);
                 background-repeat: no-repeat;
                 background-size: 250vh;

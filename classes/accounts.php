@@ -44,7 +44,7 @@ class accounts
      * login
      * @param $password
      * @param $username
-     * @return array
+     * @return string|void
      */
     public static function Login($password, $username){
         $account = database::getRow('account', ['username', 'removed'], 'ss', [$username, 0]);
@@ -77,7 +77,7 @@ class accounts
      * @param $password
      * @param $username
      * @param $admin
-     * @return array
+     * @return string
      */
     public static function add($password, $username, $admin){
         if ($password !== " "){

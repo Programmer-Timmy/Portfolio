@@ -33,35 +33,44 @@ if ($_POST) {
     <h1>Nieuwe game toevoegen</h1>
     <form method="post" class="form-group">
         Naam: <input type="text" name="name" required maxlength="13"></br>
-        Genre: <select name="genre">
-            <option value="Sports">Sports</option>
-            <option value="Simulation">Simulation</option>
-            <option value="Race">Race</option>
-            <option value="Platform">Platform</option>
-            <option value="RPG">RPG</option>
-            <option value="Shooter">Shooter</option>
-            <option value="Arcade">Arcade</option>
-            <option value="Third person">Third person</option>
-        </select></br>
-        Leeftijd: <select name="leeftijd">
-            <option value="Alle leeftijden">Alle leeftijden</option>
-            <option value="6+">6+</option>
-            <option value="16+">16+</option>
-            <option value="18+">18+</option>
-        </select></br>
+        <label>
+            Genre:
+            <select name="genre">
+                <option value="Sports">Sports</option>
+                <option value="Simulation">Simulation</option>
+                <option value="Race">Race</option>
+                <option value="Platform">Platform</option>
+                <option value="RPG">RPG</option>
+                <option value="Shooter">Shooter</option>
+                <option value="Arcade">Arcade</option>
+                <option value="Third person">Third person</option>
+            </select>
+        </label></br>
+        <label>
+            Leeftijd:
+            <select name="leeftijd">
+                <option value="Alle leeftijden">Alle leeftijden</option>
+                <option value="6+">6+</option>
+                <option value="16+">16+</option>
+                <option value="18+">18+</option>
+            </select>
+        </label></br>
         prijs: <input type="text" name="prijs" required maxlength="6"></br>
         <div>
             <input type='hidden' value='Nee' name='online'>
             <input type="checkbox" name="online" value="Ja"> Online multiplayer <br>
         </div>
-        platform: <select name="platform">
-            <option value="Playsation 4">Playsation 4</option>
-            <option value="Playsation 5">Playsation 5</option>
-            <option value="Nintendo Wii">Nintendo Wii</option>
-            <option value="Nintendo Switch">Nintendo Switch</option>
-            <option value="Xbox One">Xbox One</option>
-            <option value="Pc">Pc</option>
-        </select><Br>
+        <label>
+            platform:
+            <select name="platform">
+                <option value="Playsation 4">Playsation 4</option>
+                <option value="Playsation 5">Playsation 5</option>
+                <option value="Nintendo Wii">Nintendo Wii</option>
+                <option value="Nintendo Switch">Nintendo Switch</option>
+                <option value="Xbox One">Xbox One</option>
+                <option value="Pc">Pc</option>
+            </select>
+        </label><Br>
         <input type="submit" value="Opslaan">
     </form>
 
