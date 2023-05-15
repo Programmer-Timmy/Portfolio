@@ -12,7 +12,7 @@ if (isset($_SESSION['discard_after']) && time() > $_SESSION['discard_after']) {
     session_start();
 }
 
-include 'autoLoader.php';
+require'autoLoader.php';
 
 $dbhost = 'localhost';
 $dbuser = 'root';
