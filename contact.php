@@ -11,25 +11,8 @@
 </head>
 
 <body class="no-transition">
-    <header>
-        <div class="container">
-
-            <h1 class="logo">Tim van der Kloet</h1>
-            <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
-                <i class="fa fa-bars"></i>
-            </a>
-            <nav id="nav">
-                <ul>
-                    <li><a href="home">Home</a></li>
-                    <li><a href="about">About</a></li>
-                    <li><a href="contact">Contact</a></li>
-                    <li><a href="projects">Projects</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="welcome">
+<?php require_once 'header.html' ?>
+<div class="welcome">
         <h1>Contact</h1>
     </div>
 
