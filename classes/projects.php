@@ -225,7 +225,7 @@ class Projects {
             date_add($date, date_interval_create_from_date_string("6 day"));
             $max_date = date_format($date, "y-m-d");
             if ($max_date <= date("y-m-d")) {
-                echo Database::delete('projecten', $result['id']);
+                Database::delete('projecten', $result['id']);
 
                 $path = (substr($result['path'], 0, -6));
                 unlink($result['img']);
@@ -243,7 +243,6 @@ class Projects {
                                 }
                             }
                         }
-                        reset($objects);
                         rmdir($path);
                     }
                 }

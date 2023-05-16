@@ -1,6 +1,6 @@
 <?php
 
-echo Projects::delete();
+Projects::delete();
 if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }

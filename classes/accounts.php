@@ -125,7 +125,7 @@ class accounts
                 date_add($date, date_interval_create_from_date_string("6 day"));
                 $max_date = date_format($date, "y-m-d");
                 if($max_date <= date("y-m-d")){
-                    echo Database::delete('account', $result['id']);
+                    Database::delete('account', $result['id']);
                 }
 
         }

@@ -1,9 +1,5 @@
 <?php
-error_reporting(E_ALL ^ E_DEPRECATED);
-error_reporting(E_ERROR | E_PARSE);
-set_exception_handler(function($exception){
-   echo "<h1> oops er is iets fout gegaan</h1>";
-});
+require_once 'settings.php';
 session_start();
 
 if (isset($_SESSION['discard_after']) && time() > $_SESSION['discard_after']) {

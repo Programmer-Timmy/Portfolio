@@ -39,23 +39,23 @@ $games = $stmt->fetchAll(pdo::FETCH_OBJ);
     <container class="d-flex p-5 justify-content-between align-content-start flex-wrap ">
 
         <?php
-        foreach ($games as $games) {
+        foreach ($games as $game) {
 
             echo "
                 <div class='game'>
                     <header class='d-flex p-2 justify-content-between'>
-                    <h1> $games->naam</h1>
+                    <h1> $game->naam</h1>
                     <div>
-                        <a href='edit.php?id=$games->id' class='btn btn-info'>...</a>
-                        <a class='btn btn-danger' href='index.php?id=$games->id' onclick='return confirm(\"weet je het zeker?\");'>X</a>
+                        <a href='edit.php?id=$game->id' class='btn btn-info'>...</a>
+                        <a class='btn btn-danger' href='index.php?id=$game->id' onclick='return confirm(\"weet je het zeker?\");'>X</a>
                     </div>
                     </header>
                     <h3 class='d-flex p-2'>
-                        Genre: $games->genre <br><br>                  
-                        Leeftijd: $games->leeftijd <br><br>
-                        Prijs: $games->prijs <br><br>
-                        Online multiplayer: $games->online <br><br>
-                        Platform: $games->platform
+                        Genre: $game->genre <br><br>                  
+                        Leeftijd: $game->leeftijd <br><br>
+                        Prijs: $game->prijs <br><br>
+                        Online multiplayer: $game->online <br><br>
+                        Platform: $game->platform
                     </h3>
                 </div>";
         }
