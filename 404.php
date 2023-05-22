@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<?php require_once 'header.html' ?>
+<?php require_once 'includes/header.html' ?>
 <div class="welcome">
     <h1>Oops! Page Not Found</h1>
     <h2 style="font-size: 20px; color: #777777">We're sorry, but the page you are looking for could not be found.</h2>

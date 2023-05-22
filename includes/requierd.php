@@ -1,5 +1,5 @@
 <?php
-require_once 'settings.php';
+require_once 'settings/settings.php';
 session_start();
 
 if (isset($_SESSION['discard_after']) && time() > $_SESSION['discard_after']) {
@@ -8,7 +8,7 @@ if (isset($_SESSION['discard_after']) && time() > $_SESSION['discard_after']) {
     session_start();
 }
 
-require'autoLoader.php';
+require 'autoLoader.php';
 
 $dbhost = 'localhost';
 $dbuser = 'root';

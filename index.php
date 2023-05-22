@@ -1,5 +1,5 @@
 <?php
-include 'requierd.php';
+include 'includes/requierd.php';
 $filename = substr($_SERVER['REDIRECT_URL'], 1);
 if($filename == ''){
 	$filename = 'home';

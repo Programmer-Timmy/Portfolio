@@ -11,7 +11,7 @@
 </head>
 
 <body class="no-transition">
-<?php require_once 'header.html' ?>
+<?php require_once 'includes/header.html' ?>
 <div class="welcome">
         <h1>About me!</h1>
     </div>
