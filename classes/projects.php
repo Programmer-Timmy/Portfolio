@@ -46,7 +46,7 @@ class Projects {
      * @param $title
      * @param $pgit
      * @param $plink
-     * @return array
+     * @return array|string
      */
 
     public static function addproject($file, $title, $pgit, $plink) {
@@ -132,7 +132,7 @@ class Projects {
      * @param $target_file
      * @param $imageFileType
      * @param $files
-     * @return array/false
+     * @return array|false
      */
     private static function uploadimg($target_dir, $target_file, $imageFileType, $files) {
         $uploadOk = 1;
@@ -169,7 +169,7 @@ class Projects {
      * @param $name
      * @param $continue
      * @param $files
-     * @return array/false
+     * @return array|false
      */
 
     private static function uploadzip($filename, $name, $continue, $files) {

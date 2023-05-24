@@ -21,6 +21,9 @@ body {
   background: $secondary;
   font-family: "Work Sans", sans-serif;
   font-weight: 800;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   .no-transition * {
     -webkit-transition: none !important;
@@ -131,19 +134,18 @@ header {
 // * homepage * //
 .welcome {
   text-align: center;
-  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
 
   h1 {
     color: $primary;
-    margin-top: 30px;
-    margin-bottom: 30px;
     font-size: 420%;
     text-align: center;
   }
 }
 
 .borderp {
-  height: 58vh;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -325,6 +327,66 @@ header {
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+}
+
+footer {
+  margin-top: auto;
+  bottom: 0;
+  width: 100%;
+  background-color: $dark-gary;
+  padding: 10px 0;
+  text-align: center;
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+
+    .footer-menu {
+      list-style: none;
+      margin: 0 0 5px 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+
+      li {
+        margin: 0 10px ;
+
+        a {
+          text-decoration: none;
+          color: #111;
+          font-weight: bold;
+          transition: 1s;
+
+          &:hover {
+            color: $black;
+          }
+        }
+      }
+    }
+
+    .social-links {
+      list-style: none;
+      margin: 5px 0 0 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+
+      li {
+        margin: 0 5px;
+
+        a {
+          color: #111;
+          text-decoration: none;
+          font-size: 25px;
+          transition: 1s;
+
+          &:hover{
+            color: $black;
+          }
+        }
+      }
     }
   }
 }

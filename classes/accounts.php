@@ -8,7 +8,7 @@ class accounts
     /**
      * @function
      * loading the accounts that are not deleted
-     * @return array/false
+     * @return array|false
      */
     public static function loadaccounts()
     {
@@ -24,7 +24,7 @@ class accounts
      * @function
      * loading 1 account
      * @param $id
-     * @return array/false
+     * @return array|false
      */
     public static function loadaccount($id = 0)
     {

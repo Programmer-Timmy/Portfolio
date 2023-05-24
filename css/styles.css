@@ -1,2 +1,560 @@
-@import"https://fonts.googleapis.com/css?family=Work+Sans:400,600";html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:"";content:none}table{border-collapse:collapse;border-spacing:0}html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}*{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}body{margin:0;padding:0;background:#222;font-family:"Work Sans",sans-serif;font-weight:800}body .no-transition *{-webkit-transition:none !important;-moz-transition:none !important;-ms-transition:none !important;-o-transition:none !important;transition:none !important}header{background:#55d6aa}header::after{content:"";display:table;clear:both}header .container{width:100%;margin:0;height:57px}header .logo{float:left;padding:10px;margin:6px;margin-left:20px;font-size:15px;border:5px double rgba(34,34,34,.73);color:#222}header .icon{position:absolute;text-decoration:none;color:#222;text-align:center;font-size:30px;right:20px;top:14px;z-index:10}header nav{position:absolute;top:20px;width:100%;display:none}header nav.active{display:block}header nav ul{padding-top:40px;list-style:none;height:100%;padding-bottom:20px}header nav li{z-index:9;padding-top:20px;position:relative;background-color:#222}header nav li:last-child{padding-bottom:20px}header nav a{color:#55d6aa;margin-left:20px;text-decoration:none;text-transform:uppercase;font-size:14px}header nav a:hover{color:#55d6aa}header nav a:hover::before{width:100%}header nav a::before{content:"";display:block;height:5px;background-color:#55d6aa;position:absolute;top:0;width:0;transition:all ease-in-out 250ms}  .welcome{text-align:center;margin:auto}  .welcome h1{color:#55d6aa;margin-top:30px;margin-bottom:30px;font-size:420%;text-align:center}  .borderp{height:58vh;display:flex;flex-wrap:wrap;flex-direction:row;justify-content:space-around}  .borderp .project-home{flex-direction:row;margin:2vh;margin-bottom:10vh;border:#444 1px solid;height:50vh;width:50vh;border-radius:2vh;text-align:center}  .borderp .project-home h1{margin-top:10px;font-size:30px;color:#55d6aa}  .borderp .project-home .github{font-size:30px;color:#55d6aa;margin-right:10px}  .borderp .img-size{object-fit:cover;width:100%;height:100%;border-radius:2vh}  .border{padding:15px}  .border div:first-child{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:center}  .border #foto{border:#fff 1px solid;height:40vh;width:30vh;border-radius:50%;margin-left:10vh;margin-right:10vh;object-fit:cover}  .border #tekst{padding-top:20px;line-height:20px}  .border #tekst h2{color:#55d6aa}  .border #tekst h3{color:#777}  .border #tekst h3 a{text-decoration:underline;color:#55d6aa;transition:font-size 1s}  .border #tekst h3 a:hover{font-size:16.5px}  .border-re{padding:15px}  .border-re div:last-child{padding-top:20px;display:flex;flex-wrap:nowrap;flex-direction:column;align-items:center}  .border-re #about-tekst{width:100%}  .border-re #about-tekst h2{color:#55d6aa}  .border-re #about-tekst h3{color:#777;line-height:21px}  .border-re #about-tekst h3 a{text-decoration:underline;color:#55d6aa;transition:font-size 1s}  .border-re #about-tekst h3 a:hover{font-size:16.5px}  .border-re #foto{border:#fff 1px solid;height:40vh;width:30vh;border-radius:50%;margin-left:10vh;margin-right:10vh;object-fit:cover}  #hicon1{margin-right:40px}  .hicon2{margin-right:80px}  .admin{color:#777;font-size:25px;margin-top:20px;text-align:center}  .admin table{margin:auto;text-align:start}  .admin table .ticon{text-align:center}  .admin table th{color:#55d6aa;padding:10px}  .admin input{margin:10px;background-color:#333;border-radius:10px;color:#55d6aa;border-width:0;height:30px}  .admin .checkbox{height:13px}  .admin a{margin-left:10px;text-decoration:none;color:#cf1b1b}  .admin a:hover{text-decoration:underline}@media only screen and (min-width: 560px){.icon{display:none}  header .container{width:100%;float:left;height:57px}  header .container .logo{float:left;padding:10px;margin:6px;margin-left:40px;font-size:15px;border:5px double rgba(34,34,34,.73);color:#222}  header .container nav{position:absolute;left:220px;width:auto;top:-20px;display:block}  header .container nav ul{list-style:none}  header .container nav li{padding:0;float:left;position:relative;background-color:#55d6aa}  header .container nav li:last-child{padding-bottom:0}  header .container nav a{color:#333;text-decoration:none;text-transform:uppercase;font-size:14px}  header .container nav a:hover{color:#333}  header .container nav a:hover::before{width:75%;bottom:0}  header .container nav a::before{margin-left:20px;display:block;height:5px;background-color:#333;position:absolute;top:30px;width:0
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }  .border{padding:20px;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-around;align-items:center}  .border-re{padding:20px;display:flex;flex-direction:row-reverse;flex-wrap:nowrap;justify-content:space-around;align-items:center}  #hicon1{margin-right:0}  .hicon2{margin-right:40px}}@media only screen and (min-width: 1140px){header .container .logo{margin-left:190px}  header .container nav{left:360px}  header .container nav ul li{margin-left:20px}  .border,.border-re{padding:90px}}
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #222;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 800;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body .no-transition * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
+header {
+  background: #55d6aa;
+}
+header::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+header .container {
+  width: 100%;
+  margin: 0;
+  height: 57px;
+}
+header .logo {
+  float: left;
+  padding: 10px;
+  margin: 6px;
+  margin-left: 20px;
+  font-size: 15px;
+  border: 5px double rgba(34, 34, 34, 0.73);
+  color: #222;
+}
+header .icon {
+  position: absolute;
+  text-decoration: none;
+  color: #222;
+  text-align: center;
+  font-size: 30px;
+  right: 20px;
+  top: 14px;
+  z-index: 10;
+}
+header nav {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: none;
+}
+header nav.active {
+  display: block;
+}
+header nav ul {
+  padding-top: 40px;
+  list-style: none;
+  height: 100%;
+  padding-bottom: 20px;
+}
+header nav li {
+  z-index: 9;
+  padding-top: 20px;
+  position: relative;
+  background-color: #222;
+}
+header nav li:last-child {
+  padding-bottom: 20px;
+}
+header nav a {
+  color: #55d6aa;
+  margin-left: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+header nav a:hover {
+  color: #55d6aa;
+}
+header nav a:hover::before {
+  width: 100%;
+}
+header nav a::before {
+  content: "";
+  display: block;
+  height: 5px;
+  background-color: #55d6aa;
+  position: absolute;
+  top: 0;
+  width: 0;
+  transition: all ease-in-out 250ms;
+}
+
+.welcome {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.welcome h1 {
+  color: #55d6aa;
+  font-size: 420%;
+  text-align: center;
+}
+
+.borderp {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.borderp .project-home {
+  /* ! Also for Project page */
+  flex-direction: row;
+  margin: 2vh;
+  margin-bottom: 10vh;
+  border: #444 1px solid;
+  height: 50vh;
+  width: 50vh;
+  border-radius: 2vh;
+  text-align: center;
+}
+.borderp .project-home h1 {
+  margin-top: 10px;
+  font-size: 30px;
+  color: #55d6aa;
+}
+.borderp .project-home .github {
+  font-size: 30px;
+  color: #55d6aa;
+  margin-right: 10px;
+}
+.borderp .img-size {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 2vh;
+}
+
+.border {
+  padding: 15px;
+}
+.border div:first-child {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.border #foto {
+  border: white 1px solid;
+  height: 40vh;
+  width: 30vh;
+  border-radius: 50%;
+  margin-left: 10vh;
+  margin-right: 10vh;
+  object-fit: cover;
+}
+.border #tekst {
+  padding-top: 20px;
+  line-height: 20px;
+}
+.border #tekst h2 {
+  color: #55d6aa;
+}
+.border #tekst h3 {
+  color: #777;
+}
+.border #tekst h3 a {
+  text-decoration: underline;
+  color: #55d6aa;
+  transition: font-size 1s;
+}
+.border #tekst h3 a:hover {
+  font-size: 16.5px;
+}
+
+.border-re {
+  padding: 15px;
+}
+.border-re div:last-child {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center;
+}
+.border-re #about-tekst {
+  width: 100%;
+}
+.border-re #about-tekst h2 {
+  color: #55d6aa;
+}
+.border-re #about-tekst h3 {
+  color: #777;
+  line-height: 21px;
+}
+.border-re #about-tekst h3 a {
+  text-decoration: underline;
+  color: #55d6aa;
+  transition: font-size 1s;
+}
+.border-re #about-tekst h3 a:hover {
+  font-size: 16.5px;
+}
+.border-re #foto {
+  border: white 1px solid;
+  height: 40vh;
+  width: 30vh;
+  border-radius: 50%;
+  margin-left: 10vh;
+  margin-right: 10vh;
+  object-fit: cover;
+}
+
+/* ! projects */
+#hicon1 {
+  margin-right: 40px;
+}
+
+.hicon2 {
+  margin-right: 80px;
+}
+
+.admin {
+  color: #777;
+  font-size: 25px;
+  margin-top: 20px;
+  text-align: center;
+}
+.admin table {
+  margin: auto;
+  text-align: start;
+}
+.admin table .ticon {
+  text-align: center;
+}
+.admin table th {
+  color: #55d6aa;
+  padding: 10px;
+}
+.admin input {
+  margin: 10px;
+  background-color: #333;
+  border-radius: 10px;
+  color: #55d6aa;
+  border-width: 0;
+  height: 30px;
+}
+.admin .checkbox {
+  height: 13px;
+}
+.admin a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #cf1b1b;
+}
+.admin a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  margin-top: auto;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  padding: 10px 0;
+  text-align: center;
+}
+footer .container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+footer .container .footer-menu {
+  list-style: none;
+  margin: 0 0 5px 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+footer .container .footer-menu li {
+  margin: 0 10px;
+}
+footer .container .footer-menu li a {
+  text-decoration: none;
+  color: #111;
+  font-weight: bold;
+  transition: 1s;
+}
+footer .container .footer-menu li a:hover {
+  color: black;
+}
+footer .container .social-links {
+  list-style: none;
+  margin: 5px 0 0 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+footer .container .social-links li {
+  margin: 0 5px;
+}
+footer .container .social-links li a {
+  color: #111;
+  text-decoration: none;
+  font-size: 25px;
+  transition: 1s;
+}
+footer .container .social-links li a:hover {
+  color: black;
+}
+
+@media only screen and (min-width: 560px) {
+  .icon {
+    display: none;
+  }
+  header .container {
+    width: 100%;
+    float: left;
+    height: 57px;
+  }
+  header .container .logo {
+    float: left;
+    padding: 10px;
+    margin: 6px;
+    margin-left: 40px;
+    font-size: 15px;
+    border: 5px double rgba(34, 34, 34, 0.73);
+    color: #222;
+  }
+  header .container nav {
+    position: absolute;
+    left: 220px;
+    width: auto;
+    top: -20px;
+    display: block;
+  }
+  header .container nav ul {
+    list-style: none;
+  }
+  header .container nav li {
+    padding: 0;
+    float: left;
+    position: relative;
+    background-color: #55d6aa;
+  }
+  header .container nav li:last-child {
+    padding-bottom: 0;
+  }
+  header .container nav a {
+    color: #333;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  header .container nav a:hover {
+    color: #333;
+  }
+  header .container nav a:hover::before {
+    width: 75%;
+    bottom: 0;
+  }
+  header .container nav a::before {
+    margin-left: 20px;
+    display: block;
+    height: 5px;
+    background-color: #333;
+    position: absolute;
+    top: 30px;
+    width: 0;
+  }
+  .border {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .border-re {
+    padding: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #hicon1 {
+    margin-right: 0;
+  }
+  .hicon2 {
+    margin-right: 40px;
+  }
+}
+@media only screen and (min-width: 1140px) {
+  header .container .logo {
+    margin-left: 190px;
+  }
+  header .container nav {
+    left: 360px;
+  }
+  header .container nav ul li {
+    margin-left: 20px;
+  }
+  .border, .border-re {
+    padding: 90px;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

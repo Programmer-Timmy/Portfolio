@@ -1,5 +1,5 @@
 <?php
-require_once '../requierd.php';
+require_once '../includes/requierd.php';
 if ($_POST) {
     $return = accounts::Login($_POST['password'], $_POST['username']);
     echo $return;
