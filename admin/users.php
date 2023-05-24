@@ -72,15 +72,21 @@ if (isset($_GET["id"])) {
         <thead>
             <tr>
                 <th>Username</th>
+                <th>Admin</th>
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
         </thead><tbody>";
 
         foreach ($results as $result) {
+            $admin = 'yes';
+            if($result['admin'] == 0){
+                $admin = 'no';
+            }
             echo "
             <tr>
                 <td>" . $result['username'] . "</td>
+                <td class='ticon'>$admin</td>
                 <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
                 <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
             </tr>";

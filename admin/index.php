@@ -29,11 +29,11 @@ if ($_POST) {
             </form></div>';
     } else {
         require_once 'header.php';
-        echo '
-        <div class="welcome">
-        <h1>Welcome!</h1>
+        echo "
+        <div class=\"welcome\">
+        <h1>Welcome " . $_SESSION['name'] . "!</h1>
         <h2>You are logged in!</h2>
-        </div>';
+        </div>";
         accounts::delete();
     }
     ?>

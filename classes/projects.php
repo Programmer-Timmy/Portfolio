@@ -85,12 +85,7 @@ class Projects {
         } elseif (!$zip) {
             return"<script>alert('Your .zip file was not uploaded and unpacked');</script>";
         } else {
-            $git = "";
-            if ($pgit == "") {
-                $git = "empty";
-            } else {
-                $git = $pgit;
-            }
+            $git = $pgit;
 
             $link = "";
             if ($plink == "") {

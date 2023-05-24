@@ -49,6 +49,7 @@ if (isset($_GET["id"])) {
         <thead>
             <tr>
                 <th>Name</th>
+                <th>GitHub</th>
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
@@ -56,9 +57,15 @@ if (isset($_GET["id"])) {
         ;
 
         foreach ($results as $result) {
+            $git = 'yes';
+            if(!$result['github']){
+                $git = 'no';
+            }
+
             echo "
             <tr>
                 <td>" . $result['name'] . "</td>
+                <td class='ticon'>$git</td>
                 <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
                 <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
             </tr>

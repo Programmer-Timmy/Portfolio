@@ -58,6 +58,7 @@ class accounts
                 }
                 database::update('account', $account['id'], ['attempts'], 's', [0]);
                 $_SESSION['access'] = $account['id'];
+                $_SESSION['name'] = $account['username'];
                 $_SESSION['discard_after'] = time() + 1800;
                 
             } else {
