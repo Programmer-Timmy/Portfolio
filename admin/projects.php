@@ -5,8 +5,7 @@ if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    $return = Projects::update($_GET['edit'], $_POST['name'], $_POST['github']);
-    echo $return;
+    Projects::update($_GET['edit'], $_POST['name'], $_POST['github']);
     header('location: projects');
 }
 
