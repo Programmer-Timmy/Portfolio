@@ -2,7 +2,8 @@
 /**
  * projects
  */
-class Projects {
+class Projects
+{
 
     /**
      * @function
@@ -11,7 +12,8 @@ class Projects {
      * @return array|false
      */
 
-    public static function loadprojects($limit = 3) {
+    public static function loadprojects($limit = 3)
+    {
         $results = database::getRows('projecten', ['removed'], 's', [0], 'date DESC LIMIT ' . $limit);
         if ($results) {
             return $results;
@@ -27,7 +29,8 @@ class Projects {
      * @return array|false|mixed
      */
 
-    public static function loadproject($id = 0) {
+    public static function loadproject($id = 0)
+    {
         if ($id == 0) {
             return false;
         }
@@ -49,7 +52,8 @@ class Projects {
      * @return array|string
      */
 
-    public static function addproject($file, $title, $pgit, $plink) {
+    public static function addproject($file, $title, $pgit, $plink)
+    {
         $continue = false;
         if ($plink !== "") {
             $continue = true;
@@ -72,7 +76,7 @@ class Projects {
         } elseif (!$continue) {
             return '<script>alert("Your uploaded file is not a zip");</script>';
         }
-        
+
         $img = Projects::uploadimg($target_dir, $target_file, $imageFileType, $file);
         if ($filename and $name) {
             $zip = Projects::uploadzip($filename, $name, $continue, $file);
@@ -81,9 +85,9 @@ class Projects {
         }
 
         if (!$img) {
-            return"<script>alert('Sorry, there was an error uploading your img');</script>";
+            return "<script>alert('Sorry, there was an error uploading your img');</script>";
         } elseif (!$zip) {
-            return"<script>alert('Your .zip file was not uploaded and unpacked');</script>";
+            return "<script>alert('Your .zip file was not uploaded and unpacked');</script>";
         } else {
             $git = $pgit;
 
@@ -104,7 +108,8 @@ class Projects {
      * @param $name
      * @param $github
      */
-    public static function update($id = 0, $name, $github){
+    public static function update($id = 0, $name, $github)
+    {
         database::update('projecten', $id, ['name', 'github'], 'ss', [$name, $github]);
     }
 
@@ -116,7 +121,8 @@ class Projects {
      * @param $link
      * @param $file
      */
-    public static function dbaddproject($name, $git, $link, $file) {
+    public static function dbaddproject($name, $git, $link, $file)
+    {
         Database::add('projecten', ['name', 'github', 'path', 'img', 'date'], 'sssss', [$name, $git, $link, $file, date('y-m-d h:m:s')]);
     }
 
@@ -129,7 +135,8 @@ class Projects {
      * @param $files
      * @return array|false
      */
-    private static function uploadimg($target_dir, $target_file, $imageFileType, $files) {
+    private static function uploadimg($target_dir, $target_file, $imageFileType, $files)
+    {
         $uploadOk = 1;
 
         // Check if image file is a actual image or fake image
@@ -167,10 +174,11 @@ class Projects {
      * @return array|false
      */
 
-    private static function uploadzip($filename, $name, $continue, $files) {
+    private static function uploadzip($filename, $name, $continue, $files)
+    {
         if ($files["zip_file"]["name"]) {
             $source = $files["zip_file"]["tmp_name"];
-            $type   = $files["zip_file"]["type"];
+            $type = $files["zip_file"]["type"];
 
             $accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
             foreach ($accepted_types as $mime_type) {
@@ -186,7 +194,7 @@ class Projects {
                 $target_path = '../project/' . $filename;
                 if (move_uploaded_file($source, $target_path)) {
                     $zip = new ZipArchive();
-                    $x   = $zip->open($target_path);
+                    $x = $zip->open($target_path);
                     if ($x === true) {
                         $zip->extractTo('../project/');
                         $zip->close();
@@ -205,7 +213,8 @@ class Projects {
      * Softdelete the project
      * @param $id
      */
-    public static function sdeleteproject($id){
+    public static function sdeleteproject($id)
+    {
         database::update('projecten', $id, ['removed'], 's', [1]);
     }
 
@@ -213,7 +222,8 @@ class Projects {
      * @function
      * full delete project
      */
-    public static function delete(){
+    public static function delete()
+    {
         $results = database::getRows('projecten', ['removed'], 's', [1]);
         foreach ($results as $result) {
             $date = date_create($result['updated']);
@@ -241,19 +251,13 @@ class Projects {
                         rmdir($path);
                     }
                 }
+
                 deleteDirectory($path);
             }
-           
-        }
-            
+
         }
 
-        
-
-   
-    
-       
-        
-    
+    }
 }
+
 

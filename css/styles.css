@@ -553,7 +553,7 @@ footer .container .social-links li a:hover {
     margin-left: 20px;
   }
   .border, .border-re {
-    padding: 90px;
+    padding: 90px 90px 0 90px;
   }
 }
 
