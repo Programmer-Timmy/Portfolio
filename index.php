@@ -11,7 +11,4 @@ if (file_exists($filename.'.php')) {
 }else{
   	include('404.php');
 }
-
-
-
 require_once "includes/footer.html";

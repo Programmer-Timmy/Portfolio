@@ -65,8 +65,8 @@ class Projects
             $continue = strtolower($name[1]) == 'zip' ? true : false;
         }
 
-        $target_dir = "../img/";
-        $target_file = $target_dir . basename($file["img"]["name"]);
+        $target_dir = "img/";
+        $target_file = $target_dir . uniqid() . "_" . basename($file["img"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         if (
             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -191,7 +191,7 @@ class Projects
             if (!$continue) {
                 return "<script>alert('The file you are trying to upload is not a .zip file. Please try again');</script>";
             } else {
-                $target_path = '../project/' . $filename;
+                $target_path = 'project/' . $filename;
                 if (move_uploaded_file($source, $target_path)) {
                     $zip = new ZipArchive();
                     $x = $zip->open($target_path);
