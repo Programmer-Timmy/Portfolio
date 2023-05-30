@@ -15,7 +15,7 @@ if ($_POST) {
     }
 
     $pass = password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT);
-
+    global $con;
     $stmt = $con->prepare("INSERT INTO gebruiker(voornaam, achternaam, isadmin, gebruikersnaam, wachtwoord, id_land) VALUES(?,?,?,?,?,?)");
     $stmt->bindValue(1, $_POST["voornaam"]);
     $stmt->bindValue(2, $_POST["achternaam"]);

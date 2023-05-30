@@ -6,6 +6,8 @@ if (!isset($_SESSION['id'])) {
 
 require_once 'database.php';
 
+global $con;
+
 $stmt = $con->prepare("SELECT * FROM gebruiker WHERE id_gebruiker = ?");
 $stmt->bindValue(1, $_SESSION['id']);
 $stmt->execute();

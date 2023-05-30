@@ -6,6 +6,7 @@ require_once "../database.php";
 if (!isset($_SESSION['admin'])) {
     header('location: ../');
 }
+global $con;
 
 $stmt = $con->prepare("SELECT * FROM gebruiker WHERE id_gebruiker = ?");
 $stmt->bindValue(1, $_GET["id"]);

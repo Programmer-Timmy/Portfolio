@@ -9,8 +9,12 @@ if (!isset($_SESSION['id'])) {
 //JSON CodE
 if ($_POST) {
     if ($_POST['plus_min'] == 1) {
+        global $con;
+
         $stmt = $con->prepare("INSERT INTO inkomen(bedrag, datum, periodiek, id_inkomen_soort, id_gebruiker) VALUES (?, ?, ?, ?, ?)");
     } else {
+        global $con;
+
         $stmt = $con->prepare("INSERT INTO uitgaven(bedrag, datum, vaste_uitgaven, id_uitgaven_soort, id_gebruiker) VALUES (?, ?, ?, ?, ?)");
     }
 

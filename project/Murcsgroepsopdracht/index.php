@@ -2,6 +2,8 @@
 require_once "database.php";
 session_start();
 if ($_POST) {
+    global $con;
+
     $stmt = $con->prepare("SELECT * FROM gebruiker WHERE gebruikersnaam=?");
     $stmt->bindValue(1, $_POST["gebruikersnaam"]);
     $stmt->execute();

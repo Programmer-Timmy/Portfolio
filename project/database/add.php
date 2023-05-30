@@ -1,7 +1,7 @@
 <?php
 if ($_POST) {
     require_once "database.php";
-
+    global $con;
     $stmt = $con->prepare("INSERT INTO games(naam, genre, leeftijd, prijs, online, platform) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bindValue(1, htmlspecialchars($_POST["name"]));
     $stmt->bindValue(2, htmlspecialchars($_POST["genre"]));

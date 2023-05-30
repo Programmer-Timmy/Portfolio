@@ -5,6 +5,8 @@ require_once "database.php";
 //verwijderen
 
 if (isset($_GET["id"])) {
+    global $con;
+
     $stmt = $con->prepare("DELETE FROM games WHERE id= ?");
     $stmt->bindValue(1, $_GET["id"]);
 

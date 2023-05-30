@@ -6,6 +6,8 @@ if (!isset($_SESSION['id'])) {
 }
 
 if (isset($_GET["id"])) {
+    global $con;
+
     $stmt = $con->prepare("DELETE FROM schuld WHERE id_schuld = ?");
     $stmt->bindValue(1, $_GET["id"]);
 

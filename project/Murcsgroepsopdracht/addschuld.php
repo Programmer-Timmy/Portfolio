@@ -8,6 +8,7 @@ if (!isset($_SESSION['id'])) {
 }
 //JSON CodE
 if ($_POST) {
+    global $con;
     $stmt = $con->prepare("INSERT INTO schuld(waarde, datum_schuld, waarborg, id_schuld_soort, id_gebruiker) VALUES (?, ?, ?, ?, ?)");
 
     $stmt->bindValue(1, $_POST['waarde']);

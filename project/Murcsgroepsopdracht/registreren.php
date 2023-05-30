@@ -1,9 +1,11 @@
 <?php
 require_once "database.php";
+global $con;
 
 $stmt = $con->prepare("SELECT * FROM land");
 $stmt->execute();
 $landen = $stmt->fetchAll(PDO::FETCH_OBJ);
+
 
 if ($_POST) {
     $pass = password_hash($_POST["wachtwoord"], PASSWORD_DEFAULT);

@@ -6,6 +6,8 @@ require_once "../database.php";
 if (!isset($_SESSION['admin'])) {
     header('location: ../');
 }
+global $con;
+
 $stmt = $con->prepare("
         SELECT 
             gebruiker.id_gebruiker, 

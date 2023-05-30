@@ -7,12 +7,16 @@ if (!isset($_SESSION['id'])) {
 }
 
 if (isset($_GET["id"])) {
+    global $con;
+
     $stmt = $con->prepare("DELETE FROM inkomen WHERE idinkomen = ?");
     $stmt->bindValue(1, $_GET["id"]);
 
     $stmt->execute();
     header("location: inkomsten.php");
 }
+global $con;
+
 
 $stmt = $con->prepare("SELECT * FROM gebruiker WHERE id_gebruiker = ?");
 $stmt->bindValue(1, $_SESSION['id']);

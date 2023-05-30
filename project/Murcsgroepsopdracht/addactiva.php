@@ -8,6 +8,7 @@ if (!isset($_SESSION['id'])) {
 
 //JSON CodE
 if ($_POST) {
+    global $con;
     $stmt = $con->prepare("INSERT INTO activa(waarde, datum_aankoop, materieel, id_activa_soort, id_gebruiker) VALUES (?, ?, ?, ?, ?)");
 
     $stmt->bindValue(1, $_POST['waarde']);
