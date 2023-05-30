@@ -46,56 +46,56 @@ $tests = $stmt->fetchAll(PDO::FETCH_OBJ);
 </head>
 
 <body>
-    <div class="header">
-        <a href="#default" class="logo"> <?php
-                                            echo ("Hallo $gebruiker->voornaam $gebruiker->achternaam");
+<div class="header">
+    <a href="#default" class="logo"> <?php
+        echo("Hallo $gebruiker->voornaam $gebruiker->achternaam");
 
-                                            ?></a>
-        <div class="header-right">
-            <a href="portal.php">Home</a>
-            <a href="inkomsten.php">Inkomsten</a>
-            <a href="uitgaven.php">Uitgaven</a>
-            <a class="active" href="schulden.php">Schulden</a>
-            <a href="activa.php">Activa</a>
-            <a href="logout.php">Uitloggen</a>
+        ?></a>
+    <div class="header-right">
+        <a href="portal.php">Home</a>
+        <a href="inkomsten.php">Inkomsten</a>
+        <a href="uitgaven.php">Uitgaven</a>
+        <a class="active" href="schulden.php">Schulden</a>
+        <a href="activa.php">Activa</a>
+        <a href="logout.php">Uitloggen</a>
 
 
-        </div>
     </div>
+</div>
 
-    <border style="padding: 100px">
-        <h1>Schuld <a href="addschuld.php" class="btn btn-primary">+</a></h1>
-        <table class='table table-striped'>
-            <thead class='table-dark>'>
-                <th>Bedrag</th>
-                <th>Datum</th>
-                <th>Soort</th>
-                <th>Waarborg</th>
-                <th></th>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($tests as $test) {
-                    $newDate = date("d-m-Y", strtotime($test->datum_schuld));  
-                echo "<tr>";
-                echo "<td>€" . str_replace('.', ',', $test->waarde) . "</td>";
-                echo "<td>$newDate</td>";
-                echo "<td>$test->soort</td>";
+<border style="padding: 100px">
+    <h1>Schuld <a href="addschuld.php" class="btn btn-primary">+</a></h1>
+    <table class='table table-striped'>
+        <thead class='table-dark>'>
+        <th>Bedrag</th>
+        <th>Datum</th>
+        <th>Soort</th>
+        <th>Waarborg</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($tests as $test) {
+            $newDate = date("d-m-Y", strtotime($test->datum_schuld));
+            echo "<tr>";
+            echo "<td>€" . str_replace('.', ',', $test->waarde) . "</td>";
+            echo "<td>$newDate</td>";
+            echo "<td>$test->soort</td>";
 
-                    if ($test->waarborg == 1) {
-                        echo "<td>Ja</td>";
-                    } else {
-                        echo "<td>Nee</td>";
-                    }
+            if ($test->waarborg == 1) {
+                echo "<td>Ja</td>";
+            } else {
+                echo "<td>Nee</td>";
+            }
 
-                    echo "<td><a class='btn btn-danger' href='schulden.php?id=$test->id_schuld' onclick='return confirm(\"Weet je het zeker?\");'>X</a></td>";
+            echo "<td><a class='btn btn-danger' href='schulden.php?id=$test->id_schuld' onclick='return confirm(\"Weet je het zeker?\");'>X</a></td>";
 
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </border>
+            echo "</tr>";
+        }
+        ?>
+        </tbody>
+    </table>
+</border>
 
 </body>
 

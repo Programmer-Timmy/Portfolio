@@ -47,57 +47,55 @@ $tests = $stmt->fetchAll(PDO::FETCH_OBJ);
 </head>
 
 <body>
-    <div class="header">
-        <a href="#default" class="logo"> <?php
-                                            echo ("Hallo $gebruiker->voornaam $gebruiker->achternaam");
+<div class="header">
+    <a href="#default" class="logo"> <?php
+        echo("Hallo $gebruiker->voornaam $gebruiker->achternaam");
 
-                                            ?></a>
-        <div class="header-right">
-            <a href="portal.php">Home</a>
-            <a href="inkomsten.php">Inkomsten</a>
-            <a class="active" href="uitgaven.php">Uitgaven</a>
-            <a href="schulden.php">Schulden</a>
-            <a href="activa.php">Activa</a>
-            <a href="logout.php">Uitloggen</a>
-        </div>
+        ?></a>
+    <div class="header-right">
+        <a href="portal.php">Home</a>
+        <a href="inkomsten.php">Inkomsten</a>
+        <a class="active" href="uitgaven.php">Uitgaven</a>
+        <a href="schulden.php">Schulden</a>
+        <a href="activa.php">Activa</a>
+        <a href="logout.php">Uitloggen</a>
     </div>
+</div>
 
-    <br>
+<br>
 
 
+<h1>Uitgaven <a href="transactie.php" class="btn btn-primary">+</a></h1>
+<table class='table table-striped'>
+    <thead class='table-dark>'>
+    <th>Bedrag</th>
+    <th>Datum</th>
+    <th>Soort</th>
+    <th>Periodiek</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <?php
+    foreach ($tests as $test) {
+        $newDate = date("d-m-Y", strtotime($test->datum));
+        echo "<tr>";
+        echo "<td>€" . str_replace('.', ',', $test->bedrag) . "</td>";
+        echo "<td>$newDate</td>";
+        echo "<td>$test->soort</td>";
 
+        if ($test->vaste_uitgaven == 1) {
+            echo "<td>Ja</td>";
+        } else {
+            echo "<td>Nee</td>";
+        }
 
-    <h1>Uitgaven <a href="transactie.php" class="btn btn-primary">+</a></h1>
-    <table class='table table-striped'>
-        <thead class='table-dark>'>
-            <th>Bedrag</th>
-            <th>Datum</th>
-            <th>Soort</th>
-            <th>Periodiek</th>
-            <th></th>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($tests as $test) {
-                $newDate = date("d-m-Y", strtotime($test->datum));  
-                echo "<tr>";
-                echo "<td>€" . str_replace('.', ',', $test->bedrag) . "</td>";
-                echo "<td>$newDate</td>";
-                echo "<td>$test->soort</td>";
+        echo "<td><a class='btn btn-danger' href='uitgaven.php?id=$test->id_uitgaven' onclick='return confirm(\"Weet je het zeker?\");'>X</a></td>";
 
-                if ($test->vaste_uitgaven == 1) {
-                    echo "<td>Ja</td>";
-                } else {
-                    echo "<td>Nee</td>";
-                }
-
-                echo "<td><a class='btn btn-danger' href='uitgaven.php?id=$test->id_uitgaven' onclick='return confirm(\"Weet je het zeker?\");'>X</a></td>";
-
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
+        echo "</tr>";
+    }
+    ?>
+    </tbody>
+</table>
 
 
 </body>

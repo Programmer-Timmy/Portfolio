@@ -1,7 +1,9 @@
 <?php
 
-class DatabaseUtilities {
-    public static function getAllowedColumns($queryTables = array(), $allowedColumns = array()) {
+class DatabaseUtilities
+{
+    public static function getAllowedColumns($queryTables = array(), $allowedColumns = array())
+    {
         if (count($queryTables)) {
             foreach ($queryTables as $table) {
                 $query = "SHOW COLUMNS FROM " . $table;
@@ -16,7 +18,8 @@ class DatabaseUtilities {
         return $allowedColumns;
     }
 
-    public static function getAllowedFilters($allowedFilters = array()) {
+    public static function getAllowedFilters($allowedFilters = array())
+    {
         $allowedFilters[] = '=';
         $allowedFilters[] = '!=';
         $allowedFilters[] = '>';
@@ -29,13 +32,15 @@ class DatabaseUtilities {
         return $allowedFilters;
     }
 
-    public static function getAllowedSortDirections($allowedSortDirections = array()) {
+    public static function getAllowedSortDirections($allowedSortDirections = array())
+    {
         $allowedSortDirections[] = 'ASC';
         $allowedSortDirections[] = 'DESC';
         return $allowedSortDirections;
     }
 
-    public static function generateWhereClause($filterArray = array(), $allowedColumns, $allowedFilters, $customFilters = array()) {
+    public static function generateWhereClause($filterArray = array(), $allowedColumns, $allowedFilters, $customFilters = array())
+    {
         global $returnErrors;
 
         $filterQueries = array();
@@ -49,7 +54,7 @@ class DatabaseUtilities {
                     in_array($filter['comparisonType'], $allowedFilters)
                 ) {
                     if (
-                    array_key_exists($filter['property'], $customFilters)
+                        array_key_exists($filter['property'], $customFilters)
                     ) {
                         $customFilter = $customFilters[$filter['property']];
 
@@ -103,7 +108,8 @@ class DatabaseUtilities {
         }
     }
 
-    public static function generateOrderByClause($sortItemsArray, $allowedColumns, $allowedSortDirections) {
+    public static function generateOrderByClause($sortItemsArray, $allowedColumns, $allowedSortDirections)
+    {
         $sortItems = array();
 
         foreach ($sortItemsArray as $sortItemArray) {

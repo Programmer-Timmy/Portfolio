@@ -2,11 +2,11 @@
 <html lang="nl">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Gamecontroler</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css"/>
     <script>
         function up() {
             var cols = document.getElementById("fliegtuig");
@@ -83,6 +83,7 @@
 
             x.innerText = "X= " + nieuwCoordinaat;
         }
+
         document.onkeydown = function upp(e) {
             if (e.which == 38) {
                 up();
@@ -98,18 +99,18 @@
 </head>
 
 <body>
-    <div class="controler">
-      <div class="controlersecmentup" id="up" onmousedown="up()"></div>
-      <div class="controlersecmentup" id="down" onmousedown="down()"></div>
-      <div class="controlersecmentleft" id="left" onclick="left()"></div>
-      <div class="controlersecmentleft" id="right" onclick="right()"></div>
-    </div>
+<div class="controler">
+    <div class="controlersecmentup" id="up" onmousedown="up()"></div>
+    <div class="controlersecmentup" id="down" onmousedown="down()"></div>
+    <div class="controlersecmentleft" id="left" onclick="left()"></div>
+    <div class="controlersecmentleft" id="right" onclick="right()"></div>
+</div>
 
-    <div id="fliegtuig"></div>
+<div id="fliegtuig"></div>
 
-    <div id="xycords">
-      <div id="xcords">X= 0</div>
-      <div id="ycords">Y= 0</div>
-    </div>
-  </body>
+<div id="xycords">
+    <div id="xcords">X= 0</div>
+    <div id="ycords">Y= 0</div>
+</div>
+</body>
 </html>

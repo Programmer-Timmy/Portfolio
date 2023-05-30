@@ -21,21 +21,21 @@ if ($_POST) {
 </head>
 
 <body>
-    <?php require_once 'header.php'; ?>
-    <div class="admin">
-        <form method="post" enctype="multipart/form-data">
+<?php require_once 'header.php'; ?>
+<div class="admin">
+    <form method="post" enctype="multipart/form-data">
 
-            <label for="name">Naam van het project:</label><input type="text" name="name" id="name" required><br>
+        <label for="name">Naam van het project:</label><input type="text" name="name" id="name" required><br>
 
-            <label for="git">Github link:</label><input type="text" name="git" id="git"><br>
-            Select image to upload:
-            <input type="file" name="img" id="img" accept="image/png, image/jpeg" required><br>
-            Select your project or link:
-            <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip"><label
+        <label for="git">Github link:</label><input type="text" name="git" id="git"><br>
+        Select image to upload:
+        <input type="file" name="img" id="img" accept="image/png, image/jpeg" required><br>
+        Select your project or link:
+        <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip"><label
                 for="link"></label><input type="text" name="link" id="link"><br>
-            <input type="submit" value="Toevoegen" name="submit">
-        </form>
-    </div>
+        <input type="submit" value="Toevoegen" name="submit">
+    </form>
+</div>
 </body>
 <script src="../js/nav.js"></script>
 </html>

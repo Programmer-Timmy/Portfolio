@@ -5,9 +5,9 @@ spl_autoload_register(function ($className) {
     $classFile = str_replace($baseNamespace, '', $className);
     $classFile = str_replace('\\', '/', $classFile);
 
-    if($_SERVER["REQUEST_URI"] === '/admin/'){
+    if ($_SERVER["REQUEST_URI"] === '/admin/') {
         $filePath = '../classes/' . $classFile . '.php';
-    }else{
+    } else {
         $filePath = './classes/' . $classFile . '.php';
     }
     if (file_exists($filePath)) {

@@ -45,7 +45,8 @@ if ($_POST) {
 <html>
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script>
         function myFunction() {
             var x = document.getElementById("LaatZien");
@@ -59,40 +60,43 @@ if ($_POST) {
 </head>
 
 <body>
-    <form method="post" style="padding-top: 100px; padding-left: 500px; padding-right: 500px;">
-        <div class="mb-3">
-            voornaam: <input type="text" name="voornaam" class="form-control" value="<?php echo $gebruiker->voornaam ?>"><br>
-        </div>
-        <div class="mb-3">
-            achernaam: <input type="text" name="achternaam" class="form-control" value="<?php echo $gebruiker->achternaam ?>"><br>
-        </div>
-        <div class="mb-3">
-            Admin? <input type="checkbox" name="isadmin" type="checkbox" class="form-check-input" <?php
-                                                                                                    if ($gebruiker->isadmin == '1') {
-                                                                                                        echo "checked";
-                                                                                                    } ?>><br>
-        </div>
-        <div class="mb-3">
-            Gebruikersnaam: <input type="text" name="gebruikersnaam" class="form-control" value="<?php echo $gebruiker->gebruikersnaam ?>"><br>
-        </div>
-        wachtwoord: <input type="password" name="wachtwoord" class="form-control" id="LaatZien"><br>
-        <input type="checkbox" onclick="myFunction()">Laat wachtwoord zien
-        <div class="mb-3">
-            land:
-            <select id="id_land" name="id_land" class="form-select">
-                <?php
-                foreach ($landen as $land) {
-                    if ($land->id_land == $gebruiker->id_land) {
-                        echo "<option selected value='$land->id_land'>$land->naam</option>";
-                    } else {
-                        echo "<option value='$land->id_land'>$land->naam</option>";
-                    }
+<form method="post" style="padding-top: 100px; padding-left: 500px; padding-right: 500px;">
+    <div class="mb-3">
+        voornaam: <input type="text" name="voornaam" class="form-control"
+                         value="<?php echo $gebruiker->voornaam ?>"><br>
+    </div>
+    <div class="mb-3">
+        achernaam: <input type="text" name="achternaam" class="form-control"
+                          value="<?php echo $gebruiker->achternaam ?>"><br>
+    </div>
+    <div class="mb-3">
+        Admin? <input type="checkbox" name="isadmin" type="checkbox" class="form-check-input" <?php
+        if ($gebruiker->isadmin == '1') {
+            echo "checked";
+        } ?>><br>
+    </div>
+    <div class="mb-3">
+        Gebruikersnaam: <input type="text" name="gebruikersnaam" class="form-control"
+                               value="<?php echo $gebruiker->gebruikersnaam ?>"><br>
+    </div>
+    wachtwoord: <input type="password" name="wachtwoord" class="form-control" id="LaatZien"><br>
+    <input type="checkbox" onclick="myFunction()">Laat wachtwoord zien
+    <div class="mb-3">
+        land:
+        <select id="id_land" name="id_land" class="form-select">
+            <?php
+            foreach ($landen as $land) {
+                if ($land->id_land == $gebruiker->id_land) {
+                    echo "<option selected value='$land->id_land'>$land->naam</option>";
+                } else {
+                    echo "<option value='$land->id_land'>$land->naam</option>";
                 }
-                ?>
-            </select>
-        </div>
-        <input class="btn btn-primary" type="submit">
-    </form>
+            }
+            ?>
+        </select>
+    </div>
+    <input class="btn btn-primary" type="submit">
+</form>
 
 </body>
 

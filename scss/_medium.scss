@@ -18,12 +18,14 @@ header {
       border: 5px double rgba(34, 34, 34, 0.73);
       color: $secondary;
     }
+
     nav {
       position: absolute;
       left: 220px;
       width: auto;
       top: -20px;
       display: block;
+
       ul {
         list-style: none;
       }
@@ -33,6 +35,7 @@ header {
         float: left;
         position: relative;
         background-color: $primary;
+
         &:last-child {
           padding-bottom: 0;
         }
@@ -46,11 +49,13 @@ header {
 
         &:hover {
           color: $dark-gary;
+
           &::before {
             width: 75%;
             bottom: 0;
           }
         }
+
         &::before {
           margin-left: 20px;
           display: block;
@@ -83,10 +88,10 @@ header {
   align-items: center;
 }
 
-#hicon1{
+#hicon1 {
   margin-right: 0;
 }
 
-.hicon2{
+.hicon2 {
   margin-right: 40px;
 }

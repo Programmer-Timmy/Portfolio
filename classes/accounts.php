@@ -1,4 +1,5 @@
 <?php
+
 /**
  * accouts
  */
@@ -46,12 +47,13 @@ class accounts
      * @param $username
      * @return string|void
      */
-    public static function Login($password, $username){
+    public static function Login($password, $username)
+    {
         $account = database::getRow('account', ['username', 'removed'], 'ss', [$username, 0]);
-        if ($account['attempts'] < 3){
+        if ($account['attempts'] < 3) {
             if (!isset($account['password'])) {
                 return '<script>alert("Wrong username or password")</script>';
-                
+
             } elseif (password_verify($password, $account['password'])) {
                 if ($account['admin'] == 1) {
                     $_SESSION['admin'] = $account['id'];
@@ -60,7 +62,7 @@ class accounts
                 $_SESSION['access'] = $account['id'];
                 $_SESSION['name'] = $account['username'];
                 $_SESSION['discard_after'] = time() + 1800;
-                
+
             } else {
                 $attempts = $account['attempts'];
                 $attempts++;
@@ -80,12 +82,13 @@ class accounts
      * @param $admin
      * @return string
      */
-    public static function add($password, $username, $admin){
-        if ($password !== " "){
-        $hashpw = password_hash($password, PASSWORD_DEFAULT);
+    public static function add($password, $username, $admin)
+    {
+        if ($password !== " ") {
+            $hashpw = password_hash($password, PASSWORD_DEFAULT);
         }
-        $retrun = database::add('account', ['password', 'username', 'admin'], 'sss', [$hashpw, $username, isset($admin)? 1 : 0]);
-        if($retrun['success']) {
+        $retrun = database::add('account', ['password', 'username', 'admin'], 'sss', [$hashpw, $username, isset($admin) ? 1 : 0]);
+        if ($retrun['success']) {
             return '<script>if(confirm("Account toegevoegt")) document.location = "users";</script>';
         } else {
             return '<script>alert("Toevoegen niet gelukt")</script>';
@@ -100,11 +103,12 @@ class accounts
      * @param $username
      * @param $admin
      */
-    public static function update($id, $password, $username, $admin){
+    public static function update($id, $password, $username, $admin)
+    {
         if ($_POST["password"] == "") {
             $result = accounts::loadaccount($id);
             $password = $result['password'];
-        }else {
+        } else {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         }
         database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
@@ -115,19 +119,21 @@ class accounts
      * soft delete account
      * @param $id
      */
-    public static function sdelete($id){
+    public static function sdelete($id)
+    {
         database::update('account', $id, ['removed'], 's', [1]);
     }
 
-    public static function delete(){
+    public static function delete()
+    {
         $results = database::getRows('account', ['removed'], 's', [1]);
-        foreach($results as $result){
-                $date = date_create($result['updated']);
-                date_add($date, date_interval_create_from_date_string("6 day"));
-                $max_date = date_format($date, "y-m-d");
-                if($max_date <= date("y-m-d")){
-                    Database::delete('account', $result['id']);
-                }
+        foreach ($results as $result) {
+            $date = date_create($result['updated']);
+            date_add($date, date_interval_create_from_date_string("6 day"));
+            $max_date = date_format($date, "y-m-d");
+            if ($max_date <= date("y-m-d")) {
+                Database::delete('account', $result['id']);
+            }
 
         }
 

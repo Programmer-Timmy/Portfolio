@@ -28,12 +28,12 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
-    <?php
-    require_once 'header.php';
-    if (isset($_GET['edit'])) {
-        $result = Projects::loadproject($_GET['edit']);
+<?php
+require_once 'header.php';
+if (isset($_GET['edit'])) {
+    $result = Projects::loadproject($_GET['edit']);
 
-        echo '<div class="admin">
+    echo '<div class="admin">
         <form method="post" enctype="multipart/form-data">
             Naam van het project:
             <input type="text" name="name" id="name" value="' . $result['name'] . '" required><br>
@@ -42,9 +42,9 @@ if (isset($_GET["id"])) {
             <input type="submit" value="Update" name="submit">
             </div>
         </form>';
-    } else {
-        $results = Projects::loadprojects(100);
-        echo "<div class='admin'><table>
+} else {
+    $results = Projects::loadprojects(100);
+    echo "<div class='admin'><table>
         <thead>
             <tr>
                 <th>Name</th>
@@ -52,16 +52,15 @@ if (isset($_GET["id"])) {
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
-        </thead><tbody>"
-        ;
+        </thead><tbody>";
 
-        foreach ($results as $result) {
-            $git = 'yes';
-            if(!$result['github']){
-                $git = 'no';
-            }
+    foreach ($results as $result) {
+        $git = 'yes';
+        if (!$result['github']) {
+            $git = 'no';
+        }
 
-            echo "
+        echo "
             <tr>
                 <td>" . $result['name'] . "</td>
                 <td class='ticon'>$git</td>
@@ -69,10 +68,10 @@ if (isset($_GET["id"])) {
                 <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
             </tr>
             ";
-        }
-        echo '</tbody></table></div>';
     }
-    ?>
+    echo '</tbody></table></div>';
+}
+?>
 </body>
 <script src="../js/nav.js"></script>
 </html>

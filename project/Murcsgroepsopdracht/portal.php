@@ -12,8 +12,6 @@ $stmt->execute();
 $gebruiker = $stmt->fetchObject();
 
 
-
-
 //saldo berekenen
 //inkomsten ophalen
 $stmt = $con->prepare("SELECT bedrag,idinkomen FROM inkomen WHERE id_gebruiker = ?");
@@ -27,7 +25,6 @@ $inkomstentotaal = 0;
 foreach ($inkomen as $inkomst) {
     $inkomstentotaal = $inkomst->bedrag + $inkomstentotaal;
 }
-
 
 
 //Uitgaven ophalen
@@ -64,32 +61,29 @@ $saldo = $inkomstentotaal - $uitgaventotaal
 </head>
 
 <body>
-    <div class="header">
-        <a href="#default" class="logo"> <?php
-                                            echo ("Hallo $gebruiker->voornaam $gebruiker->achternaam");
-                                            
-                                            ?>
-        </a>
-        <div class="header-right">
-            <a class="active" href="portal.php">Home</a>
-            <a href="inkomsten.php">Inkomsten</a>
-            <a href="uitgaven.php">Uitgaven</a>
-            <a href="schulden.php">Schulden</a>
-            <a href="activa.php">Activa</a>
-            <a href="logout.php">Uitloggen</a>
-        </div>
+<div class="header">
+    <a href="#default" class="logo"> <?php
+        echo("Hallo $gebruiker->voornaam $gebruiker->achternaam");
+
+        ?>
+    </a>
+    <div class="header-right">
+        <a class="active" href="portal.php">Home</a>
+        <a href="inkomsten.php">Inkomsten</a>
+        <a href="uitgaven.php">Uitgaven</a>
+        <a href="schulden.php">Schulden</a>
+        <a href="activa.php">Activa</a>
+        <a href="logout.php">Uitloggen</a>
     </div>
+</div>
 
-    <br><br>
+<br><br>
 
-    <!-- saldo  -->
-    <H1 style="text-align: center;">SALDO</H1>
-    </p>
+<!-- saldo  -->
+<H1 style="text-align: center;">SALDO</H1>
+</p>
 
-    <h2 style="text-align: center;">$<?php echo $saldo; ?></h2>
-
-
-
+<h2 style="text-align: center;">$<?php echo $saldo; ?></h2>
 
 
 </body>

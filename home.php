@@ -14,30 +14,30 @@ $projects = Projects::loadprojects("3");
 </head>
 
 <body>
-    <?php require_once 'includes/header.html' ?>
-    <div class="welcome">
-        <h1>Welcome!</h1>
-    </div>
-    <div class="borderp">
-        <?php
-        if ($projects) {
-            foreach ($projects as $project) {
-                echo "
+<?php require_once 'includes/header.html' ?>
+<div class="welcome">
+    <h1>Welcome!</h1>
+</div>
+<div class="borderp">
+    <?php
+    if ($projects) {
+        foreach ($projects as $project) {
+            echo "
             <div class='project-home'>
                 <a href=" . $project['path'] . "><img src=" . $project['img'] . " class='img-size' alt=''></a>";
 
-                if ($project['github'] !== "empty") {
-                    echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>" . $project['name'] . "</h1>";
-                } else {
-                    echo "<h1>" . $project['name'] . "</h1>";
-                }
-                echo "</div>";
+            if ($project['github']) {
+                echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>" . $project['name'] . "</h1>";
+            } else {
+                echo "<h1>" . $project['name'] . "</h1>";
             }
-        } else {
-            echo "<h1>Helaas geen projecten</h1>";
+            echo "</div>";
         }
-        ?>
-    </div>
+    } else {
+        echo "<h1>Helaas geen projecten</h1>";
+    }
+    ?>
+</div>
 </body>
 <script src="js/nav.js"></script>
 

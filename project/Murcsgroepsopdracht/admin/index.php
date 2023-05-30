@@ -48,8 +48,6 @@ if (isset($_GET["id"])) {
 }
 
 
-
-
 ?>
 <html>
 
@@ -70,42 +68,42 @@ if (isset($_GET["id"])) {
 <body>
 
 
-    <a class="btn btn-primary m-3" href="gebruiker_toevoegen.php">Toevoegen</a>
-    <a class="btn btn-primary m-3" href="/logout.php">Uitloggen</a>
+<a class="btn btn-primary m-3" href="gebruiker_toevoegen.php">Toevoegen</a>
+<a class="btn btn-primary m-3" href="/logout.php">Uitloggen</a>
 
-    <table class="table table-striped" style="text-align: center;">
-        <thead class="thead-dark">
-            <tr>
-                <th>Voornaam</th>
-                <th>Achternaam</th>
-                <th>Admin?</th>
-                <th>gebruikersnaam</th>
-                <th>Land</th>
-                <th>wijzigen</th>
-                <th>Verwijder</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
+<table class="table table-striped" style="text-align: center;">
+    <thead class="thead-dark">
+    <tr>
+        <th>Voornaam</th>
+        <th>Achternaam</th>
+        <th>Admin?</th>
+        <th>gebruikersnaam</th>
+        <th>Land</th>
+        <th>wijzigen</th>
+        <th>Verwijder</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
 
-            foreach ($gebruikers as $gebruiker) {
-                echo "<tr>";
-                echo "<td>$gebruiker->voornaam</td>";
-                echo "<td>$gebruiker->achternaam</td>";
-                if ($gebruiker->isadmin == 1) {
-                    echo "<td>True</td>";
-                } else {
-                    echo "<td>False</td>";
-                };
-                echo "<td>$gebruiker->gebruikersnaam</td>";
-                echo "<td>$gebruiker->land</td>";
-                echo "<td><a href='wijzig_gebruiker.php?id=$gebruiker->id_gebruiker' class='btn btn-primary'>...</a></td>";
-                echo "<td><a href='../admin?id=$gebruiker->id_gebruiker' onclick='return confirm(\"weet je het zeker?\")'; class='btn btn-danger'>X</a></td>";
-                echo "</tr>";
-            }
+    foreach ($gebruikers as $gebruiker) {
+        echo "<tr>";
+        echo "<td>$gebruiker->voornaam</td>";
+        echo "<td>$gebruiker->achternaam</td>";
+        if ($gebruiker->isadmin == 1) {
+            echo "<td>True</td>";
+        } else {
+            echo "<td>False</td>";
+        };
+        echo "<td>$gebruiker->gebruikersnaam</td>";
+        echo "<td>$gebruiker->land</td>";
+        echo "<td><a href='wijzig_gebruiker.php?id=$gebruiker->id_gebruiker' class='btn btn-primary'>...</a></td>";
+        echo "<td><a href='../admin?id=$gebruiker->id_gebruiker' onclick='return confirm(\"weet je het zeker?\")'; class='btn btn-danger'>X</a></td>";
+        echo "</tr>";
+    }
 
-            ?>
-        </tbody>
+    ?>
+    </tbody>
 
 </body>
 

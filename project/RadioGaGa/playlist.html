@@ -19,81 +19,81 @@
 </head>
 
 <body>
-    <nav>
-        
-        <!-- begin! -->
+<nav>
+
+    <!-- begin! -->
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="playlist.html">Playlist</a></li>
+        <li><a href="formulier.html">Formulier</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+<div id="Logo">
+</div>
+<main>
+    <div id="albums">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="playlist.html">Playlist</a></li>
-            <li><a href="formulier.html">Formulier</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <div id="Logo">
-    </div>
-    <main>
-        <div id="albums">
-            <ul>
-                <li>
-                    <a onclick="document.getElementById('album-1').style.display='block';
+            <li>
+                <a onclick="document.getElementById('album-1').style.display='block';
                             document.getElementById('album-2').style.display='none';
                             document.getElementById('album-3').style.display='none';">
-                        <img src="images/album-1.jpg" alt=""></a>
-                </li>
-                <li>
-                    <a onclick="document.getElementById('album-1').style.display='none';
+                    <img src="images/album-1.jpg" alt=""></a>
+            </li>
+            <li>
+                <a onclick="document.getElementById('album-1').style.display='none';
                             document.getElementById('album-2').style.display='block';
                             document.getElementById('album-3').style.display='none';">
-                        <img src="images/album-2.jpg" alt=""></a>
-                </li>
-                <li>
-                    <a onclick="document.getElementById('album-1').style.display='none';
+                    <img src="images/album-2.jpg" alt=""></a>
+            </li>
+            <li>
+                <a onclick="document.getElementById('album-1').style.display='none';
                             document.getElementById('album-2').style.display='none';
                             document.getElementById('album-3').style.display='block';">
-                        <img src="images/album-3.jpg" alt=""></a>
-                </li>
-            </ul>
+                    <img src="images/album-3.jpg" alt=""></a>
+            </li>
+        </ul>
+    </div>
+    <!-- einde albums -->
+    <div id="multimedia">
+        <div id="album-1" style='display:block'>
+            <video controls width="60%" preload poster="images/album-1.jpg">
+                <source src="videos/trailer.webm" type="video/webm"/>
+                <source src="videos/trailer.ogv" type="video/ogv"/>
+                <source src="videos/trailer.mp4" type="video/mp4"/>
+            </video>
         </div>
-        <!-- einde albums -->
-        <div id="multimedia">
-            <div id="album-1" style='display:block'>
-                <video controls width="60%" preload poster="images/album-1.jpg">
-                        <source src="videos/trailer.webm" type="video/webm" />
-                        <source src="videos/trailer.ogv" type="video/ogv" />
-                        <source src="videos/trailer.mp4" type="video/mp4" />
-                    </video>
-            </div>
-            <div id="album-2" style='display:none'>
-                <video controls width="60%" preload poster="images/album-2.jpg">
-                        <source src="videos/trailer.webm" type="video/webm" />
-                        <source src="videos/trailer.ogv" type="video/ogv" />
-                        <source src="videos/trailer.mp4" type="video/mp4" />
-                    </video>
-            </div>
-            <div id="album-3" style='display:none'>
-                <video controls width="60%" preload poster="images/album-3.jpg">
-                        <source src="videos/trailer.webm" type="video/webm" />
-                        <source src="videos/trailer.ogv" type="video/ogv" />
-                        <source src="videos/trailer.mp4" type="video/mp4" />
-                    </video>
-            </div>
+        <div id="album-2" style='display:none'>
+            <video controls width="60%" preload poster="images/album-2.jpg">
+                <source src="videos/trailer.webm" type="video/webm"/>
+                <source src="videos/trailer.ogv" type="video/ogv"/>
+                <source src="videos/trailer.mp4" type="video/mp4"/>
+            </video>
         </div>
-        <div id="background"></div>
-    </main>
-    <div id="pager">
-        <div id="vorige">
-            <a href="index.html"> &lt;</a>
-        </div>
-        <div id="volgende">
-            <a href="formulier.html"> &gt;</a>
+        <div id="album-3" style='display:none'>
+            <video controls width="60%" preload poster="images/album-3.jpg">
+                <source src="videos/trailer.webm" type="video/webm"/>
+                <source src="videos/trailer.ogv" type="video/ogv"/>
+                <source src="videos/trailer.mp4" type="video/mp4"/>
+            </video>
         </div>
     </div>
-    <footer>
-        <a href="#top"><img src="images/twitter.png" alt="x"></a>
-        <a href="#top"><img src="images/youtube.png" alt="x"></a>
-        <a href="#top"><img src="images/facebook.png" alt="x"></a>
-        <p>Coppyright &copy; 2021 <i>Ontworpen door: Kloet, Tim van der.</i> Alle rechten voorbehouden.</p>
-    </footer>
+    <div id="background"></div>
+</main>
+<div id="pager">
+    <div id="vorige">
+        <a href="index.html"> &lt;</a>
+    </div>
+    <div id="volgende">
+        <a href="formulier.html"> &gt;</a>
+    </div>
+</div>
+<footer>
+    <a href="#top"><img src="images/twitter.png" alt="x"></a>
+    <a href="#top"><img src="images/youtube.png" alt="x"></a>
+    <a href="#top"><img src="images/facebook.png" alt="x"></a>
+    <p>Coppyright &copy; 2021 <i>Ontworpen door: Kloet, Tim van der.</i> Alle rechten voorbehouden.</p>
+</footer>
 </body>
 
 </html>
