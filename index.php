@@ -11,4 +11,12 @@ if (file_exists($filename . '.php')) {
 } else {
     include('404.php');
 }
-require_once "includes/footer.html";
+$currentURL = $_SERVER['REQUEST_URI'];
+$projectName = "project/"; // Replace with your project name
+
+$urlParts = parse_url($currentURL);
+$path = $urlParts['path'];
+
+if (strpos($path, $projectName) == false) {
+    require_once "includes/footer.html";
+}
