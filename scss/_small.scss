@@ -54,8 +54,7 @@ header {
   .logo {
     float: left;
     padding: 10px;
-    margin: 6px;
-    margin-left: 20px;
+    margin: 6px 6px 6px 20px;
     font-size: 15px;
     border: 5px double rgba(34, 34, 34, 0.73);
     color: $secondary;
@@ -77,10 +76,6 @@ header {
     top: 20px;
     width: 100%;
     display: none;
-
-    &.active {
-      display: block;
-    }
 
     ul {
       padding-top: 40px;
@@ -154,8 +149,7 @@ header {
   .project-home {
     /* ! Also for Project page */
     flex-direction: row;
-    margin: 2vh;
-    margin-bottom: 10vh;
+    margin: 2vh 2vh 10vh;
     border: $gary 1px solid;
     height: 50vh;
     width: 50vh;

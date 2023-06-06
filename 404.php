@@ -1,3 +1,4 @@
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,7 @@
 </head>
 
 <body>
-<?php require_once 'includes/header.html' ?>
+<?php require_once 'includes/Header.html' ?>
 <div class="welcome">
     <h1>Oops! Page Not Found</h1>
     <h2 style="font-size: 20px; color: #777777">We're sorry, but the page you are looking for could not be found.</h2>
@@ -19,7 +20,4 @@
 </div>
 </body>
 <script src="js/nav.js"></script>
-
 </html>
-
-

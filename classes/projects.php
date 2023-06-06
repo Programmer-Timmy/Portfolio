@@ -50,7 +50,7 @@ class Projects
      * @param $title
      * @param $pgit
      * @param $plink
-     * @return array|string
+     * @return string|void
      */
 
     public static function addproject($file, $title, $pgit, $plink)
@@ -140,7 +140,7 @@ class Projects
     {
         $uploadOk = 1;
 
-        // Check if image file is a actual image or fake image
+        // Check if image file is actual image or fake image
         if (isset($_POST["submit"])) {
             $check = getimagesize($files["img"]["tmp_name"]);
             if ($check !== false) {

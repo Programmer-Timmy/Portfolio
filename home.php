@@ -14,7 +14,7 @@ $projects = Projects::loadprojects("3");
 </head>
 
 <body>
-<?php require_once 'includes/header.html' ?>
+<?php require_once 'includes/Header.html' ?>
 <div class="welcome">
     <h1>Welcome!</h1>
 </div>

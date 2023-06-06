@@ -76,7 +76,7 @@ class accounts
 
     /**
      * @function
-     * adding a account
+     * adding account
      * @param $password
      * @param $username
      * @param $admin

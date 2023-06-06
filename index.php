@@ -17,6 +17,6 @@ $projectName = "project/"; // Replace with your project name
 $urlParts = parse_url($currentURL);
 $path = $urlParts['path'];
 
-if (strpos($path, $projectName) == false) {
+if (!strpos($path, $projectName)) {
     require_once "includes/footer.html";
 }
