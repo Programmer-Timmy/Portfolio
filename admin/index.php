@@ -1,6 +1,5 @@
 <?php
-require('../requierd.php');
-
+require_once '../includes/requierd.php';
 if ($_POST) {
     $return = accounts::Login($_POST['password'], $_POST['username']);
     echo $return;
@@ -9,7 +8,6 @@ if ($_POST) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,26 +18,26 @@ if ($_POST) {
 </head>
 
 <body>
-    <?php
-    if (!isset($_SESSION['access'])) {
-        echo '<div class="admin"><form action="" method="post">
+<?php
+if (!isset($_SESSION['access'])) {
+    echo '<div class="admin"><form action="" method="post">
             username<br>
             <input type="text" name="username" id="username" required><br>
             password<br>
             <input type="password" name="password" id="password" required><br>
             <input type="submit" value="Inlogen">
             </form></div>';
-    } else {
-        require_once 'header.php';
-        echo '
-        <div class="welcome">
-        <h1>Welcome!</h1>
+} else {
+    require_once 'header.php';
+    echo "
+        <div class=\"welcome\">
+        <h1>Welcome " . $_SESSION['name'] . "!</h1>
         <h2>You are logged in!</h2>
-        </div>';
-    }
-    ?>
+        </div>";
+    accounts::delete();
+}
+?>
 
 </body>
 <script src="../js/nav.js"></script>
-
 </html>

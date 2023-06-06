@@ -1,114 +1,114 @@
-    <!DOCTYPE html>
-    <html lang="nl">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        </script>
-        <title>Document</title>
-        
-    </head>
-    <body>
-        <div id="circle"></div>
-        <button class="button" id="een">opdracht 1</button>
-        <button class="button" id="twee">opdracht 2</button>
-        <button class="button" id="drie">opdracht 3</button>
-        <button class="button" id="vier">opdracht 4</button>
-        <button class="button" id="5">opdracht 5</button>
-        <button class="button" id="6">opdracht 6</button>
-        <button class="button" id="7">opdracht 7</button>
-        <button class="button" id="8">opdracht 8</button>
-        <button class="button" id="9">opdracht 9</button>
-        <!-- <button class="button" id="10">opdracht 10</button> -->
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </script>
+    <title>Document</title>
 
-        <script type="text/javascript">
-            // opdracht 1
-            $(document).ready(function () {
-                $("#een").click(function () {
-                    alert("Hallo JQuery");
-                });
-            });
-            // opdracht 2
-            $(document).ready(function() {
-                $("#twee").click(function() {
-                    $("#circle").css("background-color","yellow");
-                });
-            });
-            // opdracht 3
-            $(document).ready(function() {
-                $("#drie").click(function() {
-                    $("#circle").text("Cirkel");
-                });
-            });
-            // opdracht 4
-            $(document).ready(function () {
-                $("#vier").click(function() {
-                    $("#circle").animate({left: '1200px'});
-                });
-            });
-            // opdracht 5
-            $(document).ready(function () {
-                $("#5").click(function() {
-                    $("#circle").animate({left: '0px'});
-                });
-            });
-            // opdracht 6
-            var animate = true;
-            $("#6").click(function() {
-                if (animate) {
-                    $("#circle").animate({
-                        height: '+=100px',
-                        width: '+=100px'
-                });
-                } else {
-                    $("#circle").animate({
-                        height: '-=100px',
-                        width: '-=100px'
-                    });
-                };
-            animate = !animate;
-            });
-            //opdracht 7
-            // todo naar kijken
-            var state = true;
-            
-            $("#7").click(function() {
-                if (state) {
-                    $("#circle").css({backgroundColor: 'green'});
-                } else {
-                    $("#circle").css({backgroundColor: 'yellow'});
+</head>
+<body>
+<div id="circle"></div>
+<button class="button" id="een">opdracht 1</button>
+<button class="button" id="twee">opdracht 2</button>
+<button class="button" id="drie">opdracht 3</button>
+<button class="button" id="vier">opdracht 4</button>
+<button class="button" id="5">opdracht 5</button>
+<button class="button" id="6">opdracht 6</button>
+<button class="button" id="7">opdracht 7</button>
+<button class="button" id="8">opdracht 8</button>
+<button class="button" id="9">opdracht 9</button>
+<!-- <button class="button" id="10">opdracht 10</button> -->
 
-
-                };
-            state = !state;
+<script type="text/javascript">
+    // opdracht 1
+    $(document).ready(function () {
+        $("#een").click(function () {
+            alert("Hallo JQuery");
+        });
+    });
+    // opdracht 2
+    $(document).ready(function () {
+        $("#twee").click(function () {
+            $("#circle").css("background-color", "yellow");
+        });
+    });
+    // opdracht 3
+    $(document).ready(function () {
+        $("#drie").click(function () {
+            $("#circle").text("Cirkel");
+        });
+    });
+    // opdracht 4
+    $(document).ready(function () {
+        $("#vier").click(function () {
+            $("#circle").animate({left: '1200px'});
+        });
+    });
+    // opdracht 5
+    $(document).ready(function () {
+        $("#5").click(function () {
+            $("#circle").animate({left: '0px'});
+        });
+    });
+    // opdracht 6
+    var animate = true;
+    $("#6").click(function () {
+        if (animate) {
+            $("#circle").animate({
+                height: '+=100px',
+                width: '+=100px'
             });
-            //opdracht 8
-            var staat = true;
-            
-            $("#8").click(function() {
-                if (staat) {
-                    $("#circle").animate({opacity:0})
+        } else {
+            $("#circle").animate({
+                height: '-=100px',
+                width: '-=100px'
+            });
+        }
+        animate = !animate;
+    });
+    //opdracht 7
+    var state = true;
+
+    $("#7").click(function () {
+        if (state) {
+            $("#circle").css({backgroundColor: 'green'});
+        } else {
+            $("#circle").css({backgroundColor: 'yellow'});
 
 
-                } else {
-                    $("#circle").animate({opacity:1})
+        }
+        state = !state;
+    });
+    //opdracht 8
+    var staat = true;
 
-                };
-            staat = !staat;
-            });
-            // opdracht 9
-            $("#9").dblclick(function() {
-                $("#circle").text(Math.round(Math.random()*90 + 10));
-            });
-            // opdracht 10
-            $("#circle").hover(function() {
-                $("#circle").css({backgroundColor: "blue"})
-            })
-            $("#circle").mouseout(function() {
-                $("#circle").css({backgroundColor: "gray"})
-            })
-        </script>
-    </body>
-    </html>
+    $("#8").click(function () {
+        if (staat) {
+            $("#circle").animate({opacity: 0})
+
+
+        } else {
+            $("#circle").animate({opacity: 1})
+
+        }
+        staat = !staat;
+    });
+    // opdracht 9
+    $("#9").dblclick(function () {
+        $("#circle").text(Math.round(Math.random() * 90 + 10));
+    });
+    // opdracht 10
+    $("#circle").hover(function () {
+        $("#circle").css({backgroundColor: "blue"})
+    })
+    $("#circle").mouseout(function () {
+        $("#circle").css({backgroundColor: "gray"})
+    })
+</script>
+</body>
+</html>

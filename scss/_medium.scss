@@ -12,18 +12,19 @@ header {
     .logo {
       float: left;
       padding: 10px;
-      margin: 6px;
-      margin-left: 40px;
+      margin: 6px 6px 6px 40px;
       font-size: 15px;
       border: 5px double rgba(34, 34, 34, 0.73);
       color: $secondary;
     }
+
     nav {
       position: absolute;
       left: 220px;
       width: auto;
       top: -20px;
       display: block;
+
       ul {
         list-style: none;
       }
@@ -33,6 +34,7 @@ header {
         float: left;
         position: relative;
         background-color: $primary;
+
         &:last-child {
           padding-bottom: 0;
         }
@@ -46,11 +48,13 @@ header {
 
         &:hover {
           color: $dark-gary;
+
           &::before {
             width: 75%;
             bottom: 0;
           }
         }
+
         &::before {
           margin-left: 20px;
           display: block;
@@ -58,7 +62,7 @@ header {
           background-color: $dark-gary;
           position: absolute;
           top: 30px;
-          width: 0%;
+          width: 0;
         }
       }
     }
@@ -83,10 +87,10 @@ header {
   align-items: center;
 }
 
-#hicon1{
+#hicon1 {
   margin-right: 0;
 }
 
-.hicon2{
+.hicon2 {
   margin-right: 40px;
 }

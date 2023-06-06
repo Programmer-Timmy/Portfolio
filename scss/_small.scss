@@ -14,12 +14,24 @@ html {
 // * global  * //
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
+
 body {
   margin: 0;
   padding: 0;
   background: $secondary;
   font-family: "Work Sans", sans-serif;
   font-weight: 800;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .no-transition * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+  }
 }
 
 // * header / navbar * //
@@ -36,13 +48,13 @@ header {
   .container {
     width: 100%;
     margin: 0;
+    height: 57px;
   }
 
   .logo {
     float: left;
     padding: 10px;
-    margin: 6px;
-    margin-left: 20px;
+    margin: 6px 6px 6px 20px;
     font-size: 15px;
     border: 5px double rgba(34, 34, 34, 0.73);
     color: $secondary;
@@ -58,14 +70,13 @@ header {
     top: 14px;
     z-index: 10;
   }
+
   nav {
     position: absolute;
     top: 20px;
     width: 100%;
     display: none;
-    &.active {
-      display: block;
-    }
+
     ul {
       padding-top: 40px;
       list-style: none;
@@ -78,6 +89,7 @@ header {
       padding-top: 20px;
       position: relative;
       background-color: $secondary;
+
       &:last-child {
         padding-bottom: 20px;
       }
@@ -89,12 +101,15 @@ header {
       text-decoration: none;
       text-transform: uppercase;
       font-size: 14px;
+
       &:hover {
         color: $primary;
+
         &::before {
           width: 100%;
         }
       }
+
       &::before {
         content: "";
         display: block;
@@ -103,7 +118,7 @@ header {
 
         position: absolute;
         top: 0;
-        width: 0%;
+        width: 0;
 
         transition: all ease-in-out 250ms;
       }
@@ -114,19 +129,18 @@ header {
 // * homepage * //
 .welcome {
   text-align: center;
-  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
 
   h1 {
     color: $primary;
-    margin-top: 30px;
-    margin-bottom: 30px;
     font-size: 420%;
     text-align: center;
   }
 }
 
 .borderp {
-  height: 58vh;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -135,8 +149,7 @@ header {
   .project-home {
     /* ! Also for Project page */
     flex-direction: row;
-    margin: 2vh;
-    margin-bottom: 10vh;
+    margin: 2vh 2vh 10vh;
     border: $gary 1px solid;
     height: 50vh;
     width: 50vh;
@@ -148,6 +161,7 @@ header {
       font-size: 30px;
       color: $primary;
     }
+
     .github {
       font-size: 30px;
       color: $primary;
@@ -174,6 +188,7 @@ header {
     flex-wrap: nowrap;
     align-items: center;
   }
+
   #foto {
     border: $white 1px solid;
     height: 40vh;
@@ -183,13 +198,27 @@ header {
     margin-right: 10vh;
     object-fit: cover;
   }
+
   #tekst {
     padding-top: 20px;
+    line-height: 20px;
+
     h2 {
       color: $primary;
     }
+
     h3 {
       color: $light-gray;
+
+      a {
+        text-decoration: underline;
+        color: $primary;
+        transition: font-size 1s;
+
+        &:hover {
+          font-size: 16.5px;
+        }
+      }
     }
   }
 }
@@ -206,24 +235,30 @@ header {
     flex-direction: column;
     align-items: center;
   }
+
   #about-tekst {
     width: 100%;
+
     h2 {
       color: $primary;
     }
+
     h3 {
       color: $light-gray;
-      line-height: 20px;
+      line-height: 21px;
+
       a {
-        text-decoration: none;
+        text-decoration: underline;
         color: $primary;
+        transition: font-size 1s;
 
         &:hover {
-          text-decoration: underline;
+          font-size: 16.5px;
         }
       }
     }
   }
+
   #foto {
     border: $white 1px solid;
     height: 40vh;
@@ -239,11 +274,11 @@ header {
 
 // * addmin * //
 
-#hicon1{
+#hicon1 {
   margin-right: 40px;
 }
 
-.hicon2{
+.hicon2 {
   margin-right: 80px;
 }
 
@@ -256,14 +291,17 @@ header {
   table {
     margin: auto;
     text-align: start;
+
     .ticon {
       text-align: center;
     }
+
     th {
       color: $primary;
       padding: 10px;
     }
   }
+
   input {
     margin: 10px;
     background-color: $dark-gary;
@@ -284,6 +322,66 @@ header {
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+}
+
+footer {
+  margin-top: auto;
+  bottom: 0;
+  width: 100%;
+  background-color: $dark-gary;
+  padding: 10px 0;
+  text-align: center;
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+
+    .footer-menu {
+      list-style: none;
+      margin: 0 0 5px 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+
+      li {
+        margin: 0 10px;
+
+        a {
+          text-decoration: none;
+          color: #111;
+          font-weight: bold;
+          transition: 1s;
+
+          &:hover {
+            color: $black;
+          }
+        }
+      }
+    }
+
+    .social-links {
+      list-style: none;
+      margin: 5px 0 0 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+
+      li {
+        margin: 0 5px;
+
+        a {
+          color: #111;
+          text-decoration: none;
+          font-size: 25px;
+          transition: 1s;
+
+          &:hover {
+            color: $black;
+          }
+        }
+      }
     }
   }
 }

@@ -1,5 +1,4 @@
 <?php
-require('../requierd.php');
 if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
@@ -16,7 +15,6 @@ if (isset($_GET["id"])) {
     accounts::sdelete($_GET["id"]);
     header('location: users');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -32,22 +30,22 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
-    <?php
-    require_once 'header.php';
+<?php
+require_once 'header.php';
 
-    if (!isset($_SESSION['admin'])) {
-        echo '<div class="welcome">
+if (!isset($_SESSION['admin'])) {
+    echo '<div class="welcome">
         <h1>Je hebt geen toegang</h1>
         
         </div>';
-    } elseif (isset($_GET['edit'])) {
-        $result = accounts::loadaccount($_GET['edit']);
-        $check = "";
-        if ($result['admin'] == true) {
-            $check = "checked";
-        }
+} elseif (isset($_GET['edit'])) {
+    $result = accounts::loadaccount($_GET['edit']);
+    $check = "";
+    if ($result['admin']) {
+        $check = "checked";
+    }
 
-        echo '<div class="admin">
+    echo '<div class="admin">
         <form method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" value="' . $result['username'] . '"><br>
@@ -58,43 +56,45 @@ if (isset($_GET["id"])) {
         <input type="checkbox" name="admin" id="admin" value="1" class="checkbox"' . $check . '><br>
         <input type="submit" value="Versturen">
     </form></div>';
-    } elseif (isset($_GET['add']) == 'account') {
-        echo '<div class="admin"><form method="post">
+} elseif (isset($_GET['add']) == 'account') {
+    echo '<div class="admin"><form method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" required><br>
         <label for="password">Password:</label>
-        <input type="text" name="password" required><br>
+        <input type="password" name="password" required><br>
         <label for="admin">Admin:</label>
-        <input type="hidden" value="0" name="admin">
         <input type="checkbox" name="admin" id="admin" value="1" class="checkbox"><br>
         <input type="submit" value="Versturen">
     </form></div>';
-    } else {
-        $results = accounts::loadaccounts();
-        echo "<div class='admin'><table>
+} else {
+    $results = accounts::loadaccounts();
+    echo "<div class='admin'><table>
         <thead>
             <tr>
                 <th>Username</th>
+                <th>Admin</th>
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
-        </thead>";
+        </thead><tbody>";
 
-        foreach ($results as $result) {
-            echo "<tbody>
+    foreach ($results as $result) {
+        $admin = 'yes';
+        if ($result['admin'] == 0) {
+            $admin = 'no';
+        }
+        echo "
             <tr>
                 <td>" . $result['username'] . "</td>
+                <td class='ticon'>$admin</td>
                 <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
                 <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
-            </tr>
-            </tbody>";
-        }
-
-        echo '</table></div>';
+            </tr>";
     }
-    ?>
 
+    echo '</tbody></table></div>';
+}
+?>
 </body>
 <script src="../js/nav.js"></script>
-
 </html>

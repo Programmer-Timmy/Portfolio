@@ -10,123 +10,121 @@
 </head>
 
 <body>
-    <div id="game">
-        <img id="duck" src="img/flyingduck.gif" onclick="duckhit()" />
-        <img id="grass" src="img/backgroundgrass.png" onclick="gunSound()" />
-        <img id="dog" src="img/sniffingdog.gif" />
+<div id="game">
+    <img id="duck" src="img/flyingduck.gif" onclick="duckhit()"/>
+    <img id="grass" src="img/backgroundgrass.png" onclick="gunSound()"/>
+    <img id="dog" src="img/sniffingdog.gif"/>
 
-        <div id="status">
-            <div>duckhit:
-                <span id="hit">0</span></div>
-            <div>duckmist:<span id="missed">0</span></div>
+    <div id="status">
+        <div>duckhit:
+            <span id="hit">0</span></div>
+        <div>duckmist:<span id="missed">0</span></div>
 
-        </div>
-
-        <div id="start-button" class="myButton" onclick="startGame();">Start</div>
     </div>
-    <script>
-        var dogleft = -200;
-        var duckleft = -200;
-        var flyspeed = 13;
-        var duckTop = 0;
-        var duckinterval;
-        var fallinterval;
-        var missedcount = 0;
-        var hitcount = 0;
-        var gunsound = new Audio('sounds/gunshot.mp3')
-        var ducksound = new Audio('sounds/duck.mp3')
-        var dog = document.getElementById('dog');
-        var game = document.getElementById('game');
-        var StartButton = document.getElementById("start-button");
-        var Duck = document.getElementById('duck');
 
-        function updatetxt() {
-            document.getElementById('hit').innerHTML = hitcount;
-            document.getElementById('missed').innerHTML = missedcount;
+    <div id="start-button" class="myButton" onclick="startGame();">Start</div>
+</div>
+<script>
+    var dogleft = -200;
+    var duckleft = -200;
+    var flyspeed = 13;
+    var duckTop = 0;
+    var duckinterval;
+    var fallinterval;
+    var missedcount = 0;
+    var hitcount = 0;
+    var gunsound = new Audio('sounds/gunshot.mp3')
+    var ducksound = new Audio('sounds/duck.mp3')
+    var dog = document.getElementById('dog');
+    var game = document.getElementById('game');
+    var StartButton = document.getElementById("start-button");
+    var Duck = document.getElementById('duck');
 
-        }
+    function updatetxt() {
+        document.getElementById('hit').innerHTML = hitcount;
+        document.getElementById('missed').innerHTML = missedcount;
 
-        function startGame() {
-            StartButton.style.display = "none";
-            startDogWalk();
-            startDuckFly();
-        }
+    }
 
-        function gunSound() {
-            gunsound.currentTime = 0;
-            gunsound.play();
-        }
+    function startGame() {
+        StartButton.style.display = "none";
+        startDogWalk();
+        startDuckFly();
+    }
 
-        function duckhit() {
-            hitcount++;
-            updatetxt();
-            duck.src = "img/duckshot2.png";
-            clearInterval(duckinterval);
-            gunSound();
-            var fallspeed = 3;
-            duck.style.zIndex = 1;
+    function gunSound() {
+        gunsound.currentTime = 0;
+        gunsound.play();
+    }
 
-            setTimeout(() => {
-                duck.src = "img/duckfalling.png"
+    function duckhit() {
+        hitcount++;
+        updatetxt();
+        duck.src = "img/duckshot2.png";
+        clearInterval(duckinterval);
+        gunSound();
+        var fallspeed = 3;
+        duck.style.zIndex = 1;
 
-                fallinterval = setInterval(() => {
-                    duckTop += fallspeed;
-                    duck.style.top = duckTop + "px";
+        setTimeout(() => {
+            duck.src = "img/duckfalling.png"
 
-                    fallspeed += 3;
-                    if (duckTop > 2000) {
-                        clearInterval(fallinterval);
-                        startDuckFly();
-                    }
-                }, 100);
-            }, 800);
+            fallinterval = setInterval(() => {
+                duckTop += fallspeed;
+                duck.style.top = duckTop + "px";
 
-        }
-
-        function startDuckFly() {
-            duck.style.zIndex = 3;
-            duckleft = -200;
-            duck.src = "img/flyingduck.gif"
-            Duck.style.left = duckleft + "px";
-            duckTop = Math.floor((Math.random() * 250) + 1);
-            duck.style.top = duckTop + "px";
-
-
-
-            duckinterval = setInterval(function() {
-                duckleft += flyspeed;
-                duck.style.left = duckleft + "px";
-
-                if (duckleft == 0 || duckleft % 150 == 0) {
-                    ducksound.play();
-                }
-
-                if (duckleft > game.offsetWidth) {
-                    missedcount++;
-                    updatetxt();
-                    duckleft = -200;
-                    Duck.style.left = duckleft + "px";
-                    duckTop = Math.floor((Math.random() * 250) + 1);
-                    duck.style.top = duckTop + "px";
+                fallspeed += 3;
+                if (duckTop > 2000) {
+                    clearInterval(fallinterval);
+                    startDuckFly();
                 }
             }, 100);
-        }
+        }, 800);
 
-        function startDogWalk() {
-            dog.style.left = dogleft;
+    }
 
-            setInterval(function() {
-                dogleft += 10;
-                dog.style.left = dogleft + "px"
+    function startDuckFly() {
+        duck.style.zIndex = 3;
+        duckleft = -200;
+        duck.src = "img/flyingduck.gif"
+        Duck.style.left = duckleft + "px";
+        duckTop = Math.floor((Math.random() * 250) + 1);
+        duck.style.top = duckTop + "px";
 
 
+        duckinterval = setInterval(function () {
+            duckleft += flyspeed;
+            duck.style.left = duckleft + "px";
 
-                if (dogleft > game.offsetWidth) {
-                    dogleft = -300;
-                }
-            }, 110);
-        }
-    </script>
+            if (duckleft == 0 || duckleft % 150 == 0) {
+                ducksound.play();
+            }
+
+            if (duckleft > game.offsetWidth) {
+                missedcount++;
+                updatetxt();
+                duckleft = -200;
+                Duck.style.left = duckleft + "px";
+                duckTop = Math.floor((Math.random() * 250) + 1);
+                duck.style.top = duckTop + "px";
+            }
+        }, 100);
+    }
+
+    function startDogWalk() {
+        dog.style.left = dogleft;
+
+        setInterval(function () {
+            dogleft += 10;
+            dog.style.left = dogleft + "px"
+
+
+            if (dogleft > game.offsetWidth) {
+                dogleft = -300;
+            }
+        }, 110);
+    }
+</script>
 
 </body>
 

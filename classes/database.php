@@ -3,7 +3,8 @@
 /**
  * Database
  */
-class Database {
+class Database
+{
 
     /**
      * Connect to the database
@@ -14,7 +15,8 @@ class Database {
      * @param $database
      * @return void
      */
-    public static function connect($host, $user, $password, $database) {
+    public static function connect($host, $user, $password, $database)
+    {
         global $mysqli;
         @$mysqli = new mysqli($host, $user, $password, $database);
         if ($mysqli->connect_errno > 0) {
@@ -30,20 +32,21 @@ class Database {
      * @param $values
      * @return array
      */
-    public static function executeQuery($query, $types = null, $values = null) {
+    public static function executeQuery($query, $types = null, $values = null)
+    {
         global $mysqli;
         if ($query == '') {
             return [
                 'success' => false,
-                'stage'   => 'start',
-                'query'   => $query,
-                'error'   => 'no query provided'
+                'stage' => 'start',
+                'query' => $query,
+                'error' => 'no query provided'
             ];
         }
         if ($stmt = $mysqli->prepare($query)) {
             if ($values !== null && count($values)) {
-                $types    = [$types];
-                $params   = array_merge($types, $values);
+                $types = [$types];
+                $params = array_merge($types, $values);
                 $tmpArray = [];
                 foreach ($params as $i => $value) {
                     $tmpArray[$i] = &$params[$i];
@@ -53,24 +56,24 @@ class Database {
             if (!$stmt->execute()) {
                 return [
                     'success' => false,
-                    'stage'   => 'query execution',
-                    'query'   => $query,
-                    'error'   => $mysqli->error
+                    'stage' => 'query execution',
+                    'query' => $query,
+                    'error' => $mysqli->error
                 ];
             } else {
                 $stmt->store_result();
                 @mysqli_next_result($mysqli);
                 return [
                     'success' => true,
-                    'stmt'    => $stmt
+                    'stmt' => $stmt
                 ];
             }
         } else {
             return [
                 'success' => false,
-                'stage'   => 'query preparation',
-                'query'   => $query,
-                'error'   => $mysqli->error
+                'stage' => 'query preparation',
+                'query' => $query,
+                'error' => $mysqli->error
             ];
         }
     }
@@ -81,12 +84,13 @@ class Database {
      * @param $result
      * @return array
      */
-    public static function fetch($result) {
+    public static function fetch($result)
+    {
         $array = [];
         if ($result instanceof mysqli_stmt) {
             $variables = [];
-            $data      = [];
-            $meta      = $result->result_metadata();
+            $data = [];
+            $meta = $result->result_metadata();
             while ($field = $meta->fetch_field()) {
                 $variables[] = &$data[$field->name];
             }
@@ -113,7 +117,8 @@ class Database {
      * @param $result
      * @return false|mixed
      */
-    public static function fetchRow($result) {
+    public static function fetchRow($result)
+    {
         $results = self::fetch($result);
         if (count($results)) {
             return $results[0];
@@ -131,13 +136,14 @@ class Database {
      * @param $values
      * @return array
      */
-    public static function add($table, $fields, $types, $values) {
+    public static function add($table, $fields, $types, $values)
+    {
         $fieldQueries = [];
         foreach ($fields as $field) {
             $fieldQueries[] = $field . ' = ?';
         }
         $fieldQuery = implode(',', $fieldQueries);
-        $query      = "INSERT INTO " . $table . " SET " . $fieldQuery;
+        $query = "INSERT INTO " . $table . " SET " . $fieldQuery;
         return self::executeQuery($query, $types, $values);
     }
 
@@ -151,15 +157,16 @@ class Database {
      * @param $values
      * @return array
      */
-    public static function update($table, $id, $fields, $types, $values) {
+    public static function update($table, $id, $fields, $types, $values)
+    {
         $fieldQueries = [];
         foreach ($fields as $field) {
             $fieldQueries[] = $field . ' = ?';
         }
         $fieldQuery = implode(',', $fieldQueries);
-        $types      .= 'i';
-        $values[]   = $id;
-        $query      = "UPDATE " . $table . " SET " . $fieldQuery . " WHERE id = ?";
+        $types .= 'i';
+        $values[] = $id;
+        $query = "UPDATE " . $table . " SET " . $fieldQuery . " WHERE id = ?";
         return self::executeQuery($query, $types, $values);
     }
 
@@ -173,10 +180,11 @@ class Database {
      * @param $orderBy
      * @return array|false|mixed
      */
-    public static function getRow($table, $fields = false, $types = false, $values = false, $orderBy = '') {
+    public static function getRow($table, $fields = false, $types = false, $values = false, $orderBy = '')
+    {
         if ($fields === false || $types === false || $values === false) {
-            $types      = null;
-            $values     = null;
+            $types = null;
+            $values = null;
             $fieldQuery = '1 = 1';
         } else {
             $fieldQueries = [];
@@ -189,7 +197,7 @@ class Database {
         if ($orderBy) {
             $orderByQuery = "ORDER BY " . $orderBy;
         }
-        $query  = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . " " . $orderByQuery;
+        $query = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . " " . $orderByQuery;
         $result = self::executeQuery($query, $types, $values);
         if ($result['success']) {
             return self::fetchRow($result['stmt']);
@@ -208,10 +216,11 @@ class Database {
      * @param $orderBy
      * @return array
      */
-    public static function getRows($table, $fields = false, $types = false, $values = false, $orderBy = false) {
+    public static function getRows($table, $fields = false, $types = false, $values = false, $orderBy = false)
+    {
         if ($fields === false || $types === false || $values === false) {
-            $types      = null;
-            $values     = null;
+            $types = null;
+            $values = null;
             $fieldQuery = '1 = 1';
         } else {
             $fieldQueries = [];
@@ -224,12 +233,35 @@ class Database {
         if ($orderBy) {
             $orderByQuery = " ORDER BY " . $orderBy;
         }
-        $query  = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . $orderByQuery;
+        $query = "SELECT * FROM " . $table . " WHERE " . $fieldQuery . $orderByQuery;
         $result = self::executeQuery($query, $types, $values);
         if ($result['success']) {
             return self::fetch($result['stmt']);
         } else {
             return $result;
         }
+    }
+
+    /**
+     * Update a row in the database
+     *
+     * @param $table
+     * @param $id
+     * @param $fields
+     * @param $types
+     * @param $values
+     * @return array
+     */
+    public static function delete($table, $id, $fields = false, $types = false, $values = false)
+    {
+        $fieldQueries = [];
+        foreach ($fields as $field) {
+            $fieldQueries[] = $field . ' = ?';
+        }
+        $fieldQuery = implode(',', $fieldQueries);
+        $types .= 'i';
+        $values[] = $id;
+        $query = "delete from " . $table . " WHERE id = ?";
+        return self::executeQuery($query, $types, $values);
     }
 }

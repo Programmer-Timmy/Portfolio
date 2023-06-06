@@ -1,11 +1,11 @@
 <?php
-require('../requierd.php');
+
+Projects::delete();
 if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    $return = Projects::update($_GET['edit'], $_POST['name'], $_POST['github']);
-    echo $return;
+    Projects::update($_GET['edit'], $_POST['name'], $_POST['github']);
     header('location: projects');
 }
 
@@ -13,7 +13,6 @@ if (isset($_GET["id"])) {
     projects::sdeleteproject($_GET["id"]);
     header('location: projects');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +28,12 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
-    <?php
-    require_once 'header.php';
-    if (isset($_GET['edit'])) {
-        $result = Projects::loadproject($_GET['edit']);
+<?php
+require_once 'header.php';
+if (isset($_GET['edit'])) {
+    $result = Projects::loadproject($_GET['edit']);
 
-        echo '<div class="admin">
+    echo '<div class="admin">
         <form method="post" enctype="multipart/form-data">
             Naam van het project:
             <input type="text" name="name" id="name" value="' . $result['name'] . '" required><br>
@@ -43,31 +42,36 @@ if (isset($_GET["id"])) {
             <input type="submit" value="Update" name="submit">
             </div>
         </form>';
-    } else {
-        $results = Projects::loadprojects(100);
-        echo "<div class='admin'><table>
+} else {
+    $results = Projects::loadprojects(100);
+    echo "<div class='admin'><table>
         <thead>
             <tr>
                 <th>Name</th>
+                <th>GitHub</th>
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
-        </thead>";
+        </thead><tbody>";
 
-        foreach ($results as $result) {
-            echo "<tbody>
+    foreach ($results as $result) {
+        $git = 'yes';
+        if (!$result['github']) {
+            $git = 'no';
+        }
+
+        echo "
             <tr>
                 <td>" . $result['name'] . "</td>
+                <td class='ticon'>$git</td>
                 <td class='ticon'><a href='?id=" . $result['id'] . "' onclick='return confirm(\"weet je het zeker?\");'><i class='fa-solid fa-x'></i></a></td>
                 <td class='ticon'><a href='?edit=" . $result['id'] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>
             </tr>
-            </tbody>";
-        }
-
-        echo '</table></div>';
+            ";
     }
-    ?>
+    echo '</tbody></table></div>';
+}
+?>
 </body>
 <script src="../js/nav.js"></script>
-
 </html>

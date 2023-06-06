@@ -6,46 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Contact</title>
+    <script src="https://kit.fontawesome.com/65416f0144.js" crossorigin="anonymous"></script>
+    <title>Tim van der Kloet - Contact</title>
 </head>
 
-<body>
-    <header>
-        <div class="container">
+<body class="no-transition">
+<?php require_once 'includes/Header.html' ?>
+<div class="welcome">
+    <h1>Contact</h1>
+</div>
 
-            <h1 class="logo">Tim van der Kloet</h1>
-            <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
-                <i class="fa fa-bars"></i>
-            </a>
-            <nav id="nav">
-                <ul>
-                    <li><a href="index">Home</a></li>
-                    <li><a href="about">About</a></li>
-                    <li><a href="">Contact</a></li>
-                    <li><a href="projects">Projects</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="welcome">
-        <h1>Contact</h1>
+<div class="border-re">
+    <div id="about-tekst">
+        <h2>Thank you for visiting my portfolio page! I'd be happy to connect with you using any of the following
+            methods:</h2><br>
+        <h3>
+            <ul>
+                <li>Email: <a href="mailto:Tim.vanderkloet@gmail.com">Tim.vanderkloet@gmail.com</a></li>
+                <li>Phone number: <a href="tel:+31643612148">+31 643612148</a></li>
+                <li>Social media:
+                    <ul style="padding-left: 20px; margin-top: 5px;">
+                        <li>LinkedIn: <a href="https://www.linkedin.com/in/tim-van-der-kloet">Tim van der Kloet</a></li>
+                        <li>GitHub: <a href="https://github.com/Programmer-Timmy">Programmer-Timmy</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </h3>
+        <br>
+        <h2>I'd love to hear from you, whether it's for questions, feedback, or collaboration opportunities. Don't
+            hesitate to reach out—I'm here to help!</h2>
     </div>
-
-    <div class="border-re">
-        <div id="about-tekst">
-            <h2>You can contact me whit: </h2><br>
-            <h3>School email: <a href="mailto:567589@edu.rocmn.nl">567589@edu.rocmn.nl</a><br>
-                Private email: <a href="mailto:Tim.vanderkloet@gmail.com">Tim.vanderkloet@gmail.com</a><br>
-                Telephone: <a href="tel:064361248">06 4361248</a>
-            </h3><br>
-        </div>
-        <div>
-            <img src="img/profielfoto.JPG" id="foto" alt="">
-        </div>
+    <div>
+        <img src="img/profielfoto.JPG" id="foto" alt="">
     </div>
-
+</div>
 </body>
 <script src="js/nav.js"></script>
 </html>
