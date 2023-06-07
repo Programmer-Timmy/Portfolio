@@ -194,14 +194,14 @@ header .icon {
   top: 14px;
   z-index: 10;
 }
+header .active {
+  display: block;
+}
 header nav {
   position: absolute;
   top: 20px;
   width: 100%;
   display: none;
-}
-header nav .active {
-  display: block;
 }
 header nav ul {
   padding-top: 40px;
