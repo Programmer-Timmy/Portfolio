@@ -28,7 +28,8 @@ To run the portfolio system on your local machine, follow these steps:
 
 1. Clone the repository:
 ```bash
-   git clone https://github.com/your-username/csharp-small-assignments.git
+   git clone https://github.com/your-username/csharp-small-assignments.git bash
+```
 
 2. Set up a local PHP development environment such as XAMPP, WAMP, or MAMP.
 
