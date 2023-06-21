@@ -1,6 +1,6 @@
 <?php
 
-$API_Key = 'AIzaSyAR-UxFdmtwYTomJn5aM-sUjFZw5zg16Nc';
+$API_Key = '';
 $ChanelId = 'UC48IsPEeWQ9MDqtmFBMd-2A';
 $Max_Results = 30;
 
