@@ -71,11 +71,16 @@ header {
     z-index: 10;
   }
 
+  .active{
+    display: block;
+  }
+
   nav {
     position: absolute;
     top: 20px;
     width: 100%;
     display: none;
+
 
     ul {
       padding-top: 40px;
