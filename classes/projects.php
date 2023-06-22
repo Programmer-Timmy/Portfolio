@@ -197,7 +197,7 @@ class Projects
                     $zip = new ZipArchive();
                     $x = $zip->open($target_path);
                     if ($x === true) {
-                        $zip->extractTo('../project/');
+                        $zip->extractTo('project/');
                         $zip->close();
                         unlink($target_path);
                     }

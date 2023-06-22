@@ -1,50 +1,5 @@
 <?php
-
-$API_Key = 'AIzaSyAR-UxFdmtwYTomJn5aM-sUjFZw5zg16Nc';
-$ChanelId = 'UC48IsPEeWQ9MDqtmFBMd-2A';
-$Max_Results = 30;
-
-$apiData = @file_get_contents('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=' . $ChanelId . '&maxResults=' . $Max_Results . '&key=' . $API_Key . '');
-if ($apiData) {
-    $videoList = json_decode($apiData);
-//    var_dump($videoList->items, $videoList->id);
-
-} else {
-    echo 'Invalid API key or channel ID.';
-}
-
-foreach ($videoList->items as $item) {
-    $video = videos::get($item->id->videoId);
-    $date = new DateTime($item->snippet->publishedAt);
-    $formattedDate = $date->format('Y-m-d H:i:s');
-    if($video) {
-        if ($video['videoId'] == $item->id->videoId) {
-            if ($video['title'] !== $item->snippet->title) {
-                videos::update($item->snippet->title, $video['id']);
-            }
-        }
-    }else {
-        if($item->id->videoId) {
-
-            videos::add($item->id->videoId, $item->snippet->title, $formattedDate);
-        }
-    }
-}
 $videos = videos::getall();
-var_dump($videos);
-foreach($videos as $video){
-    $deleted = false;
-    foreach ($videoList->items as $item){
-        if($video['videoId'] == $item->id->videoId){
-            $deleted = true;
-        }
-    }
-    if($deleted = true){
-//        videos::delete($video['id']);
-    }
-}
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
