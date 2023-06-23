@@ -21,10 +21,10 @@ $videos = videos::getall();
 <div class="borderp">
     <?php
 
-        foreach ($videos as $item) {
+    foreach ($videos as $item) {
 
-            echo '
-            <div>
+        echo '
+            <div id="videoborder">
             <div class="videos">
             
                 <iframe class="video" src="https://www.youtube.com/embed/' . $item["videoId"] . '" frameborder="0" allowfullscreen></iframe>
@@ -32,7 +32,7 @@ $videos = videos::getall();
             <h1>' . $item["title"] . '</h1> 
                 </div>';
 
-        }
+    }
 
     ?>
 </div>
