@@ -23,30 +23,36 @@ class videos
             $formattedDate = $date->format('Y-m-d H:i:s');
             if ($video) {
                 if ($video['videoId'] == $item->id->videoId) {
-                    if ($video['title'] !== $item->snippet->title) {
+                    if ($video['title'] != $item->snippet->title) {
                         videos::update($item->snippet->title, $video['id']);
+                        print_r("video ". $video['videoId'] . "geupdate");
                     }
                 }
             } else {
                 if ($item->id->videoId) {
 
                     Database::add('videos', ['title', 'videoId', 'date'], 'sss', [$item->snippet->title, $item->id->videoId, $formattedDate]);
-
+                    print_r('toegevoegd:     ' . $item->snippet->title);
                 }
             }
         }
         $videos = videos::getall();
-        var_dump($videos);
+        $foundMatch = false;
         foreach ($videos as $video) {
-            $deleted = false;
             foreach ($videoList->items as $item) {
-                if ($video['videoId'] == $item->id->videoId) {
-                    $deleted = true;
+                if ($item->id->videoId == $video['videoId']) {
+                    $foundMatch = true;
+                    break; // Exit the loop since a match is found
                 }
+
             }
-            if ($deleted = true) {
-        videos::delete($video['id']);
+            if (!$foundMatch) {
+                videos::delete($video['id']);
+            } else {
+                print_r('Match found, not deleting');
             }
+
+
         }
 
 
@@ -59,7 +65,7 @@ class videos
 
     public static function getall()
     {
-        return database::getRows('videos');
+        return database::getRows('videos', false, false, false, 'date desc');
     }
 
     public static function update($title, $id)
