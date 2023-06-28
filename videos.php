@@ -10,6 +10,7 @@ $videos = videos::getall();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/65416f0144.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
     <title>Tim van der Kloet - Video's</title>
 </head>
 
