@@ -3,11 +3,19 @@ if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    $return = accounts::update($_GET['edit'], $_POST['password'], $_POST['username'], $_POST['admin']);
+    $admin = 0;
+    if(isset($_POST['admin'])){
+        $admin = 1;
+    }
+    $return = accounts::update($_GET['edit'], $_POST['password'], $_POST['username'], $admin);
     header('location: users');
 }
 if ($_POST and $_GET['add'] == 'account') {
-    $return = accounts::add($_POST['password'], $_POST['username'], $_POST['admin']);
+    $admin = 0;
+    if(isset($_POST['admin'])){
+        $admin = 1;
+    }
+    $return = accounts::add($_POST['password'], $_POST['username'], $admin);
     echo $return;
 }
 
@@ -49,22 +57,27 @@ if (!isset($_SESSION['admin'])) {
     echo '<div class="admin">
         <form method="post">
         <label for="username">Username:</label>
-        <input type="text" name="username" value="' . $result['username'] . '"><br>
+        <input type="text" name="username" value="' . $result['username'] . '">
         <label for="password">Password:</label>
-        <input type="text" name="password" value=""><br>
+        <input type="text" name="password" value="">
         <label for="admin">Admin:</label>
-        <input type="hidden" value="0" name="admin">
-        <input type="checkbox" name="admin" id="admin" value="1" class="checkbox"' . $check . '><br>
+        <div class="toggle-pill-dark">
+            <input type="checkbox" id="pill4" name="admin" ' . $check .'>
+            <label for="pill4"></label>
+        </div>
         <input type="submit" value="Versturen">
     </form></div>';
 } elseif (isset($_GET['add']) == 'account') {
     echo '<div class="admin"><form method="post">
         <label for="username">Username:</label>
-        <input type="text" name="username" required><br>
+        <input type="text" name="username" required>
         <label for="password">Password:</label>
-        <input type="password" name="password" required><br>
-        <label for="admin">Admin:</label>
-        <input type="checkbox" name="admin" id="admin" value="1" class="checkbox"><br>
+        <input type="password" name="password" required>
+        <label for="pill4">Is admin:</label>
+        <div class="toggle-pill-dark">
+            <input type="checkbox" id="pill4" name="admin">
+            <label for="pill4"></label>
+        </div>
         <input type="submit" value="Versturen">
     </form></div>';
 } else {

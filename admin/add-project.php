@@ -26,14 +26,25 @@ if ($_POST) {
 <div class="admin">
     <form method="post" enctype="multipart/form-data">
 
-        <label for="name">Naam van het project:</label><input type="text" name="name" id="name" required><br>
+        <label for="name">Naam van het project:</label><input type="text" name="name" id="name" required>
 
-        <label for="git">Github link:</label><input type="text" name="git" id="git"><br>
-        Select image to upload:
-        <input type="file" name="img" id="img" accept="image/png, image/jpeg" required><br>
-        Select your project or link:
-        <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip"><label
-                for="link"></label><input type="text" name="link" id="link"><br>
+        <label for="git">Github link:</label><input type="text" name="git" id="git">
+        <container>
+            <label for="img" class="drop-container">
+                <span class="drop-title">Drop image here</span>
+                or
+                <input type="file" name="img" id="img" accept="image/png, image/jpeg" required>
+            </label>
+            <label for="zip_file" class="drop-container">
+                <span class="drop-title">Drop Project here</span>
+                or
+                <input type="file" name="zip_file" id="zip_file" accept=".zip,.rar,.7zip">
+                or link
+                <input type="text" name="link" id="link">
+            </label>
+        </container>
+        <label
+                for="link"></label>
         <input type="submit" value="Toevoegen" name="submit">
     </form>
 </div>

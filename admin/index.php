@@ -22,11 +22,11 @@ if ($_POST) {
 <?php
 if (!isset($_SESSION['access'])) {
     echo '<div class="admin"><form action="" method="post">
-            username<br>
-            <input type="text" name="username" id="username" required><br>
-            password<br>
-            <input type="password" name="password" id="password" required><br>
-            <input type="submit" value="Inlogen">
+            Username:
+            <input type="text" name="username" id="username" required>
+            Password:
+            <input type="password" name="password" id="password" required>
+            <input type="submit" value="Login">
             </form></div>';
 } else {
     require_once 'header.php';
