@@ -26,7 +26,10 @@ $projects = Projects::loadprojects("100");
         foreach ($projects as $project) {
             echo "
             <div class='project-home'>
-                <a href=" . $project['path'] . "><img src=" . $project['img'] . " class='img-size' alt=''></a>";
+                <div>
+                <a href=" . $project['path'] . "><img src=" . $project['img'] . " class='img-size' alt=''></a>
+                </div>
+                ";
 
             if ($project['github']) {
                 echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>" . $project['name'] . "</h1>";

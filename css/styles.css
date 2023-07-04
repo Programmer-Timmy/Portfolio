@@ -257,20 +257,22 @@ header nav a::before {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 10px;
 }
 .borderp .project-home {
   /* ! Also for Project page */
-  flex-direction: row;
-  margin: 2vh 2vh 10vh;
-  border: #444 1px solid;
-  height: 50vh;
   width: 50vh;
-  border-radius: 2vh;
   text-align: center;
 }
+.borderp .project-home div {
+  border: #444 1px solid;
+  height: 50vh;
+  border-radius: 2vh;
+}
 .borderp .project-home h1 {
-  margin-top: 10px;
+  margin: 10px 0 30px;
   font-size: 30px;
   color: #55d6aa;
 }
