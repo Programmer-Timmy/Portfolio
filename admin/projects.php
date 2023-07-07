@@ -5,7 +5,7 @@ if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    Projects::update($_GET['edit'], $_POST['name'], $_POST['github']);
+    Projects::update($_GET['edit'], $_POST['name'], $_POST['git']);
     header('location: projects');
 }
 
@@ -34,15 +34,30 @@ require_once 'header.php';
 if (isset($_GET['edit'])) {
     $result = Projects::loadproject($_GET['edit']);
 
-    echo '<div class="admin">
-        <form method="post" enctype="multipart/form-data">
-            Naam van het project:
-            <input type="text" name="name" id="name" value="' . $result['name'] . '" required><br>
-            Github link:
-            <input type="text" name="github" id="git" value="' . $result['github'] . '"><br>
-            <input type="submit" value="Update" name="submit">
-            </div>
-        </form>';
+    echo "<div class=\"admin\">
+        <form method=\"post\" enctype=\"multipart/form-data\">
+    
+            <label for=\"name\">Name of the project:</label><input type=\"text\" name=\"name\" id=\"name\" value=\" " . $result['name'] . " \"required>
+    
+            <label for=\"git\">Github link:</label><input type=\"text\" name=\"git\" value=\" " . $result['github'] . " \" id=\"git\">
+            <container>
+                <label for=\"img\" class=\"drop-container\" style=\"background-image:url('http://portfolio/". $result['img'] ."');justify-content: flex-end; background-size: 100%; \">
+                <input type=\"file\" name=\"img\" id=\"img\" accept=\"image/png, image/jpeg\">
+
+            </label>
+            <label for=\"zip_file\" class=\"drop-container\">
+                <span class=\"drop-title\">Change the project</span>
+                or
+                <input type=\"file\" name=\"zip_file\" id=\"zip_file\" accept=\".zip,.rar,.7zip\">
+                or link
+                <input type=\"text\" name=\"link\" value='". $result['path'] ."'id=\"link\">
+            </label>
+        </container>
+        <label
+                for=\"link\"></label>
+        <input type=\"submit\" value=\"Change\" name=\"submit\">
+    </form>
+</div>";
 } else {
     $results = Projects::loadprojects(100);
     echo "<div class='admin'><table>
