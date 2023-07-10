@@ -109,9 +109,24 @@ class Projects
      * @param $name
      * @param $github
      */
-    public static function update($id = 0, $name, $github)
+    public static function update($id = 0, $name, $github,$imgUrl,$oldPath, $file)
     {
+        if($file['img']['name'] !== ''){
+            if(file_exists($imgUrl)) {
+                unlink($imgUrl);
+            }
+
+            $dataImg = self::uploadimg("img/", "img/" . uniqid() . "_" . basename($file["img"]["name"]), strtolower(pathinfo("img/", PATHINFO_EXTENSION)), $file);
+            database::update('projecten', $id, ['name', 'github','img'], 'sss', [$name, $github, $dataImg]);
+        }
+        if ($file["zip_file"]["name"] !== ''){
+            $path = (substr($oldPath, 0, -6));
+            self::deleteDirectory($path);
+        }
         database::update('projecten', $id, ['name', 'github'], 'ss', [$name, $github]);
+
+
+
     }
 
     /**
@@ -236,26 +251,26 @@ class Projects
                 $path = (substr($result['path'], 0, -6));
                 unlink($result['img']);
 
-                function deleteDirectory($path)
-                {
-                    if (is_dir($path)) {
-                        $objects = scandir($path);
-                        foreach ($objects as $object) {
-                            if ($object != "." && $object != "..") {
-                                if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
-                                    deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
-                                } else {
-                                    unlink($path . DIRECTORY_SEPARATOR . $object);
-                                }
-                            }
-                        }
-                        rmdir($path);
-                    }
-                }
-
-                deleteDirectory($path);
+                self::deleteDirectory($path);
             }
 
+        }
+
+    }
+    private static function deleteDirectory($path)
+    {
+        if (is_dir($path)) {
+            $objects = scandir($path);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($path . DIRECTORY_SEPARATOR . $object) == "dir") {
+                        deleteDirectory($path . DIRECTORY_SEPARATOR . $object);
+                    } else {
+                        unlink($path . DIRECTORY_SEPARATOR . $object);
+                    }
+                }
+            }
+            rmdir($path);
         }
 
     }

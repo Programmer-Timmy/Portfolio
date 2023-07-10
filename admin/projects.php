@@ -1,11 +1,14 @@
 <?php
 
 Projects::delete();
+
+$result = Projects::loadproject($_GET['edit']);
+
 if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    Projects::update($_GET['edit'], $_POST['name'], $_POST['git']);
+    Projects::update($_GET['edit'], $_POST['name'], $_POST['git'], $result['img'], $result['path'], $_FILES);
     header('location: projects');
 }
 
@@ -32,14 +35,13 @@ if (isset($_GET["id"])) {
 <?php
 require_once 'header.php';
 if (isset($_GET['edit'])) {
-    $result = Projects::loadproject($_GET['edit']);
 
     echo "<div class=\"admin\">
         <form method=\"post\" enctype=\"multipart/form-data\">
     
-            <label for=\"name\">Name of the project:</label><input type=\"text\" name=\"name\" id=\"name\" value=\" " . $result['name'] . " \"required>
+            <label for=\"name\">Name of the project:</label><input type=\"text\" name=\"name\" id=\"name\" value=\"" . $result['name'] . "\"required>
     
-            <label for=\"git\">Github link:</label><input type=\"text\" name=\"git\" value=\" " . $result['github'] . " \" id=\"git\">
+            <label for=\"git\">Github link:</label><input type=\"text\" name=\"git\" value=\"" . $result['github'] . "\" id=\"git\">
             <container>
                 <label for=\"img\" class=\"drop-container\" style=\"background-image:url('http://portfolio/". $result['img'] ."');justify-content: flex-end; background-size: 100%; \">
                 <input type=\"file\" name=\"img\" id=\"img\" accept=\"image/png, image/jpeg\">
