@@ -563,8 +563,47 @@ header nav a::before {
   text-decoration: underline;
 }
 
+.popup {
+  width: 95%;
+  padding: 10px 20px;
+  background-color: #444; /* Replace with the desired color value */
+  text-align: center;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box; /* Include padding and border in the total width */
+  display: none;
+}
+.popup h2 {
+  padding: 10px 0;
+  font-size: 30px;
+  color: #55d6aa;
+}
+.popup h3 {
+  padding: 10px 0;
+  font-size: 20px;
+  color: #55d6aa;
+}
+.popup ul {
+  padding: 0 0 10px;
+}
+.popup button, .popup #show-button {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  background: #55d6aa;
+  padding: 10px 10px;
+  border-radius: 10px;
+  color: black;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
 footer {
-  margin-top: auto;
+  margin: auto;
   bottom: 0;
   width: 100%;
   background-color: #333;
@@ -694,6 +733,9 @@ footer .container .social-links li a:hover {
   .hicon2 {
     margin-right: 40px;
   }
+  .popup {
+    max-width: 70%;
+  }
 }
 @media only screen and (min-width: 1140px) {
   header .container .logo {
@@ -707,6 +749,9 @@ footer .container .social-links li a:hover {
   }
   .border, .border-re {
     padding: 90px 90px 0 90px;
+  }
+  .popup {
+    max-width: 50%;
   }
 }
 

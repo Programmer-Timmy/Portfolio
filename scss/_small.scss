@@ -513,8 +513,51 @@ header {
   }
 }
 
+.popup {
+  width: 95%;
+  padding: 10px 20px;
+  background-color: $gary; /* Replace with the desired color value */
+  text-align: center;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box; /* Include padding and border in the total width */
+  display: none;
+
+
+  h2{
+    padding: 10px 0;
+    font-size: 30px;
+    color: $primary;
+  }
+
+  h3{
+    padding: 10px 0;
+    font-size: 20px;
+    color: $primary;
+  }
+
+  ul{
+    padding: 0 0 10px;
+  }
+  button, #show-button{
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    background: $primary;
+    padding: 10px 10px;
+    border-radius: 10px;
+    color: $black;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+}
+
 footer {
-  margin-top: auto;
+  margin: auto;
   bottom: 0;
   width: 100%;
   background-color: $dark-gary;
@@ -572,4 +615,5 @@ footer {
     }
   }
 }
+
 
