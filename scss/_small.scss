@@ -155,7 +155,6 @@ header {
 
   .project-home {
     /* ! Also for Project page */
-
     width: 50vh;
     text-align: center;
     div{
@@ -514,18 +513,17 @@ header {
 }
 
 .popup {
+  transition: top 0.5s;
   width: 95%;
   padding: 10px 20px;
   background-color: $gary; /* Replace with the desired color value */
   text-align: center;
   border-radius: 10px;
   position: fixed;
-  top: 50%;
+  top: -400px;
   left: 50%;
   transform: translate(-50%, -50%);
   box-sizing: border-box; /* Include padding and border in the total width */
-  display: none;
-
 
   h2{
     padding: 10px 0;
