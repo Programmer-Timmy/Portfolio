@@ -26,7 +26,10 @@ $projects = Projects::loadprojects("3");
             echo "
             <div class='project-home'>
             <div>
-                <a href=" . $project['path'] . "><img src=" . $project['img'] . " class='img-size' alt=''></a></div>";
+                <a href='#' onclick=\"showPopup('" . $project['path'] . "',' " . $project['img'] . "',' " . $project['name'] . "',' " . ($project['description']) . "')\">
+                    <img src='" . $project['img'] . "' class='img-size' alt=''>
+                </a>
+            </div>";
 
             if ($project['github']) {
                 echo "<h1><a class='github' href=" . $project['github'] . "><i class='fa fa-github' aria-hidden='true'></i></a>" . $project['name'] . "</h1>";
@@ -40,7 +43,13 @@ $projects = Projects::loadprojects("3");
     }
     ?>
 </div>
+<div id="popup" class="popup">
+    <h2 class="popup-title" id="popup-title"></h2>
+    <div id="popup-description"></div>
+    <button class="close-button" onclick="closePopup()">Close</button>
+    <a href="" id="show-button" >Show project</a>
+</div>
 </body>
 <script src="js/nav.js"></script>
-
+<script src="js/popup.js"></script>
 </html>
