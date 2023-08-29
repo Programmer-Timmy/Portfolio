@@ -334,6 +334,38 @@ header {
     align-items: center;
     flex-direction: column;
 
+    label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+    }
+
+    #description{
+      width: 90%;
+    }
+
+    textarea{
+      padding: 5px;
+      color: $primary;
+      height: 100px;
+      border-radius: 10px;
+      border: 0;
+      background-color: #333;
+      width: 100%;
+      margin: 5px 0 15px;
+    }
+
+
+    row {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: space-around;
+
+
+    }
     .toggle-pill-dark {
       input[type="checkbox"] {
         display: none;
@@ -417,6 +449,8 @@ header {
     container {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
 
       .drop-container {
         margin: 20px;
@@ -555,7 +589,7 @@ header {
 }
 
 footer {
-  margin: auto;
+  margin-top: auto;
   bottom: 0;
   width: 100%;
   background-color: $dark-gary;

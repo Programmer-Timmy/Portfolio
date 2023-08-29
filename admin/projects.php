@@ -8,7 +8,7 @@ if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    Projects::update($_GET['edit'], $_POST['name'], $_POST['git'], $result['img'], $result['path'], $_FILES);
+    Projects::update($_GET['edit'], $_POST['name'], $_POST['git'], $result['img'], $result['path'], $_FILES, $_POST['description'], $_POST['password'], $_POST['username']);
     header('location: projects');
 }
 
@@ -38,12 +38,17 @@ if (isset($_GET['edit'])) {
 
     echo "<div class=\"admin\">
         <form method=\"post\" enctype=\"multipart/form-data\">
-    
-            <label for=\"name\">Name of the project:</label><input type=\"text\" name=\"name\" id=\"name\" value=\"" . $result['name'] . "\"required>
-    
-            <label for=\"git\">Github link:</label><input type=\"text\" name=\"git\" value=\"" . $result['github'] . "\" id=\"git\">
+            <row>
+                <label for=\"name\">Name of the project:<input type=\"text\" name=\"name\" id=\"name\" value=\"" . $result['name'] . "\"required></label>     
+                <label for=\"git\">Github link:<input type=\"text\" name=\"git\" value=\"" . $result['github'] . "\" id=\"git\"></label>
+            </row>
+            <row>
+                <label for=\"username\">Guest username:<input type=\"text\" name=\"username\" id=\"username\" value=\"" . $result['guest_username'] . "\"></label>
+                <label for=\"password\">Guest password:<input type=\"text\" name=\"password\" id=\"password\" value=\"" . $result['guest_password'] . "\"></label>
+        </row>
+            <label for=\"description\" id=\"description\">Description: <textarea name=\"description\">" . $result['description'] . "</textarea> </label>
             <container>
-                <label for=\"img\" class=\"drop-container\" style=\"background-image:url('http://portfolio/". $result['img'] ."');justify-content: flex-end; background-size: 100%; \">
+                <label for=\"img\" class=\"drop-container\" style=\"background-image:url('http://portfolio/" . $result['img'] . "');justify-content: flex-end; background-size: 100%; \">
                 <input type=\"file\" name=\"img\" id=\"img\" accept=\"image/png, image/jpeg\">
 
             </label>
@@ -52,7 +57,7 @@ if (isset($_GET['edit'])) {
                 or
                 <input type=\"file\" name=\"zip_file\" id=\"zip_file\" accept=\".zip,.rar,.7zip\">
                 or link
-                <input type=\"text\" name=\"link\" value='". $result['path'] ."'id=\"link\">
+                <input type=\"text\" name=\"link\" value='" . $result['path'] . "'id=\"link\">
             </label>
         </container>
         <label

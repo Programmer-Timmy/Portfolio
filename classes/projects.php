@@ -53,7 +53,7 @@ class Projects
      * @return string|void
      */
 
-    public static function addproject($file, $title, $pgit, $plink)
+    public static function addproject($file, $title, $pgit, $plink, $description, $password, $username)
     {
         $continue = false;
         if ($plink !== "") {
@@ -98,7 +98,9 @@ class Projects
             } else {
                 $link = $plink;
             }
-            projects::dbaddproject($title, $git, $link, $img);
+
+
+            projects::dbaddproject($title, $git, $link, $img, $description, $password, $username);
         }
     }
 
@@ -109,7 +111,7 @@ class Projects
      * @param $name
      * @param $github
      */
-    public static function update($id = 0, $name, $github,$imgUrl,$oldPath, $file)
+    public static function update($id, $name, $github,$imgUrl,$oldPath, $file, $description, $password, $username )
     {
         if($file['img']['name'] !== ''){
             if(file_exists($imgUrl)) {
@@ -117,13 +119,13 @@ class Projects
             }
 
             $dataImg = self::uploadimg("img/", "img/" . uniqid() . "_" . basename($file["img"]["name"]), strtolower(pathinfo("img/", PATHINFO_EXTENSION)), $file);
-            database::update('projecten', $id, ['name', 'github','img'], 'sss', [$name, $github, $dataImg]);
+            database::update('projecten', $id, ['name', 'github','img', 'description', 'guest_password', 'guest_username'], 'ssssss', [$name, $github, $dataImg, $description, $password, $username]);
         }
         if ($file["zip_file"]["name"] !== ''){
             $path = (substr($oldPath, 0, -6));
             self::deleteDirectory($path);
         }
-        database::update('projecten', $id, ['name', 'github'], 'ss', [$name, $github]);
+        database::update('projecten', $id, ['name', 'github', 'description', 'guest_password', 'guest_username'], 'sssss', [$name, $github, $description, $password, $username]);
 
 
 
@@ -137,9 +139,9 @@ class Projects
      * @param $link
      * @param $file
      */
-    public static function dbaddproject($name, $git, $link, $file)
+    public static function dbaddproject($name, $git, $link, $file, $description, $password, $username)
     {
-        Database::add('projecten', ['name', 'github', 'path', 'img', 'date'], 'sssss', [$name, $git, $link, $file, date('y-m-d h:m:s')]);
+        Database::add('projecten', ['name', 'github', 'path', 'img', 'date', 'description', 'guest_password', 'guest_username'], 'ssssssss', [$name, $git, $link, $file, date('y-m-d h:m:s'), $description, $password, $username]);
     }
 
     /**

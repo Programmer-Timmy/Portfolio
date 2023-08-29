@@ -4,7 +4,7 @@ if (!isset($_SESSION['access'])) {
 }
 
 if ($_POST) {
-    $test = projects::addproject($_FILES, $_POST["name"], $_POST["git"], $_POST["link"]);
+    $test = projects::addproject($_FILES, $_POST["name"], $_POST["git"], $_POST["link"], $_POST['description'], $_POST['password'], $_POST['username']);
     echo $test;
 }
 ?>
@@ -25,10 +25,15 @@ if ($_POST) {
 <?php require_once 'header.php'; ?>
 <div class="admin">
     <form method="post" enctype="multipart/form-data">
-
-        <label for="name">Naam van het project:</label><input type="text" name="name" id="name" required>
-
-        <label for="git">Github link:</label><input type="text" name="git" id="git">
+        <row>
+            <label for="name">Name of the project:<input type="text" name="name" id="name" required></label>
+            <label for="git">Github link:<input type="text" name="git" id="git"></label>
+        </row>
+        <row>
+            <label for="username">Guest username:<input type="text" name="username" id="username"></label>
+            <label for="password">Guest password:<input type="password" name="password" id="password"></label>
+        </row>
+            <label for="description" id="description">Description: <textarea name="description" id=""></textarea> </label>
         <container>
             <label for="img" class="drop-container">
                 <span class="drop-title">Drop image here</span>
