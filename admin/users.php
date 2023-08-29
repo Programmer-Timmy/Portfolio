@@ -4,7 +4,7 @@ if (!isset($_SESSION['access'])) {
 }
 if ($_POST and isset($_GET['edit'])) {
     $admin = 0;
-    if(isset($_POST['admin'])){
+    if (isset($_POST['admin'])) {
         $admin = 1;
     }
     $return = accounts::update($_GET['edit'], $_POST['password'], $_POST['username'], $admin);
@@ -12,7 +12,7 @@ if ($_POST and isset($_GET['edit'])) {
 }
 if ($_POST and $_GET['add'] == 'account') {
     $admin = 0;
-    if(isset($_POST['admin'])){
+    if (isset($_POST['admin'])) {
         $admin = 1;
     }
     $return = accounts::add($_POST['password'], $_POST['username'], $admin);
@@ -62,7 +62,7 @@ if (!isset($_SESSION['admin'])) {
         <input type="text" name="password" value="">
         <label for="admin">Admin:</label>
         <div class="toggle-pill-dark">
-            <input type="checkbox" id="pill4" name="admin" ' . $check .'>
+            <input type="checkbox" id="pill4" name="admin" ' . $check . '>
             <label for="pill4"></label>
         </div>
         <input type="submit" value="Versturen">

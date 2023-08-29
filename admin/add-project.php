@@ -33,7 +33,7 @@ if ($_POST) {
             <label for="username">Guest username:<input type="text" name="username" id="username"></label>
             <label for="password">Guest password:<input type="password" name="password" id="password"></label>
         </row>
-            <label for="description" id="description">Description: <textarea name="description" id=""></textarea> </label>
+        <label for="description" id="description">Description: <textarea name="description" id=""></textarea> </label>
         <container>
             <label for="img" class="drop-container">
                 <span class="drop-title">Drop image here</span>

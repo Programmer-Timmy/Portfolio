@@ -1,6 +1,8 @@
 # Portfolio System
 
-This repository contains the source code for a portfolio system, designed to showcase your projects and provide administrative functionality. The portfolio system allows users to browse projects, view project details, contact you, and login as an admin to manage projects, add project details, and manage other users.
+This repository contains the source code for a portfolio system, designed to showcase your projects and provide
+administrative functionality. The portfolio system allows users to browse projects, view project details, contact you,
+and login as an admin to manage projects, add project details, and manage other users.
 
 ## Features
 
@@ -11,7 +13,8 @@ The portfolio system includes the following features:
 - **Home Page**: The home page provides an introduction to your portfolio and highlights featured projects.
 - **About Page**: The about page provides information about you, your skills, and your experience.
 - **Contact Page**: The contact page allows visitors to send you messages or inquiries.
-- **Project Page**: The project page displays a list of projects, each with a project image, project details, and a link to the GitHub repository.
+- **Project Page**: The project page displays a list of projects, each with a project image, project details, and a link
+  to the GitHub repository.
 
 ### Admin Features
 
@@ -20,13 +23,15 @@ The portfolio system includes the following features:
 - **Project Management**: Admin users can add new projects, update project details, and delete existing projects.
 - **Image Upload**: Admin users can upload project images to accompany project details.
 - **GitHub Integration**: Admin users can add GitHub links to each project for easy access to the project repository.
-- **User Management**: Admin users can manage other user accounts, including adding, updating, and deleting user profiles.
+- **User Management**: Admin users can manage other user accounts, including adding, updating, and deleting user
+  profiles.
 
 ## Installation
 
 To run the portfolio system on your local machine, follow these steps:
 
 1. Clone the repository:
+
 ```bash
    git clone https://github.com/your-username/csharp-small-assignments.git
 ```
@@ -37,7 +42,8 @@ To run the portfolio system on your local machine, follow these steps:
 
 4. Start your local server and make sure it is running.
 
-5. Import the provided SQL file (`database.sql`) into your database management system (e.g., phpMyAdmin) to set up the necessary database schema.
+5. Import the provided SQL file (`database.sql`) into your database management system (e.g., phpMyAdmin) to set up the
+   necessary database schema.
 
 6. Update the database connection settings in the PHP files to match your local database configuration.
 

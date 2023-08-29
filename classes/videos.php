@@ -25,7 +25,7 @@ class videos
                 if ($video['videoId'] == $item->id->videoId) {
                     if ($video['title'] != $item->snippet->title) {
                         videos::update($item->snippet->title, $video['id']);
-                        print_r("video ". $video['videoId'] . "geupdate");
+                        print_r("video " . $video['videoId'] . "geupdate");
                     }
                 }
             } else {

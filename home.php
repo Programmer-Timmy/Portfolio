@@ -47,7 +47,7 @@ $projects = Projects::loadprojects("3");
     <h2 class="popup-title" id="popup-title"></h2>
     <div id="popup-description"></div>
     <button class="close-button" onclick="closePopup()">Close</button>
-    <a href="" id="show-button" >Show project</a>
+    <a href="" id="show-button">Show project</a>
 </div>
 </body>
 <script src="js/nav.js"></script>

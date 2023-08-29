@@ -111,22 +111,21 @@ class Projects
      * @param $name
      * @param $github
      */
-    public static function update($id, $name, $github,$imgUrl,$oldPath, $file, $description, $password, $username )
+    public static function update($id, $name, $github, $imgUrl, $oldPath, $file, $description, $password, $username)
     {
-        if($file['img']['name'] !== ''){
-            if(file_exists($imgUrl)) {
+        if ($file['img']['name'] !== '') {
+            if (file_exists($imgUrl)) {
                 unlink($imgUrl);
             }
 
             $dataImg = self::uploadimg("img/", "img/" . uniqid() . "_" . basename($file["img"]["name"]), strtolower(pathinfo("img/", PATHINFO_EXTENSION)), $file);
-            database::update('projecten', $id, ['name', 'github','img', 'description', 'guest_password', 'guest_username'], 'ssssss', [$name, $github, $dataImg, $description, $password, $username]);
+            database::update('projecten', $id, ['name', 'github', 'img', 'description', 'guest_password', 'guest_username'], 'ssssss', [$name, $github, $dataImg, $description, $password, $username]);
         }
-        if ($file["zip_file"]["name"] !== ''){
+        if ($file["zip_file"]["name"] !== '') {
             $path = (substr($oldPath, 0, -6));
             self::deleteDirectory($path);
         }
         database::update('projecten', $id, ['name', 'github', 'description', 'guest_password', 'guest_username'], 'sssss', [$name, $github, $description, $password, $username]);
-
 
 
     }
@@ -259,6 +258,7 @@ class Projects
         }
 
     }
+
     private static function deleteDirectory($path)
     {
         if (is_dir($path)) {
