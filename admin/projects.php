@@ -8,7 +8,7 @@ if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    Projects::update($_GET['edit'], $_POST['name'], $_POST['git'], $result['img'], $result['path'], $_FILES, $_POST['description'], $_POST['password'], $_POST['username']);
+    Projects::update($_GET['edit'], $_POST['name'], $_POST['git'], $result['img'], $result['path'], $_FILES, htmlentities($_POST['description']), $_POST['password'], $_POST['username']);
     header('location: projects');
 }
 
@@ -48,7 +48,7 @@ if (isset($_GET['edit'])) {
         </row>
             <label for=\"description\" id=\"description\">Description: <textarea name=\"description\">" . $result['description'] . "</textarea> </label>
             <container>
-                <label for=\"img\" class=\"drop-container\" style=\"background-image:url('http://portfolio/" . $result['img'] . "');justify-content: flex-end; background-size: 100%; \">
+                <label for=\"img\" class=\"drop-container\" style=\"background-image:url('http://portfolio.timmygamer.nl/" . $result['img'] . "');justify-content: flex-end; background-size: 100%; \">
                 <input type=\"file\" name=\"img\" id=\"img\" accept=\"image/png, image/jpeg\">
 
             </label>

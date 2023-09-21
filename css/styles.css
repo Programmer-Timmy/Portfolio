@@ -603,6 +603,10 @@ header nav a::before {
   transform: translate(-50%, -50%);
   box-sizing: border-box; /* Include padding and border in the total width */
 }
+.popup #popup-description {
+  white-space: pre-line;
+  white-space: pre-wrap;
+}
 .popup h2 {
   padding: 10px 0;
   font-size: 30px;

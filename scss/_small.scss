@@ -565,6 +565,11 @@ header {
   transform: translate(-50%, -50%);
   box-sizing: border-box; /* Include padding and border in the total width */
 
+  #popup-description{
+    white-space: pre-line;
+    white-space: pre-wrap;
+  }
+
   h2 {
     padding: 10px 0;
     font-size: 30px;

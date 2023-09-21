@@ -25,7 +25,7 @@ $projects = Projects::loadprojects("100");
     <?php
     if ($projects) {
         foreach ($projects as $project) {
-            $popupdata = [$project['path'], $project['name'], $project['description'], $project['guest_password'], $project['guest_username']];
+            $popupdata = [$project['path'], $project['name'], htmlentities($project['description'], ENT_QUOTES), $project['guest_password'], $project['guest_username']];
             $json = json_encode($popupdata);
             echo '
             <div class=\'project-home\'>
