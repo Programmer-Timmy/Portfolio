@@ -1,5 +1,16 @@
 <?php
-require_once '../includes/requierd.php';
+session_start();
+require_once '../../static/settings.php';
+require_once '../../private/classes/accounts.php';
+require_once '../../private/classes/database.php';
+
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpass = '';
+$dbname = 'portfolio';
+
+$database = new Database;
+$database->connect($dbhost, $dbuser, $dbpass, $dbname);
 if ($_POST) {
     $return = accounts::Login($_POST['password'], $_POST['username']);
     echo $return;
@@ -35,7 +46,7 @@ if (!isset($_SESSION['access'])) {
         <h1>Welcome " . $_SESSION['name'] . "!</h1>
         <h2>You are logged in!</h2>
         </div>";
-    accounts::delete();
+//    accounts::delete();
 }
 ?>
 

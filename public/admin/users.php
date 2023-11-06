@@ -91,7 +91,6 @@ if (!isset($_SESSION['admin'])) {
                 <th>Edit</th>
             </tr>
         </thead><tbody>";
-
     foreach ($results as $result) {
         $admin = 'yes';
         if ($result['admin'] == 0) {

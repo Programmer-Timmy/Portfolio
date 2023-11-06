@@ -60,17 +60,17 @@ class videos
 
     public static function get($videoId)
     {
-        return database::getRow('videos', ['videoId'], 's', [$videoId]);
+        return database::getRow('videos', ['videoId'], [$videoId]);
     }
 
     public static function getall()
     {
-        return database::getRows('videos', false, false, false, 'date desc');
+        return database::getRows('videos', false, false, 'date desc');
     }
 
     public static function update($title, $id)
     {
-        database::update('videos', $id, ['title'], 's', [$title]);
+        database::update('videos', $id, ['title'], [$title]);
     }
 
     public static function delete($id)

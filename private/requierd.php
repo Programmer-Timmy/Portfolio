@@ -1,12 +1,13 @@
 <?php
-require_once 'settings/settings.php';
+
+require_once '../static/settings.php';
 session_start();
 
-if (isset($_SESSION['discard_after']) && time() > $_SESSION['discard_after']) {
-    session_unset();
-    session_destroy();
-    session_start();
-}
+//if (isset($_SESSION['discard_after']) && time() > $_SESSION['discard_after']) {
+//    session_unset();
+//    session_destroy();
+//    session_start();
+//}
 
 require 'autoLoader.php';
 

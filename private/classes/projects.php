@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * projects
  */
@@ -15,7 +17,7 @@ class Projects
 
     public static function loadprojects($limit = 3)
     {
-        $results = database::getRows('projecten', ['removed'], 's', [0], 'date DESC LIMIT ' . $limit);
+        $results = database::getRows('projecten', ['removed'], [0], 'date DESC LIMIT ' . $limit);
         if ($results) {
             return $results;
         } else {
@@ -35,7 +37,7 @@ class Projects
         if ($id == 0) {
             return false;
         }
-        $results = database::getRow('projecten', ['id'], 's', [$id]);
+        $results = database::getRow('projecten', ['id'], [$id]);
         if ($results) {
             return $results;
         } else {
@@ -111,7 +113,7 @@ class Projects
      * @param $name
      * @param $github
      */
-    public static function update($id, $name, $github, $imgUrl, $oldPath, $file, $description, $password, $username)
+    public static function update($id, $name, $github, $imgUrl, $path, $oldPath, $file, $description, $password, $username)
     {
         if ($file['img']['name'] !== '') {
             if (file_exists($imgUrl)) {
@@ -119,13 +121,15 @@ class Projects
             }
 
             $dataImg = self::uploadimg("img/", "img/" . uniqid() . "_" . basename($file["img"]["name"]), strtolower(pathinfo("img/", PATHINFO_EXTENSION)), $file);
-            database::update('projecten', $id, ['name', 'github', 'img', 'description', 'guest_password', 'guest_username'], 'ssssss', [$name, $github, $dataImg, $description, $password, $username]);
+            database::update('projecten', $id, ['name', 'github', 'img', 'description', 'guest_password', 'guest_username'], [$name, $github, $dataImg, $description, $password, $username]);
         }
         if ($file["zip_file"]["name"] !== '') {
             $path = (substr($oldPath, 0, -6));
             self::deleteDirectory($path);
         }
-        database::update('projecten', $id, ['name', 'github', 'description', 'guest_password', 'guest_username'], 'sssss', [$name, $github, $description, $password, $username]);
+
+        $path = $path;
+        database::update('projecten', $id, ['name', 'github', 'path', 'description', 'guest_password', 'guest_username'], [$name, $github, $path ,$description, $password, $username]);
 
 
     }
@@ -232,7 +236,7 @@ class Projects
      */
     public static function sdeleteproject($id)
     {
-        database::update('projecten', $id, ['removed'], 's', [1]);
+        database::update('projecten', $id, ['removed'], [1]);
     }
 
     /**

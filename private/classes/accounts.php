@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * accouts
  */
@@ -13,7 +15,7 @@ class accounts
      */
     public static function loadaccounts()
     {
-        $results = database::getRows('account', ['removed'], 's', [0]);
+        $results = database::getRows('account', ['removed'], [0]);
         if ($results) {
             return $results;
         } else {
@@ -32,7 +34,7 @@ class accounts
         if ($id == 0) {
             return false;
         }
-        $results = database::getRow('account', ['id'], 's', [$id]);
+        $results = database::getRow('account', ['id'], [$id]);
         if ($results) {
             return $results;
         } else {
@@ -49,7 +51,8 @@ class accounts
      */
     public static function Login($password, $username)
     {
-        $account = database::getRow('account', ['username', 'removed'], 'ss', [$username, 0]);
+
+        $account = database::getRow('account', ['username', 'removed'], [$username, 0]);
         if ($account['attempts'] < 3) {
             if (!isset($account['password'])) {
                 return '<script>alert("Wrong username or password")</script>';
@@ -58,7 +61,7 @@ class accounts
                 if ($account['admin'] == 1) {
                     $_SESSION['admin'] = $account['id'];
                 }
-                database::update('account', $account['id'], ['attempts'], 's', [0]);
+                database::update('account', $account['id'], ['attempts'], [0]);
                 $_SESSION['access'] = $account['id'];
                 $_SESSION['name'] = $account['username'];
                 $_SESSION['discard_after'] = time() + 1800;
@@ -66,7 +69,7 @@ class accounts
             } else {
                 $attempts = $account['attempts'];
                 $attempts++;
-                database::update('account', $account['id'], ['attempts'], 's', [$attempts]);
+                database::update('account', $account['id'], ['attempts'], [$attempts]);
                 return '<script>alert("Wrong username or password")</script>';
             }
         } else {
@@ -87,7 +90,7 @@ class accounts
         if ($password !== " ") {
             $hashpw = password_hash($password, PASSWORD_DEFAULT);
         }
-        $retrun = database::add('account', ['password', 'username', 'admin'], 'sss', [$hashpw, $username, isset($admin) ? 1 : 0]);
+        $retrun = database::add('account', ['password', 'username', 'admin'], [$hashpw, $username, isset($admin) ? 1 : 0]);
         if ($retrun['success']) {
             return '<script>if(confirm("Account toegevoegt")) document.location = "users";</script>';
         } else {
@@ -111,7 +114,7 @@ class accounts
         } else {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         }
-        database::update('account', $id, ['password', 'username', 'admin'], 'sss', [$password, $username, $admin]);
+        database::update('account', $id, ['password', 'username', 'admin'], [$password, $username, $admin]);
     }
 
     /**
@@ -121,12 +124,12 @@ class accounts
      */
     public static function sdelete($id)
     {
-        database::update('account', $id, ['removed'], 's', [1]);
+        database::update('account', $id, ['removed'], [1]);
     }
 
     public static function delete()
     {
-        $results = database::getRows('account', ['removed'], 's', [1]);
+        $results = database::getRows('account', ['removed'], [1]);
         foreach ($results as $result) {
             $date = date_create($result['updated']);
             date_add($date, date_interval_create_from_date_string("6 day"));

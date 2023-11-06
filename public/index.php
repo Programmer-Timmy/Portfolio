@@ -1,5 +1,5 @@
 <?php
-include 'includes/requierd.php';
+include '../private/requierd.php';
 $filename = substr($_SERVER['REDIRECT_URL'], 1);
 if ($filename == '') {
     $filename = 'home';
@@ -18,5 +18,5 @@ $urlParts = parse_url($currentURL);
 $path = $urlParts['path'];
 
 if (!strpos($path, $projectName)) {
-    require_once "includes/footer.html";
+    require_once "../private/includes/footer.html";
 }

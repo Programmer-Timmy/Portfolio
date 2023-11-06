@@ -15,7 +15,7 @@ $videos = videos::getall();
 </head>
 
 <body>
-<?php require_once 'includes/Header.html' ?>
+<?php require_once '../private/includes/Header.html' ?>
 <div class="welcome">
     <h1>Video's</h1>
 </div>

@@ -12,7 +12,8 @@
 </head>
 
 <body class="no-transition">
-<?php require_once 'includes/Header.html' ?>
+<?php require_once '../private/includes/Header.html' ?>
+
 <div class="welcome">
     <h1>Contact</h1>
 </div>

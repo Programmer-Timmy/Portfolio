@@ -1,14 +1,12 @@
 <?php
-
-Projects::delete();
-
+//Projects::delete();
 $result = Projects::loadproject($_GET['edit']);
 
 if (!isset($_SESSION['access'])) {
     header('location: ../admin');
 }
 if ($_POST and isset($_GET['edit'])) {
-    Projects::update($_GET['edit'], $_POST['name'], $_POST['git'], $result['img'], $result['path'], $_FILES, htmlentities($_POST['description']), $_POST['password'], $_POST['username']);
+    Projects::update($_GET['edit'], $_POST['name'], $_POST['git'], $result['img'], $_POST['link'], $result['path'], $_FILES, htmlentities($_POST['description']), $_POST['password'], $_POST['username']);
     header('location: projects');
 }
 
