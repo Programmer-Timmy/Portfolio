@@ -95,4 +95,95 @@ class GlobalUtility
             return  'Just now';
         }
     }
+
+    public static function applyInlineAttributes($content, $attributes) {
+        $styles = '';
+        if (isset($attributes->color)) {
+            $styles .= 'color:' . htmlspecialchars($attributes->color) . ';';
+        }
+        if (isset($attributes->background)) {
+            $styles .= 'background-color:' . htmlspecialchars($attributes->background) . ';';
+        }
+        if (isset($attributes->font)) {
+            $styles .= 'font-family:' . htmlspecialchars($attributes->font) . ';';
+        }
+        if (isset($attributes->size)) {
+            $styles .= 'font-size:' . htmlspecialchars($attributes->size) . ';';
+        }
+
+        if (!empty($styles)) {
+            $content = '<span style="' . $styles . '">' . $content . '</span>';
+        }
+        if (isset($attributes->bold) && $attributes->bold) {
+            $content = '<strong>' . $content . '</strong>';
+        }
+        if (isset($attributes->italic) && $attributes->italic) {
+            $content = '<em>' . $content . '</em>';
+        }
+        if (isset($attributes->underline) && $attributes->underline) {
+            $content = '<u>' . $content . '</u>';
+        }
+        if (isset($attributes->strike) && $attributes->strike) {
+            $content = '<s>' . $content . '</s>';
+        }
+        if (isset($attributes->code) && $attributes->code) {
+            $content = '<code>' . $content . '</code>';
+        }
+        if (isset($attributes->link)) {
+            $content = '<a href="' . htmlspecialchars($attributes->link) . '">' . $content . '</a>';
+        }
+        return $content;
+    }
+
+// Function to apply block attributes to content
+    public static function applyBlockAttributes($content, $attributes) {
+        if (isset($attributes->header)) {
+            $level = intval($attributes->header);
+            var_dump($level);
+            $content = '<h' . $level . '>' . $content . '</h' . $level . '>';
+        }
+        if (isset($attributes->blockquote)) {
+            $content = '<blockquote>' . $content . '</blockquote>';
+        }
+        if (isset($attributes->list)) {
+            if ($attributes->list == 'ordered') {
+                $content = '<ol><li>' . $content . '</li></ol>';
+            } else {
+                $content = '<ul><li>' . $content . '</li></ul>';
+            }
+        }
+        return $content;
+    }
+
+// Function to unpack and process the description
+// todo needs to be fixed
+    public static function unpackDescription($descriptionJson) {
+        // Decode the JSON string to an array of objects
+        $descriptionArray = json_decode($descriptionJson);
+        $htmlOutput = '';
+
+        // Iterate through the array and process the 'insert' values
+        foreach ($descriptionArray as $item) {
+            // Get the content and apply inline attributes if they exist
+            $content = htmlspecialchars($item->insert);
+            if (isset($item->attributes)) {
+                $content = self::applyInlineAttributes($content, $item->attributes);
+            }
+            // Split the 'insert' text by newline characters
+            $lines = explode("\n", $content);
+            // Iterate through each line
+            foreach ($lines as $line) {
+                // Only create a <p> if the line is not empty
+                if (!empty(trim($line))) {
+                    $lineHtml = '<p>' . $line . '</p>';
+                    if (isset($item->attributes)) {
+                        $lineHtml = self::applyBlockAttributes($lineHtml, $item->attributes);
+                    }
+                    $htmlOutput .= $lineHtml;
+                }
+            }
+        }
+
+        return $htmlOutput;
+    }
 }

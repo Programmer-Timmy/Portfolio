@@ -17,8 +17,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             <div class="text-center mb-4">
                 <h3 class="title">Login</h3>
             </div>
-            <form method="post">
-                <div class="form-group">
+            <form method="post" style="color: #777">
+                <div class="form-group py-2">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
                 </div>
@@ -26,7 +26,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <button type="submit" class="btn btn-primary btn-block mt-2">Login</button>
             </form>
         </div>
     </div>

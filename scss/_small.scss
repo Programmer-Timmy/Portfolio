@@ -1,4 +1,7 @@
 // Prevent adjustments of font size after orientation changes in IE on Windows Phone an in iOS.
+.container {
+  max-width: 90%;
+}
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -76,33 +79,31 @@ header {
   }
 
   nav {
+    background-color: $secondary;
     position: absolute;
-    top: 20px;
+    left: 0;
+    top: 57px;
     width: 100%;
     display: none;
 
 
     ul {
-      padding-top: 40px;
+
+      padding: 20px;
       list-style: none;
-      height: 100%;
-      padding-bottom: 20px;
     }
 
     li {
-      z-index: 9;
-      padding-top: 20px;
-      position: relative;
-      background-color: $secondary;
-
+      padding: 0 0 25px 0;
       &:last-child {
-        padding-bottom: 20px;
+        padding: 0 0 5px 0;
       }
     }
 
     a {
+      padding: 10px 0;
+
       color: $primary;
-      margin-left: 20px;
       text-decoration: none;
       text-transform: uppercase;
       font-size: 14px;
@@ -110,21 +111,18 @@ header {
       &:hover {
         color: $primary;
 
-        &::before {
+        &::after {
           width: 100%;
         }
       }
 
-      &::before {
+      &::after {
         content: "";
+        margin-top: 10px;
         display: block;
         height: 5px;
         background-color: $primary;
-
-        position: absolute;
-        top: 0;
         width: 0;
-
         transition: all ease-in-out 250ms;
       }
     }
@@ -143,23 +141,28 @@ header {
     font-size: 420%;
     text-align: center;
   }
+
+  h2 {
+    color: $primary;
+    font-size: 300%;
+    text-align: center;
+  }
+
+  h3 {
+    color: $primary;
+    font-size: 200%;
+    text-align: center;
+  }
 }
 
 .borderp {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
-  padding: 10px;
-
   .project-home {
     /* ! Also for Project page */
-    width: 50vh;
     text-align: center;
+    padding: 10px;
 
     div {
-      border: $gary 1px solid;
+      border: $gray 1px solid;
       height: 50vh;
       border-radius: 2vh;
 
@@ -179,8 +182,6 @@ header {
   }
 
   #videoborder {
-    height: auto;
-    width: 88vh;
     margin: 2vh 2vh 1vh;
 
     h1 {
@@ -194,7 +195,7 @@ header {
 
     .videos {
 
-      border: $gary 1px solid;
+      border: $gray 1px solid;
       border-radius: 2vh;
       text-align: center;
       position: relative;
@@ -223,7 +224,7 @@ header {
 // * About * //
 
 .border {
-  padding: 15px;
+  border: none !important;
 
   div:first-child {
     display: flex;
@@ -245,6 +246,15 @@ header {
   #tekst {
     padding-top: 20px;
     line-height: 20px;
+
+    div{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      a {
+        padding: 0 5px 0 0;
+      }
+    }
 
     h2 {
       color: $primary;
@@ -280,8 +290,6 @@ header {
   }
 
   #about-tekst {
-    width: 100%;
-
     h2 {
       color: $primary;
     }
@@ -556,7 +564,7 @@ header {
   transition: top 0.5s;
   width: 95%;
   padding: 10px 20px;
-  background-color: $gary; /* Replace with the desired color value */
+  background-color: $gray; /* Replace with the desired color value */
   text-align: center;
   border-radius: 10px;
   position: fixed;
@@ -660,4 +668,79 @@ footer {
   }
 }
 
+// * buttons * //
 
+.btn-primary {
+  text-decoration: none;
+  font-weight: bold;
+  border: $primary 1px solid;
+  background: $primary;
+  border-radius: 10px;
+  color: $black;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background: $dark-gary;
+    border-color: $dark-gary;
+  }
+}
+
+.btn-youtube {
+    text-decoration: none;
+    font-weight: bold;
+    border: $youtube-red 1px solid;
+    background: $youtube-red;
+    border-radius: 10px;
+    color: $white;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+        color: white;
+        background: $youtube-black;
+        border-color: $youtube-black;
+    }
+}
+
+.btn-github {
+    text-decoration: none;
+    font-weight: bold;
+    border: $github-green 1px solid;
+    background: $github-green;
+    border-radius: 10px;
+    color: $white;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+        color: white;
+        background: $github-black;
+        border-color: $github-black;
+    }
+}
+
+// * text * //
+
+.text {
+    color: $light-gray;
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+// * single project * //
+
+.single-projects{
+
+  .img-container{
+    width: 100%;
+    height: 65vh;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+}

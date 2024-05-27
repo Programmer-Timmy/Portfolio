@@ -30,8 +30,8 @@ $email = [
  */
 $site = [
     // General settings
-    'siteName' => 'portfolio',
-    'debug' => false, // shows errors if true
+    'siteName' => 'Tim van der Kloet',
+    'debug' => true, // shows errors if true
     'maintenance' => false, // shows the maintenance page if true the client's IP is not in the allowedIPs array
 
     // ajax on or off
@@ -44,7 +44,7 @@ $site = [
 
     // Admin settings
     'admin' => [
-        'enabled' => false,
+        'enabled' => true,
         'sessionName' => 'admin', // the session name that will be used to store that the user is a admin check by isset function
         'filterInUrl' => 'admin', // empty string means no filter
     ],
@@ -88,9 +88,9 @@ if ($url == '/') {
 $titles = [
     'default' => substr($url, 1) . ' - ' . $site['siteName'],
     'maintenance' => 'Under Maintenance - ' . $site['siteName'],
-    'home' => 'Home Page - ' . $site['siteName'],
-    'about' => 'About Us - ' . $site['siteName'],
-    'contact' => 'Contact Us - ' . $site['siteName'],
+    'home' => 'Home - ' . $site['siteName'],
+    'about' => 'About me - ' . $site['siteName'],
+    'contact' => 'Contact me - ' . $site['siteName'],
     '404' => '404 - Oops page not found!',
     // Add more titles as needed
 ];

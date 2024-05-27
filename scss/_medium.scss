@@ -19,21 +19,20 @@ header {
     }
 
     nav {
-      position: absolute;
-      left: 220px;
-      width: auto;
-      top: -20px;
+      background-color: transparent;
+      position: static;
       display: block;
 
       ul {
         list-style: none;
+        display: flex;
+        flex-direction: row;
       }
 
       li {
-        padding: 0;
-        float: left;
+        padding: 0 20px 0 0;
         position: relative;
-        background-color: $primary;
+
 
         &:last-child {
           padding-bottom: 0;
@@ -45,23 +44,20 @@ header {
         text-decoration: none;
         text-transform: uppercase;
         font-size: 14px;
+        padding: 0 20px 0 0;
 
         &:hover {
           color: $dark-gary;
 
-          &::before {
-            width: 75%;
-            bottom: 0;
+          &::after {
+            width: 100%;
           }
         }
 
-        &::before {
-          margin-left: 20px;
+        &::after {
           display: block;
           height: 5px;
           background-color: $dark-gary;
-          position: absolute;
-          top: 30px;
           width: 0;
         }
       }
@@ -69,14 +65,6 @@ header {
   }
 }
 
-.border {
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  align-items: center;
-}
 
 .border-re {
   padding: 20px;

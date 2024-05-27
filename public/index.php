@@ -33,6 +33,21 @@ if ($site['ajax']) {
     }
 }
 
+if ($site['admin']['enabled']) {
+    $admin = $site['admin'];
+    $pageTemplate = __DIR__ . "/../private/Views/pages$require.php";
+
+    if (file_exists($pageTemplate)) {
+        if (str_contains($require, $admin['filterInUrl']) && $require !== $site['redirect'] && $require !== '/404' && $require !== '/maintenance') {
+            if (!isset($_SESSION[$admin['sessionName']])) {
+                if($site['saveUrl']){
+                    $_SESSION['redirect'] = $requestedPage;
+                }
+                header('Location:/' . $site['redirect']);
+            }
+        }
+    }
+}
 
 if ($site['accounts']['enabled']) {
     $accounts = $site['accounts'];
@@ -49,7 +64,7 @@ if ($site['accounts']['enabled']) {
                     }
                 }
 
-                header('Location:' . $site['redirect']);
+                header('Location:/' . $site['redirect']);
             }
         }
     }
