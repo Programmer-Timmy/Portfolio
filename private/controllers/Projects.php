@@ -23,7 +23,7 @@ class Projects
         }
     }
 
-    public static function addProject($name, $description, $path, $files)
+    public static function addProject($name, $description, $path,$github, $files)
     {   $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
         if (isset($img['error'])) {
@@ -35,9 +35,9 @@ class Projects
 
             return $img['error'];
         }
-        $results = Database::insert('projects', ['name', 'description', 'date','path', 'img'], [$name, $description, $date, $path,  $img[0]]);
+        $results = Database::insert('projects', ['name', 'description', 'date','path','github', 'img'], [$name, $description, $date, $path, $github, $img[0]]);
         if (!$results) {
-            self::deleteImage($img);
+            self::deleteImage($img[0]);
             return "There was an error adding your project.";
         }
         return "";

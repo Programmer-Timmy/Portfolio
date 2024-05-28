@@ -8,19 +8,15 @@ if ($_POST) {
     if (empty($_POST['title'])) {
         $error = 'Please enter a title';
     }
-    if (empty($_POST['link'])) {
-        $error = 'Please enter a link';
-    }
     if (count($descriptionArray) == 1 && strlen($descriptionArray[0]->insert) == 1) {
         $error = 'Please enter a description';
     }
     if (empty($error)) {
-       $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_FILES);
+       $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['github'], $_POST['link'], $_FILES);
        if (empty($error)) {
            header('Location: /admin/projects');
        }
     }
-
 }
 
 ?>
@@ -30,13 +26,6 @@ if ($_POST) {
     type="text/css"
     href="https://unpkg.com/file-upload-with-preview/dist/style.css"
 />
-<style>
-    body{
-        color: white
-    }
-</style>
-
-
 
 <div class="container mx-5">
     <div class="row justify-content-center">
@@ -59,6 +48,13 @@ if ($_POST) {
                 py-2">
                     <label for="link">Link</label>
                     <input type="text" class="form-control" id="link" name="link" placeholder="Enter the link" <?php if (isset($_POST['link'])) echo 'value="' . $_POST['link'] . '"' ?>>
+                </div>
+                <div class="form-group py-2">
+                    <label for="github">Github Link</label>
+                    <input type="text" class="form-control" id="github" name="github"
+                           placeholder="Enter the link" <?php if (isset($_POST['link'])) {
+                        echo 'value="' . $_POST['github'] . '"';
+                    }?>>
                 </div>
                 <div class="form-group
                 py-2">

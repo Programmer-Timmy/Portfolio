@@ -34,13 +34,6 @@ if ($_POST) {
         type="text/css"
         href="https://unpkg.com/file-upload-with-preview/dist/style.css"
 />
-<style>
-    body {
-        color: white
-    }
-</style>
-
-
 <div class="container mx-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
