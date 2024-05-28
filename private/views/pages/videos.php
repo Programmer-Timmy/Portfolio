@@ -9,7 +9,7 @@ $videos = Videos::getAll();
         <div class="text">
             <p>Here you can find all my droning videos. I have been droning for a while now and I have made some amazing videos. I hope you enjoy them as much as I do.</p>
         </div>
-        <a href="https://www.youtube.com/@Tim-van-der-Kloet" target="_blank" class="btn btn-youtube">Visit My YouTube Channel</a>
+        <a href="https://www.youtube.com/@Tim-van-der-Kloet" target="_blank" class="btn btn-youtube"><i class="fab fa-youtube" aria-hidden="true"></i> Visit My YouTube Channel</a>
 
         <div class="borderp row">
         <?php foreach ($videos as $item): ?>

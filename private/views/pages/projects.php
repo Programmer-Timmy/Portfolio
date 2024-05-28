@@ -8,7 +8,7 @@ $projects = Projects::loadProjects("100");
         <div class="text">
             <p>These are some of the projects I have worked on. Click on a project to see more information. If you want to see more projects, visit my GitHub.</p>
         </div>
-        <a href="https://github.com/Programmer-Timmy" target="_blank" class="btn btn-github">Visit My GitHub</a>
+        <a href="https://github.com/Programmer-Timmy" target="_blank" class="btn btn-github"><i class="fa fa-github" aria-hidden="true"></i> Visit My GitHub</a>
     </div>
 
     <div class="borderp row">
@@ -24,7 +24,7 @@ $projects = Projects::loadProjects("100");
 
                     <?php if ($project->github): ?>
                         <h1>
-                            <a class="github" href="<?= $project->github ?>">
+                            <a class="github text-decoration-none" href="<?= $project->github ?>">
                                 <i class="fa fa-github" aria-hidden="true"></i>
                             </a>
                             <?= $project->name ?>

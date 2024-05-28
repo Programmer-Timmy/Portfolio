@@ -18,7 +18,7 @@ $projects = Projects::loadProjects("3");
                 </div>
                 <h1>
                     <?php if ($project->github): ?>
-                        <a class="github" href="<?php echo $project->github; ?>">
+                        <a class="github text-decoration-none" href="<?php echo $project->github; ?>">
                             <i class="fa fa-github" aria-hidden="true"></i>
                         </a>
                     <?php endif; ?>
