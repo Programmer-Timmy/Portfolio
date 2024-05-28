@@ -9,7 +9,7 @@ $projects = Projects::loadProjects("3");
 <div class="borderp row" style="color: red">
     <?php if ($projects): ?>
         <?php foreach ($projects as $project): ?>
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-4">
             <div class="project-home">
                 <div>
                     <a href="project?id=<?= $project->id?>">
