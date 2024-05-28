@@ -92,11 +92,18 @@ $titles = [
     'about' => 'About me - ' . $site['siteName'],
     'contact' => 'Contact me - ' . $site['siteName'],
     '404' => '404 - Oops page not found!',
+    'login' => 'Login - ' . $site['siteName'],
+    'admin/addProject' => 'Add Project - ' . $site['siteName'],
+    'admin/editProject' => 'Edit Project - ' . $site['siteName'],
+    'admin/projects' => 'Projects admin - ' . $site['siteName'],
+    'admin' => 'Admin - ' . $site['siteName'],
+    'projects' => 'Projects - ' . $site['siteName'],
     // Add more titles as needed
 ];
 
 // Disable errors if debug is set to false
 if (!$site['debug']) {
     error_reporting(0);
-
+} else {
+    error_reporting(E_ALL);
 }

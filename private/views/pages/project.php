@@ -23,7 +23,7 @@ if (!$project) {
         <div class="col-lg-4">
             <div class="project-home">
                 <div class="text">
-                    <p><?= $project->description ?></p>
+                    <?= GlobalUtility::unpackDescription($project->description) ?>
                 </div>
                 <div class="text">
                     <p>Created at: <?= $project->date ?></p>

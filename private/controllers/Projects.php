@@ -113,4 +113,30 @@ class Projects
         }
     }
 
+    public static function updateProject($name, $description, $path, $github, $files, $id)
+    {
+        $existing = Database::get('projects', ['img'], [], ['id' => $id]);
+        $img = [$existing->img];
+        if (!empty($files)){
+            self::deleteImage($img[0]);
+
+            $img = self::uploadImage($files);
+            if (isset($img['error'])) {
+                if (is_array($img['images'])) {
+                    foreach ($img['images'] as $image) {
+                        self::deleteImage($image);
+                    }
+                }
+                return $img['error'];
+            }
+        }
+        try {
+            Database::update('projects', ['name', 'description', 'path', 'github','img'], [$name, $description, $path, $github, $img[0]], ['id' => $id]);
+        } catch (Exception $e) {
+            self::deleteImage($img[0]);
+            return "There was an error updating your project.";
+        }
+
+        return "";
+    }
 }

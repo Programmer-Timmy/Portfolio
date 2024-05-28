@@ -7,7 +7,11 @@ if (isset($_GET['delete'])) {
 }
 ?>
 
-<div class="container pt-5">
+<div class="container">
+    <div class="welcome text-center mb-4">
+        <h1>Admin Projects</h1>
+        <a href="/admin/addProject" class="btn btn-primary mt-2">Add Project</a>
+    </div>
     <table class="table table-light table-hover table-striped">
         <thead class="thead-dark">
             <tr>

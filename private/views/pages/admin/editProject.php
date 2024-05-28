@@ -12,20 +12,14 @@ if (!$project) {
 $error = '';
 if ($_POST) {
     $descriptionArray = json_decode($_POST['description']);
-    if (sizeof($_FILES) < 1) {
-        $error = 'Please upload an image';
-    }
     if (empty($_POST['title'])) {
         $error = 'Please enter a title';
-    }
-    if (empty($_POST['link'])) {
-        $error = 'Please enter a link';
     }
     if (count($descriptionArray) == 1 && strlen($descriptionArray[0]->insert) == 1) {
         $error = 'Please enter a description';
     }
     if (empty($error)) {
-        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_FILES);
+        $error = Projects::updateProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $project->id);
         if (empty($error)) {
             header('Location: /admin/projects');
         }
@@ -59,16 +53,14 @@ if ($_POST) {
                         <?= $error ?>
                     </div>
                 <?php endif; ?>
-                <div class="form-group
-                py-2">
+                <div class="form-group py-2">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" <?php if (isset($_POST['title'])) {
                         echo 'value="' . $_POST['title'] . '"';
                     } else {
                         echo 'value="' . $project->name . '"';
                     } ?> required name="title" placeholder="Enter the title">
-                    <div class="form-group
-                py-2">
+                    <div class="form-group py-2">
                         <label for="link">Link</label>
                         <input type="text" class="form-control" id="link" name="link"
                                placeholder="Enter the link" <?php if (isset($_POST['link'])) {
@@ -77,8 +69,16 @@ if ($_POST) {
                             echo 'value="' . $project->path . '"';
                         } ?>>
                     </div>
-                    <div class="form-group
-                py-2">
+                    <div class="form-group py-2">
+                        <label for="github">Github Link</label>
+                        <input type="text" class="form-control" id="github" name="github"
+                               placeholder="Enter the link" <?php if (isset($_POST['link'])) {
+                            echo 'value="' . $_POST['github'] . '"';
+                        } else {
+                            echo 'value="' . $project->github . '"';
+                        } ?>>
+                    </div>
+                    <div class="form-group py-2">
                         <label for="description">Description</label>
                         <div id="editor">
                             <?php if (isset($_POST['description'])) {
@@ -92,7 +92,7 @@ if ($_POST) {
                 py-2">
                         <div class="custom-file-container" data-upload-id="my-unique-id"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mt-2">Add Project</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-2">Update Project</button>
                 </div>
             </form>
         </div>
@@ -106,8 +106,9 @@ if ($_POST) {
     });
 
     const upload = new FileUploadWithPreview.FileUploadWithPreview('my-unique-id')
-    upload.options.presetFiles = ["<?= $project->img ?>"] // todo fix this presetimages
+    upload.options.presetFiles = ["/<?= $project->img ?>"] // todo fix this presetimages
     upload.options.multiple = true;
+    upload.resetPreviewPanel();
 
 
     const form = document.querySelector('form');

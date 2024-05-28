@@ -171,16 +171,18 @@ class GlobalUtility
             }
             // Split the 'insert' text by newline characters
             $lines = explode("\n", $content);
+            if (end($lines) == '') {
+                array_pop($lines);
+            }
             // Iterate through each line
             foreach ($lines as $line) {
                 // Only create a <p> if the line is not empty
-                if (!empty(trim($line))) {
-                    $lineHtml = '<p>' . $line . '</p>';
-                    if (isset($item->attributes)) {
-                        $lineHtml = self::applyBlockAttributes($lineHtml, $item->attributes);
-                    }
-                    $htmlOutput .= $lineHtml;
+                $lineHtml = '<p>' . $line . '</p>';
+                if (isset($item->attributes)) {
+                    $lineHtml = self::applyBlockAttributes($lineHtml, $item->attributes);
                 }
+                $htmlOutput .= $lineHtml;
+
             }
         }
 

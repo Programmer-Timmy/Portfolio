@@ -6,7 +6,7 @@ $projects = Projects::loadProjects("100");
     <div class="welcome">
         <h1>Projects</h1>
         <div class="text">
-            <p>Here you can find all my projects. I have been working on a lot of projects and I have made some amazing things. I hope you enjoy them as much as I do.</p>
+            <p>These are some of the projects I have worked on. Click on a project to see more information. If you want to see more projects, visit my GitHub.</p>
         </div>
         <a href="https://github.com/Programmer-Timmy" target="_blank" class="btn btn-github">Visit My GitHub</a>
     </div>
