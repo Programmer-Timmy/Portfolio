@@ -32,7 +32,7 @@ if (!$project) {
                     <?php if ($project->github): ?>
                         <a class="btn btn-github" href="<?= $project->github ?>">
                             <i class="fa fa-github" aria-hidden="true"></i>
-                            Visit GitHub
+                            Visit on Github
                         </a>
                     <?php endif; ?>
                     <?php if ($project->path): ?>
