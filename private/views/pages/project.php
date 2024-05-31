@@ -62,13 +62,13 @@ if (!$project) {
                 </div>
                 <div class="d-flex justify-content-evenly">
                     <?php if ($project->github): ?>
-                        <a class="btn btn-github" href="<?= $project->github ?>">
+                        <a class="btn btn-github" target="_blank" href="<?= $project->github ?>">
                             <i class="fa fa-github" aria-hidden="true"></i>
                             Visit on Github
                         </a>
                     <?php endif; ?>
                     <?php if ($project->path): ?>
-                        <a class="btn btn-primary" href="<?= $project->path ?>">
+                        <a class="btn btn-primary" target="_blank" href="<?= $project->path ?>">
                             <i class="fa fa-globe" aria-hidden="true"></i>
                             Visit Project
                         </a>
