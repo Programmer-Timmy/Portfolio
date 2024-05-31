@@ -280,7 +280,7 @@ class Database
      * 
      * @return Database
      */
-    public static function beginTransaction()
+    public static function beginTransaction(): Database
     {
         $database = new Database;
         $database->connection->beginTransaction();

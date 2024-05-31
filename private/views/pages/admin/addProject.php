@@ -96,7 +96,7 @@ if ($_POST) {
     });
 
     const upload = new FileUploadWithPreview.FileUploadWithPreview('my-unique-id');
-    // upload.options.multiple = true;
+    upload.options.multiple = true;
 
     const form = document.querySelector('form');
     form.addEventListener('formdata', (event) => {

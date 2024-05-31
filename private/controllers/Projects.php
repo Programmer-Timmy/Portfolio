@@ -23,25 +23,53 @@ class Projects
         }
     }
 
+    public static function loadProjectImg($id)
+    {
+        $results = Database::getAll('project_images', ['img'], [], ['project_id' => $id]);
+        if ($results) {
+            return $results;
+        } else {
+            return false;
+        }
+    }
+
     public static function addProject($name, $description, $path,$github, $files, $pinned)
     {   $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
+        $database = new Database();
+
         if (isset($img['error'])) {
             if (is_array($img['images'])) {
                 foreach ($img['images'] as $image) {
                     self::deleteImage($image);
                 }
             }
-
             return $img['error'];
         }
+
         try {
-            $results = Database::insert('projects', ['name', 'description', 'date','path','github', 'img', 'pinned'], [$name, $description, $date, $path, $github, $img[0], $pinned]);
+            $database->beginTransaction();
+
+            $results = Database::insert('projects', ['name', 'description', 'date','path','github', 'img', 'pinned'], [$name, $description, $date, $path, $github, $img[0], $pinned], $database);
+
+            array_shift($img);
+            if ($results && !empty($img)) {
+                $id = $database->lastInsertId();
+                foreach ($img as $image) {
+                    Database::insert('project_images', ['project_id', 'img'], [$id, $image], $database);
+                }
+            }
+
+            $database->commit($database);
+
             if (!$results) {
-                self::deleteImage($img[0]);
+                foreach ($img as $image) {
+                    self::deleteImage($image);
+                }
                 return "There was an error adding your project.";
             }
         } catch (Exception $e) {
+            $database->rollBack($database);
             self::deleteImage($img[0]);
             return "There was an error adding your project.";
         }
@@ -123,25 +151,47 @@ class Projects
         $existing = Database::get('projects', ['img'], [], ['id' => $id]);
         $img = [$existing->img];
         if (!empty($files)){
-            self::deleteImage($img[0]);
+            foreach ($img as $image)
+            {
+                self::deleteImage($image);
+            }
+
 
             $img = self::uploadImage($files);
             if (isset($img['error'])) {
                 if (is_array($img['images'])) {
                     foreach ($img['images'] as $image) {
+                        var_dump($image);
                         self::deleteImage($image);
                     }
                 }
                 return $img['error'];
             }
         }
+
+
+
         try {
-            Database::update('projects', ['name', 'description', 'path', 'github','img', 'pinned'], [$name, $description, $path, $github, $img[0], $pinned], ['id' => $id]);
+            $database = Database::beginTransaction();
+
+            Database::update('projects', ['name', 'description', 'path', 'github','img', 'pinned'], [$name, $description, $path, $github, $img[0], $pinned], ['id' => $id], $database);
+
+            if (!empty($files)){
+                array_shift($img);
+                if (!empty($img)) {
+                    foreach ($img as $image) {
+                        Database::insert('project_images', ['project_id', 'img'], [$id, $image], $database);
+                    }
+                }
+            }
+
+            $database->commit($database);
+
         } catch (Exception $e) {
             self::deleteImage($img[0]);
-            return "There was an error updating your project.";
+            $database->rollBack($database);
+            return "There was an error updating your project." . $e->getMessage();
         }
-
         return "";
     }
 }
