@@ -11,8 +11,14 @@ if ($_POST) {
     if (count($descriptionArray) == 1 && strlen($descriptionArray[0]->insert) == 1) {
         $error = 'Please enter a description';
     }
+    if (isset($_POST['pinned'])) {
+        $_POST['pinned'] = 1;
+    } else {
+        $_POST['pinned'] = 0;
+    }
+
     if (empty($error)) {
-       $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['github'], $_POST['link'], $_FILES);
+       $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['github'], $_POST['link'], $_FILES, $_POST['pinned']);
        if (empty($error)) {
            header('Location: /admin/projects');
        }
@@ -27,7 +33,7 @@ if ($_POST) {
     href="https://unpkg.com/file-upload-with-preview/dist/style.css"
 />
 
-<div class="container mx-5">
+<div class="container mb-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="welcome text-center mb-4">
@@ -56,28 +62,20 @@ if ($_POST) {
                         echo 'value="' . $_POST['github'] . '"';
                     }?>>
                 </div>
+                <div class="form-check py-2">
+                    <input type="checkbox" class="form-check-input" id="pinned" name="pinned"
+                           placeholder="Enter the link" <?php if (isset($_POST['pinned'])) {
+                        echo 'value="' . $_POST['pinned'] . '"';
+                    }?>>
+                    <label for="form-check-label">Pinned</label>
+
+                </div>
                 <div class="form-group
                 py-2">
                     <label for="description">Description</label>
                     <div id="editor">
                         <?php if (isset($_POST['description'])) : ?>
-                        <?php foreach ($descriptionArray as $item) {
-                            // Get the content and apply attributes if they exist
-                            $content = htmlspecialchars($item->insert);
-                            if (isset($item->attributes)) {
-                                $content = GlobalUtility::applyAttributes($content, $item->attributes);
-                            }
-                            // Split the 'insert' text by newline characters
-                            $lines = explode("\n", $content);
-                            if (end($lines) == '') {
-                                array_pop($lines);
-                            }
-                            // Iterate through each line
-                            foreach ($lines as $line) {
-                                // Only create a <p> if the line is not empty
-                                echo '<p>' . $line . '</p>';
-                            }
-                        }?>
+                            <?= GlobalUtility::unpackDescription($_POST['description'])?>
                         <?php endif; ?>
                     </div>
                 </div>

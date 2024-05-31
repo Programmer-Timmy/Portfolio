@@ -18,8 +18,13 @@ if ($_POST) {
     if (count($descriptionArray) == 1 && strlen($descriptionArray[0]->insert) == 1) {
         $error = 'Please enter a description';
     }
+    if (isset($_POST['pinned'])) {
+        $_POST['pinned'] = 1;
+    } else {
+        $_POST['pinned'] = 0;
+    }
     if (empty($error)) {
-        $error = Projects::updateProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $project->id);
+        $error = Projects::updateProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $project->id);
         if (empty($error)) {
             header('Location: /admin/projects');
         }
@@ -70,6 +75,16 @@ if ($_POST) {
                         } else {
                             echo 'value="' . $project->github . '"';
                         } ?>>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                        <input class="form-check-input" type="checkbox" value="1" id="pinned" name="pinned"
+                            <?php if (isset($_POST['pinned'])) {
+                                echo 'checked';
+                            } elseif ($project->pinned) {
+                                echo 'checked';
+                            }
+                            ?>>
+                        <label class="form-check label" for="pinned">Pinned</label>
                     </div>
                     <div class="form-group py-2">
                         <label for="description">Description</label>

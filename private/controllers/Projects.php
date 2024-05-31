@@ -23,7 +23,7 @@ class Projects
         }
     }
 
-    public static function addProject($name, $description, $path,$github, $files)
+    public static function addProject($name, $description, $path,$github, $files, $pinned)
     {   $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
         if (isset($img['error'])) {
@@ -35,8 +35,13 @@ class Projects
 
             return $img['error'];
         }
-        $results = Database::insert('projects', ['name', 'description', 'date','path','github', 'img'], [$name, $description, $date, $path, $github, $img[0]]);
-        if (!$results) {
+        try {
+            $results = Database::insert('projects', ['name', 'description', 'date','path','github', 'img', 'pinned'], [$name, $description, $date, $path, $github, $img[0], $pinned]);
+            if (!$results) {
+                self::deleteImage($img[0]);
+                return "There was an error adding your project.";
+            }
+        } catch (Exception $e) {
             self::deleteImage($img[0]);
             return "There was an error adding your project.";
         }
@@ -113,7 +118,7 @@ class Projects
         }
     }
 
-    public static function updateProject($name, $description, $path, $github, $files, $id)
+    public static function updateProject($name, $description, $path, $github, $files, $pinned, $id)
     {
         $existing = Database::get('projects', ['img'], [], ['id' => $id]);
         $img = [$existing->img];
@@ -131,7 +136,7 @@ class Projects
             }
         }
         try {
-            Database::update('projects', ['name', 'description', 'path', 'github','img'], [$name, $description, $path, $github, $img[0]], ['id' => $id]);
+            Database::update('projects', ['name', 'description', 'path', 'github','img', 'pinned'], [$name, $description, $path, $github, $img[0], $pinned], ['id' => $id]);
         } catch (Exception $e) {
             self::deleteImage($img[0]);
             return "There was an error updating your project.";

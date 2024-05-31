@@ -1,9 +1,13 @@
 <?php
+$error = "";
 $projects = Projects::loadProjects("100");
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    Projects::deleteProject($id);
+    if ($error = Projects::deleteProject($id) === "") {
+        header('Location: /admin/projects');
+        exit;
+    }
 }
 ?>
 
@@ -12,6 +16,11 @@ if (isset($_GET['delete'])) {
         <h1>Admin Projects</h1>
         <a href="/admin/addProject" class="btn btn-primary mt-2">Add Project</a>
     </div>
+    <?php if ($error): ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $error ?>
+        </div>
+    <?php endif; ?>
     <table class="table table-light table-hover table-striped">
         <thead class="thead-dark">
             <tr>
