@@ -10,5 +10,14 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card" style="background-color: #444">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Videos</h5>
+                    <p class="card-text text-center">Add, edit and delete videos</p>
+                    <a href="/admin/videos" class="btn btn-primary d-block mx-auto mt-2">Go to Videos</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
