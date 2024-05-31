@@ -91,8 +91,10 @@ class Videos
     {
         $videos = self::getAll();
         $videoIds = array_column($videoItems, 'id->videoId');
+        var_dump($videoIds);
 
         foreach ($videos as $video) {
+            var_dump($video->videoId);
             if (!in_array($video->videoId, $videoIds)) {
                 self::delete($video->id);
                 error_log('Deleted video ID: ' . $video->id);
