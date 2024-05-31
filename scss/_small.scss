@@ -141,7 +141,7 @@ header {
 
   h1 {
     color: $primary;
-    font-size: 4rem;
+    font-size: clamp(3rem, 4vw, 4rem); /* Minimum size: 2rem, preferred: 5vw, maximum: 6rem */
     text-align: center;
   }
 
