@@ -49,7 +49,7 @@ class Videos
                 throw new Exception('Invalid API key or channel ID.');
             }
 
-            $videoList = json_decode($apiData);
+            $videoList = json_decode($apiData->items);
             var_dump($videoList);
 
             foreach ($videoList->items as $item) {
