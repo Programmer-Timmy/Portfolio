@@ -17,7 +17,7 @@ if (!$project) {
     </div>
     <div class="row">
         <div class="col-lg-8">
-            <div id="carouselExample" class="carousel slide carousel-dark" data-bs-ride="carousel" data-bs-theme="dark">
+            <div id="carouselExample" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel" data-bs-theme="dark">
                 <?php if ($images): ?>
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
