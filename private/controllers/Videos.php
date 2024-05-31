@@ -49,8 +49,9 @@ class Videos
                 throw new Exception('Invalid API key or channel ID.');
             }
 
-            $videoList = json_decode($apiData->items);
-            var_dump($videoList);
+            $videoList = json_decode($apiData);
+            var_dump($videoList->items);
+            var_dump($videoList['items']);
 
             foreach ($videoList->items as $item) {
                 if ($item->id->kind !== 'youtube#video') {
