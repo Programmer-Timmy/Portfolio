@@ -50,6 +50,7 @@ class Videos
             }
 
             $videoList = json_decode($apiData);
+            var_dump($videoList);
 
             foreach ($videoList->items as $item) {
                 if ($item->id->kind !== 'youtube#video') {
