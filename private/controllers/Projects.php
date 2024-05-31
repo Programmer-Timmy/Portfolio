@@ -121,7 +121,7 @@ class Projects
     private static function deleteImage($img)
     {
         if (file_exists($img)) {
-            unlink('../public/' . $img);
+            unlink('../public_html/' . $img);
         }
     }
 
@@ -188,7 +188,10 @@ class Projects
             $database->commit($database);
 
         } catch (Exception $e) {
-            self::deleteImage($img[0]);
+            foreach ($img as $image){
+                self::deleteImage($image);
+
+            }
             $database->rollBack($database);
             return "There was an error updating your project." . $e->getMessage();
         }
