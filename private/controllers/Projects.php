@@ -5,7 +5,7 @@ class Projects
 
     public static function loadProjects($limit)
     {
-        $results = Database::getAll('projects', ['*'], [], ['removed' => 0], 'date DESC limit ' . $limit);
+        $results = Database::getAll('projects', ['*'], [], ['removed' => 0], 'pinned DESC, date DESC LIMIT ' . $limit);
         if ($results) {
             return $results;
         } else {

@@ -98,6 +98,7 @@ $titles = [
     'admin/projects' => 'Projects admin - ' . $site['siteName'],
     'admin' => 'Admin - ' . $site['siteName'],
     'projects' => 'Projects - ' . $site['siteName'],
+    'project' => 'Project - ' . $site['siteName'],
     // Add more titles as needed
 ];
 

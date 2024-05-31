@@ -11,7 +11,10 @@ $projects = Projects::loadProjects("3");
         <?php foreach ($projects as $project): ?>
         <div class="col-md-6 col-lg-4">
             <div class="project-home">
-                <div>
+                <div class="position-relative">
+                    <?php if ($project->pinned): ?>
+                        <i class="pinned position-absolute translate-middle p-2 bg-success border border-light rounded-circle fa-solid fa-thumbtack"></i>
+                    <?php endif; ?>
                     <a href="project?id=<?= $project->id?>">
                         <img src="<?php echo $project->img; ?>" class="img-size" alt="">
                     </a>
