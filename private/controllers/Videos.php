@@ -4,12 +4,17 @@ class Videos
 {
     public static function getAll()
     {
-        return Database::getAll('videos', ['*'], [], [], 'date DESC');
+        return Database::getAll('videos', ['*'], [], [], 'pinned DESC, date DESC');
     }
 
     public static function get($videoId)
     {
         return Database::get('videos', ['*'], [], ['videoId' => $videoId]);
+    }
+
+    public static function getById($id)
+    {
+        return Database::get('videos', ['*'], [], ['id' => $id]);
     }
 
     public static function update($title, $id): void
@@ -103,6 +108,19 @@ class Videos
                 error_log('Match found for video ID: ' . $video->videoId . ', not deleting');
             }
         }
+    }
+
+    public static function changePinned($id): void
+    {
+        $video = self::getById($id);
+        if (!$video) {
+            return;
+        }
+        $pinned = 0;
+        if ($video->pinned == 0) {
+            $pinned = 1;
+        }
+        Database::update('videos', ['pinned'], [$pinned], ['id' => $id]);
     }
 
 }
