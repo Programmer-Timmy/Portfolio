@@ -29,6 +29,7 @@ if (isset($_GET['delete'])) {
                 <th scope="col">Description</th>
                 <th scope="col">Url</th>
                 <th scope="col">Github</th>
+                <th scope="col">Pinned</th>
                 <th scope="col">Image</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -41,6 +42,7 @@ if (isset($_GET['delete'])) {
                     <td><?= $project->description ?></td>
                     <td><?= $project->path ?></td>
                     <td><?= $project->github ?></td>
+                    <td><?= $project->pinned ? 'Yes' : 'No' ?></td>
                     <td><img src="/<?= $project->img ?>" class="img-size" alt="" width="30" height="30"></td>
 
                     <td>
