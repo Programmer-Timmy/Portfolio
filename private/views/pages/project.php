@@ -58,7 +58,7 @@ if (!$project) {
                     <?= GlobalUtility::unpackDescription($project->description) ?>
                 </div>
                 <div class="text">
-                    <p>Created at: <?= $project->date ?></p>
+                    <p>Created at: <?= date_format(date_create($project->date), 'F j, Y'); ?></p>
                 </div>
                 <div class="d-flex justify-content-evenly">
                     <?php if ($project->github): ?>
