@@ -1,7 +1,7 @@
 <?php
 $error = '';
 if ($_POST) {
-    $descriptionArray  = json_decode($_POST['description']);
+    $descriptionArray = json_decode($_POST['description']);
     if (sizeof($_FILES) < 1) {
         $error = 'Please upload an image';
     }
@@ -18,19 +18,19 @@ if ($_POST) {
     }
 
     if (empty($error)) {
-       $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['github'], $_POST['link'], $_FILES, $_POST['pinned']);
-       if (empty($error)) {
-           header('Location: /admin/projects');
-       }
+        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['github'], $_POST['link'], $_FILES, $_POST['pinned']);
+        if (empty($error)) {
+            header('Location: /admin/projects');
+        }
     }
 }
 
 ?>
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
 <link
-    rel="stylesheet"
-    type="text/css"
-    href="https://unpkg.com/file-upload-with-preview/dist/style.css"
+        rel="stylesheet"
+        type="text/css"
+        href="https://unpkg.com/file-upload-with-preview/dist/style.css"
 />
 
 <div class="container mb-5">
@@ -48,25 +48,28 @@ if ($_POST) {
                 <div class="form-group
                 py-2">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" <?php if (isset($_POST['title'])) echo 'value="' . $_POST['title'] . '"' ?> required name="title" placeholder="Enter the title">
+                    <input type="text" class="form-control"
+                           id="title" <?php if (isset($_POST['title'])) echo 'value="' . $_POST['title'] . '"' ?>
+                           required name="title" placeholder="Enter the title">
                 </div>
                 <div class="form-group
                 py-2">
                     <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter the link" <?php if (isset($_POST['link'])) echo 'value="' . $_POST['link'] . '"' ?>>
+                    <input type="text" class="form-control" id="link" name="link"
+                           placeholder="Enter the link" <?php if (isset($_POST['link'])) echo 'value="' . $_POST['link'] . '"' ?>>
                 </div>
                 <div class="form-group py-2">
                     <label for="github">Github Link</label>
                     <input type="text" class="form-control" id="github" name="github"
                            placeholder="Enter the link" <?php if (isset($_POST['link'])) {
                         echo 'value="' . $_POST['github'] . '"';
-                    }?>>
+                    } ?>>
                 </div>
                 <div class="form-check py-2">
                     <input type="checkbox" class="form-check-input" id="pinned" name="pinned"
                            placeholder="Enter the link" <?php if (isset($_POST['pinned'])) {
                         echo 'value="' . $_POST['pinned'] . '"';
-                    }?>>
+                    } ?>>
                     <label for="form-check-label">Pinned</label>
 
                 </div>
@@ -75,7 +78,7 @@ if ($_POST) {
                     <label for="description">Description</label>
                     <div id="editor">
                         <?php if (isset($_POST['description'])) : ?>
-                            <?= GlobalUtility::unpackDescription($_POST['description'])?>
+                            <?= GlobalUtility::unpackDescription($_POST['description']) ?>
                         <?php endif; ?>
                     </div>
                 </div>

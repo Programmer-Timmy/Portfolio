@@ -27,7 +27,8 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
                 When I'm not studying, I enjoy playing games and sailing during the summer months. In the winter, I
                 enjoy repairing and painting boats, which is a fun and creative activity. Additionally, I have been a
                 member of the scouting group Het <a href="https://www.zuiderkruis.nl/" target="_blank">ZuiderKruis</a>
-                for <?= $timeAtZuiderKruis?> years, which has allowed me to develop important teamwork and leadership skills.
+                for <?= $timeAtZuiderKruis ?> years, which has allowed me to develop important teamwork and leadership
+                skills.
             </h3>
             <br>
 
@@ -111,7 +112,11 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <h2>Projects & Experience</h2>
             <br>
             <h3>
-                I have worked on several projects during my studies and free time, including a personal portfolio website, a small recipe-sharing website, and a Satisfactory Planner. Additionally, I have experience with WordPress and have created several websites and plugins. I have also developed a converter tool, which allows converting Python dataframes into HTML tables and provides an easy way to generate HTML pages using Python.
+                I have worked on several projects during my studies and free time, including a personal portfolio
+                website, a small recipe-sharing website, and a Satisfactory Planner. Additionally, I have experience
+                with WordPress and have created several websites and plugins. I have also developed a converter tool,
+                which allows converting Python dataframes into HTML tables and provides an easy way to generate HTML
+                pages using Python.
             </h3>
             <br>
 

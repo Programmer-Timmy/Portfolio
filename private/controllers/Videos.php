@@ -4,7 +4,7 @@ class Videos
 {
     public static function getAll()
     {
-        return Database::getAll('videos', ['*'], [], [], 'date DESC' );
+        return Database::getAll('videos', ['*'], [], [], 'date DESC');
     }
 
 }

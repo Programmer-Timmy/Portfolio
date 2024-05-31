@@ -7,6 +7,7 @@ class Database
     private string $user;
     private string $password;
     private string $database;
+
     function __construct()
     {
         global $database;
@@ -32,12 +33,12 @@ class Database
 
     /**
      * This function is used to prepare a query
-     * 
+     *
      * Example:
      * $stmt = Database::prepare("SELECT * FROM users WHERE id = ?");
-     * 
+     *
      * This will prepare a query to get all users with id 1
-     * 
+     *
      * @param $sql
      * @return mixed
      */
@@ -48,10 +49,10 @@ class Database
 
     /**
      * This function is used to get the last inserted ID
-     * 
+     *
      * Example:
      * $lastInsertId = Database::lastInsertId();
-     * 
+     *
      * This will return the last inserted ID
      * @return mixed
      */
@@ -62,12 +63,12 @@ class Database
 
     /**
      * This function is used to insert data into the database
-     * 
+     *
      * Example:
      * Database::insert('users', ['name', 'email'], ['John Doe', 'john.doe@gmail.com']);
-     * 
+     *
      * This will insert a new user into the users table with name John Doe and email
-     * 
+     *
      * @param string $table
      * @param array $columns
      * @param array $values
@@ -104,7 +105,7 @@ class Database
 
     /**
      * This function is used to get data from the database
-     * 
+     *
      * Example:
      * Database::get('users', ['name', 'email'], [], ['id' => 1]);
      * This will return the name and email of the user with id 1
@@ -112,7 +113,7 @@ class Database
      * This will return the name and email of the user with id 1 ordered by name in descending order
      * Databse::get('users', ['name', 'email'], ['user_roles' => 'users.role_id = user_roles.id'], ['users.id' => 1]);
      * This will return the name and email of the user with id 1 with a join on user_roles table
-     * 
+     *
      * @param string $table
      * @param array $columns
      * @param $join
@@ -120,7 +121,7 @@ class Database
      * @param string $orderBy
      * @return mixed
      */
-    public static function getAll(string $table, array $columns = ['*'],$join = [], array $where = [], string $orderBy = '')
+    public static function getAll(string $table, array $columns = ['*'], $join = [], array $where = [], string $orderBy = '')
     {
         $sql = "SELECT ";
         foreach ($columns as $column) {
@@ -148,7 +149,7 @@ class Database
 
     /**
      * This function is used to get a single row from the database
-     * 
+     *
      * Examples:
      * Database::get('users', ['name', 'email'], [], ['id' => 1]);
      *  This will return the name and email of the user with id 1
@@ -156,7 +157,7 @@ class Database
      *  This will return the name and email of the user with id 1 ordered by name in descending order
      * Databse::get('users', ['name', 'email'], ['user_roles' => 'users.role_id = user_roles.id'], ['users.id' => 1]);
      *  This will return the name and email of the user with id 1 with a join on user_roles table
-     * 
+     *
      * @param string $table
      * @param array $columns
      * @param $join
@@ -164,7 +165,7 @@ class Database
      * @param string $orderBy
      * @return mixed
      */
-    public static function get(string $table, array $columns = ['*'],$join = [], array $where = [], string $orderBy = '')
+    public static function get(string $table, array $columns = ['*'], $join = [], array $where = [], string $orderBy = '')
     {
         $sql = "SELECT ";
         foreach ($columns as $column) {
@@ -192,12 +193,12 @@ class Database
 
     /**
      * This function is used to update data in the database
-     * 
+     *
      * Example:
      * Database::update('users', ['name', 'email'], ['John Doe', 'john.doe@gmail.com'], ['id' => 1]);
-     * 
+     *
      * This will update the name and email of the user with id 1
-     * 
+     *
      * @param string $table
      * @param array $columns
      * @param array $values
@@ -224,12 +225,12 @@ class Database
 
     /**
      * This function is used to delete data from the database
-     * 
+     *
      * Example:
      * Database::delete('users', ['id' => 1]);
-     * 
+     *
      * This will delete the user with id 1
-     *  
+     *
      * @param string $table
      * @param array $where
      * @return void
@@ -248,14 +249,14 @@ class Database
 
     /**
      * This function is used to run custom queries
-     * 
+     *
      * Example:
      * $users = Database::query("SELECT * FROM users WHERE id = ?", [1]);
-     * 
+     *
      * This will return all users with id 1
-     * 
+     *
      * Note: If you want to use more functions of pdo before or after the query, you can pass the database object in $database
-     * 
+     *
      * @param string $query
      * @param array $values
      * @param Database $database
@@ -272,12 +273,12 @@ class Database
      * This function is used to begin a transaction
      * A transaction is a set of queries that are executed together by using Database::commit($database)
      * If one query fails, the entire transaction can be rolled back by using Database::rollBack($database)
-     * 
+     *
      * Example:
      * $database = Database::beginTransaction();
-     * 
+     *
      * This will begin a transaction
-     * 
+     *
      * @return Database
      */
     public static function beginTransaction(): Database
@@ -292,12 +293,12 @@ class Database
      * This function is used to commit a transaction
      * A transaction is a set of queries that are executed together by using Database::commit($database)
      * If one query fails, the entire transaction can be rolled back by using Database::rollBack($database)
-     * 
+     *
      * Example:
      * Database::commit($database);
-     * 
+     *
      * This will commit the transaction
-     * 
+     *
      * @param Database $database
      * @return void
      */
@@ -310,12 +311,12 @@ class Database
      * This function is used to roll back a transaction
      * A transaction is a set of queries that are executed together by using Database::commit($database)
      * If one query fails, the entire transaction can be rolled back by using Database::rollBack($database)
-     * 
+     *
      * Example:
      * Database::rollBack($database);
-     * 
+     *
      * This will roll back the transaction
-     * 
+     *
      * @param Database $database
      * @return void
      */

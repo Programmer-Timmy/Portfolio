@@ -1,5 +1,5 @@
 <div class="container pt-5">
-<!--    cards whit links to the admin pages-->
+    <!--    cards whit links to the admin pages-->
     <div class="row">
         <div class="col-md-4">
             <div class="card" style="background-color: #444">

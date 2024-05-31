@@ -86,17 +86,18 @@ class GlobalUtility
 
         // Format the time difference
         if ($interval->days > 0) {
-             return $interval->format('%a days ago');
+            return $interval->format('%a days ago');
         } elseif ($interval->h > 0) {
             return $interval->format('%h hours ago');
         } elseif ($interval->i > 0) {
-            return  $interval->format('%i minutes ago');
+            return $interval->format('%i minutes ago');
         } else {
-            return  'Just now';
+            return 'Just now';
         }
     }
 
-    public static function applyInlineAttributes($content, $attributes) {
+    public static function applyInlineAttributes($content, $attributes)
+    {
         $styles = '';
         if (isset($attributes->color)) {
             $styles .= 'color:' . htmlspecialchars($attributes->color) . ';';
@@ -136,7 +137,8 @@ class GlobalUtility
     }
 
 // Function to apply block attributes to content
-    public static function applyBlockAttributes($content, $attributes) {
+    public static function applyBlockAttributes($content, $attributes)
+    {
         if (isset($attributes->header)) {
             $level = intval($attributes->header);
             var_dump($level);
@@ -157,7 +159,8 @@ class GlobalUtility
 
 // Function to unpack and process the description
 // todo needs to be fixed
-    public static function unpackDescription($descriptionJson) {
+    public static function unpackDescription($descriptionJson)
+    {
         // Decode the JSON string to an array of objects
         $descriptionArray = json_decode($descriptionJson);
         $htmlOutput = '';

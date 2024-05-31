@@ -17,20 +17,21 @@ if (!$project) {
     </div>
     <div class="row">
         <div class="col-lg-8">
-            <div id="carouselExample" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel" data-bs-theme="dark">
+            <div id="carouselExample" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel"
+                 data-bs-theme="dark">
                 <?php if ($images): ?>
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <?php if ($images): ?>
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
                         <?php foreach ($images as $key => $image): ?>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $key + 1 ?>" aria-label="Slide <?= $key + 1 ?>"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                    data-bs-slide-to="<?= $key + 1 ?>" aria-label="Slide <?= $key + 1 ?>"></button>
                         <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
+                    </div>
                 <?php endif; ?>
                 <div class="carousel-inner">
                     <div class="carousel-item active img-container">
-                        <img src="<?=$project->img?>" class="d-block w-100" alt="...">
+                        <img src="<?= $project->img ?>" class="d-block w-100" alt="...">
                     </div>
                     <?php if ($images): ?>
                         <?php foreach ($images as $key => $image): ?>
@@ -41,11 +42,13 @@ if (!$project) {
                     <?php endif; ?>
                 </div>
                 <?php if ($images): ?>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>

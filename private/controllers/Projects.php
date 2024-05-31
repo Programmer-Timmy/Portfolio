@@ -33,8 +33,9 @@ class Projects
         }
     }
 
-    public static function addProject($name, $description, $path,$github, $files, $pinned)
-    {   $date = date('Y-m-d H:i:s');
+    public static function addProject($name, $description, $path, $github, $files, $pinned)
+    {
+        $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
         $database = new Database();
 
@@ -50,7 +51,7 @@ class Projects
         try {
             $database->beginTransaction();
 
-            $results = Database::insert('projects', ['name', 'description', 'date','path','github', 'img', 'pinned'], [$name, $description, $date, $path, $github, $img[0], $pinned], $database);
+            $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned'], [$name, $description, $date, $path, $github, $img[0], $pinned], $database);
 
             array_shift($img);
             if ($results && !empty($img)) {
@@ -99,7 +100,7 @@ class Projects
                         $file_name_new = uniqid('', true) . '.' . $file_ext;
                         $file_destination = '../public_html/img/' . $file_name_new;
                         if (move_uploaded_file($file_tmp, $file_destination)) {
-                            $urlArray[$count] = "img/".$file_name_new;
+                            $urlArray[$count] = "img/" . $file_name_new;
                             $count++;
                         } else {
                             return ["error" => "There was an error uploading your image number " . $count, "images" => $urlArray];
@@ -139,8 +140,8 @@ class Projects
     public static function hardDeleteProject($id)
     {
         try {
-        Database::delete('projects', ['id' => $id]);
-        return "";
+            Database::delete('projects', ['id' => $id]);
+            return "";
         } catch (Exception $e) {
             return "There was an error removing your project.";
         }
@@ -150,9 +151,8 @@ class Projects
     {
         $existing = Database::get('projects', ['img'], [], ['id' => $id]);
         $img = [$existing->img];
-        if (!empty($files)){
-            foreach ($img as $image)
-            {
+        if (!empty($files)) {
+            foreach ($img as $image) {
                 self::deleteImage($image);
             }
 
@@ -170,13 +170,12 @@ class Projects
         }
 
 
-
         try {
             $database = Database::beginTransaction();
 
-            Database::update('projects', ['name', 'description', 'path', 'github','img', 'pinned'], [$name, $description, $path, $github, $img[0], $pinned], ['id' => $id], $database);
+            Database::update('projects', ['name', 'description', 'path', 'github', 'img', 'pinned'], [$name, $description, $path, $github, $img[0], $pinned], ['id' => $id], $database);
 
-            if (!empty($files)){
+            if (!empty($files)) {
                 array_shift($img);
                 if (!empty($img)) {
                     foreach ($img as $image) {
@@ -188,7 +187,7 @@ class Projects
             $database->commit($database);
 
         } catch (Exception $e) {
-            foreach ($img as $image){
+            foreach ($img as $image) {
                 self::deleteImage($image);
 
             }

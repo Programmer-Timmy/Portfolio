@@ -50,7 +50,7 @@ $site = [
     ],
 
     // Accounts settings
-    'accounts'=>[
+    'accounts' => [
         'enabled' => false,
         'sessionName' => 'userId', // the session name that will be used to store that the user is logged in check by isset function
         'filterInUrl' => '', // empty string means no filter

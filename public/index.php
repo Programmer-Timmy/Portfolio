@@ -40,7 +40,7 @@ if ($site['admin']['enabled']) {
     if (file_exists($pageTemplate)) {
         if (str_contains($require, $admin['filterInUrl']) && $require !== $site['redirect'] && $require !== '/404' && $require !== '/maintenance') {
             if (!isset($_SESSION[$admin['sessionName']])) {
-                if($site['saveUrl']){
+                if ($site['saveUrl']) {
                     $_SESSION['redirect'] = $requestedPage;
                 }
                 header('Location:/' . $site['redirect']);
@@ -71,15 +71,15 @@ if ($site['accounts']['enabled']) {
 }
 
 // Include header
-    include __DIR__ . '/../private/views/templates/header.php';
+include __DIR__ . '/../private/views/templates/header.php';
 
 // Check if maintenance mode is active and the client's IP is allowed
 if ($site['maintenance'] && !in_array($_SERVER['REMOTE_ADDR'], $allowedIPs)) {
     // Include the maintenance page
-        include __DIR__ . '/../private/views/pages/maintenance.php';
+    include __DIR__ . '/../private/views/pages/maintenance.php';
 } else {
     // Include the common header
-        include __DIR__ . '/../private/views/templates/navbar.php';
+    include __DIR__ . '/../private/views/templates/navbar.php';
 
     // Determine which page to display based on the request
     $requestedPage = $require;
