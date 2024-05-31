@@ -50,8 +50,6 @@ class Videos
             }
 
             $videoList = json_decode($apiData);
-            var_dump($videoList->items);
-            var_dump($videoList['items']);
 
             foreach ($videoList->items as $item) {
                 if ($item->id->kind !== 'youtube#video') {
@@ -92,8 +90,10 @@ class Videos
     private static function cleanupOldVideos($videoItems): void
     {
         $videos = self::getAll();
-        $videoIds = array_column($videoItems, 'id->videoId');
-        var_dump($videoIds);
+        $videoIds = [];
+        foreach ($videoItems as $item) {
+            $videoIds[] = $item->id->videoId;
+        }
 
         foreach ($videos as $video) {
             var_dump($video->videoId);
