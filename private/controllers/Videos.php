@@ -33,7 +33,7 @@ class Videos
     public static function add(): void
     {
         try {
-            $env = parse_ini_file('../portfolio.env');
+            $env = parse_ini_file(__DIR__ . '/../portfolio.env');
             if (!$env) {
                 throw new Exception('Failed to parse environment file.');
             }
