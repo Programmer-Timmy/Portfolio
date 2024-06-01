@@ -18,7 +18,7 @@ if ($_POST) {
     }
 
     if (empty($error)) {
-        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['github'], $_POST['link'], $_FILES, $_POST['pinned']);
+        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned']);
         if (empty($error)) {
             header('Location: /admin/projects');
         }

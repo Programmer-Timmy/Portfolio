@@ -37,7 +37,6 @@ class Projects
     {
         $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
-        $database = new Database();
 
         if (isset($img['error'])) {
             if (is_array($img['images'])) {
@@ -49,7 +48,7 @@ class Projects
         }
 
         try {
-            $database->beginTransaction();
+            $database = Database::beginTransaction();
 
             $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned'], [$name, $description, $date, $path, $github, $img[0], $pinned], $database);
 
