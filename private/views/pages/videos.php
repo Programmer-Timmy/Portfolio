@@ -12,24 +12,23 @@ $videos = Videos::getAll();
         </div>
         <a href="https://www.youtube.com/@Tim-van-der-Kloet" target="_blank" class="btn btn-youtube"><i
                     class="fab fa-youtube" aria-hidden="true"></i> Visit My YouTube Channel</a>
-
-        <div class="borderp row">
-            <?php foreach ($videos as $item): ?>
-                <div class="col-lg-6">
-                    <div id="videoborder">
-                        <div class="videos position-relative">
-                            <?php if ($item->pinned): ?>
-                                <i class="pinned position-absolute translate-middle p-2 bg-success border border-light rounded-circle fa-solid fa-thumbtack"></i>
-                            <?php endif; ?>
-                            <iframe class="video" src="https://www.youtube.com/embed/<?= $item->videoId ?>"
-                                    frameborder="0"
-                                    allowfullscreen></iframe>
-                        </div>
-                        <h1><?= $item->title ?></h1>
+    </div>
+    <div class="borderp row">
+        <?php foreach ($videos as $item): ?>
+            <div class="col-lg-6">
+                <div id="videoborder">
+                    <div class="videos position-relative">
+                        <?php if ($item->pinned): ?>
+                            <i class="pinned position-absolute translate-middle p-2 bg-success border border-light rounded-circle fa-solid fa-thumbtack"></i>
+                        <?php endif; ?>
+                        <iframe class="video" src="https://www.youtube.com/embed/<?= $item->videoId ?>"
+                                frameborder="0"
+                                allowfullscreen></iframe>
                     </div>
+                    <h1><?= $item->title ?></h1>
                 </div>
-            <?php endforeach; ?>
-        </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
 
