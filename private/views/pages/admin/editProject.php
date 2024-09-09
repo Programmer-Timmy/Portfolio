@@ -107,17 +107,10 @@ if ($_POST) {
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-<script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
 <script>
     const quill = new Quill('#editor', {
         theme: 'snow'
     });
-
-    const upload = new FileUploadWithPreview.FileUploadWithPreview('my-unique-id')
-    upload.options.presetFiles = ["/<?= $project->img ?>"] // todo fix this presetimages
-    upload.options.multiple = true;
-    upload.resetPreviewPanel();
-
 
     const form = document.querySelector('form');
     form.addEventListener('formdata', (event) => {
@@ -131,5 +124,10 @@ if ($_POST) {
         });
     });
 
+    import { FileUploadWithPreview } from 'https://cdn.jsdelivr.net/npm/file-upload-with-preview@5.0.2/dist/file-upload-with-preview.esm.min.js'
+
+    const upload = new FileUploadWithPreview('my-unique-id');
+    upload.options.presetFiles = ["/<?= $project->img ?>"] // todo fix this presetimages
+    upload.options.multiple = true;
 </script>
 
