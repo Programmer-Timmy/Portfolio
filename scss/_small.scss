@@ -164,6 +164,14 @@ header {
     text-align: center;
     padding: 10px;
 
+    .position-relative{
+      transition: transform 0.5s;
+      &:hover {
+        // make the div larger
+        transform: scale(1.02);
+      }
+    }
+
     div {
       border: $gray 1px solid;
       height: 50vh;

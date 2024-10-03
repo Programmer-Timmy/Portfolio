@@ -1,4 +1,6 @@
 <?php
+$env = parse_ini_file(__DIR__ . '/../../../../.env');
+
 if (!isset($_GET['id'])) {
     header('Location: /admin/projects');
     exit;
@@ -75,6 +77,9 @@ if ($_POST) {
                         } else {
                             echo 'value="' . $project->github . '"';
                         } ?>>
+                        <div class="invalid-feedback">
+                            Please enter a valid github link that is publicly accessible
+                        </div>
                     </div>
                     <div class="form-check d-flex align-items-center">
                         <input class="form-check-input" type="checkbox" value="1" id="pinned" name="pinned"
@@ -131,3 +136,70 @@ if ($_POST) {
     upload.options.multiple = true;
 </script>
 
+
+<script>
+    // validate of the github link is a valid github link\
+    const githubInput = $('#github');
+
+    githubInput.on('input', function () {
+
+        const githubLink = $(this).val();
+        checkIfRepoExists(githubLink);
+    });
+
+    checkIfRepoExists(githubInput.val());
+
+    function checkIfRepoExists(githubLink) {
+        if (!githubLink) {
+            githubInput.removeClass('is-valid');
+            githubInput.removeClass('is-invalid');
+            return;
+        }
+        const githubRepoRegex = /^https:\/\/github\.com\/[^\/]+\/[^\/]+$/;
+        if (!githubRepoRegex.test(githubLink)) {
+            githubInput.removeClass('is-valid');
+            githubInput.addClass('is-invalid');
+            return;
+        }
+        
+        const valid = getGithubRepo(githubLink);
+        valid.then((data) => {
+            if (data) {
+                githubInput.removeClass('is-invalid');
+                githubInput.addClass('is-valid');
+            } else {
+                githubInput.removeClass('is-valid');
+                githubInput.addClass('is-invalid');
+            }
+        });
+    }
+
+    async function getGithubRepo(githubLink) {
+        // Split the URL to get user and repo
+        githubLink = githubLink.split('/');
+        const repo = githubLink[githubLink.length - 1];
+        const user = githubLink[githubLink.length - 2];
+        const url = `https://api.github.com/repos/${user}/${repo}`;
+        const githubToken = '<?php echo $env['GITHUB_TOKEN']; ?>';
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'User-Agent': 'programmer-timmy'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            return false;
+        }
+    }
+
+</script>
