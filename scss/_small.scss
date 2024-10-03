@@ -166,6 +166,7 @@ header {
 
     .position-relative{
       transition: transform 0.5s;
+
       &:hover {
         // make the div larger
         transform: scale(1.015);
