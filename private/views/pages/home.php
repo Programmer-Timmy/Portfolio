@@ -24,7 +24,6 @@ $projects = Projects::loadProjects("3");
                                 <?php endif; ?>
                                 <a href="project?id=<?= $project->id ?>">
                                     <img src="<?php echo $project->img; ?>" class="img-size" alt="">
-                                </a>
                                 <?php if ($project->project_languages): ?>
                                     <languagesSection class="languages position-absolute bottom-0 start-50 translate-middle-x p-1 w-100">
                                         <?php foreach ($project->project_languages as $language): ?>
@@ -32,6 +31,7 @@ $projects = Projects::loadProjects("3");
                                         <?php endforeach; ?>
                                     </languagesSection>
                                 <?php endif; ?>
+                                </a>
                             </div>
                             <h1>
                                 <?php if ($project->github): ?>
