@@ -1,7 +1,7 @@
 <?php
 $projects = Projects::loadProjects("3");
 ?>
-<div class="container" style="max-width: 90%">
+<div class="container">
     <div class="welcome">
         <h1>Welcome!</h1>
 
