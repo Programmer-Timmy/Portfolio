@@ -63,6 +63,13 @@ if (!$project) {
                 <div class="text">
                     <p>Created at: <?= date_format(date_create($project->date), 'F j, Y'); ?></p>
                 </div>
+                <?php if ($project->project_languages): ?>
+                    <div class="languages d-flex pb-3 justify-content-center">
+                        <?php foreach ($project->project_languages as $language): ?>
+                            <span class="badge bg-primary mx-1" style="background-color: <?= $language->color ?> !important; "><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
                 <div class="d-flex justify-content-evenly">
                     <?php if ($project->github): ?>
                         <a class="btn btn-github" target="_blank" href="<?= $project->github ?>">

@@ -6,6 +6,9 @@ class Projects
     public static function loadProjects($limit)
     {
         $results = Database::getAll('projects', ['*'], [], ['removed' => 0], 'pinned DESC, date DESC LIMIT ' . $limit);
+        foreach ($results as $key => $project) {
+            $results[$key]->project_languages = self::loadProjectLanguages($project->id, 3);
+        }
         if ($results) {
             return $results;
         } else {
@@ -16,6 +19,7 @@ class Projects
     public static function loadProject($id)
     {
         $results = Database::get('projects', ['*'], [], ['id' => $id, 'removed' => 0]);
+        $results->project_languages = self::loadProjectLanguages($id);
         if ($results) {
             return $results;
         } else {
@@ -192,6 +196,59 @@ class Projects
             }
             $database->rollBack($database);
             return "There was an error updating your project." . $e->getMessage();
+        }
+        return "";
+    }
+
+    private static function loadProjectLanguages($id, $limit = 100)
+    {
+        $results = Database::getAll(table: 'project_languages', columns: ['name', 'color', 'percentage', 'programming_languages_id'], join: ['programming_languages' => 'programming_languages.id = project_languages.programming_languages_id'], where: ['projects_id' => $id], orderBy: 'percentage DESC LIMIT ' . $limit);
+        if ($results) {
+            return $results;
+        } else {
+            return false;
+        }
+    }
+
+    public static function updateProjectLanguages(mixed $project_languages, $id)
+    {
+        try {
+            $database = Database::beginTransaction();
+
+            $project_languages = json_decode($project_languages, true);
+            var_dump($project_languages);
+
+            Database::delete('project_languages', ['projects_id' => $id], $database);
+
+            foreach ($project_languages as $language) {
+                Database::insert('project_languages', ['projects_id', 'programming_languages_id', 'percentage'], [$id, $language['programming_languages_id'], $language['percentage']], $database);
+            }
+
+            $database->commit($database);
+
+        } catch (Exception $e) {
+            $database->rollBack($database);
+            return "There was an error updating your project languages.";
+        }
+        return "";
+    }
+
+    public static function addProjectLanguages($project_languages, $id)
+    {
+        try {
+            $database = Database::beginTransaction();
+
+            $project_languages = json_decode($project_languages, true);
+
+            foreach ($project_languages as $language) {
+                Database::insert('project_languages', ['projects_id', 'programming_languages_id', 'percentage'], [$id, $language['programming_languages_id'], $language['percentage']], $database);
+            }
+
+            $database->commit($database);
+
+        } catch (Exception $e) {
+            $database->rollBack($database);
+            return "There was an error adding your project languages.";
         }
         return "";
     }
