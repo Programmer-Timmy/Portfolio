@@ -175,6 +175,11 @@ header {
       }
     }
 
+    .languages span {
+        transform: scale(1.5);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
     div {
       border: $gray 1px solid;
       height: 50vh;
@@ -777,8 +782,4 @@ footer {
   z-index: 1;
   top: 10px;
   right: -10px
-}
-
-.languages span {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
