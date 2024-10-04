@@ -170,7 +170,7 @@ header {
       &:hover {
         // make the div larger
         transform: scale(1.015);
-        filter: none; // Keep the element sharp, no blur
+        filter: blur(2px);
 
       }
     }
