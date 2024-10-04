@@ -125,7 +125,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                                         </div>
                                         <div class="col-md-5">
                                             <input type="number" class="form-control" name="percentage" value="<?= $language->percentage * 1 ?>"
-                                                   placeholder="Percentage" min="0" max="100">
+                                                   placeholder="Percentage" min="0" max="100" step="any">
                                         </div>
                                         <div class="col-md-1">
                                             <button type="button" class="btn btn-danger" onclick="removeLanguage(this)">
@@ -297,7 +297,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                     </select>
                 </div>
                 <div class="col-md-5">
-                    <input type="number" class="form-control" name="percentage" placeholder="Percentage" min="0" max="100">
+                    <input type="number" class="form-control" name="percentage" placeholder="Percentage" min="0" max="100" step="any">
                 </div>
                 <div class="col-md-1">
                     <button type="button" class="btn btn-danger" onclick="removeLanguage(this)">X</button>
