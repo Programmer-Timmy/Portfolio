@@ -29,7 +29,7 @@ $projects = Projects::loadProjects("100");
                             <?php if ($project->project_languages): ?>
                                 <languagesSection class="languages position-absolute bottom-0 start-50 translate-middle-x p-1 w-100">
                                     <?php foreach ($project->project_languages as $language): ?>
-                                        <span class="badge bg-primary" style="background-color: <?= $language->color ?> !important; "><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
+                                        <span class="badge bg-primary" style="background-color: <?= $language->color ?> !important; color: black;"><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
                                     <?php endforeach; ?>
                                 </languagesSection>
                             <?php endif; ?>

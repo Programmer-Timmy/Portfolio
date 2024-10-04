@@ -66,7 +66,7 @@ if (!$project) {
                 <?php if ($project->project_languages): ?>
                     <div class="languages d-flex pb-3 justify-content-center">
                         <?php foreach ($project->project_languages as $language): ?>
-                            <span class="badge bg-primary mx-1" style="background-color: <?= $language->color ?> !important; "><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
+                            <span class="badge bg-primary mx-1" style="background-color: <?= $language->color ?> !important; color: black;"><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
