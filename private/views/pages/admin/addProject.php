@@ -75,7 +75,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                     <input type="hidden" name="project_languages" id="project_languages" value="[]">
                     <div id="languages-container">
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="addLanguage()">Add Language</button>
+                    <button type="button" class="btn btn-primary" id="add-language-button" onclick="addLanguage()">Add Language</button>
                 </div>
                 <div class="form-check py-2">
                     <input type="checkbox" class="form-check-input" id="pinned" name="pinned"
@@ -128,8 +128,11 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
     upload.options.multiple = true;
 </script>
 <script>
+    const addLanguageButton = document.getElementById('add-language-button'); // Reference to the add button
+    const languagesContainer = document.getElementById('project_languages'); // Reference to the languages container
     // validate of the github link is a valid github link\
     const githubInput = $('#github');
+    const languages = <?= json_encode($languages) ?>;
 
     githubInput.on('input', function () {
 
@@ -144,11 +147,13 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
             githubInput.removeClass('is-valid');
             githubInput.removeClass('is-invalid');
             return;
+            showLanguageButtons(); // Show buttons if the format is incorrect
         }
         const githubRepoRegex = /^https:\/\/github\.com\/[^\/]+\/[^\/]+$/;
         if (!githubRepoRegex.test(githubLink)) {
             githubInput.removeClass('is-valid');
             githubInput.addClass('is-invalid');
+            showLanguageButtons(); // Show buttons if the format is incorrect
             return;
         }
 
@@ -157,9 +162,13 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
             if (data) {
                 githubInput.removeClass('is-invalid');
                 githubInput.addClass('is-valid');
+                hideLanguageButtons(); // Hide buttons if the repo is valid
+                fetchLanguages(githubLink); // Fetch languages if the repo is valid
             } else {
                 githubInput.removeClass('is-valid');
                 githubInput.addClass('is-invalid');
+                showLanguageButtons(); // Show buttons if the format is incorrect
+
             }
         });
     }
@@ -180,7 +189,6 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
             });
 
             if (response.ok) {
-                console.log(response);
                 const data = await response.json();
                 return data;
             } else {
@@ -189,6 +197,102 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         } catch (error) {
             return false;
         }
+    }
+
+    async function fetchLanguages(githubLink) {
+        // Split the URL to get user and repo
+        githubLink = githubLink.split('/');
+        const repo = githubLink[githubLink.length - 1];
+        const user = githubLink[githubLink.length - 2];
+        const url = `https://api.github.com/repos/${user}/${repo}/languages`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'User-Agent': 'programmer-timmy'
+                }
+            });
+
+            if (response.ok) {
+                const languagesData = await response.json();
+                fillLanguages(languagesData); // Call function to fill language data
+            }
+        } catch (error) {
+            console.error('Error fetching languages:', error);
+        }
+    }
+
+    function fillLanguages(data) {
+        const languagesContainer = document.getElementById('languages-container');
+
+        // Clear existing language cards before filling new data
+        languagesContainer.innerHTML = '';
+        //1370
+        const totalAmount = Object.values(data).reduce((a, b) => a + b, 0);
+        let otherAmount = 0;
+
+        // Iterate over the language data and create cards
+        for (const [language, percentage] of Object.entries(data)) {;
+            const languageId = languages.find(lang => lang.name === language).id;
+            const percentageValue = ((percentage / totalAmount) * 100).toFixed(1);
+
+            if (percentageValue < 1) {
+                otherAmount += percentage;
+                continue;
+            }
+            // Create a new card for each language
+            const card = document.createElement('div');
+            card.classList.add('card', 'mb-2');
+            card.innerHTML = `
+                <div class="row card-body m-0 p-2 d-flex flex-row flex-wrap justify-content-between align-items-center">
+                    <div class="col-md-6">
+                        <select class="form-select disabled" disabled name="language">
+                            <option value="${languageId}" selected disabled>${language}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" disabled class="form-control" name="percentage" placeholder="Percentage" min="0" max="100" step="any" value="${percentageValue * 1}">
+                    </div>
+                </div>
+            `;
+            languagesContainer.appendChild(card);
+        }
+        if (otherAmount > 0) {
+            const languageId = languages.find(lang => lang.name === 'Other').id;
+            const percentageValue = ((otherAmount / totalAmount) * 100).toFixed(1);
+            const card = document.createElement('div');
+            card.classList.add('card', 'mb-2');
+            card.innerHTML = `
+                <div class="row card-body m-0 p-2 d-flex flex-row flex-wrap justify-content-between align-items-center">
+                    <div class="col-md-6">
+                        <select class="form-select disabled" disabled name="language">
+                            <option value="${languageId}" selected disabled>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" disabled class="form-control" name="percentage" placeholder="Percentage" min="0" max="100" step="any" value="${percentageValue * 1}">
+                    </div>
+                </div>
+            `;
+            languagesContainer.appendChild(card);
+        }
+
+
+        // Update hidden input with the new languages
+        updateHiddenInput();
+    }
+
+    function hideLanguageButtons() {
+        addLanguageButton.style.display = 'none'; // Hide the Add button
+        const deleteButtons = languagesContainer.querySelectorAll('.btn-danger');
+        deleteButtons.forEach(button => button.style.display = 'none'); // Hide all Delete buttons
+    }
+
+    function showLanguageButtons() {
+        addLanguageButton.style.display = 'block'; // Show the Add button
+        const deleteButtons = languagesContainer.querySelectorAll('.btn-danger');
+        deleteButtons.forEach(button => button.style.display = 'block'); // Show all Delete buttons
     }
 </script>
 <script>
