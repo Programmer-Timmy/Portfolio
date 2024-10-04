@@ -166,10 +166,12 @@ header {
 
     .position-relative{
       transition: transform 0.5s;
-
+      filter: none; // Ensure no blur is applied by default
       &:hover {
         // make the div larger
         transform: scale(1.015);
+        filter: none; // Keep the element sharp, no blur
+
       }
     }
 
