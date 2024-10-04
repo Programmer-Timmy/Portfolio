@@ -64,7 +64,7 @@ if (!$project) {
                     <p>Created at: <?= date_format(date_create($project->date), 'F j, Y'); ?></p>
                 </div>
                 <?php if ($project->project_languages): ?>
-                    <div class="languages d-flex pb-3 justify-content-center">
+                    <div class="languages d-flex pb-3 justify-content-center flex-wrap">
                         <?php foreach ($project->project_languages as $language): ?>
                             <span class="badge bg-primary mx-1" style="background-color: <?= $language->color ?> !important; color: black;"><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
                         <?php endforeach; ?>
