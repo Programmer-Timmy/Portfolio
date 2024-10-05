@@ -23,6 +23,8 @@ global $site;
     </div>
 </footer>
 
+<script src="/js/nav.js"></script>
+
 <!-- Defer non-critical JavaScript -->
 <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -32,7 +34,6 @@ global $site;
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- Lazy load fonts and icons -->
-<script src="/js/nav.js" defer></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
