@@ -38,14 +38,14 @@ function getPageTitle()
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/styles.css?v=1.0">
+    <link rel="stylesheet" href="/css/styles.css?v=1.1" type="text/css" media="all">
     <!-- Preload favicon -->
-    <link rel="preload" href="/img/favicoins/favicon-32x32.png" as="image">
+    <link rel="preload" href="/img/favicoins/favicon-32x32.png" as="image" type="image/png" media="all">
     <!-- jQuery and Font Awesome -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/65416f0144.js" defer crossorigin="anonymous"></script>
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" defer></script>
+    <script src="https://kit.fontawesome.com/65416f0144.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
