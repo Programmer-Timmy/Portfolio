@@ -289,7 +289,7 @@ header {
       a {
         text-decoration: underline;
         color: $primary;
-        transition: font-size 1s;
+        transition: all 0.5s;
 
         &:hover {
           font-size: 16.5px;
@@ -657,10 +657,10 @@ footer {
           text-decoration: none;
           color: #111;
           font-weight: bold;
-          transition: 1s;
+          transition: 0.5s;
 
           &:hover {
-            color: $black;
+            color: $primary;
           }
         }
       }
@@ -683,7 +683,7 @@ footer {
           transition: 1s;
 
           &:hover {
-            color: $black;
+            color: $primary;
           }
         }
       }
