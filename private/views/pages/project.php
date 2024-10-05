@@ -31,12 +31,12 @@ if (!$project) {
                 <?php endif; ?>
                 <div class="carousel-inner">
                     <div class="carousel-item active img-container">
-                        <img src="<?= $project->img ?>" class="d-block w-100" alt="...">
+                        <img src="<?= $project->img ?>" class="d-block w-100" alt="..." loading="lazy">
                     </div>
                     <?php if ($images): ?>
                         <?php foreach ($images as $key => $image): ?>
                             <div class="carousel-item img-container">
-                                <img src="<?= $image->img ?>" class="d-block w-100" alt="...">
+                                <img src="<?= $image->img ?>" class="d-block w-100" alt="..." loading="lazy">
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
