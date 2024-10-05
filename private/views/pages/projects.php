@@ -24,7 +24,7 @@ $projects = Projects::loadProjects("100");
                                 <i class="pinned position-absolute translate-middle p-2 bg-success border border-light rounded-circle fa-solid fa-thumbtack"></i>
                             <?php endif; ?>
                             <a href="project?id=<?= $project->id ?>">
-                                <img src="<?= $project->img ?>" class="img-size" alt="">
+                                <img src="<?= $project->img ?>" class="img-size" alt="" loading="lazy">
                             <?php if ($project->project_languages): ?>
                                 <languagesSection class="languages position-absolute bottom-0 start-50 translate-middle-x p-1 w-100">
                                     <?php foreach ($project->project_languages as $language): ?>
