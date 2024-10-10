@@ -12,7 +12,7 @@ function getPageTitle()
             break;
         }
     }
-    return htmlspecialchars($pageTitle . " | Tim van der Kloet"); // Secure and descriptive
+    return htmlspecialchars($pageTitle); // Secure and descriptive
 }
 
 ?>
