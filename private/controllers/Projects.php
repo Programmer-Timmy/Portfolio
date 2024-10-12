@@ -240,6 +240,7 @@ class Projects
 
             $project_languages = json_decode($project_languages, true);
 
+
             foreach ($project_languages as $language) {
                 Database::insert('project_languages', ['projects_id', 'programming_languages_id', 'percentage'], [$id, $language['programming_languages_id'], $language['percentage']], $database);
             }
@@ -251,5 +252,15 @@ class Projects
             return "There was an error adding your project languages.";
         }
         return "";
+    }
+
+    public static function deleteProjectLanguages($id)
+    {
+        try {
+            Database::delete('project_languages', ['projects_id' => $id]);
+            return "";
+        } catch (Exception $e) {
+            return "There was an error removing your project languages.";
+        }
     }
 }
