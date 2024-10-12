@@ -44,8 +44,7 @@ function getPageTitle()
     <!-- Preload favicon -->
     <link rel="preload" href="/img/favicoins/favicon-32x32.png" as="image" type="image/png" media="all">
     <!-- jQuery and Font Awesome -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/65416f0144.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
