@@ -5,8 +5,6 @@ require_once __DIR__ . '/config/settings.php';
 require_once __DIR__ . '/controllers/Database.php';
 require_once __DIR__ . '/controllers/Projects.php';
 
-
-
 // GitHub API Headers
 $headers = [
     'User-Agent: programmer-timmy',
