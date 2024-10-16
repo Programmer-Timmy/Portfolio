@@ -53,12 +53,14 @@ function saveProjectLanguages($projectId, $languagesData) {
     $totalAmount = array_sum($languagesData);
     $languages = [];
     $other = 0;
+    $otherLanguages = [];
 
     foreach ($languagesData as $language => $value) {
         $value = (int)$value;
         $percentage = round(($value / $totalAmount) * 100, 1);
 
         if ($percentage < 1) {
+            $otherLanguages[] = $language;
             $other += $percentage;
             continue;
         }
@@ -74,7 +76,7 @@ function saveProjectLanguages($projectId, $languagesData) {
         }
     }
 
-    if ($other > 0) {
+    if ($other > 0 && count($otherLanguages) > 1) {
         $languageRecord = Database::get('programming_languages', ['id'], [], ['name' => 'Other']);
         if ($languageRecord) {
             $languages[] = [
@@ -83,6 +85,16 @@ function saveProjectLanguages($projectId, $languagesData) {
                 'percentage' => $other
             ];
         }
+    } else {
+        $languageRecord = Database::get('programming_languages', ['id'], [], ['name' => $otherLanguages[0]]);
+        if ($languageRecord) {
+            $languages[] = [
+                'project_id' => $projectId,
+                'programming_languages_id' => $languageRecord->id,
+                'percentage' => $other
+            ];
+        }
+
     }
 
 
