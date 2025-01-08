@@ -156,39 +156,4 @@ class GlobalUtility
         }
         return $content;
     }
-
-// Function to unpack and process the description
-// todo needs to be fixed
-    public static function unpackDescription($descriptionJson)
-    {
-        // Decode the JSON string to an array of objects
-        $descriptionArray = json_decode($descriptionJson);
-        $htmlOutput = '';
-
-        // Iterate through the array and process the 'insert' values
-        foreach ($descriptionArray as $item) {
-            // Get the content and apply inline attributes if they exist
-            $content = htmlspecialchars($item->insert);
-            if (isset($item->attributes)) {
-                $content = self::applyInlineAttributes($content, $item->attributes);
-            }
-            // Split the 'insert' text by newline characters
-            $lines = explode("\n", $content);
-            if (end($lines) == '') {
-                array_pop($lines);
-            }
-            // Iterate through each line
-            foreach ($lines as $line) {
-                // Only create a <p> if the line is not empty
-                $lineHtml = '<p>' . $line . '</p>';
-                if (isset($item->attributes)) {
-                    $lineHtml = self::applyBlockAttributes($lineHtml, $item->attributes);
-                }
-                $htmlOutput .= $lineHtml;
-
-            }
-        }
-
-        return $htmlOutput;
-    }
 }

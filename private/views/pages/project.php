@@ -11,6 +11,8 @@ if (!$project) {
     exit;
 }
 ?>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
 <div class="container pb-5 single-projects">
     <div class="welcome">
         <h1><?= $project->name ?></h1>
@@ -57,8 +59,14 @@ if (!$project) {
         </div>
         <div class="col-lg-4">
             <div class="project-home">
-                <div class="text">
-                    <?= GlobalUtility::unpackDescription($project->description) ?>
+                <?php if ($project->in_progress): ?>
+                    <div class="badge in-progress">
+                        <i class="fa fa-person-digging" aria-hidden="true"></i>
+                        Work in Progress
+                    </div>
+                <?php endif; ?>
+                <div class="text" id="description">
+
                 </div>
                 <div class="text">
                     <p>Created at: <?= date_format(date_create($project->date), 'F j, Y'); ?></p>
@@ -66,7 +74,7 @@ if (!$project) {
                 <?php if ($project->project_languages): ?>
                     <div class="languages d-flex pb-3 justify-content-center flex-wrap">
                         <?php foreach ($project->project_languages as $language): ?>
-                            <span class="badge bg-primary mx-1" style="background-color: <?= $language->color ?> !important; color: black;"><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
+                            <?= HtmlTemplateRenderer::get_language_badge($language) ?>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
@@ -88,3 +96,12 @@ if (!$project) {
         </div>
     </div>
 </div>
+
+<script>
+    var tempCont = document.createElement("div");
+    (new Quill(tempCont)).setContents(<?= $project->description ?>);
+    const html = tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
+
+    tempCont.remove();
+    $('#description').html(html);
+</script>

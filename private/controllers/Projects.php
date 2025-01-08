@@ -37,7 +37,7 @@ class Projects
         }
     }
 
-    public static function addProject($name, $description, $path, $github, $files, $pinned)
+    public static function addProject($name, $description, $path, $github, $files, $pinned, $workInProcess)
     {
         $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
@@ -54,7 +54,7 @@ class Projects
         try {
             $database = Database::beginTransaction();
 
-            $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned'], [$name, $description, $date, $path, $github, $img[0], $pinned], $database);
+            $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned', 'in_progress'], [$name, $description, $date, $path, $github, $img[0], $pinned, $workInProcess], $database);
 
             array_shift($img);
             if ($results && !empty($img)) {
@@ -77,7 +77,7 @@ class Projects
             self::deleteImage($img[0]);
             return "There was an error adding your project.";
         }
-        return "";
+        return $id ?? "";
 
 
     }
@@ -150,7 +150,7 @@ class Projects
         }
     }
 
-    public static function updateProject($name, $description, $path, $github, $files, $pinned, $id)
+    public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id)
     {
         $existing = Database::get('projects', ['img'], [], ['id' => $id]);
         $img = [$existing->img];
@@ -176,7 +176,7 @@ class Projects
         try {
             $database = Database::beginTransaction();
 
-            Database::update('projects', ['name', 'description', 'path', 'github', 'img', 'pinned'], [$name, $description, $path, $github, $img[0], $pinned], ['id' => $id], $database);
+            Database::update('projects', ['name', 'description', 'path', 'github', 'img', 'pinned', 'in_progress'], [$name, $description, $path, $github, $img[0], $pinned, $workInProcess], ['id' => $id], $database);
 
             if (!empty($files)) {
                 array_shift($img);
@@ -216,7 +216,6 @@ class Projects
             $database = Database::beginTransaction();
 
             $project_languages = json_decode($project_languages, true);
-            var_dump($project_languages);
 
             Database::delete('project_languages', ['projects_id' => $id], $database);
 
@@ -237,7 +236,6 @@ class Projects
     {
         try {
             $database = Database::beginTransaction();
-
             $project_languages = json_decode($project_languages, true);
 
 
@@ -248,6 +246,7 @@ class Projects
             $database->commit($database);
 
         } catch (Exception $e) {
+            print_r($e);
             $database->rollBack($database);
             return "There was an error adding your project languages.";
         }

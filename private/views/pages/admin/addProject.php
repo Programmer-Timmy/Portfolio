@@ -17,9 +17,16 @@ if ($_POST) {
         $_POST['pinned'] = 0;
     }
 
+    if (isset($_POST['in_progress'])) {
+        $_POST['in_progress'] = 1;
+    } else {
+        $_POST['in_progress'] = 0;
+    }
+
     if (empty($error)) {
-        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned']);
-        $error = Projects::addProjectLanguages(json_decode($_POST['project_languages']), $error);
+        var_dump($_POST['project_languages']);
+        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress']);
+        $error = Projects::addProjectLanguages($_POST['project_languages'], $error);
         if (empty($error)) {
             header('Location: /admin/projects');
         }
@@ -48,42 +55,47 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                         <?= $error ?>
                     </div>
                 <?php endif; ?>
-                <div class="form-group
-                py-2">
+                <div class="form-group py-2">
                     <label for="title">Title</label>
                     <input type="text" class="form-control"
                            id="title" <?php if (isset($_POST['title'])) echo 'value="' . $_POST['title'] . '"' ?>
                            required name="title" placeholder="Enter the title">
                 </div>
-                <div class="form-group
-                py-2">
-                    <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link"
-                           placeholder="Enter the link" <?php if (isset($_POST['link'])) echo 'value="' . $_POST['link'] . '"' ?>>
-                </div>
-                <div class="form-group py-2">
-                    <label for="github">Github Link</label>
-                    <input type="text" class="form-control" id="github" name="github"
-                           placeholder="Enter the link" <?php if (isset($_POST['link'])) {
-                        echo 'value="' . $_POST['github'] . '"';
-                    } ?>>
-                    <div class="invalid-feedback">
-                        Please enter a valid github link that is publicly accessible
+                <div class="row">
+                    <div class="col form-group py-2">
+                        <label for="link">Link</label>
+                        <input type="text" class="form-control" id="link" name="link"
+                               placeholder="Enter the link" <?php if (isset($_POST['link'])) echo 'value="' . $_POST['link'] . '"' ?>>
+                    </div>
+                    <div class="col form-group py-2">
+                        <label for="github">Github Link</label>
+                        <input type="text" class="form-control" id="github" name="github"
+                               placeholder="Enter the link" <?php if (isset($_POST['link'])) {
+                            echo 'value="' . $_POST['github'] . '"';
+                        } ?>>
+                        <div class="invalid-feedback">
+                            Please enter a valid github link that is publicly accessible
+                        </div>
                     </div>
                 </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="1" name="pinned"
+                        <?= isset($_POST['pinned']) ? 'checked' : '' ?>>
+                    <label class="form-check-label" for="pinned">Pinned</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="1" name="in_progress"
+                        <?= isset($_POST['in_progress']) ? 'checked' : '' ?>>
+                    <label class="form-check-label" for="in_progress">Work In Progress</label>
+                </div>
+
                 <div class="form-group py-2">
                     <input type="hidden" name="project_languages" id="project_languages" value="[]">
                     <div id="languages-container">
                     </div>
-                    <button type="button" class="btn btn-primary" id="add-language-button" onclick="addLanguage()">Add Language</button>
-                </div>
-                <div class="form-check py-2">
-                    <input type="checkbox" class="form-check-input" id="pinned" name="pinned"
-                           placeholder="Enter the link" <?php if (isset($_POST['pinned'])) {
-                        echo 'value="' . $_POST['pinned'] . '"';
-                    } ?>>
-                    <label for="form-check-label">Pinned</label>
-
+                    <button type="button" class="btn btn-primary" id="add-language-button" onclick="addLanguage()">Add
+                        Language
+                    </button>
                 </div>
                 <div class="form-group
                 py-2">
@@ -122,7 +134,9 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         });
     });
 
-    import { FileUploadWithPreview } from 'https://cdn.jsdelivr.net/npm/file-upload-with-preview@5.0.2/dist/file-upload-with-preview.esm.min.js'
+    import {
+        FileUploadWithPreview
+    } from 'https://cdn.jsdelivr.net/npm/file-upload-with-preview@5.0.2/dist/file-upload-with-preview.esm.min.js'
 
     const upload = new FileUploadWithPreview('my-unique-id');
     upload.options.multiple = true;
@@ -233,7 +247,8 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         let otherAmount = 0;
 
         // Iterate over the language data and create cards
-        for (const [language, percentage] of Object.entries(data)) {;
+        for (const [language, percentage] of Object.entries(data)) {
+            ;
             const languageId = languages.find(lang => lang.name === language).id;
             const percentageValue = ((percentage / totalAmount) * 100).toFixed(1);
 

@@ -10,6 +10,7 @@ if (isset($_GET['delete'])) {
     }
 }
 ?>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
 <div class="container">
     <div class="welcome text-center mb-4">
@@ -24,34 +25,55 @@ if (isset($_GET['delete'])) {
     <table class="table table-light table-hover table-striped">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
             <th scope="col">Url</th>
             <th scope="col">Github</th>
             <th scope="col">Pinned</th>
-            <th scope="col">Image</th>
-            <th scope="col">Actions</th>
+            <th scope="col">In Progress</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($projects as $project): ?>
             <tr>
-                <th scope="row"><?= $project->id ?></th>
                 <td><?= $project->name ?></td>
                 <td><?= $project->description ?></td>
                 <td><?= $project->path ?></td>
                 <td><?= $project->github ?></td>
                 <td><?= $project->pinned ? 'Yes' : 'No' ?></td>
-                <td><img src="/<?= $project->img ?>" class="img-size" alt="" width="30" height="30"></td>
-
+                <td><?= $project->in_progress ? 'Yes' : 'No' ?></td>
                 <td>
                     <a href="/admin/editProject?id=<?= $project->id ?>" class="btn btn-primary">Edit</a>
-                    <a href="?delete=<?= $project->id ?>" class="btn btn-danger">Delete</a>
+                </td>
+                <td>
+                    <a href="?delete=<?= $project->id ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
-
 </div>
+
+<script>
+    $('tr').each(function () {
+        let description = $(this).find('td:nth-child(2)').text();
+        try {
+            description = JSON.parse(description);
+        } catch (error) {
+            return;
+        }
+        var tempCont = document.createElement("div");
+        (new Quill(tempCont)).setContents(description);
+        const html = tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
+
+        tempCont.remove();
+
+        $(this).find('td:nth-child(2)').html(html);
+        if (html.length > 100) {
+            $(this).find('td:nth-child(2)').html(html.substring(0, 100) + '...');
+        }
+
+    });
+</script>

@@ -13,7 +13,6 @@ if (!$project) {
 
 $error = '';
 if ($_POST) {
-    var_dump($_POST);
 
     $descriptionArray = json_decode($_POST['description']);
     if (empty($_POST['title'])) {
@@ -27,8 +26,15 @@ if ($_POST) {
     } else {
         $_POST['pinned'] = 0;
     }
+
+    if (isset($_POST['in_progress'])) {
+        $_POST['in_progress'] = 1;
+    } else {
+        $_POST['in_progress'] = 0;
+    }
+
     if (empty($error)) {
-        $error = Projects::updateProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $project->id);
+        $error = Projects::updateProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress'], $project->id);
         $error = Projects::updateProjectLanguages($_POST['project_languages'], $project->id);
         if (empty($error)) {
             header('Location: /admin/projects');
@@ -64,52 +70,55 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                     } else {
                         echo 'value="' . $project->name . '"';
                     } ?> required name="title" placeholder="Enter the title">
-                    <div class="row">
-                        <div class="col form-group py-2">
-                            <label for="link">Link</label>
-                            <input type="text" class="form-control" id="link" name="link"
-                                   placeholder="Enter the link" <?php if (isset($_POST['link'])) {
-                                echo 'value="' . $_POST['link'] . '"';
-                            } else {
-                                echo 'value="' . $project->path . '"';
-                            } ?>>
-                        </div>
-                        <div class="col form-group py-2">
-                            <label for="github">Github Link</label>
-                            <input type="text" class="form-control" id="github" name="github"
-                                   placeholder="Enter the link" <?php if (isset($_POST['link'])) {
-                                echo 'value="' . $_POST['github'] . '"';
-                            } else {
-                                echo 'value="' . $project->github . '"';
-                            } ?>>
-                            <div class="invalid-feedback">
-                                Please enter a valid github link that is publicly accessible
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col form-group py-2">
+                        <label for="link">Link</label>
+                        <input type="text" class="form-control" id="link" name="link"
+                               placeholder="Enter the link" <?php if (isset($_POST['link'])) {
+                            echo 'value="' . $_POST['link'] . '"';
+                        } else {
+                            echo 'value="' . $project->path . '"';
+                        } ?>>
+                    </div>
+                    <div class="col form-group py-2">
+                        <label for="github">Github Link</label>
+                        <input type="text" class="form-control" id="github" name="github"
+                               placeholder="Enter the link" <?php if (isset($_POST['link'])) {
+                            echo 'value="' . $_POST['github'] . '"';
+                        } else {
+                            echo 'value="' . $project->github . '"';
+                        } ?>>
+                        <div class="invalid-feedback">
+                            Please enter a valid github link that is publicly accessible
                         </div>
                     </div>
-                    <div class="form-check d-flex align-items-center">
-                        <input class="form-check-input" type="checkbox" value="1" id="pinned" name="pinned"
-                            <?php if (isset($_POST['pinned'])) {
-                                echo 'checked';
-                            } elseif ($project->pinned) {
-                                echo 'checked';
-                            }
-                            ?>>
-                        <label class="form-check label" for="pinned">Pinned</label>
-                    </div>
-                    <div class="form-group py-2">
-                        <input type="hidden" name="project_languages" id="project_languages" value='<?php if ($project->project_languages) {
-                            $languagesArray = [];
-                            foreach ($project->project_languages as $language) {
-                                $languagesArray[] = [
-                                    'programming_languages_id' => $language->programming_languages_id,
-                                    'percentage' => $language->percentage
-                                ];
-                            }
-                            echo json_encode($languagesArray);
-                        } ?>'>
-                        <div id="languages-container">
-                            <?php if ($project->project_languages):?>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="1" name="pinned"
+                        <?= isset($_POST['pinned']) ? 'checked' : ($project->pinned ? 'checked' : '') ?>>
+                    <label class="form-check-label" for="pinned">Pinned</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="1" name="in_progress"
+                        <?= isset($_POST['in_progress']) ? 'checked' : ($project->in_progress ? 'checked' : '') ?>>
+                    <label class="form-check-label" for="in_progress">Work In Progress</label>
+                </div>
+
+                <div class="form-group py-2">
+                    <input type="hidden" name="project_languages" id="project_languages"
+                           value='<?php if ($project->project_languages) {
+                               $languagesArray = [];
+                               foreach ($project->project_languages as $language) {
+                                   $languagesArray[] = [
+                                       'programming_languages_id' => $language->programming_languages_id,
+                                       'percentage' => $language->percentage
+                                   ];
+                               }
+                               echo json_encode($languagesArray);
+                           } ?>'>
+                    <div id="languages-container">
+                        <?php if ($project->project_languages): ?>
                             <?php foreach ($project->project_languages as $language): ?>
                                 <div class="card mb-2"
                                      style="background-color: <?= $language->color ?> !important; border-color: <?= $language->color ?> !important;">
@@ -124,7 +133,8 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                                             </select>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="number" class="form-control" name="percentage" value="<?= $language->percentage * 1 ?>"
+                                            <input type="number" class="form-control" name="percentage"
+                                                   value="<?= $language->percentage * 1 ?>"
                                                    placeholder="Percentage" min="0" max="100" step="any">
                                         </div>
                                         <div class="col-md-1">
@@ -135,29 +145,25 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                                     </div>
                                 </div>
                             <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
+                        <?php endif; ?>
+                    </div>
 
-                        <button type="button" class="btn btn-primary" onclick="addLanguage()">Add Language</button>
-                    </div>
-                    <div class="form-group py-2">
-                        <label for="description">Description</label>
-                        <div id="editor">
-                            <?php if (isset($_POST['description'])) {
-                                echo GlobalUtility::unpackDescription($_POST['description']);
-                            } else {
-                                echo GlobalUtility::unpackDescription($project->description);
-                            } ?>
-                        </div>
-                    </div>
-                    <div class="form-group py-2">
-                        <div class="custom-file-container" data-upload-id="my-unique-id"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block mt-2">Update Project</button>
+                    <button type="button" class="btn btn-primary" onclick="addLanguage()">Add Language</button>
                 </div>
-            </form>
+                <div class="form-group py-2">
+                    <label for="description">Description</label>
+                    <div id="editor">
+
+                    </div>
+                </div>
+                <div class="form-group py-2">
+                    <div class="custom-file-container" data-upload-id="my-unique-id"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-2">Update Project</button>
         </div>
+        </form>
     </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script type="module">
@@ -165,6 +171,8 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
     const quill = new Quill('#editor', {
         theme: 'snow'
     });
+
+    quill.setContents(<?= $project->description ?>);
 
     const form = document.querySelector('form');
     form.addEventListener('formdata', (event) => {
