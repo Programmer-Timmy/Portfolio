@@ -14,53 +14,55 @@ if (!$project) {
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
 <div class="container pb-5 single-projects">
-    <div class="welcome">
+    <div class="welcome mb-0">
         <h1><?= $project->name ?></h1>
     </div>
     <div class="row">
         <div class="col-lg-8">
-            <div id="carouselExample" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel"
-                 data-bs-theme="dark">
-                <?php if ($images): ?>
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <?php foreach ($images as $key => $image): ?>
-                            <button type="button" data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide-to="<?= $key + 1 ?>" aria-label="Slide <?= $key + 1 ?>"></button>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-                <div class="carousel-inner">
-                    <div class="carousel-item active img-container">
-                        <img src="<?= $project->img ?>" class="d-block w-100" alt="..." loading="lazy">
+            <container id="project-images" class="">
+                <div id="carouselExample" class="carousel slide carousel-dark carousel-fade mt-4" data-bs-ride="carousel"
+                     data-bs-theme="dark">
+                    <?php if ($images): ?>
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <?php foreach ($images as $key => $image): ?>
+                                <button type="button" data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="<?= $key + 1 ?>" aria-label="Slide <?= $key + 1 ?>"></button>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active img-container">
+                            <img src="https://portfolio.timmygamer.nl/<?= $project->img ?>" class="d-block w-100" alt="..." loading="lazy">
+                        </div>
+                        <?php if ($images): ?>
+                            <?php foreach ($images as $key => $image): ?>
+                                <div class="carousel-item img-container">
+                                    <img src="https://portfolio.timmygamer.nl/<?= $image->img ?>" class="d-block w-100" alt="..." loading="lazy">
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                     <?php if ($images): ?>
-                        <?php foreach ($images as $key => $image): ?>
-                            <div class="carousel-item img-container">
-                                <img src="<?= $image->img ?>" class="d-block w-100" alt="..." loading="lazy">
-                            </div>
-                        <?php endforeach; ?>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     <?php endif; ?>
                 </div>
-                <?php if ($images): ?>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                <?php endif; ?>
-            </div>
+            </container>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 mt-4">
             <div class="project-home">
                 <?php if ($project->in_progress): ?>
-                    <div class="badge in-progress">
+                    <div class="badge in-progress ">
                         <i class="fa fa-person-digging" aria-hidden="true"></i>
                         Work in Progress
                     </div>
@@ -68,7 +70,7 @@ if (!$project) {
                 <div class="text" id="description">
 
                 </div>
-                <div class="text">
+                <div class="text text-center">
                     <p>Created at: <?= date_format(date_create($project->date), 'F j, Y'); ?></p>
                 </div>
                 <?php if ($project->project_languages): ?>

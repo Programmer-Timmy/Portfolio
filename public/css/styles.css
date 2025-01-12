@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -47,7 +48,6 @@ center,
 dl,
 dt,
 dd,
-ol,
 ul,
 li,
 fieldset,
@@ -780,11 +780,106 @@ footer .container .social-links li a:hover {
 .text {
   color: #777;
   font-size: 20px;
-  text-align: center;
   margin: 20px 0;
 }
 .text p {
-  min-height: 18px;
+  line-height: 25px;
+}
+.text#description {
+  font-size: 18px;
+  line-height: 22px;
+}
+.text#description h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.text#description h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+.text#description h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.text#description h4 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.text#description h5 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.text#description .ql-indent-1 {
+  padding-left: 3em;
+}
+.text#description .ql-indent-2 {
+  padding-left: 6em;
+}
+.text#description .ql-indent-3 {
+  padding-left: 9em;
+}
+.text#description .ql-indent-4 {
+  padding-left: 12em;
+}
+.text#description .ql-indent-5 {
+  padding-left: 15em;
+}
+.text#description .ql-indent-6 {
+  padding-left: 18em;
+}
+.text#description .ql-indent-7 {
+  padding-left: 21em;
+}
+.text#description .ql-indent-8 {
+  padding-left: 24em;
+}
+.text#description .ql-code-block-container {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 10px;
+}
+.text#description .ql-code-block-container .ql-code-block {
+  font-size: 15px;
+  line-height: 18px;
+  color: #777;
+  font-family: monospace;
+}
+.text#description .ql-align-center {
+  text-align: center;
+}
+.text#description .ql-align-justify {
+  text-align: justify;
+}
+.text#description .ql-align-right {
+  text-align: right;
+}
+.text#description a {
+  color: #55d6aa;
+  text-decoration: underline;
+  transition: all 0.5s;
+}
+.text#description a:hover {
+  font-size: 20.5px;
+}
+.text#description ol {
+  list-style: none;
+  margin: 0;
+}
+.text#description ol li {
+  padding: 0 0 10px 0;
+}
+.text#description ol li[data-list=bullet]:before {
+  content: "•";
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+.text#description ol li[data-list=number]:before {
+  content: counter(list) ".";
+  counter-increment: list;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
 }
 
 .single-projects .img-container {
@@ -806,7 +901,6 @@ footer .container .social-links li a:hover {
 }
 
 .badge.in-progress {
-  margin: 15px 0 0 0;
   background-color: #f6c342;
   color: black;
   font-size: 20px;
@@ -815,6 +909,12 @@ footer .container .social-links li a:hover {
 
 .form-check-label {
   padding-top: 4px;
+}
+
+#project-images {
+  position: sticky;
+  top: 24px;
+  z-index: 10; /* Ensure it stays above other content */
 }
 
 @media only screen and (min-width: 560px) {

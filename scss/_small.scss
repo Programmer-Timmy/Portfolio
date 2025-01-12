@@ -778,11 +778,89 @@ footer {
 .text {
   color: $light-gray;
   font-size: 20px;
-  text-align: center;
   margin: 20px 0;
 
   p {
-    min-height: 18px;
+    line-height: 25px;
+  }
+
+  &#description {
+    font-size: 18px;
+    line-height: 22px;
+    @each $i in (1, 2, 3, 4, 5) {
+      h#{$i} {
+        font-size: 30px - $i * 2;
+        margin-bottom: 10px;
+      }
+    }
+
+    @each $i in (1, 2, 3, 4, 5, 6, 7, 8){
+      .ql-indent-#{$i} {
+        padding-left: 3em * $i;
+      }
+    }
+
+    .ql-code-block-container {
+        background-color: $dark-gary;
+        padding: 10px;
+        border-radius: 10px;
+
+        .ql-code-block {
+            font-size: 15px;
+            line-height: 18px;
+            color: $light-gray;
+            font-family: monospace;
+        }
+
+    }
+
+
+    .ql-align-center{
+        text-align: center;
+    }
+
+    .ql-align-justify{
+        text-align: justify;
+    }
+
+    .ql-align-right{
+        text-align: right;
+    }
+
+    a {
+      color: $primary;
+      text-decoration: underline;
+      transition: all 0.5s;
+
+      &:hover {
+        font-size: 20.5px;
+      }
+    }
+
+    ol {
+      list-style: none;
+      margin: 0;
+
+      li {
+        padding: 0 0 10px 0;
+
+        &[data-list="bullet"]:before {
+          content: "•";
+          display: inline-block;
+          width: 1em;
+          margin-left: -1em;
+        }
+
+        &[data-list="number"]:before {
+          content: counter(list) ".";
+          counter-increment: list;
+          display: inline-block;
+          width: 1em;
+          margin-left: -1em;
+        }
+      }
+    }
+
   }
 }
 
@@ -813,7 +891,6 @@ footer {
 }
 
 .badge.in-progress {
-  margin: 15px 0 0 0;
   background-color: $wip;
   color: black;
   font-size: 20px;
@@ -822,4 +899,10 @@ footer {
 
 .form-check-label {
   padding-top: 4px;
+}
+
+#project-images{
+  position: sticky;
+  top: 24px;
+  z-index: 10; /* Ensure it stays above other content */
 }
