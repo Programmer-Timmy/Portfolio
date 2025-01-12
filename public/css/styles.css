@@ -906,6 +906,7 @@ footer .container .social-links li a:hover {
   color: black;
   font-size: 20px;
   width: 100%;
+  margin-bottom: 20px !important;
 }
 
 .form-check-label {
