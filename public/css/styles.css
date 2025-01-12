@@ -793,22 +793,27 @@ footer .container .social-links li a:hover {
 .text#description h1 {
   font-size: 28px;
   margin-bottom: 10px;
+  line-height: 28.5px;
 }
 .text#description h2 {
   font-size: 26px;
   margin-bottom: 10px;
+  line-height: 27px;
 }
 .text#description h3 {
   font-size: 24px;
   margin-bottom: 10px;
+  line-height: 25.5px;
 }
 .text#description h4 {
   font-size: 22px;
   margin-bottom: 10px;
+  line-height: 24px;
 }
 .text#description h5 {
   font-size: 20px;
   margin-bottom: 10px;
+  line-height: 22.5px;
 }
 .text#description .ql-indent-1 {
   padding-left: 3em;

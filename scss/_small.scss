@@ -792,6 +792,7 @@ footer {
       h#{$i} {
         font-size: 30px - $i * 2;
         margin-bottom: 10px;
+        line-height: 30px - $i * 1.5;
       }
     }
 
