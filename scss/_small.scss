@@ -832,10 +832,11 @@ footer {
     a {
       color: $primary;
       text-decoration: underline;
-      transition: all 0.5s;
+      transition: all 0.2s;
 
       &:hover {
-        font-size: 20.5px;
+        // change the color of the link when hovering
+        color: $primary-hover;
       }
     }
 

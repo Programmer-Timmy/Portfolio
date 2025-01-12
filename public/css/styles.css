@@ -862,10 +862,10 @@ footer .container .social-links li a:hover {
 .text#description a {
   color: #55d6aa;
   text-decoration: underline;
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 .text#description a:hover {
-  font-size: 20.5px;
+  color: #3f9e6d;
 }
 .text#description ol {
   list-style: none;
