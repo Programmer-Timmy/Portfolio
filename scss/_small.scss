@@ -785,6 +785,7 @@ footer {
   }
 
   &#description {
+    margin: 0;
     font-size: 18px;
     line-height: 22px;
     @each $i in (1, 2, 3, 4, 5) {

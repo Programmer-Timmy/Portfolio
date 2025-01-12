@@ -786,6 +786,7 @@ footer .container .social-links li a:hover {
   line-height: 25px;
 }
 .text#description {
+  margin: 0;
   font-size: 18px;
   line-height: 22px;
 }
