@@ -921,7 +921,7 @@ footer .container .social-links li a:hover {
 #project-images {
   position: sticky;
   top: 24px;
-  z-index: 10; /* Ensure it stays above other content */
+  z-index: 1; /* Ensure it stays above other content */
 }
 
 @media only screen and (min-width: 560px) {

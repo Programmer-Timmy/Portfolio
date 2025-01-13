@@ -75,6 +75,17 @@ if ($site['accounts']['enabled']) {
     }
 }
 
+if (str_contains($require, 'project') && $require !== '/projects') {
+    $projectNumbers = preg_split('/\//', $require);
+    $projectNumber = $projectNumbers[count($projectNumbers) - 1];
+    if (!is_numeric($projectNumber)) {
+        $require = '/404';
+    } else {
+        $_GET['id'] = $projectNumber;
+        $require = '/project';
+    }
+}
+
 // Include header
 include __DIR__ . '/../private/views/templates/header.php';
 

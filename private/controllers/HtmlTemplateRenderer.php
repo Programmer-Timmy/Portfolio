@@ -23,7 +23,7 @@ class HtmlTemplateRenderer {
                         <?php endif; ?>
                     </div>
 
-                    <a href="project?id=<?= $project->id ?>">
+                    <a href="project/<?= $project->id ?>/">
                         <img src="https://portfolio.timmygamer.nl/<?= $project->img ?>" class="img-size" alt="" loading="lazy">
                         <?php if ($project->project_languages): ?>
                             <languagesSection
