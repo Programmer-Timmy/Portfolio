@@ -75,7 +75,7 @@ if ($site['accounts']['enabled']) {
     }
 }
 
-if (str_contains($require, 'project') && $require !== '/projects') {
+if (str_contains($require, 'project') && $require !== '/projects' && !str_contains($require, 'admin')) {
     $projectNumbers = preg_split('/\//', $require);
     $projectNumber = $projectNumbers[count($projectNumbers) - 1];
     if (!is_numeric($projectNumber)) {

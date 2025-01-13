@@ -238,6 +238,13 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
 
     const upload = new FileUploadWithPreview('my-unique-id');
     upload.options.multiple = true;
+
+    // interval
+    setInterval(() => {
+        $('#file-upload-with-preview-my-unique-id').attr('multiple', 'multiple');
+    }, 1000);
+
+
 </script>
 
 
@@ -328,9 +335,6 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                 });
             }
         });
-
-        console.log(languagesArray);
-
         // Update hidden input with the JSON string
         document.getElementById('project_languages').value = JSON.stringify(languagesArray);
     }
