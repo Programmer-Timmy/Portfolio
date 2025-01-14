@@ -360,20 +360,6 @@ header nav a::after {
 .border #tekst div a {
   padding: 0 5px 0 0;
 }
-.border #tekst h2 {
-  color: #55d6aa;
-}
-.border #tekst h3 {
-  color: #777;
-}
-.border #tekst h3 a {
-  text-decoration: underline;
-  color: #55d6aa;
-  transition: all 0.5s;
-}
-.border #tekst h3 a:hover {
-  font-size: 16.5px;
-}
 
 .border-re {
   padding: 15px;
@@ -756,7 +742,7 @@ footer .container .social-links li a:hover {
   margin: 20px 0;
 }
 .text p {
-  line-height: 25px;
+  line-height: 20px;
 }
 .text#description {
   margin: 0;
@@ -767,26 +753,31 @@ footer .container .social-links li a:hover {
   font-size: 28px;
   margin-bottom: 10px;
   line-height: 28.5px;
+  color: #55d6aa;
 }
 .text#description h2 {
   font-size: 26px;
   margin-bottom: 10px;
   line-height: 27px;
+  color: #55d6aa;
 }
 .text#description h3 {
   font-size: 24px;
   margin-bottom: 10px;
   line-height: 25.5px;
+  color: #55d6aa;
 }
 .text#description h4 {
   font-size: 22px;
   margin-bottom: 10px;
   line-height: 24px;
+  color: #55d6aa;
 }
 .text#description h5 {
   font-size: 20px;
   margin-bottom: 10px;
   line-height: 22.5px;
+  color: #55d6aa;
 }
 .text#description .ql-indent-1 {
   padding-left: 3em;
@@ -831,14 +822,6 @@ footer .container .social-links li a:hover {
 }
 .text#description .ql-align-right {
   text-align: right;
-}
-.text#description a {
-  color: #55d6aa;
-  text-decoration: underline;
-  transition: all 0.2s;
-}
-.text#description a:hover {
-  color: #3f9e6d;
 }
 .text#description ol {
   list-style: none;
@@ -927,6 +910,66 @@ footer .container .social-links li a:hover {
 
 pre {
   color: white;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  line-height: 28.5px;
+  color: #55d6aa;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  line-height: 27px;
+  color: #55d6aa;
+}
+
+h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  line-height: 25.5px;
+  color: #55d6aa;
+}
+
+h4 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  line-height: 24px;
+  color: #55d6aa;
+}
+
+h5 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  line-height: 22.5px;
+  color: #55d6aa;
+}
+
+h6 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  line-height: 21px;
+  color: #55d6aa;
+}
+
+p {
+  line-height: 20px;
+  color: #777;
+}
+
+a {
+  color: #55d6aa;
+  text-decoration: underline;
+  transition: all 0.2s;
+}
+a:hover {
+  color: #3f9e6d;
+}
+
+.contact p, .contact li {
+  color: #777;
 }
 
 @media only screen and (min-width: 560px) {

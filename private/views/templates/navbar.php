@@ -1,6 +1,6 @@
 <header>
     <div class="container">
-        <h1 class="logo">Tim van der Kloet</h1>
+        <div class="logo">Tim van der Kloet</div>
         <a href="javascript:void(0);" class="icon" onclick="MyFunction()">
             <i class="fa fa-bars"></i>
         </a>

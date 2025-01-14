@@ -80,7 +80,8 @@ if (!$project) {
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
-                <?php if ($project->project_contributors):?>
+                <?php if ($project->project_contributors && count($project->project_contributors) > 1): ?>
+                    <h3 class="text-center">Contributors</h3>
                     <div class="contributors d-flex pb-3 justify-content-center flex-wrap gap-2">
                         <?php foreach ($project->project_contributors as $contributor): ?>
                             <a href="<?= $contributor->html_url ?>" class="contributor" style="width: 40px; height: 40px;">

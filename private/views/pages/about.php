@@ -17,10 +17,9 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <img src="img/profielfoto.JPG" id="foto" alt="">
         </div>
         <div id="tekst" class="col-lg-8">
-            <h2>Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at ICT
-                Campus school.</h2>
-            <br>
-            <h3>
+            <h6>Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at ICT
+                Campus school.</h6>
+            <p>
                 I am currently focused on learning various programming languages, such as C#, Python, TypeScript, and
                 APIs. I am passionate about software development and excited about the possibilities it offers.
                 <br><br>
@@ -29,12 +28,11 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
                 member of the scouting group Het <a href="https://www.zuiderkruis.nl/" target="_blank">ZuiderKruis</a>
                 for <?= $timeAtZuiderKruis ?> years, which has allowed me to develop important teamwork and leadership
                 skills.
-            </h3>
+            </p>
             <br>
 
             <!-- Skills Section -->
-            <h2>Skills</h2>
-            <br>
+            <h6>Skills</h6>
             <div>
                 <span>🌐</span>
                 <a href="#"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&labelColor=gray"
@@ -109,21 +107,19 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <br>
 
             <!-- Projects Section -->
-            <h2>Projects & Experience</h2>
-            <br>
-            <h3>
+            <h6>Projects & Experience</h6>
+            <p>
                 I have worked on several projects during my studies and free time, including a personal portfolio
                 website, a small recipe-sharing website, and a Satisfactory Planner. Additionally, I have experience
                 with WordPress and have created several websites and plugins. I have also developed a converter tool,
                 which allows converting Python dataframes into HTML tables and provides an easy way to generate HTML
                 pages using Python.
-            </h3>
+            </p>
             <br>
 
             <!-- Vision Section -->
-            <h2>My Vision on Work</h2>
-            <br>
-            <h3>
+            <h6>My Vision on Work</h6>
+            <p>
                 As I pursue my studies in software development, my vision is to become a versatile and innovative
                 professional in the tech industry. I am enthusiastic about leveraging my programming skills to
                 contribute to cutting-edge projects that make a positive impact on society. I aspire to continuously
@@ -131,27 +127,25 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
                 problem-solving. Ultimately, I aim to create software solutions that not only meet technical
                 requirements but also address real-world challenges, making a meaningful difference in the world of
                 technology.
-            </h3>
+            </p>
             <br>
 
             <!-- Goals Section -->
-            <h2>What I Want to Achieve</h2>
-            <br>
-            <h3>
+            <h6>What I Want to Achieve</h6>
+            <p>
                 Looking forward, I aim to achieve proficiency in a wide range of programming languages and frameworks,
                 allowing me to tackle diverse and complex projects. I envision being an integral part of innovative
                 teams, where creativity and collaboration drive the development of impactful solutions. Additionally, I
                 aspire to contribute to open-source projects, share knowledge within the developer community, and
                 continuously refine my skills to stay at the forefront of the ever-evolving tech landscape.
-            </h3>
+            </p>
             <br>
 
-            <h2>Thank you for taking the time to view my portfolio.</h2>
-            <br>
-            <h3>
+            <h6>Thank you for taking the time to view my portfolio.</h6>
+            <p>
                 Please find my Curriculum Vitae (CV) attached for your reference.
                 To download my CV, please click <a href="doc/CV.pdf" download="CV.pdf">here</a>.
-            </h3>
+            </p>
             <br>
         </div>
     </div>

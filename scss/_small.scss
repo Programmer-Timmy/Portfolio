@@ -280,24 +280,6 @@ header {
         padding: 0 5px 0 0;
       }
     }
-
-    h2 {
-      color: $primary;
-    }
-
-    h3 {
-      color: $light-gray;
-
-      a {
-        text-decoration: underline;
-        color: $primary;
-        transition: all 0.5s;
-
-        &:hover {
-          font-size: 16.5px;
-        }
-      }
-    }
   }
 }
 
@@ -753,7 +735,7 @@ footer {
   margin: 20px 0;
 
   p {
-    line-height: 25px;
+    line-height: 20px;
   }
 
   &#description {
@@ -765,6 +747,7 @@ footer {
         font-size: 30px - $i * 2;
         margin-bottom: 10px;
         line-height: 30px - $i * 1.5;
+        color: $primary;
       }
     }
 
@@ -785,7 +768,6 @@ footer {
             color: $light-gray;
             font-family: monospace;
         }
-
     }
 
 
@@ -799,17 +781,6 @@ footer {
 
     .ql-align-right{
         text-align: right;
-    }
-
-    a {
-      color: $primary;
-      text-decoration: underline;
-      transition: all 0.2s;
-
-      &:hover {
-        // change the color of the link when hovering
-        color: $primary-hover;
-      }
     }
 
     ol {
@@ -835,6 +806,8 @@ footer {
         }
       }
     }
+
+
 
   }
 }
@@ -915,4 +888,36 @@ footer {
 
 pre {
   color: white;
+}
+
+//h 1, 2, 3, 4, 5, 6 {
+@for $i from 1 through 6 {
+  h#{$i} {
+    font-size: 30px - $i * 2;
+    margin-bottom: 10px;
+    line-height: 30px - $i * 1.5;
+    color: $primary;
+  }
+}
+
+p {
+    line-height: 20px;
+    color: $light-gray;
+}
+
+a {
+  color: $primary;
+  text-decoration: underline;
+  transition: all 0.2s;
+
+  &:hover {
+    // change the color of the link when hovering
+    color: $primary-hover;
+  }
+}
+
+.contact{
+  p, li {
+    color: $light-gray
+  }
 }
