@@ -253,12 +253,11 @@ class Projects {
 
     public static function updateProjectContributors($contributors, $id,) {
         $database = Database::beginTransaction();
-        $status = self::deleteProjectContributors($id, $database);
-        if ($status) {
-            return $status;
-        }
+
         $contributors = json_decode($contributors, true);
         try {
+            Database::delete('project_contributors', ['projects_id' => $id], $database);
+
             foreach ($contributors as $contributor) {
                 $user = Database::get('github_user', ['*'], [], ['id' => $contributor['user']['id']]);
                 if (!$user) {
@@ -276,18 +275,6 @@ class Projects {
 
     public static function addProjectContributors($id, $contributors) {
 
-    }
-
-    public static function deleteProjectContributors($id, $database = new Database()) {
-        $database = $database::beginTransaction();
-        try {
-            Database::delete('project_contributors', ['projects_id' => $id], $database);
-            return "";
-        } catch (Exception $e) {
-            var_dump($e);
-            $database->rollBack($database);
-            return "There was an error removing your project contributors.";
-        }
     }
 
     private static function loadProjectContributors($id) {
