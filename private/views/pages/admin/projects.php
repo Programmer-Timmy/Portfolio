@@ -9,6 +9,7 @@ if (isset($_GET['delete'])) {
         exit;
     }
 }
+
 ?>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 

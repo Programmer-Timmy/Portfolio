@@ -52,10 +52,9 @@ class Projects {
             $database = Database::beginTransaction();
 
             $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned', 'in_progress', 'private_repo'], [$name, $description, $date, $path, $github, $img[0], $pinned, $workInProcess, $privateRepo], $database);
-
             array_shift($img);
             if ($results && !empty($img)) {
-                $id = $database->lastInsertId();
+                $id = $results;
                 foreach ($img as $image) {
                     Database::insert('project_images', ['project_id', 'img'], [$id, $image], $database);
                 }
@@ -74,9 +73,8 @@ class Projects {
             self::deleteImage($img[0]);
             return "There was an error adding your project.";
         }
-        return $id ?? "";
 
-
+        return $results ?? "";
     }
 
     public static function uploadImage($files) {
@@ -251,7 +249,8 @@ class Projects {
         }
     }
 
-    public static function updateProjectContributors($contributors, $id,) {
+    public static function updateProjectContributors($contributors, $id) {
+
         $database = Database::beginTransaction();
 
         $contributors = json_decode($contributors, true);
@@ -269,11 +268,30 @@ class Projects {
             $database->commit($database);
         } catch (Exception $e) {
             $database->rollBack($database);
+            var_dump($e);
             return "There was an error adding your project contributors.";
         }
     }
 
-    public static function addProjectContributors($id, $contributors) {
+    public static function addProjectContributors($contributors, $id) {
+        try {
+            $database = Database::beginTransaction();
+            $contributors = json_decode($contributors, true);
+
+            foreach ($contributors as $contributor) {
+                var_dump($contributor['contributions']);
+                $user = Database::get('github_user', ['*'], [], ['id' => $contributor['user']['id']]);
+                if (!$user) {
+                    Database::insert('github_user', ['id', 'login', 'avatar_url', 'html_url'], [$contributor['user']['id'], $contributor['user']['login'], $contributor['user']['avatar_url'], $contributor['user']['html_url']], $database);
+                }
+                Database::insert('project_contributors', ['projects_id', 'github_user_id', 'contributions'], [$id, $contributor['user']['id'], $contributor['contributions']], $database);
+            }
+
+            $database->commit($database);
+        } catch (Exception $e) {
+            $database->rollBack($database);
+            return "There was an error adding your project contributors.";
+        }
 
     }
 

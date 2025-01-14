@@ -23,8 +23,6 @@ if ($_POST) {
         $_POST['in_progress'] = 0;
     }
 
-    var_dump($_POST);
-
     if (empty($_POST['github'])) {
         $error = 'Please enter a github link';
     }
@@ -33,8 +31,11 @@ if ($_POST) {
 
 
     if (empty($error)) {
-        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress'], $_POST['private_repo']);
-        $error = Projects::addProjectLanguages($_POST['project_languages'], $error);
+        $id = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress'], $_POST['private_repo']);
+
+        $error = Projects::addProjectLanguages($_POST['project_languages'], $id);
+        $error = Projects::addProjectContributors($_POST['contributors'], $id);
+
         if (empty($error)) {
             header('Location: /admin/projects');
         }
@@ -157,12 +158,11 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
 
                     </div>
                 </div>
-                <div class="form-group
-                py-2">
+                <div class="form-group py-2">
                     <div class="custom-file-container" data-upload-id="my-unique-id" multiple></div>
                 </div>
                 <input type="hidden" name="private_repo" id="private_repo" value="">
-
+                <input type="hidden" name="contributors" id="contributors" value="[]">
                 <button type="submit" class="btn btn-primary btn-block mt-2">Add Project</button>
             </form>
         </div>
@@ -246,8 +246,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                 removeLanguages(); // Remove languages if the repo is invalid
                 showLanguageButtons(); // Show buttons if the format is incorrect
                 setPrivateRepo(); // Call function to set private repo
-
-
+                updateContributors([]); // Call function to update contributors
             }
         });
     }
@@ -322,7 +321,9 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
 
             if (response.ok) {
                 const contributorsData = await response.json();
-                console.log(contributorsData);
+                if (contributorsData.length > 0) {
+                    updateContributors(contributorsData); // Call function to update contributors
+                }
             }
         } catch (error) {
             console.error('Error fetching contributors:', error);
@@ -337,6 +338,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
 
     function fillLanguages(data) {
         const languagesContainer = document.getElementById('languages-container');
+        console.log(data);
 
         // Clear existing language cards before filling new data
         languagesContainer.innerHTML = '';
@@ -398,6 +400,8 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         updateHiddenInput();
     }
 
+
+
     function hideLanguageButtons() {
         addLanguageButton.style.display = 'none'; // Hide the Add button
         const deleteButtons = languagesContainer.querySelectorAll('.btn-danger');
@@ -409,6 +413,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         const deleteButtons = languagesContainer.querySelectorAll('.btn-danger');
         deleteButtons.forEach(button => button.style.display = 'block'); // Show all Delete buttons
     }
+
 </script>
 <script>
     // Initialize the languages array with PHP data
@@ -479,6 +484,26 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         const languagesContainer = document.getElementById('languages-container');
         languagesContainer.innerHTML = '';
         updateHiddenInput();
+    }
+
+    function updateContributors(contributers) {
+        const contributorsArray = [];
+
+        for (const contributor of contributers) {
+            contributorsArray.push({
+                user: {
+                    id: contributor.id,
+                    login: contributor.login,
+                    avatar_url: contributor.avatar_url,
+                    html_url: contributor.html_url
+                },
+                contributions: contributor.contributions
+            });
+        };
+
+        contributors.value = JSON.stringify(contributorsArray);
+
+        console.log(contributorsArray);
     }
 
     // Add event listeners to update hidden input when percentage or language changes

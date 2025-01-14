@@ -5,8 +5,6 @@ require_once __DIR__ . '/config/settings.php';
 require_once __DIR__ . '/controllers/Database.php';
 require_once __DIR__ . '/controllers/Projects.php';
 
-$env = parse_ini_file(__DIR__ . '/../.env');
-
 
 // GitHub API Headers
 $headers = [
@@ -26,12 +24,12 @@ foreach ($projects as $project) {
 
     // Check if GitHub repo exists
     saveProjectLanguages($project->id, fetchLanguages($githubLink, $headers));
-
-
+    saveContributors($project->id, fetchContributors($githubLink, $headers));
 }
 
 // Function to fetch the languages from the GitHub API
 function fetchLanguages($githubLink, $headers) {
+    $env = parse_ini_file(__DIR__ . '/../.env');
     $parts = explode('/', $githubLink);
     $repo = end($parts);
     $user = $parts[count($parts) - 2];
@@ -52,6 +50,49 @@ function fetchLanguages($githubLink, $headers) {
     $languagesData = json_decode($response, true);
     return $languagesData;
 }
+
+function fetchContributors($githubLink, $headers) {
+    $env = parse_ini_file(__DIR__ . '/../.env');
+    $parts = explode('/', $githubLink);
+    $repo = end($parts);
+    $user = $parts[count($parts) - 2];
+    $url = "https://api.github.com/repos/$user/$repo/contributors";
+    $headers[] = 'Authorization: token ' . $env['GITHUB_TOKEN'];
+
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $contributorsData = json_decode($response, true);
+    return $contributorsData;
+}
+
+function saveContributors($projectId, $contributorsData) {
+    $contributors = [];
+    foreach ($contributorsData as $contributor) {
+        $contributors[] = [
+            'user' => [
+                'id' => $contributor['id'],
+                'login' => $contributor['login'],
+                'avatar_url' => $contributor['avatar_url'],
+                'html_url' => $contributor['html_url']
+            ],
+            'contributions' => $contributor['contributions']
+        ];
+    }
+    // Now, save the contributors data for the project
+    if (!empty($contributors)) {
+        Projects::updateProjectContributors(json_encode($contributors), $projectId);
+        echo "Contributors updated for project with ID: $projectId\n";
+    }
+}
+
+
 
 // Function to save the project languages to the database
 function saveProjectLanguages($projectId, $languagesData) {
