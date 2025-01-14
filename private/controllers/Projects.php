@@ -1,13 +1,12 @@
 <?php
 
-class Projects
-{
+class Projects {
 
-    public static function loadProjects($limit)
-    {
+    public static function loadProjects($limit) {
         $results = Database::getAll('projects', ['*'], [], ['removed' => 0], 'pinned DESC, date DESC LIMIT ' . $limit);
         foreach ($results as $key => $project) {
             $results[$key]->project_languages = self::loadProjectLanguages($project->id, 3);
+            $results[$key]->project_contributors = self::loadProjectContributors($project->id);
         }
         if ($results) {
             return $results;
@@ -16,10 +15,10 @@ class Projects
         }
     }
 
-    public static function loadProject($id)
-    {
+    public static function loadProject($id) {
         $results = Database::get('projects', ['*'], [], ['id' => $id, 'removed' => 0]);
         $results->project_languages = self::loadProjectLanguages($id);
+        $results->project_contributors = self::loadProjectContributors($id);
         if ($results) {
             return $results;
         } else {
@@ -27,8 +26,7 @@ class Projects
         }
     }
 
-    public static function loadProjectImg($id)
-    {
+    public static function loadProjectImg($id) {
         $results = Database::getAll('project_images', ['img'], [], ['project_id' => $id]);
         if ($results) {
             return $results;
@@ -37,8 +35,7 @@ class Projects
         }
     }
 
-    public static function addProject($name, $description, $path, $github, $files, $pinned, $workInProcess)
-    {
+    public static function addProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $privateRepo) {
         $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
 
@@ -54,7 +51,7 @@ class Projects
         try {
             $database = Database::beginTransaction();
 
-            $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned', 'in_progress'], [$name, $description, $date, $path, $github, $img[0], $pinned, $workInProcess], $database);
+            $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned', 'in_progress', 'private_repo'], [$name, $description, $date, $path, $github, $img[0], $pinned, $workInProcess, $privateRepo], $database);
 
             array_shift($img);
             if ($results && !empty($img)) {
@@ -82,8 +79,7 @@ class Projects
 
     }
 
-    public static function uploadImage($files)
-    {
+    public static function uploadImage($files) {
         $urlArray = [];
         $count = 0;
         foreach ($files as $file) {
@@ -122,15 +118,13 @@ class Projects
         return $urlArray;
     }
 
-    private static function deleteImage($img)
-    {
+    private static function deleteImage($img) {
         if (file_exists($img)) {
             unlink('../public_html/' . $img);
         }
     }
 
-    public static function deleteProject($id)
-    {
+    public static function deleteProject($id) {
         try {
             Database::update('projects', ['removed'], [1], ['id' => $id]);
             return "";
@@ -140,8 +134,7 @@ class Projects
 
     }
 
-    public static function hardDeleteProject($id)
-    {
+    public static function hardDeleteProject($id) {
         try {
             Database::delete('projects', ['id' => $id]);
             return "";
@@ -150,8 +143,7 @@ class Projects
         }
     }
 
-    public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id)
-    {
+    public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id, $privateRepo) {
         $existing = Database::get('projects', ['img'], [], ['id' => $id]);
         $img = [$existing->img];
         if (!empty($files)) {
@@ -176,7 +168,7 @@ class Projects
         try {
             $database = Database::beginTransaction();
 
-            Database::update('projects', ['name', 'description', 'path', 'github', 'img', 'pinned', 'in_progress'], [$name, $description, $path, $github, $img[0], $pinned, $workInProcess], ['id' => $id], $database);
+            Database::update('projects', ['name', 'description', 'path', 'github', 'img', 'pinned', 'in_progress', 'private_repo'], [$name, $description, $path, $github, $img[0], $pinned, $workInProcess, $privateRepo], ['id' => $id], $database);
 
             if (!empty($files)) {
                 array_shift($img);
@@ -200,8 +192,7 @@ class Projects
         return "";
     }
 
-    private static function loadProjectLanguages($id, $limit = 100)
-    {
+    private static function loadProjectLanguages($id, $limit = 100) {
         $results = Database::getAll(table: 'project_languages', columns: ['name', 'color', 'percentage', 'programming_languages_id'], join: ['programming_languages' => 'programming_languages.id = project_languages.programming_languages_id'], where: ['projects_id' => $id], orderBy: 'percentage DESC LIMIT ' . $limit);
         if ($results) {
             return $results;
@@ -210,8 +201,7 @@ class Projects
         }
     }
 
-    public static function updateProjectLanguages(mixed $project_languages, $id)
-    {
+    public static function updateProjectLanguages(mixed $project_languages, $id) {
         try {
             $database = Database::beginTransaction();
 
@@ -232,8 +222,7 @@ class Projects
         return "";
     }
 
-    public static function addProjectLanguages($project_languages, $id)
-    {
+    public static function addProjectLanguages($project_languages, $id) {
         try {
             $database = Database::beginTransaction();
             $project_languages = json_decode($project_languages, true);
@@ -253,13 +242,59 @@ class Projects
         return "";
     }
 
-    public static function deleteProjectLanguages($id)
-    {
+    public static function deleteProjectLanguages($id) {
         try {
             Database::delete('project_languages', ['projects_id' => $id]);
             return "";
         } catch (Exception $e) {
             return "There was an error removing your project languages.";
+        }
+    }
+
+    public static function updateProjectContributors($contributors, $id,) {
+        $database = Database::beginTransaction();
+        $status = self::deleteProjectContributors($id, $database);
+        if ($status) {
+            return $status;
+        }
+        $contributors = json_decode($contributors, true);
+        try {
+            foreach ($contributors as $contributor) {
+                $user = Database::get('github_user', ['*'], [], ['id' => $contributor['user']['id']]);
+                if (!$user) {
+                    Database::insert('github_user', ['id', 'login', 'avatar_url', 'html_url'], [$contributor['user']['id'], $contributor['user']['login'], $contributor['user']['avatar_url'], $contributor['user']['html_url']], $database);
+                }
+                Database::insert('project_contributors', ['projects_id', 'github_user_id', 'contributions'], [$id, $contributor['user']['id'], $contributor['contributions']], $database);
+
+            }
+        } catch (Exception $e) {
+            $database->rollBack($database);
+            return "There was an error adding your project contributors.";
+        }
+    }
+
+    public static function addProjectContributors($id, $contributors) {
+
+    }
+
+    public static function deleteProjectContributors($id, $database = new Database()) {
+        $database = $database::beginTransaction();
+        try {
+            Database::delete('project_contributors', ['projects_id' => $id], $database);
+            return "";
+        } catch (Exception $e) {
+            var_dump($e);
+            $database->rollBack($database);
+            return "There was an error removing your project contributors.";
+        }
+    }
+
+    private static function loadProjectContributors($id) {
+        $results = Database::getAll('project_contributors', ['*'], ['github_user' => 'github_user.id = project_contributors.github_user_id'], ['projects_id' => $id], 'contributions DESC');
+        if ($results) {
+            return $results;
+        } else {
+            return false;
         }
     }
 }

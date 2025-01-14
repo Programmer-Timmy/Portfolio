@@ -925,6 +925,10 @@ footer .container .social-links li a:hover {
   z-index: 1; /* Ensure it stays above other content */
 }
 
+pre {
+  color: white;
+}
+
 @media only screen and (min-width: 560px) {
   .icon {
     display: none;

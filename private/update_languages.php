@@ -5,6 +5,9 @@ require_once __DIR__ . '/config/settings.php';
 require_once __DIR__ . '/controllers/Database.php';
 require_once __DIR__ . '/controllers/Projects.php';
 
+$env = parse_ini_file(__DIR__ . '/../.env');
+
+
 // GitHub API Headers
 $headers = [
     'User-Agent: programmer-timmy',
@@ -33,6 +36,8 @@ function fetchLanguages($githubLink, $headers) {
     $repo = end($parts);
     $user = $parts[count($parts) - 2];
     $url = "https://api.github.com/repos/$user/$repo/languages";
+//    aut token
+    $headers[] = 'Authorization: token ' . $env['GITHUB_TOKEN'];
 
     $ch = curl_init($url);
 

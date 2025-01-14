@@ -80,8 +80,17 @@ if (!$project) {
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
+                <?php if ($project->project_contributors):?>
+                    <div class="contributors d-flex pb-3 justify-content-center flex-wrap gap-2">
+                        <?php foreach ($project->project_contributors as $contributor): ?>
+                            <a href="<?= $contributor->html_url ?>" class="contributor" style="width: 40px; height: 40px;">
+                                <img src="<?= $contributor->avatar_url ?>" alt="<?= $contributor->login ?>" class="rounded-circle" style="width: 40px; height: 40px;">
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
                 <div class="d-flex justify-content-evenly">
-                    <?php if ($project->github): ?>
+                    <?php if ($project->github && !$project->private_repo): ?>
                         <a class="btn btn-github" target="_blank" href="<?= $project->github ?>">
                             <i class="fa fa-github" aria-hidden="true"></i>
                             Visit on Github

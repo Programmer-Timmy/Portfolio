@@ -23,15 +23,25 @@ if ($_POST) {
         $_POST['in_progress'] = 0;
     }
 
+    var_dump($_POST);
+
+    if (empty($_POST['github'])) {
+        $error = 'Please enter a github link';
+    }
+
+    $_POST['private_repo'] = empty($_POST['private_repo']) ? Null : ($_POST['private_repo'] == 'true' ? 1 : 0);
+
+
     if (empty($error)) {
-        var_dump($_POST['project_languages']);
-        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress']);
+        $error = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress'], $_POST['private_repo']);
         $error = Projects::addProjectLanguages($_POST['project_languages'], $error);
         if (empty($error)) {
             header('Location: /admin/projects');
         }
     }
 }
+
+$env = parse_ini_file(__DIR__ . '/../../../../.env');
 
 $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], [], [], 'name ASC');
 
@@ -91,8 +101,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
 
                 <div class="form-group py-2">
                     <input type="hidden" name="project_languages" id="project_languages" value="[]">
-                    <div id="languages-container">
-                    </div>
+                    <div id="languages-container"></div>
                     <button type="button" class="btn btn-primary" id="add-language-button" onclick="addLanguage()">Add
                         Language
                     </button>
@@ -152,6 +161,8 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                 py-2">
                     <div class="custom-file-container" data-upload-id="my-unique-id" multiple></div>
                 </div>
+                <input type="hidden" name="private_repo" id="private_repo" value="">
+
                 <button type="submit" class="btn btn-primary btn-block mt-2">Add Project</button>
             </form>
         </div>
@@ -215,20 +226,27 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
             githubInput.removeClass('is-valid');
             githubInput.addClass('is-invalid');
             showLanguageButtons(); // Show buttons if the format is incorrect
+            setPrivateRepo(); // Call function to set private repo
             return;
         }
 
         const valid = getGithubRepo(githubLink);
         valid.then((data) => {
+            console.log(data);
             if (data) {
                 githubInput.removeClass('is-invalid');
                 githubInput.addClass('is-valid');
+                setPrivateRepo(data.private); // Call function to set private repo
                 hideLanguageButtons(); // Hide buttons if the repo is valid
                 fetchLanguages(githubLink); // Fetch languages if the repo is valid
+                fetchContributors(githubLink); // Fetch contributors if the repo is valid
             } else {
                 githubInput.removeClass('is-valid');
                 githubInput.addClass('is-invalid');
+                removeLanguages(); // Remove languages if the repo is invalid
                 showLanguageButtons(); // Show buttons if the format is incorrect
+                setPrivateRepo(); // Call function to set private repo
+
 
             }
         });
@@ -245,7 +263,8 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
-                    'User-Agent': 'programmer-timmy'
+                    'User-Agent': 'programmer-timmy',
+                    'Authorization': 'token <?= $env['GITHUB_TOKEN'] ?>'
                 }
             });
 
@@ -271,7 +290,8 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
-                    'User-Agent': 'programmer-timmy'
+                    'User-Agent': 'programmer-timmy',
+                    'Authorization': 'token <?= $env['GITHUB_TOKEN'] ?>'
                 }
             });
 
@@ -282,6 +302,37 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         } catch (error) {
             console.error('Error fetching languages:', error);
         }
+    }
+
+    async function fetchContributors(githubLink) {
+        // Split the URL to get user and repo
+        githubLink = githubLink.split('/');
+        const repo = githubLink[githubLink.length - 1];
+        const user = githubLink[githubLink.length - 2];
+        const url = `https://api.github.com/repos/${user}/${repo}/contributors`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'User-Agent': 'programmer-timmy',
+                    'Authorization': 'token <?= $env['GITHUB_TOKEN'] ?>'
+                }
+            });
+
+            if (response.ok) {
+                const contributorsData = await response.json();
+                console.log(contributorsData);
+            }
+        } catch (error) {
+            console.error('Error fetching contributors:', error);
+        }
+
+    }
+
+    function setPrivateRepo(private) {
+        const privateRepo = document.getElementById('private_repo');
+        privateRepo.value = private;
     }
 
     function fillLanguages(data) {
@@ -297,6 +348,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         for (const [language, percentage] of Object.entries(data)) {
             ;
             const languageId = languages.find(lang => lang.name === language).id;
+            const languageColor = languages.find(lang => lang.name === language).color;
             const percentageValue = ((percentage / totalAmount) * 100).toFixed(1);
 
             if (percentageValue < 1) {
@@ -306,6 +358,7 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
             // Create a new card for each language
             const card = document.createElement('div');
             card.classList.add('card', 'mb-2');
+            card.setAttribute('style', `background-color: ${languageColor}; border-color: ${languageColor}`);
             card.innerHTML = `
                 <div class="row card-body m-0 p-2 d-flex flex-row flex-wrap justify-content-between align-items-center">
                     <div class="col-md-6">
@@ -419,6 +472,12 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         button.closest('.card').remove();
 
         // Update the hidden input with the new languages
+        updateHiddenInput();
+    }
+
+    function removeLanguages() {
+        const languagesContainer = document.getElementById('languages-container');
+        languagesContainer.innerHTML = '';
         updateHiddenInput();
     }
 
