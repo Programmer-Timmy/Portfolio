@@ -265,8 +265,9 @@ class Projects {
                     Database::insert('github_user', ['id', 'login', 'avatar_url', 'html_url'], [$contributor['user']['id'], $contributor['user']['login'], $contributor['user']['avatar_url'], $contributor['user']['html_url']], $database);
                 }
                 Database::insert('project_contributors', ['projects_id', 'github_user_id', 'contributions'], [$id, $contributor['user']['id'], $contributor['contributions']], $database);
-
             }
+
+            $database->commit($database);
         } catch (Exception $e) {
             $database->rollBack($database);
             return "There was an error adding your project contributors.";
