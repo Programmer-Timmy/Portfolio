@@ -84,7 +84,7 @@ if (!$project) {
                     <h3 class="text-center">Contributors</h3>
                     <div class="contributors d-flex pb-3 justify-content-center flex-wrap gap-2">
                         <?php foreach ($project->project_contributors as $contributor): ?>
-                            <a href="<?= $contributor->html_url ?>" class="contributor" style="width: 40px; height: 40px;">
+                            <a href="<?= $contributor->html_url ?>" class="contributor" style="width: 40px; height: 40px;" target="_blank">
                                 <img src="<?= $contributor->avatar_url ?>" alt="<?= $contributor->login ?>" class="rounded-circle" style="width: 40px; height: 40px;">
                             </a>
                         <?php endforeach; ?>
