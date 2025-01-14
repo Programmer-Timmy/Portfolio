@@ -36,7 +36,7 @@ class HtmlTemplateRenderer {
                     </a>
                 </div>
 
-                <?php if ($project->github): ?>
+                <?php if ($project->github && !$project->private_repo): ?>
                     <h1>
                         <a class="github text-decoration-none" href="<?= $project->github ?>">
                             <i class="fa fa-github" aria-hidden="true"></i>
