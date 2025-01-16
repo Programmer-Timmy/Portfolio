@@ -135,13 +135,14 @@ header {
 // * homepage * //
 .welcome {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 30px;
 
 
   h1 {
     color: $primary;
     font-size: clamp(3rem, 4vw, 4rem); /* Minimum size: 2rem, preferred: 5vw, maximum: 6rem */
+    line-height: 1;
     text-align: center;
   }
 
