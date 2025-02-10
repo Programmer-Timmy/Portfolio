@@ -40,16 +40,19 @@ if ($site['ajax']) {
 
 if ($site['admin']['enabled']) {
     $admin = $site['admin'];
-    $pageTemplate = __DIR__ . "/../private/Views/pages$require.php";
+    $pageTemplate = __DIR__ . "/../private/views/pages$require.php";
 
-    if (file_exists($pageTemplate)) {
-        if (str_contains($require, $admin['filterInUrl']) && $require !== $site['redirect'] && $require !== '/404' && $require !== '/maintenance') {
+    if (str_contains($require, $admin['filterInUrl']) && $require !== $site['redirect'] && $require !== '/404' && $require !== '/maintenance') {
+        if (file_exists($pageTemplate)) {
             if (!isset($_SESSION[$admin['sessionName']])) {
                 if ($site['saveUrl']) {
                     $_SESSION['redirect'] = $requestedPage;
                 }
                 header('Location:/' . $site['redirect']);
             }
+        } else {
+            header('Location:/404');
+            exit();
         }
     }
 }
@@ -57,11 +60,10 @@ if ($site['admin']['enabled']) {
 if ($site['accounts']['enabled']) {
     $accounts = $site['accounts'];
 
-    $pageTemplate = "__DIR__ . '/../private/Views/pages/$require.php";
+    $pageTemplate = "__DIR__ . '/../private/views/pages/$require.php";
 
-    if (file_exists($pageTemplate)) {
-        if (str_contains($require, $accounts['filterInUrl']) && $require !== '/' . $site['redirect'] && $require !== '/404' && $require !== '/maintenance') {
-
+    if (str_contains($require, $accounts['filterInUrl']) && $require !== '/' . $site['redirect'] && $require !== '/404' && $require !== '/maintenance') {
+        if (file_exists($pageTemplate)) {
             if (!isset($_SESSION[$accounts['sessionName']])) {
                 if ($site['saveUrl']) {
                     if ($require !== '/' . $site['redirect']) {
@@ -76,6 +78,9 @@ if ($site['accounts']['enabled']) {
 }
 
 if (str_contains($require, 'project') && $require !== '/projects' && !str_contains($require, 'admin')) {
+    if (substr($require, -1) === '/') {
+        $require = substr($require, 0, -1);
+    }
     $projectNumbers = preg_split('/\//', $require);
     $projectNumber = $projectNumbers[count($projectNumbers) - 1];
     if (!is_numeric($projectNumber)) {
@@ -84,6 +89,11 @@ if (str_contains($require, 'project') && $require !== '/projects' && !str_contai
         $_GET['id'] = $projectNumber;
         $require = '/project';
     }
+}
+
+if ($require === '/sitemap') {
+    include __DIR__ . "/../private/views/pages/sitemap.php";
+    exit();
 }
 
 // Include header
