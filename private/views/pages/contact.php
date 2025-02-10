@@ -8,7 +8,7 @@
             <h6>I'm Tim van der Kloet, a self-taught software developer with a passion for continuous learning and
                 innovation.</h6>
             <p>After completing my MBO in Software Development and gaining valuable experience through self-study
-                and hands-on projects, I am doing a Bachelor's degree in ICT at HBO.</p>
+                and hands-on projects, I am doing a Bachelor's degree in Software Development at HU University of Applied Sciences Utrecht.</p>
             <br>
             <p>My goal is to learn as many programming languages as possible and to gain experience with server
                 management. I am always looking for new challenges and opportunities to grow as a developer.</p>

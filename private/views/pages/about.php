@@ -17,10 +17,9 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <img src="img/profielfoto.JPG" id="foto" alt="">
         </div>
         <div id="tekst" class="col-lg-8">
-            <h6>Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at ICT
-                Campus school.</h6>
+            <h6>Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at HU University of Applied Sciences Utrecht.</h6>
             <p>
-                I am currently focused on learning various programming languages, such as C#, Python, TypeScript, and
+                I am currently focused on learning various programming languages, such as Java, Python, TypeScript, and
                 APIs. I am passionate about software development and excited about the possibilities it offers.
                 <br><br>
                 When I'm not studying, I enjoy playing games and sailing during the summer months. In the winter, I

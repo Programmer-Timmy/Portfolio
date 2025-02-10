@@ -41,7 +41,7 @@ $projects = Projects::loadProjects("10000")
     <?php if ($projects): ?>
         <?php foreach ($projects as $project): ?>
             <url>
-                <loc>https://portfolio.timmygamer.nl/project/<?=$project->id?>/</loc>
+                <loc>https://portfolio.timmygamer.nl/project/<?=$project->id?></loc>
                 <lastmod>2025-02-05T17:58:49+00:00</lastmod>
                 <priority>0.70</priority>
             </url>
