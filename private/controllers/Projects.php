@@ -200,8 +200,8 @@ class Projects {
     }
 
     public static function updateProjectLanguages(mixed $project_languages, $id) {
+        $database = Database::beginTransaction();
         try {
-            $database = Database::beginTransaction();
 
             $project_languages = json_decode($project_languages, true);
 
@@ -221,8 +221,8 @@ class Projects {
     }
 
     public static function addProjectLanguages($project_languages, $id) {
+        $database = Database::beginTransaction();
         try {
-            $database = Database::beginTransaction();
             $project_languages = json_decode($project_languages, true);
 
 
@@ -268,18 +268,17 @@ class Projects {
             $database->commit($database);
         } catch (Exception $e) {
             $database->rollBack($database);
-            var_dump($e);
             return "There was an error adding your project contributors.";
         }
     }
 
     public static function addProjectContributors($contributors, $id) {
+        var_dump($id);
+        $database = Database::beginTransaction();
         try {
-            $database = Database::beginTransaction();
             $contributors = json_decode($contributors, true);
 
             foreach ($contributors as $contributor) {
-                var_dump($contributor['contributions']);
                 $user = Database::get('github_user', ['*'], [], ['id' => $contributor['user']['id']]);
                 if (!$user) {
                     Database::insert('github_user', ['id', 'login', 'avatar_url', 'html_url'], [$contributor['user']['id'], $contributor['user']['login'], $contributor['user']['avatar_url'], $contributor['user']['html_url']], $database);

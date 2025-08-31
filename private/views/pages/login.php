@@ -7,7 +7,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if ($data != null) {
         header('Location: ' . $data);
     } else {
-        echo 'Wrong username or password';
+        $_SESSION['error'] = 'Invalid username or password';
     }
 }
 ?>
@@ -18,6 +18,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 <h3 class="title">Login</h3>
             </div>
             <form method="post" style="color: #777">
+                <?php GlobalUtility::displayFlashMessages(); ?>
                 <div class="form-group py-2">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" id="username" name="username"
