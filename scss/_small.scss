@@ -174,29 +174,36 @@ header {
         filter: none; // Keep the element sharp, no blur
 
       }
+
+      a {
+        display: block;
+        line-height: 0;
+      }
+
+
+      border-radius: 2vh;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      background-color: $dark-gary;
     }
 
     .languages span {
       height: 25px;
       font-size: 15px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      margin: 0 0 5px 0;
+      //margin: 0 0 5px 0;
     }
 
     div {
       border: $gray 1px solid;
-      height: 50vh;
       border-radius: 2vh;
 
     }
 
     h1 {
-      margin: 10px 0 30px;
+      margin: 10px 0 0 0;
       font-size: 30px;
       color: $primary;
     }
-
-
 
     .github {
       font-size: 30px;
@@ -241,7 +248,7 @@ header {
     background-color: $white;
     object-fit: cover;
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1/1;
     border-radius: 2vh;
   }
 }
@@ -694,6 +701,22 @@ footer {
   }
 }
 
+.btn-secondary {
+  text-decoration: none;
+  font-weight: bold;
+  border: $secondary 1px solid;
+  background: $secondary;
+  border-radius: 10px;
+  color: $black;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background: $dark-gary;
+    border-color: $dark-gary;
+  }
+}
+
 .btn-youtube {
   text-decoration: none;
   font-weight: bold;
@@ -752,36 +775,36 @@ footer {
       }
     }
 
-    @each $i in (1, 2, 3, 4, 5, 6, 7, 8){
+    @each $i in (1, 2, 3, 4, 5, 6, 7, 8) {
       .ql-indent-#{$i} {
         padding-left: 3em * $i;
       }
     }
 
     .ql-code-block-container {
-        background-color: $dark-gary;
-        padding: 10px;
-        border-radius: 10px;
+      background-color: $dark-gary;
+      padding: 10px;
+      border-radius: 10px;
 
-        .ql-code-block {
-            font-size: 15px;
-            line-height: 18px;
-            color: $light-gray;
-            font-family: monospace;
-        }
+      .ql-code-block {
+        font-size: 15px;
+        line-height: 18px;
+        color: $light-gray;
+        font-family: monospace;
+      }
     }
 
 
-    .ql-align-center{
-        text-align: center;
+    .ql-align-center {
+      text-align: center;
     }
 
-    .ql-align-justify{
-        text-align: justify;
+    .ql-align-justify {
+      text-align: justify;
     }
 
-    .ql-align-right{
-        text-align: right;
+    .ql-align-right {
+      text-align: right;
     }
 
     ol {
@@ -807,7 +830,6 @@ footer {
         }
       }
     }
-
 
 
   }
@@ -881,7 +903,7 @@ footer {
   padding-top: 4px;
 }
 
-#project-images{
+#project-images {
   position: sticky;
   top: 24px;
   z-index: 1; /* Ensure it stays above other content */
@@ -902,8 +924,8 @@ pre {
 }
 
 p {
-    line-height: 20px;
-    color: $light-gray;
+  line-height: 20px;
+  color: $light-gray;
 }
 
 a {
@@ -917,7 +939,7 @@ a {
   }
 }
 
-.contact{
+.contact {
   p, li {
     color: $light-gray
   }

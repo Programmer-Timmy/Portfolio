@@ -5,13 +5,14 @@ class HtmlTemplateRenderer {
     /**
      * Get the project card for the home page
      *
-     * @param $project
-     * @return false|string
+     * @param object $project - Project object
+     * @param string $column - Bootstrap column classes (default: 'col-md-6 col-xl-4')
+     * @return false|string - Rendered HTML of the project card or false on failure
      */
-    public static function getProjectCard($project): false|string {
+    public static function getProjectCard(object $project, string $column = 'col-md-6 col-xl-4') : false|string {
         ob_start(); // Start output buffering
         ?>
-        <div class="col-md-6 col-xl-4">
+        <div class="<?= $column ?>">
             <div class="project-home">
                 <div class="position-relative">
                     <div class="badgeContainer position-absolute">
@@ -55,7 +56,7 @@ class HtmlTemplateRenderer {
     public static function get_language_badge($language): string {
         ob_start(); // Start output buffering
         ?>
-        <span class="badge bg-primary mx-1" style="background-color: <?= $language->color ?> !important; color: black;"><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
+        <span class="badge bg-primary mx-1 mt-2" style="background-color: <?= $language->color ?> !important; color: black;"><?= $language->name ?><?php if ($language->percentage):?> | <?= $language->percentage * 1 ?>%<?php endif?></span>
         <?php
         return ob_get_clean(); // Return the buffered content
     }

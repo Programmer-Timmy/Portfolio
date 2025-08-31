@@ -18,7 +18,7 @@ if ($requestedPage == "/") {
 }
 
 if ($requestedPage == "/helloworld") {
-    require_once __DIR__ . '/../private/views/pages/HelloWorld.php';
+    require_once __DIR__ . '/../private/views/pages/helloworld.php';
     exit();
 }
 

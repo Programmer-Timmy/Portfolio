@@ -17,7 +17,7 @@ $projects = Projects::loadProjects("100");
     <div class="borderp row">
         <?php if ($projects): ?>
             <?php foreach ($projects as $project): ?>
-                <?= HtmlTemplateRenderer::getProjectCard($project); ?>
+                <?= HtmlTemplateRenderer::getProjectCard($project, 'col-md-6 col-lg-4 col-xl-3 mb-4'); ?>
             <?php endforeach; ?>
         <?php else: ?>
             <h1>No projects found</h1>
