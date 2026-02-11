@@ -80,6 +80,15 @@ class Projects {
     public static function uploadImage($files) {
         $urlArray = [];
         $count = 0;
+        
+        // Load image configuration
+        $config = require __DIR__ . '/../config/image-config.php';
+        $maxFileSize = $config['upload']['max_file_size'];
+        $allowed = $config['upload']['allowed_formats'];
+        $maxWidth = $config['optimization']['max_width'];
+        $quality = $config['optimization']['jpeg_quality'];
+        $responsiveWidths = $config['responsive_widths'];
+        
         foreach ($files as $file) {
             $file_name = $file['name'];
             $file_name = explode(':', $file_name);
@@ -90,35 +99,134 @@ class Projects {
             $file_ext = explode('.', $file_name);
             $file_ext = strtolower(end($file_ext));
 
-            $allowed = ['jpg', 'jpeg', 'png', 'gif'];
-            if (in_array($file_ext, $allowed)) {
-                if ($file_error === 0) {
-                    if ($file_size <= 2097152) {
-                        $file_name_new = uniqid('', true) . '.' . $file_ext;
-                        $file_destination = '../public_html/img/' . $file_name_new;
-                        if (move_uploaded_file($file_tmp, $file_destination)) {
-                            $urlArray[$count] = "img/" . $file_name_new;
-                            $count++;
-                        } else {
-                            return ["error" => "There was an error uploading your image number " . $count, "images" => $urlArray];
-                        }
-                    } else {
-                        return ["error" => "Your image " . $count . " is too large.", "images" => $urlArray];
-                    }
-                } else {
-                    return ["error" => "There was an error uploading your image number " . $count, "images" => $urlArray];
-                }
-            } else {
-                return ["error" => "File type of file number " . $count . " is not allowed.", "images" => $urlArray];
+            if (!in_array($file_ext, $allowed)) {
+                return ["error" => "File type of file number " . ($count + 1) . " is not allowed. Allowed types: " . implode(', ', $allowed), "images" => $urlArray];
             }
-
+            
+            if ($file_error !== 0) {
+                return ["error" => "There was an error uploading your image number " . ($count + 1), "images" => $urlArray];
+            }
+            
+            if ($file_size > $maxFileSize) {
+                return ["error" => "Your image " . ($count + 1) . " is too large. Max size: " . round($maxFileSize / 1048576, 1) . "MB", "images" => $urlArray];
+            }
+            
+            // Generate unique filename
+            $file_name_new = uniqid('', true) . '.' . $file_ext;
+            $file_destination = '../public_html/img/' . $file_name_new;
+            
+            // Move uploaded file
+            if (!move_uploaded_file($file_tmp, $file_destination)) {
+                return ["error" => "There was an error uploading your image number " . ($count + 1), "images" => $urlArray];
+            }
+            
+            // Optimize the uploaded image
+            try {
+                $imageInfo = @getimagesize($file_destination);
+                if ($imageInfo !== false) {
+                    list($width, $height) = $imageInfo;
+                    
+                    // Resize if too large
+                    if ($width > $maxWidth) {
+                        $tempPath = $file_destination . '.tmp';
+                        if (ImageOptimizer::resizeImage($file_destination, $tempPath, $maxWidth, $quality)) {
+                            unlink($file_destination);
+                            rename($tempPath, $file_destination);
+                        }
+                    }
+                    
+                    // Create WebP version if enabled
+                    if ($config['optimization']['create_webp']) {
+                        ImageOptimizer::convertToWebP($file_destination, $config['optimization']['webp_quality']);
+                    }
+                    
+                    // Generate responsive variants if enabled
+                    if ($config['optimization']['create_responsive']) {
+                        foreach ($responsiveWidths as $targetWidth) {
+                            if ($targetWidth < $width) {
+                                $pathInfo = pathinfo($file_destination);
+                                $variantPath = sprintf(
+                                    '%s/%s-%dw.%s',
+                                    $pathInfo['dirname'],
+                                    $pathInfo['filename'],
+                                    $targetWidth,
+                                    $pathInfo['extension']
+                                );
+                                
+                                if (ImageOptimizer::resizeImage($file_destination, $variantPath, $targetWidth, $quality)) {
+                                    // Also create WebP variant if enabled
+                                    if ($config['optimization']['create_webp']) {
+                                        ImageOptimizer::convertToWebP($variantPath, $config['optimization']['webp_quality']);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                $urlArray[$count] = "img/" . $file_name_new;
+                $count++;
+                
+            } catch (Exception $e) {
+                // If optimization fails, still keep the original
+                $urlArray[$count] = "img/" . $file_name_new;
+                $count++;
+            }
         }
+        
         return $urlArray;
     }
 
     private static function deleteImage($img) {
-        if (file_exists($img)) {
-            unlink('../public_html/' . $img);
+        $fullPath = '../public_html/' . $img;
+        
+        // Load image configuration
+        $config = require __DIR__ . '/../config/image-config.php';
+        $responsiveWidths = $config['responsive_widths'];
+        
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+            
+            $pathInfo = pathinfo($fullPath);
+            
+            // Delete WebP version if exists
+            if ($config['optimization']['create_webp']) {
+                $webpPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.webp';
+                if (file_exists($webpPath)) {
+                    unlink($webpPath);
+                }
+            }
+            
+            // Delete responsive variants if they were created
+            if ($config['optimization']['create_responsive']) {
+                foreach ($responsiveWidths as $width) {
+                    $variantPath = sprintf(
+                        '%s/%s-%dw.%s',
+                        $pathInfo['dirname'],
+                        $pathInfo['filename'],
+                        $width,
+                        $pathInfo['extension']
+                    );
+                    
+                    if (file_exists($variantPath)) {
+                        unlink($variantPath);
+                    }
+                    
+                    // Delete WebP variant
+                    if ($config['optimization']['create_webp']) {
+                        $webpVariantPath = sprintf(
+                            '%s/%s-%dw.webp',
+                            $pathInfo['dirname'],
+                            $pathInfo['filename'],
+                            $width
+                        );
+                        
+                        if (file_exists($webpVariantPath)) {
+                            unlink($webpVariantPath);
+                        }
+                    }
+                }
+            }
         }
     }
 
