@@ -2,16 +2,34 @@
 class Router {
     private static array $routes = [];
     private static array $routePriorities = [];
+    private static array $routeSEO = [];
+    private static ?string $currentRoute = null;
 
-    public static function get(string $pattern, callable $callback, float $priority = 0.80) {
+    public static function get(string $pattern, callable $callback, float $priority = 0.80, array $seo = []) {
         self::$routes['GET'][] = ['pattern' => $pattern, 'callback' => $callback];
         self::$routePriorities[$pattern] = $priority;
+        self::$routeSEO[$pattern] = array_merge([
+            'title' => '',
+            'description' => '',
+            'keywords' => '',
+            'og_image' => '',
+            'robots' => 'index, follow'
+        ], $seo);
     }
 
-    public static function post(string $pattern, callable $callback, float $priority = 0.80) {
+    public static function post(string $pattern, callable $callback, float $priority = 0.80, array $seo = []) {
         self::$routes['POST'][] = ['pattern' => $pattern, 'callback' => $callback];
         if (!isset(self::$routePriorities[$pattern])) {
             self::$routePriorities[$pattern] = $priority;
+        }
+        if (!isset(self::$routeSEO[$pattern])) {
+            self::$routeSEO[$pattern] = array_merge([
+                'title' => '',
+                'description' => '',
+                'keywords' => '',
+                'og_image' => '',
+                'robots' => 'index, follow'
+            ], $seo);
         }
     }
 
@@ -26,6 +44,7 @@ class Router {
             $pattern = self::createPattern($route['pattern']);
 
             if (preg_match($pattern, $uri, $matches)) {
+                self::$currentRoute = $route['pattern'];
                 array_shift($matches);
                 call_user_func_array($route['callback'], $matches);
                 self::includeFooter();
@@ -35,6 +54,7 @@ class Router {
         }
 
         // No route matched - show 404
+        self::$currentRoute = '404';
         self::handle404('/' . $uri);
         self::includeFooter();
         self::handlePopup();
@@ -84,6 +104,54 @@ class Router {
 
     public static function getRoutePriority(string $pattern): float {
         return self::$routePriorities[$pattern] ?? 0.80;
+    }
+
+    public static function getCurrentSEO(): array {
+        global $site;
+        
+        if (self::$currentRoute === null) {
+            return [
+                'title' => $site['siteName'],
+                'description' => '',
+                'keywords' => '',
+                'og_image' => '',
+                'robots' => 'index, follow'
+            ];
+        }
+
+        return self::$routeSEO[self::$currentRoute] ?? [
+            'title' => $site['siteName'],
+            'description' => '',
+            'keywords' => '',
+            'og_image' => '',
+            'robots' => 'index, follow'
+        ];
+    }
+
+    public static function getPageTitle(): string {
+        global $site;
+        $seo = self::getCurrentSEO();
+        return $seo['title'] ?: $site['siteName'];
+    }
+
+    public static function getPageDescription(): string {
+        $seo = self::getCurrentSEO();
+        return $seo['description'];
+    }
+
+    public static function getPageKeywords(): string {
+        $seo = self::getCurrentSEO();
+        return $seo['keywords'];
+    }
+
+    public static function getOGImage(): string {
+        $seo = self::getCurrentSEO();
+        return $seo['og_image'];
+    }
+
+    public static function getRobots(): string {
+        $seo = self::getCurrentSEO();
+        return $seo['robots'];
     }
 
     private static function createPattern(string $pattern): string {
