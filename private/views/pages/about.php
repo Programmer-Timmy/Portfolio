@@ -14,7 +14,10 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
 
     <div class="border row" style="padding-bottom: 40px">
         <div class="col-lg-4" style="justify-content: center">
-            <img src="img/profielfoto.JPG" id="foto" alt="">
+            <?= ImageOptimizer::responsiveImage('img/profielfoto.JPG', 'Tim van der Kloet profile photo', [
+                'id' => 'foto',
+                'lazy' => false
+            ]); ?>
         </div>
         <div id="tekst" class="col-lg-8">
             <h6>Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at HU University of Applied Sciences Utrecht.</h6>

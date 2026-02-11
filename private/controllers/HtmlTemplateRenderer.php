@@ -25,7 +25,10 @@ class HtmlTemplateRenderer {
                     </div>
 
                     <a href="project/<?= $project->id ?>/">
-                        <img src="/<?= $project->img ?>" class="img-size" alt="" loading="lazy">
+                        <?= ImageOptimizer::responsiveImage($project->img, htmlspecialchars($project->name), [
+                            'class' => 'img-size',
+                            'lazy' => true
+                        ]); ?>
                         <?php if ($project->project_languages): ?>
                             <languagesSection
                                     class="languages position-absolute bottom-0 start-50 translate-middle-x p-1 w-100">

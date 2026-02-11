@@ -34,7 +34,10 @@
                 hesitate to reach out—I'm here to help!</h6>
         </div>
         <div class="col-lg-4 mb-5 mb-lg-0" style="justify-content: center">
-            <img src="img/profielfoto.JPG" id="foto" alt="">
+            <?= ImageOptimizer::responsiveImage('img/profielfoto.JPG', 'Tim van der Kloet profile photo', [
+                'id' => 'foto',
+                'lazy' => true
+            ]); ?>
         </div>
     </div>
 </div>

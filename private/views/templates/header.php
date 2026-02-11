@@ -1,18 +1,7 @@
 <?php
 function getPageTitle()
 {
-    global $titles;
-    $url = strtolower($_SERVER['REQUEST_URI']); // Convert URL to lowercase for case-insensitive matching
-    $pageTitle = ucfirst($titles['default']); // Default title
-
-    // Find the corresponding title based on URL
-    foreach ($titles as $urlPattern => $title) {
-        if (stripos($url, $urlPattern) !== false) {
-            $pageTitle = $title;
-            break;
-        }
-    }
-    return htmlspecialchars($pageTitle); // Secure and descriptive
+    return htmlspecialchars(Router::getPageTitle());
 }
 
 ?>
@@ -23,6 +12,39 @@ function getPageTitle()
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo getPageTitle(); ?></title>
+    
+    <!-- SEO Meta Tags -->
+    <?php if (Router::getPageDescription()): ?>
+    <meta name="description" content="<?php echo htmlspecialchars(Router::getPageDescription()); ?>">
+    <?php endif; ?>
+    
+    <?php if (Router::getPageKeywords()): ?>
+    <meta name="keywords" content="<?php echo htmlspecialchars(Router::getPageKeywords()); ?>">
+    <?php endif; ?>
+    
+    <meta name="robots" content="<?php echo htmlspecialchars(Router::getRobots()); ?>">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<?php echo htmlspecialchars(Router::getPageTitle()); ?>">
+    <?php if (Router::getPageDescription()): ?>
+    <meta property="og:description" content="<?php echo htmlspecialchars(Router::getPageDescription()); ?>">
+    <?php endif; ?>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?php echo htmlspecialchars('https://timvanderkloet.com' . $_SERVER['REQUEST_URI']); ?>">
+    <?php if (Router::getOGImage()): ?>
+    <meta property="og:image" content="<?php echo htmlspecialchars(Router::getOGImage()); ?>">
+    <?php endif; ?>
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo htmlspecialchars(Router::getPageTitle()); ?>">
+    <?php if (Router::getPageDescription()): ?>
+    <meta name="twitter:description" content="<?php echo htmlspecialchars(Router::getPageDescription()); ?>">
+    <?php endif; ?>
+    <?php if (Router::getOGImage()): ?>
+    <meta name="twitter:image" content="<?php echo htmlspecialchars(Router::getOGImage()); ?>">
+    <?php endif; ?>
+    
     <!-- fav icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/img/favicoins/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicoins/favicon-32x32.png">
@@ -43,6 +65,16 @@ function getPageTitle()
     <link rel="stylesheet" href="/css/styles.css?v=1.8.2" type="text/css" media="all">
     <!-- Preload favicon -->
     <link rel="preload" href="/img/favicoins/favicon-32x32.png" as="image" type="image/png" media="all">
+    
+    <!-- Preload critical images based on page -->
+    <?php
+    $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    if ($uri === '' || $uri === 'home' || $uri === 'about' || $uri === 'contact') {
+        // Preload profile photo on pages where it's above the fold
+        echo '<link rel="preload" href="/img/profielfoto.JPG" as="image" media="all">';
+    }
+    ?>
+    
     <!-- jQuery and Font Awesome -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/65416f0144.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -34,12 +34,18 @@ if (!$project) {
                     <?php endif; ?>
                     <div class="carousel-inner">
                         <div class="carousel-item active img-container">
-                            <img src="/<?= $project->img ?>" class="d-block w-100" alt="..." loading="lazy">
+                            <?= ImageOptimizer::responsiveImage($project->img, htmlspecialchars($project->name), [
+                                'class' => 'd-block w-100',
+                                'lazy' => false
+                            ]); ?>
                         </div>
                         <?php if ($images): ?>
                             <?php foreach ($images as $key => $image): ?>
                                 <div class="carousel-item img-container">
-                                    <img src="/<?= $image->img ?>" class="d-block w-100" alt="..." loading="lazy">
+                                    <?= ImageOptimizer::responsiveImage($image->img, htmlspecialchars($project->name) . ' - Image ' . ($key + 2), [
+                                        'class' => 'd-block w-100',
+                                        'lazy' => true
+                                    ]); ?>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>

@@ -46,7 +46,7 @@ if (isset($_GET['delete'])) {
                 <td><?= $project->pinned ? 'Yes' : 'No' ?></td>
                 <td><?= $project->in_progress ? 'Yes' : 'No' ?></td>
                 <td>
-                    <a href="/admin/editProject?id=<?= $project->id ?>" class="btn btn-primary">Edit</a>
+                    <a href="/admin/editProject/<?= $project->id ?>" class="btn btn-primary">Edit</a>
                 </td>
                 <td>
                     <a href="?delete=<?= $project->id ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
