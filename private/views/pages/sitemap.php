@@ -2,53 +2,59 @@
 header("Content-Type: application/xml; charset=utf-8");
 
 // Define your site's base URL
-$baseUrl = "https://portfolio.timmygamer.nl";
+$baseUrl = "https://timvanderkloet.com";
 
-$projects = Projects::loadProjects("10000")
+// Get all registered routes from Router
+$routes = Router::getAllRoutePatterns();
+
+// Get projects for dynamic URLs
+$projects = Projects::loadProjects("10000");
+
+// Static routes that should be in sitemap (those without parameters)
+$staticRoutes = [];
+$dynamicRoutes = [];
+
+foreach ($routes as $route) {
+    if (strpos($route, '{') === false) {
+        // Static route (no parameters)
+        // Exclude admin routes, login, 404, and maintenance from sitemap
+        if ($route !== '404' && 
+            $route !== 'maintenance' && 
+            strpos($route, 'admin') === false &&
+            $route !== 'login') {
+            $staticRoutes[] = $route;
+        }
+    } else {
+        // Dynamic route - exclude admin routes
+        if (strpos($route, 'admin') === false) {
+            $dynamicRoutes[] = $route;
+        }
+    }
+}
+
+// Get current date for lastmod
+$currentDate = date('c');
 
 ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<?php foreach ($staticRoutes as $route): ?>
     <url>
-        <loc>https://portfolio.timmygamer.nl/</loc>
-        <lastmod>2025-02-05T17:58:49+00:00</lastmod>
-        <priority>1.00</priority>
+        <loc><?= $baseUrl ?>/<?= $route ?></loc>
+        <lastmod><?= $currentDate ?></lastmod>
+        <priority><?= Router::getRoutePriority($route) ?></priority>
     </url>
+<?php endforeach; ?>
+<?php if ($projects): ?>
+    <?php foreach ($projects as $project): ?>
     <url>
-        <loc>https://portfolio.timmygamer.nl/home</loc>
-        <lastmod>2025-02-05T17:58:49+00:00</lastmod>
-        <priority>0.80</priority>
+        <loc><?= $baseUrl ?>/project/<?= $project->id ?></loc>
+        <lastmod><?= $currentDate ?></lastmod>
+        <priority>0.70</priority>
     </url>
+    <?php endforeach; ?>
+<?php endif; ?>
     <url>
-        <loc>https://portfolio.timmygamer.nl/about</loc>
-        <lastmod>2025-02-05T17:58:49+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://portfolio.timmygamer.nl/contact</loc>
-        <lastmod>2025-02-05T17:58:49+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://portfolio.timmygamer.nl/projects</loc>
-        <lastmod>2025-02-05T17:58:49+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://portfolio.timmygamer.nl/videos</loc>
-        <lastmod>2025-02-05T17:58:49+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <?php if ($projects): ?>
-        <?php foreach ($projects as $project): ?>
-            <url>
-                <loc>https://portfolio.timmygamer.nl/project/<?=$project->id?></loc>
-                <lastmod>2025-02-05T17:58:49+00:00</lastmod>
-                <priority>0.70</priority>
-            </url>
-        <?php endforeach;?>
-    <?php endif; ?>
-    <url>
-        <loc>https://portfolio.timmygamer.nl/doc/CV.pdf</loc>
+        <loc><?= $baseUrl ?>/doc/CV.pdf</loc>
         <lastmod>2024-05-08T19:27:48+00:00</lastmod>
         <priority>0.60</priority>
     </url>

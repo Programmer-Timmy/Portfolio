@@ -1,2 +1,7 @@
 .ideo/
 .env
+.idea/
+.sass-cache/
+
+public/img/
+node_modules/

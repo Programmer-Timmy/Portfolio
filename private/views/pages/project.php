@@ -34,12 +34,12 @@ if (!$project) {
                     <?php endif; ?>
                     <div class="carousel-inner">
                         <div class="carousel-item active img-container">
-                            <img src="https://portfolio.timmygamer.nl/<?= $project->img ?>" class="d-block w-100" alt="..." loading="lazy">
+                            <img src="/<?= $project->img ?>" class="d-block w-100" alt="..." loading="lazy">
                         </div>
                         <?php if ($images): ?>
                             <?php foreach ($images as $key => $image): ?>
                                 <div class="carousel-item img-container">
-                                    <img src="https://portfolio.timmygamer.nl/<?= $image->img ?>" class="d-block w-100" alt="..." loading="lazy">
+                                    <img src="/<?= $image->img ?>" class="d-block w-100" alt="..." loading="lazy">
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
