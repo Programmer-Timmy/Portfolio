@@ -83,18 +83,13 @@ if ($require === '/sitemap' || $uri === 'sitemap') {
     exit();
 }
 
-// Include header
-include __DIR__ . '/../private/views/templates/header.php';
-
 // Check if maintenance mode is active and the client's IP is allowed
 if ($site['maintenance'] && !in_array($_SERVER['REMOTE_ADDR'], $allowedIPs)) {
     // Include the maintenance page
+    include __DIR__ . '/../private/views/templates/header.php';
     include __DIR__ . '/../private/views/pages/maintenance.php';
     exit();
 }
-
-// Include the common header
-include __DIR__ . '/../private/views/templates/navbar.php';
 
 // Use Router to dispatch the request
 Router::dispatch();

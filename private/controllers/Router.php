@@ -5,8 +5,8 @@ class Router {
     private static array $routeSEO = [];
     private static ?string $currentRoute = null;
 
-    public static function get(string $pattern, callable $callback, float $priority = 0.80, array $seo = []) {
-        self::$routes['GET'][] = ['pattern' => $pattern, 'callback' => $callback];
+    public static function get(string $pattern, callable $callback, float $priority = 0.80, array $seo = [], bool $cleanPage = false) {
+        self::$routes['GET'][] = ['pattern' => $pattern, 'callback' => $callback, 'cleanPage' => $cleanPage];
         self::$routePriorities[$pattern] = $priority;
         self::$routeSEO[$pattern] = array_merge([
             'title' => '',
@@ -15,6 +15,8 @@ class Router {
             'og_image' => '',
             'robots' => 'index, follow'
         ], $seo);
+
+
     }
 
     public static function post(string $pattern, callable $callback, float $priority = 0.80, array $seo = []) {
@@ -42,19 +44,26 @@ class Router {
 
         foreach (self::$routes[$method] ?? [] as $route) {
             $pattern = self::createPattern($route['pattern']);
-
             if (preg_match($pattern, $uri, $matches)) {
                 self::$currentRoute = $route['pattern'];
                 array_shift($matches);
+                if (!$route['cleanPage']) {
+                    self::includeHeader();
+                    self::includeNavbar();
+                }
                 call_user_func_array($route['callback'], $matches);
-                self::includeFooter();
-                self::handlePopup();
+                if (!$route['cleanPage']) {
+                    self::includeFooter();
+                    self::handlePopup();
+                }
                 return true;
             }
         }
 
         // No route matched - show 404
         self::$currentRoute = '404';
+        self::includeHeader();
+        self::includeNavbar();
         self::handle404('/' . $uri);
         self::includeFooter();
         self::handlePopup();
@@ -108,7 +117,6 @@ class Router {
 
     public static function getCurrentSEO(): array {
         global $site;
-        
         if (self::$currentRoute === null) {
             return [
                 'title' => $site['siteName'],
@@ -165,6 +173,18 @@ class Router {
 
     private static function includeFooter(): void {
         include __DIR__ . '/../views/templates/footer.php';
+    }
+
+    private static function includeNavbar(): void {
+        include __DIR__ . '/../views/templates/navbar.php';
+    }
+
+    private static function includeHeader(): void {
+        include __DIR__ . '/../views/templates/header.php';
+    }
+
+    private static function includeMaintenance(): void {
+        include __DIR__ . '/../views/pages/maintenance.php';
     }
 
     private static function handlePopup(): void {

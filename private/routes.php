@@ -153,14 +153,13 @@ Router::post('admin/editProject/{id}', function ($id) {
 });
 
 // Special pages
-Router::get('sitemap', function () {
+Router::get('sitemap.xml', function () {
     // Sitemap outputs XML directly, no header/footer needed
     include __DIR__ . '/views/pages/sitemap.php';
-    exit();
 }, 0.50, [
     'title' => 'Sitemap - Tim van der Kloet',
     'robots' => 'noindex, follow'
-]);
+], true);
 
 Router::get('maintenance', function () {
     require_once __DIR__ . '/views/pages/maintenance.php';
