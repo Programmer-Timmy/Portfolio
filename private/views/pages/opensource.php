@@ -12,34 +12,37 @@ $projects = OpenSource::getAll();
         </a>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-4">
         <?php if ($projects): ?>
             <?php foreach ($projects as $project): ?>
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow-sm project-card">
+                    <div class="card h-100 shadow-sm project-card" style="background-color: #333; border: 1px solid #444;">
                         <div class="card-body">
                             <h3 class="h5 card-title">
-                                <a href="/opensource/<?= $project->id ?>" class="text-decoration-none text-dark stretched-link">
-                                    <i class="fa fa-github-alt me-2 text-primary"></i><?= htmlspecialchars($project->name) ?>
+                                <a href="/opensource/<?= $project->id ?>" class="text-decoration-none stretched-link" style="color: #55d6aa;">
+                                    <i class="fa fa-github-alt me-2"></i><?= htmlspecialchars($project->name) ?>
                                 </a>
                             </h3>
-                            <p class="card-text text-muted mt-2">
+                            <p class="card-text mt-2" style="color: #ccc;">
                                 <?= !empty($project->description) ? htmlspecialchars($project->description) : 'No description available.' ?>
                             </p>
                         </div>
                         <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center">
-                            <span class="badge bg-secondary">
+                            <span class="badge" style="background-color: #55d6aa; color: black;">
                                 <i class="fa fa-code-branch me-1"></i><?= $project->pr_count ?? 0 ?> PRs
                             </span>
-                            <small class="text-muted"><i class="fa fa-chevron-right"></i></small>
+                            
+                            <a href="<?= htmlspecialchars($project->url) ?>" target="_blank" class="btn btn-sm hover-teal" style="border: 1px solid #55d6aa; color: #55d6aa; position: relative; z-index: 2; border-radius: 20px; padding: 2px 10px; background: transparent;" title="Visit Repository">
+                                <i class="fa fa-github me-1"></i> Visit Repository
+                            </a>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
             <div class="col-12">
-                <div class="alert alert-info">
-                    No open source contributions added yet. Check back later!
+                <div class="welcome">
+                    <h1>No open source contributions found</h1>
                 </div>
             </div>
         <?php endif; ?>
@@ -48,10 +51,15 @@ $projects = OpenSource::getAll();
 
 <style>
 .project-card {
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    transform: scale(1.015);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.5)!important;
+    border-color: #55d6aa !important;
+}
+.hover-teal:hover {
+    background-color: #55d6aa !important;
+    color: black !important;
 }
 </style>
