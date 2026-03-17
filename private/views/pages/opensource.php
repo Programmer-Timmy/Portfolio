@@ -1,28 +1,28 @@
 <?php
 $projects = OpenSource::getAll();
 ?>
-<div class="container">
-    <div class="welcome">
-        <h1>Open Source Contributions</h1>
+<main class="container">
+    <header class="welcome">
+        <h1 class="h2">Open Source Contributions</h1>
         <div class="text">
             <p>I believe in the power of open source software. Here are some of the projects I've contributed to. Click on a project to see more information.</p>
         </div>
         <a href="https://github.com/Programmer-Timmy" target="_blank" class="btn btn-github">
             <i class="fa fa-github" aria-hidden="true"></i> Visit My GitHub
         </a>
-    </div>
+    </header>
 
-    <div class="row mt-4">
+    <section class="row mt-4">
         <?php if ($projects): ?>
             <?php foreach ($projects as $project): ?>
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow-sm project-card" style="background-color: #333; border: 1px solid #444;">
+                    <article class="card h-100 shadow-sm project-card" style="background-color: #333; border: 1px solid #444;">
                         <div class="card-body">
-                            <h3 class="h5 card-title">
+                            <h2 class="h5 card-title">
                                 <a href="/opensource/<?= $project->id ?>" class="text-decoration-none stretched-link" style="color: #55d6aa;">
                                     <i class="fa fa-github-alt me-2"></i><?= htmlspecialchars($project->name) ?>
                                 </a>
-                            </h3>
+                            </h2>
                             <p class="card-text mt-2" style="color: #ccc;">
                                 <?= !empty($project->description) ? htmlspecialchars($project->description) : 'No description available.' ?>
                             </p>
@@ -36,18 +36,18 @@ $projects = OpenSource::getAll();
                                 <i class="fa fa-github me-1"></i> Visit Repository
                             </a>
                         </div>
-                    </div>
+                    </article>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
             <div class="col-12">
                 <div class="welcome">
-                    <h1>No open source contributions found</h1>
+                    <h2 class="h3">No open source contributions found</h2>
                 </div>
             </div>
         <?php endif; ?>
-    </div>
-</div>
+    </section>
+</main>
 
 <style>
 .project-card {

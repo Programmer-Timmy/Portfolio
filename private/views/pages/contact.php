@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<div class="welcome">
-    <h1>Contact</h1>
-</div>
-<div class="container">
-    <div class="border-re row align-items-center flex-column-reverse flex-lg-row">
+
+<main class="container">
+    <header class="welcome">
+        <h1 class="h2">Contact</h1>
+    </header>
+    <section class="border-re row align-items-center flex-column-reverse flex-lg-row">
         <div id="text" class="col-lg-8" style="justify-content: center">
-            <h6>I'm Tim van der Kloet, a self-taught software developer with a passion for continuous learning and
-                innovation.</h6>
+            <h2 class="h5">I'm Tim van der Kloet, a self-taught software developer with a passion for continuous learning and
+                innovation.</h2>
             <p>After completing my MBO in Software Development and gaining valuable experience through self-study
                 and hands-on projects, I am doing a Bachelor's degree in Software Development at HU University of Applied Sciences Utrecht.</p>
             <br>
@@ -30,8 +30,8 @@
             </p>
 
             <br>
-            <h6>I'd love to hear from you, whether it's for questions, feedback, or collaboration opportunities. Don't
-                hesitate to reach out—I'm here to help!</h6>
+            <p class="h5">I'd love to hear from you, whether it's for questions, feedback, or collaboration opportunities. Don't
+                hesitate to reach out—I'm here to help!</p>
         </div>
         <div class="col-lg-4 mb-5 mb-lg-0" style="justify-content: center">
             <?= ImageOptimizer::responsiveImage('img/profielfoto.JPG', 'Tim van der Kloet profile photo', [
@@ -39,5 +39,5 @@
                 'lazy' => true
             ]); ?>
         </div>
-    </div>
-</div>
+    </section>
+</main>

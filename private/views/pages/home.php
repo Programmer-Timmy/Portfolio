@@ -1,9 +1,9 @@
 <?php
 $projects = Projects::loadProjects("3");
 ?>
-<div class="container">
-    <div class="welcome">
-        <h1>Welcome!</h1>
+<main class="container">
+    <header class="welcome">
+        <h1 class="h2">Welcome!</h1>
 
         <div class="text px-lg-5">
             <p>My name is Tim and I am a developer. I have experience with PHP, C#, Python, TypeScript, SCSS, and more.
@@ -11,8 +11,8 @@ $projects = Projects::loadProjects("3");
             </p>
         </div>
         <a href="projects" class="btn btn-primary"> View More Projects</a>
-    </div>
-    <div class="borderp" style="color: red">
+    </header>
+    <section class="borderp" style="color: red">
         <?php if ($projects): ?>
             <div class="row">
                 <?php foreach ($projects as $project): ?>
@@ -20,7 +20,7 @@ $projects = Projects::loadProjects("3");
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <h1 class="text">No projects found</h1>
+            <h2 class="text h3">No projects found</h2>
         <?php endif; ?>
-    </div>
-</div>
+    </section>
+</main>

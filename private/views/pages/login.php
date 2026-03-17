@@ -11,12 +11,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
 }
 ?>
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<main class="container mt-5">
+    <section class="row justify-content-center">
         <div class="col-md-6">
-            <div class="text-center mb-4">
-                <h3 class="title">Login</h3>
-            </div>
+            <header class="text-center mb-4">
+                <h1 class="h3 title">Login</h1>
+            </header>
             <form method="post" style="color: #777">
                 <?php GlobalUtility::displayFlashMessages(); ?>
                 <div class="form-group py-2">
@@ -32,5 +32,5 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 <button type="submit" class="btn btn-primary btn-block mt-2">Login</button>
             </form>
         </div>
-    </div>
-</div>
+    </section>
+</main>

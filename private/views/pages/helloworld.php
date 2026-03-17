@@ -8,8 +8,10 @@
     <title>Hello World!</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
-
-    <p>Shhh! Don't tell anyone!</p>
+    <main>
+        <h1>Hello World!</h1>
+    
+        <p>Shhh! Don't tell anyone!</p>
+    </main>
 </body>
 </html>

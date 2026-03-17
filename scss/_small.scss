@@ -41,7 +41,7 @@ body {
 
 // * header / navbar * //
 
-header {
+.site-header {
   background: $primary;
 
   &::after {
@@ -145,6 +145,7 @@ header {
     font-size: clamp(3rem, 4vw, 4rem); /* Minimum size: 2rem, preferred: 5vw, maximum: 6rem */
     line-height: 1;
     text-align: center;
+    font-weight: bold;
   }
 
   h2 {

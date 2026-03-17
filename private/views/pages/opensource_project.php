@@ -6,19 +6,19 @@ if (!$project) {
 }
 ?>
 
-<div class="container pb-5 single-projects">
-    <div class="welcome mb-0">
-        <h1><?= htmlspecialchars($project->name) ?></h1>
-    </div>
-    <div class="row mt-4">
+<main class="container pb-5 single-projects">
+    <header class="welcome mb-0">
+        <h1 class="h2"><?= htmlspecialchars($project->name) ?></h1>
+    </header>
+    <section class="row mt-4">
         <div class="col-lg-8">
-            <div class="mt-4">
-               <h3 class="mb-4" style="color: #55d6aa;">My Contributions</h3>
+            <section class="mt-4" aria-labelledby="contributions-heading">
+               <h3 id="contributions-heading" class="mb-4" style="color: #55d6aa;">My Contributions</h3>
                
                <?php if (!empty($project->prs)): ?>
                     <div class="d-grid gap-3">
                         <?php foreach ($project->prs as $pr): ?>
-                            <div class="p-4 rounded-3" style="background-color: #333; border: 1px solid #444; transition: transform 0.2s;">
+                            <article class="p-4 rounded-3" style="background-color: #333; border: 1px solid #444; transition: transform 0.2s;">
                                 <div class="d-flex w-100 justify-content-between align-items-start">
                                     <h5 class="mb-1">
                                         <a href="<?= htmlspecialchars($pr->url) ?>" target="_blank" class="text-decoration-none" style="color: #55d6aa;">
@@ -40,7 +40,7 @@ if (!$project) {
                                     <span class="badge <?= $statusClass ?>"><?= htmlspecialchars($pr->status) ?></span>
                                     <a href="<?= htmlspecialchars($pr->url) ?>" target="_blank" class="ms-2 small text-decoration-none text-muted hover-white">View PR <i class="fa fa-external-link"></i></a>
                                 </div>
-                            </div>
+                            </article>
                         <?php endforeach; ?>
                     </div>
                 <?php else: ?>
@@ -48,10 +48,10 @@ if (!$project) {
                         No contributions listed yet for this project.
                     </div>
                 <?php endif; ?>
-            </div>
+            </section>
         </div>
         <div class="col-lg-4 mt-4">
-            <div class="project-home">
+            <aside class="project-home">
                 <h3 style="color: #55d6aa;">Project Details</h3>
                 <div class="text" id="description">
                     <p><?= nl2br(htmlspecialchars($project->description)) ?></p>
@@ -63,10 +63,10 @@ if (!$project) {
                         Visit Repository
                     </a>
                 </div>
-            </div>
+            </aside>
         </div>
-    </div>
-</div>
+    </section>
+</main>
 
 <style>
 .hover-white:hover { color: white !important; }

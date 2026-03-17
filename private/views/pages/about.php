@@ -7,12 +7,12 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
     ->diff(new DateTime('now', $tz))
     ->y;
 ?>
-<div class="container">
-    <div class="welcome">
-        <h1>About Me!</h1>
-    </div>
+<main class="container">
+    <header class="welcome">
+        <h1 class="h2">About Me!</h1>
+    </header>
 
-    <div class="border row" style="padding-bottom: 40px">
+    <section class="border row" style="padding-bottom: 40px">
         <div class="col-lg-4" style="justify-content: center">
             <?= ImageOptimizer::responsiveImage('img/profielfoto.JPG', 'Tim van der Kloet profile photo', [
                 'id' => 'foto',
@@ -20,7 +20,7 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             ]); ?>
         </div>
         <div id="tekst" class="col-lg-8">
-            <h6>Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at HU University of Applied Sciences Utrecht.</h6>
+            <h2 class="h5">Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at HU University of Applied Sciences Utrecht.</h2>
             <p>
                 I am currently focused on learning various programming languages, such as Java, Python, TypeScript, and
                 APIs. I am passionate about software development and excited about the possibilities it offers.
@@ -34,7 +34,7 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <br>
 
             <!-- Skills Section -->
-            <h6>Skills</h6>
+            <h2 class="h4">Skills</h2>
             <div>
                 <span>🌐</span>
                 <a href="#"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&labelColor=gray"
@@ -109,7 +109,7 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <br>
 
             <!-- Projects Section -->
-            <h6>Projects & Experience</h6>
+            <h2 class="h4">Projects & Experience</h2>
             <p>
                 I have worked on several projects during my studies and free time, including a personal portfolio
                 website, a small recipe-sharing website, and a Satisfactory Planner. Additionally, I have experience
@@ -120,7 +120,7 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <br>
 
             <!-- Vision Section -->
-            <h6>My Vision on Work</h6>
+            <h2 class="h4">My Vision on Work</h2>
             <p>
                 As I pursue my studies in software development, my vision is to become a versatile and innovative
                 professional in the tech industry. I am enthusiastic about leveraging my programming skills to
@@ -133,7 +133,7 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <br>
 
             <!-- Goals Section -->
-            <h6>What I Want to Achieve</h6>
+            <h2 class="h4">What I Want to Achieve</h2>
             <p>
                 Looking forward, I aim to achieve proficiency in a wide range of programming languages and frameworks,
                 allowing me to tackle diverse and complex projects. I envision being an integral part of innovative
@@ -143,14 +143,14 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             </p>
             <br>
 
-            <h6>Thank you for taking the time to view my portfolio.</h6>
+            <h2 class="h4">Thank you for taking the time to view my portfolio.</h2>
             <p>
                 Please find my Curriculum Vitae (CV) attached for your reference.
                 To download my CV, please click <a href="doc/CV.pdf" download="CV.pdf">here</a>.
             </p>
             <br>
         </div>
-    </div>
-</div>
+    </section>
+</main>
 
 

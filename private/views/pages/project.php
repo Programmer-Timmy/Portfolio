@@ -13,13 +13,13 @@ if (!$project) {
 ?>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
-<div class="container pb-5 single-projects">
-    <div class="welcome mb-0">
-        <h1><?= $project->name ?></h1>
-    </div>
-    <div class="row">
+<main class="container pb-5 single-projects">
+    <header class="welcome mb-0">
+        <h1 class="h2"><?= $project->name ?></h1>
+    </header>
+    <section class="row">
         <div class="col-lg-8">
-            <container id="project-images" class="">
+            <section id="project-images" aria-label="Project Gallery">
                 <div id="carouselExample" class="carousel slide carousel-dark carousel-fade mt-4" data-bs-ride="carousel"
                      data-bs-theme="dark">
                     <?php if ($images): ?>
@@ -63,10 +63,10 @@ if (!$project) {
                         </button>
                     <?php endif; ?>
                 </div>
-            </container>
+            </section>
         </div>
         <div class="col-lg-4 mt-4">
-            <div class="project-home">
+            <aside class="project-home">
                 <?php if ($project->in_progress): ?>
                     <div class="badge in-progress ">
                         <i class="fa fa-person-digging" aria-hidden="true"></i>
@@ -87,7 +87,7 @@ if (!$project) {
                     </div>
                 <?php endif; ?>
                 <?php if ($project->project_contributors && count($project->project_contributors) > 1): ?>
-                    <h3 class="text-center">Contributors</h3>
+                    <h3 class="text-center h4">Contributors</h3>
                     <div class="contributors d-flex pb-3 justify-content-center flex-wrap gap-2">
                         <?php foreach ($project->project_contributors as $contributor): ?>
                             <a href="<?= $contributor->html_url ?>" class="contributor" style="width: 40px; height: 40px;" target="_blank">
@@ -110,10 +110,10 @@ if (!$project) {
                         </a>
                     <?php endif; ?>
                 </div>
-            </div>
+            </aside>
         </div>
-    </div>
-</div>
+    </section>
+</main>
 
 <script>
     var tempCont = document.createElement("div");
