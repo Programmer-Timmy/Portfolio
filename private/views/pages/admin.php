@@ -19,5 +19,14 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card" style="background-color: #444">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Open Source</h5>
+                    <p class="card-text text-center">Manage contributions</p>
+                    <a href="/admin/opensource" class="btn btn-primary d-block mx-auto mt-2">Go to Open Source</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

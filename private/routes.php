@@ -152,6 +152,34 @@ Router::post('admin/editProject/{id}', function ($id) {
     require_once __DIR__ . '/views/pages/admin/editProject.php';
 });
 
+// Open Source Pages
+Router::get('opensource', function () {
+    require_once __DIR__ . '/views/pages/opensource.php';
+}, 0.80, [
+    'title' => 'Open Source - Tim van der Kloet',
+    'description' => 'My contributions to open source projects.',
+    'keywords' => 'open source, contributions, github, prs'
+]);
+
+// Admin Open Source
+Router::get('admin/opensource', function () {
+    require_once __DIR__ . '/views/pages/admin/opensource.php';
+}, 0.20, [
+    'title' => 'Admin Open Source - Tim van der Kloet',
+    'robots' => 'noindex, nofollow'
+]);
+
+Router::get('admin/addOpenSource', function () {
+    require_once __DIR__ . '/views/pages/admin/addOpenSource.php';
+}, 0.20, [
+    'title' => 'Add Open Source Project - Tim van der Kloet',
+    'robots' => 'noindex, nofollow'
+]);
+
+Router::post('admin/addOpenSource', function () {
+    require_once __DIR__ . '/views/pages/admin/addOpenSource.php';
+});
+
 // Special pages
 Router::get('sitemap.xml', function () {
     // Sitemap outputs XML directly, no header/footer needed
