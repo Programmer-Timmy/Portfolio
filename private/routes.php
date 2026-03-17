@@ -161,6 +161,15 @@ Router::get('opensource', function () {
     'keywords' => 'open source, contributions, github, prs'
 ]);
 
+Router::get('opensource/{id}', function ($id) {
+    $_GET['id'] = $id;
+    require_once __DIR__ . '/views/pages/opensource_project.php';
+}, 0.70, [
+    'title' => 'Open Source Contribution - Tim van der Kloet',
+    'description' => 'Details of my open source contributions.',
+    'keywords' => 'open source, contributions, project, details'
+]);
+
 // Admin Open Source
 Router::get('admin/opensource', function () {
     require_once __DIR__ . '/views/pages/admin/opensource.php';
