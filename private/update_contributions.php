@@ -10,9 +10,9 @@ $env = parse_ini_file(__DIR__ . '/../.env');
 
 // GitHub Username to fetch contributions for
 // Change this if your GitHub username is different
-$githubUser = 'timvanderkloet';
+$githubUser = 'programmer-timmy';
 
-// GitHub API Headers
+ // GitHub API Headers
 $headers = [
     'User-Agent: programmer-timmy',
     'Authorization: token ' . $env['GITHUB_TOKEN']
