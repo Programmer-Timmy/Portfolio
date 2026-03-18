@@ -20,16 +20,12 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             ]); ?>
         </div>
         <div id="tekst" class="col-lg-8">
-            <h2 class="h5">Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at HU University of Applied Sciences Utrecht.</h2>
+            <h2 class="h5">Hello, my name is Tim, and I am a <?= $age; ?>-year-old studying software development at HU University of Applied Sciences Utrecht and working as a junior digital engineer for BAM Infra.</h2>
             <p>
-                I am currently focused on learning various programming languages, such as Java, Python, TypeScript, and
-                APIs. I am passionate about software development and excited about the possibilities it offers.
+                I am currently focused on increasing my knowledge and skills servermanegement and cybersecurity, as I believe these areas are crucial for the future of technology. I am passionate about learning and staying up-to-date with the latest trends and developments in the tech industry.
                 <br><br>
-                When I'm not studying, I enjoy playing games and sailing during the summer months. In the winter, I
-                enjoy repairing and painting boats, which is a fun and creative activity. Additionally, I have been a
-                member of the scouting group Het <a href="https://www.zuiderkruis.nl/" target="_blank">ZuiderKruis</a>
-                for <?= $timeAtZuiderKruis ?> years, which has allowed me to develop important teamwork and leadership
-                skills.
+                When I'm not studying, I enjoy playing games and programing for personal prjects or contributing to open-source projects. I am also a member of the scouting group Het <a href="https://www.zuiderkruis.nl/" target="_blank">ZuiderKruis</a>
+                for <?= $timeAtZuiderKruis ?> years. I am a section leader for the beavers, which are the youngest group of scouts, and I enjoy working with children and helping them learn new skills and have fun. I am also involved in organizing events and activities for the scouting group, which has helped me develop my leadership and organizational skills.
             </p>
             <br>
 
@@ -111,11 +107,7 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <!-- Projects Section -->
             <h2 class="h4">Projects & Experience</h2>
             <p>
-                I have worked on several projects during my studies and free time, including a personal portfolio
-                website, a small recipe-sharing website, and a Satisfactory Planner. Additionally, I have experience
-                with WordPress and have created several websites and plugins. I have also developed a converter tool,
-                which allows converting Python dataframes into HTML tables and provides an easy way to generate HTML
-                pages using Python.
+                Throughout my journey in software development, I have had the opportunity to work on various projects that have allowed me to apply and expand my skills. From developing web applications using PHP and JavaScript to creating games with Unreal Engine and Unity, I have gained valuable experience in different areas of software development. Additionally, my role as a junior digital engineer at BAM Infra has provided me with hands-on experience in real-world projects, where I have contributed to the development and maintenance of digital solutions for infrastructure projects. These experiences have not only enhanced my technical abilities but also taught me the importance of teamwork, communication, and adaptability in a professional setting.
             </p>
             <br>
 
