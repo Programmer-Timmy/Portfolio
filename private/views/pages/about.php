@@ -14,7 +14,7 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
 
     <section class="border row" style="padding-bottom: 40px">
         <div class="col-lg-4" style="justify-content: center">
-            <?= ImageOptimizer::responsiveImage('img/profielfoto.JPG', 'Tim van der Kloet profile photo', [
+            <?= ImageOptimizer::responsiveImage('img/me.jpg', 'Tim van der Kloet profile photo', [
                 'id' => 'foto',
                 'lazy' => false
             ]); ?>
@@ -138,7 +138,9 @@ $timeAtZuiderKruis = DateTime::createFromFormat('d/m/Y', '17/11/2013', $tz)
             <h2 class="h4">Thank you for taking the time to view my portfolio.</h2>
             <p>
                 Please find my Curriculum Vitae (CV) attached for your reference.
-                To download my CV, please click <a href="doc/CV.pdf" download="CV.pdf">here</a>.
+                To view my CV, click the button below:
+                <br><br>
+                <a href="/files/CV_Tim_van_der_Kloet.pdf" class="btn btn-primary" target="_blank">View CV</a>
             </p>
             <br>
         </div>

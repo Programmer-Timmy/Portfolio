@@ -10,6 +10,13 @@ if (!$project) {
     header('Location: /admin/projects');
     exit;
 }
+$existingProjectImages = [$project->img];
+$additionalProjectImages = Projects::loadProjectImg($project->id);
+if ($additionalProjectImages) {
+    foreach ($additionalProjectImages as $image) {
+        $existingProjectImages[] = $image->img;
+    }
+}
 
 $error = '';
 if ($_POST) {
@@ -37,9 +44,13 @@ if ($_POST) {
 
 
     if (empty($error)) {
-        $error = Projects::updateProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress'], $project->id, $_POST['private_repo']);
-        $error = Projects::updateProjectLanguages($_POST['project_languages'], $project->id);
-        $error = Projects::updateProjectContributors($_POST['contributors'], $project->id);
+        $error = Projects::updateProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress'], $project->id, $_POST['private_repo'], $_POST['image_state'] ?? null);
+        if (empty($error)) {
+            $error = Projects::updateProjectLanguages($_POST['project_languages'], $project->id);
+        }
+        if (empty($error)) {
+            $error = Projects::updateProjectContributors($_POST['contributors'], $project->id);
+        }
         if (empty($error)) {
             header('Location: /admin/projects');
         }
@@ -47,6 +58,7 @@ if ($_POST) {
 }
 
 $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], [], [], 'name ASC');
+$initialImageState = json_encode(['images' => $existingProjectImages, 'removed' => []]);
 
 ?>
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
@@ -55,6 +67,23 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
         type="text/css"
         href="https://unpkg.com/file-upload-with-preview/dist/style.css"
 />
+<style>
+    .image-manager-card.is-removed {
+        opacity: 0.55;
+    }
+
+    .image-manager-thumb {
+        width: 100%;
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: 0.375rem;
+    }
+
+    .image-manager-status {
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+</style>
 <div class="container mx-5">
     <div class="row justify-content-center">
         <div class="col-lg-6">
@@ -204,6 +233,34 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
                     </div>
                 </div>
                 <div class="form-group py-2">
+                    <label class="mb-2">Manage existing images</label>
+                    <input type="hidden" name="image_state" id="image_state"
+                           value="<?= htmlspecialchars(isset($_POST['image_state']) ? $_POST['image_state'] : $initialImageState, ENT_QUOTES, 'UTF-8') ?>">
+                    <div id="image-manager" class="row g-2">
+                        <?php foreach ($existingProjectImages as $index => $image): ?>
+                            <div class="col-md-6 image-manager-card" data-image-path="<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>">
+                                <div class="card h-100">
+                                    <div class="card-body p-2">
+                                        <img src="/<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>"
+                                             alt="Project image <?= $index + 1 ?>"
+                                             class="image-manager-thumb mb-2">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="image-manager-status"></span>
+                                        </div>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <button type="button" class="btn btn-sm btn-outline-primary" data-action="set-cover">Set cover</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-action="move-up">Up</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-action="move-down">Down</button>
+                                            <button type="button" class="btn btn-sm btn-danger" data-action="toggle-remove">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="form-group py-2">
+                    <label class="mb-2">Upload new images (optional)</label>
                     <div class="custom-file-container" data-upload-id="my-unique-id"></div>
                 </div>
                 <input type="hidden" id="private_repo" name="private_repo" value="">
@@ -563,5 +620,137 @@ $languages = Database::getAll('programming_languages', ['id', 'name', 'color'], 
 
     // Add event listeners to update hidden input when percentage or language changes
     document.getElementById('languages-container').addEventListener('change', updateHiddenInput);
+
+    const imageManager = document.getElementById('image-manager');
+    const imageStateInput = document.getElementById('image_state');
+
+    function getImageCards() {
+        return Array.from(imageManager.querySelectorAll('.image-manager-card'));
+    }
+
+    function syncImageState() {
+        const cards = getImageCards();
+        const images = cards.map(card => card.dataset.imagePath);
+        const removed = cards
+            .filter(card => card.classList.contains('is-removed'))
+            .map(card => card.dataset.imagePath);
+
+        imageStateInput.value = JSON.stringify({
+            images: images,
+            removed: removed
+        });
+    }
+
+    function refreshImageLabels() {
+        const cards = getImageCards();
+        const activeCards = cards.filter(card => !card.classList.contains('is-removed'));
+
+        cards.forEach(card => {
+            const status = card.querySelector('.image-manager-status');
+            const removeButton = card.querySelector('[data-action="toggle-remove"]');
+            const isRemoved = card.classList.contains('is-removed');
+
+            if (isRemoved) {
+                status.textContent = 'Removed';
+                removeButton.textContent = 'Undo';
+                removeButton.classList.remove('btn-danger');
+                removeButton.classList.add('btn-warning');
+                return;
+            }
+
+            const activeIndex = activeCards.indexOf(card);
+            if (activeIndex === 0) {
+                status.textContent = 'Cover image';
+            } else {
+                status.textContent = `Gallery image ${activeIndex}`;
+            }
+
+            removeButton.textContent = 'Remove';
+            removeButton.classList.remove('btn-warning');
+            removeButton.classList.add('btn-danger');
+        });
+    }
+
+    function applyImageStateFromInput() {
+        if (!imageStateInput.value) {
+            return;
+        }
+
+        let state;
+        try {
+            state = JSON.parse(imageStateInput.value);
+        } catch (error) {
+            return;
+        }
+
+        if (!state || !Array.isArray(state.images)) {
+            return;
+        }
+
+        const cardByImage = new Map();
+        getImageCards().forEach(card => {
+            cardByImage.set(card.dataset.imagePath, card);
+        });
+
+        state.images.forEach(imagePath => {
+            const card = cardByImage.get(imagePath);
+            if (!card) {
+                return;
+            }
+            imageManager.appendChild(card);
+        });
+
+        if (Array.isArray(state.removed)) {
+            const removedLookup = new Set(state.removed);
+            getImageCards().forEach(card => {
+                card.classList.toggle('is-removed', removedLookup.has(card.dataset.imagePath));
+            });
+        }
+    }
+
+    imageManager.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) {
+            return;
+        }
+
+        const card = button.closest('.image-manager-card');
+        if (!card) {
+            return;
+        }
+
+        const action = button.dataset.action;
+        if (action === 'toggle-remove') {
+            card.classList.toggle('is-removed');
+        }
+
+        if (!card.classList.contains('is-removed')) {
+            if (action === 'set-cover') {
+                const firstActive = getImageCards().find(currentCard => !currentCard.classList.contains('is-removed'));
+                if (firstActive) {
+                    imageManager.insertBefore(card, firstActive);
+                } else {
+                    imageManager.prepend(card);
+                }
+            } else if (action === 'move-up') {
+                const previousCard = card.previousElementSibling;
+                if (previousCard) {
+                    imageManager.insertBefore(card, previousCard);
+                }
+            } else if (action === 'move-down') {
+                const nextCard = card.nextElementSibling;
+                if (nextCard) {
+                    imageManager.insertBefore(nextCard, card);
+                }
+            }
+        }
+
+        refreshImageLabels();
+        syncImageState();
+    });
+
+    applyImageStateFromInput();
+    refreshImageLabels();
+    syncImageState();
 </script>
 

@@ -34,7 +34,9 @@ if ($_POST) {
         $id = Projects::addProject($_POST['title'], $_POST["description"], $_POST['link'], $_POST['github'], $_FILES, $_POST['pinned'], $_POST['in_progress'], $_POST['private_repo']);
         if (is_numeric($id)) {
             $error = Projects::addProjectLanguages($_POST['project_languages'], $id);
-            $error = Projects::addProjectContributors($_POST['contributors'], $id);
+            if (empty($error)) {
+                $error = Projects::addProjectContributors($_POST['contributors'], $id);
+            }
         } else {
             $error = $id;
         }

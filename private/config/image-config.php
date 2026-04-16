@@ -36,6 +36,6 @@ return [
     'preload' => [
         'enabled' => true,
         'critical_paths' => ['home', 'about', 'contact'], // Pages where profile photo is critical
-        'critical_images' => ['img/profielfoto.JPG'], // Images to preload on critical pages
+        'critical_images' => ['img/me.jpg'], // Images to preload on critical pages
     ],
 ];
