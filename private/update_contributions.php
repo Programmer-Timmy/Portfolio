@@ -85,9 +85,7 @@ foreach ($projects as $project) {
             if ($existingPr->status !== $status) {
                 try {
                     // Update status
-                    $sql = "UPDATE opensource_prs SET status = :status WHERE id = :id";
-                    $stmt = Database::prepare($sql);
-                    $stmt->execute(['status' => $status, 'id' => $existingPr->id]);
+                    Database::update('opensource_prs', ['status'], [$status], ['id' => $existingPr->id]);
                     $updatedCount++;
                 } catch (Exception $e) {
                     echo "  Error updating PR: " . $e->getMessage() . "\n";
