@@ -27,7 +27,7 @@ $videos = Videos::getAll();
                                 frameborder="0"
                                 allowfullscreen></iframe>
                     </div>
-                    <h2 class="h4"><?= $item->title ?></h2>
+                    <h1><?= $item->title ?></h1>
                 </div>
             </div>
         <?php endforeach; ?>
