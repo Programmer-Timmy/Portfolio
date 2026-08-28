@@ -43,7 +43,7 @@ return [
             'name' => 'Scouting Het ZuiderKruis',
             'url' => 'https://www.zuiderkruis.nl/',
             'kind' => 'Volunteer',
-            'summary' => "Twelve years as a section leader for the Beavers, the youngest group. "
+            'summary' => "Three years as a section leader for the Beavers, the youngest group. "
                 . "I built the soos, where members order drinks and food on bar evenings, and "
                 . "I'm building an activities site where people sign up and pay for camps and events.",
             'tags' => [
