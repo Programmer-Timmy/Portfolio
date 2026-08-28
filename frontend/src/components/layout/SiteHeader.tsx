@@ -28,7 +28,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-surface/85 backdrop-blur">
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link to="/" aria-label="Tim van der Kloet, home" className="shrink-0">
-          <Logo className="h-8" />
+          <Logo className="h-14" variant={"icon"}/>
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">

@@ -33,6 +33,10 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
           </Link>
         </h3>
 
+        <p>
+            <small>Small description coming soon</small>
+        </p>
+
         {languages.length > 0 && (
           <ul className="mt-3 flex flex-wrap gap-1.5">
             {languages.map((lang) => (

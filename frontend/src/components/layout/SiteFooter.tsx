@@ -18,10 +18,9 @@ export function SiteFooter() {
     <footer className="mt-24 bg-navy text-white/80">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
         <div>
-          <Logo tone="onDark" />
+          <Logo tone="onDark" className="h-26 -ml-10"/>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-            Web development &amp; technology. I build practical software for
-            clients, in the open, and for Scouting.
+            Web development &amp; technology. Built for clients, in the open, and for Scouting.
           </p>
         </div>
 

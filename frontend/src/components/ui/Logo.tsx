@@ -39,7 +39,7 @@ export function Logo({ variant = 'wordmark', tone = 'auto', className }: LogoPro
     <img
       src={src}
       alt={alt}
-      className={cn('block w-auto', variant === 'icon' ? 'h-8' : 'h-9', toneClass[tone], className)}
+      className={cn('block', variant === 'icon' ? 'h-8' : 'h-9', toneClass[tone], className)}
     />
   )
 }

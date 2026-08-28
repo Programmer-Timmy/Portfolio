@@ -55,13 +55,14 @@ export function HomePage() {
 
       <ClientsSection profile={profile.data} />
 
-      <Section className="pb-24">
+      <Section className="!py-0">
         <Card className="flex flex-col items-start gap-6 p-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-h3">Working on something for your group or team?</h2>
+            <h2 className="text-h3">Got a project in mind?</h2>
             <p className="mt-2 max-w-xl text-ink-secondary">
-              I take on web and tooling projects, especially for Scouting and
-              volunteer organisations. Tell me what you need.
+              I take on web and tooling projects on the side, and I like hearing
+              about what people are trying to build. Tell me what you're working
+              on, even if it's still a rough idea.
             </p>
           </div>
           <Button to="/contact" size="lg" className="shrink-0">
@@ -81,11 +82,11 @@ function Hero({ profile, loading }: { profile?: Profile; loading: boolean }) {
           <Badge>{profile?.headline ?? 'Web development & technology'}</Badge>
           <h1 className="mt-5 max-w-2xl text-h1">
             {profile?.summary ??
-              "I build practical software for clients, in the open, and for Scouting."}
+              "Software that actually helps."}
           </h1>
           <p className="mt-5 max-w-xl text-lg text-ink-secondary">
             I'm {profile?.name ?? 'Tim van der Kloet'}
-            {profile?.location ? `, based in ${profile.location}` : ''}. I build for clients, in the open, and for Scouting, and I care as much about how it's built as what it does.
+            {profile?.location ? `, based in ${profile.location}` : ', based in Hilversum, Netherlands'}. I build for clients, in the open, and for Scouting, and I care as much about how it's built as what it does.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button to="/projects">View projects</Button>
@@ -160,13 +161,13 @@ function OpenSourceStrip({ projects }: { projects: OpenSourceProject[] }) {
       muted
     >
       <div className="flex flex-wrap gap-4">
-        <Card className="px-6 py-5">
+        <Card className="px-6 py-5 flex-1 sm:flex-none">
           <p className="font-heading text-3xl font-extrabold text-teal">
             {projects.length}
           </p>
           <p className="text-sm text-ink-secondary">repositories</p>
         </Card>
-        <Card className="px-6 py-5">
+        <Card className="px-6 py-5 flex-1 sm:flex-none">
           <p className="font-heading text-3xl font-extrabold text-teal">
             {prTotal}
           </p>
@@ -194,7 +195,7 @@ function ClientsSection({ profile }: { profile?: Profile }) {
     <Section
       eyebrow="Who I work with"
       title="Clients & organisations"
-      description="Groups I've built and shipped real software for, paid and unpaid."
+      description="A few of the people and organisations I've built software for, some paid, some because I care about what they do."
     >
       <div className="space-y-6">
         {profile.clients.map((client) => (
