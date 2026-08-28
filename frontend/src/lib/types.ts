@@ -115,7 +115,8 @@ export type Profile = {
     role: string
     since: string
     years: number | null
-    blurb: string
+    summary: string
+    tags: string[]
   }
   bio: string[]
   cv: { label: string; url: string }

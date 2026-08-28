@@ -9,7 +9,7 @@
 return [
     'name' => 'Tim van der Kloet',
     'headline' => 'Web development & technology',
-    'summary' => 'I build practical software for clients, in the open, and for Scouting.',
+    'summary' => 'Software that actually helps.',
     'location' => 'Hilversum, Netherlands',
     'birthDate' => '2005-08-03',
     'timezone' => 'Europe/Amsterdam',
@@ -27,13 +27,25 @@ return [
         ],
     ],
 
+    /**
+     * Scouting section on the home page. `summary` is the paragraph, `tags`
+     * are the chips beside it. `years` is filled in automatically from `since`.
+     * To add another thing you built for Scouting, just add a line to `tags`.
+     */
     'scouting' => [
         'group' => 'Scouting Het ZuiderKruis',
         'groupUrl' => 'https://www.zuiderkruis.nl/',
         'role' => 'Section leader for the Beavers (youngest group)',
         'since' => '2013-11-17',
-        'blurb' => 'I lead the youngest group and help organise events and activities. '
-            . 'A lot of what I build lately is aimed at making Scouting work run smoother.',
+        'summary' => "Twelve years as a section leader for the Beavers, the youngest group. "
+            . "Alongside that I've built the soos, a site where members can order drinks and "
+            . "food during the bar evenings, and I'm currently working on an activities site "
+            . "where people can sign up and pay for camps and other events.",
+        'tags' => [
+            'Ordering site (the soos)',
+            'Activity & camp sign-ups',
+            'Online payments',
+        ],
     ],
 
     'bio' => [
@@ -59,23 +71,19 @@ return [
     'skills' => [
         [
             'group' => 'Web',
-            'items' => ['HTML5', 'CSS3 / SCSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS', 'jQuery', 'WordPress'],
+            'items' => ['HTML5', 'CSS3 / SCSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS', 'jQuery', 'Mantine'],
         ],
         [
             'group' => 'Backend',
-            'items' => ['PHP', 'Laravel', 'Symfony', 'Python', 'C#', 'REST APIs'],
+            'items' => ['PHP', 'Laravel', 'Java', 'Python', 'REST APIs'],
         ],
         [
             'group' => 'Data',
-            'items' => ['MySQL', 'MariaDB', 'phpMyAdmin'],
+            'items' => ['MySQL', 'MariaDB', 'Redis', 'PostgreSQL'],
         ],
         [
             'group' => 'Infrastructure',
-            'items' => ['Ubuntu', 'Webmin', 'Server management', 'Git', 'GitHub'],
-        ],
-        [
-            'group' => 'Game development',
-            'items' => ['Unreal Engine', 'Unity'],
-        ],
+            'items' => ['Ubuntu', 'Virtualmin', 'Proxmox', 'Docker', 'Git', 'Github'],
+        ]
     ],
 ];

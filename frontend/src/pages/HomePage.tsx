@@ -22,7 +22,7 @@ export function HomePage() {
       <Section
         eyebrow="Selected work"
         title="Featured projects"
-        description="A few things I've built recently. Browse the rest for the full picture."
+        description="A mix of client work and things I've built on the side, usually because I wanted to solve something or learn something new. Some are finished, some still in progress."
         action={{ label: 'All projects', to: '/projects' }}
         muted
       >
@@ -75,7 +75,7 @@ export function HomePage() {
 
 function Hero({ profile, loading }: { profile?: Profile; loading: boolean }) {
   return (
-    <Container as="section" className="py-20 sm:py-28">
+    <Container as="section" className="py-10 sm:py-28">
       <div className="grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
         <div>
           <Badge>{profile?.headline ?? 'Web development & technology'}</Badge>
@@ -85,9 +85,7 @@ function Hero({ profile, loading }: { profile?: Profile; loading: boolean }) {
           </h1>
           <p className="mt-5 max-w-xl text-lg text-ink-secondary">
             I'm {profile?.name ?? 'Tim van der Kloet'}
-            {profile?.location ? `, based in ${profile.location}` : ''}. I care
-            about clean, maintainable code and software that actually helps the
-            people using it.
+            {profile?.location ? `, based in ${profile.location}` : ''}. I build for clients, in the open, and for Scouting, and I care as much about how it's built as what it does.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button to="/projects">View projects</Button>
@@ -135,7 +133,7 @@ function Hero({ profile, loading }: { profile?: Profile; loading: boolean }) {
 function SkillsSection({ profile }: { profile?: Profile }) {
   if (!profile) return null
   return (
-    <Section eyebrow="Toolbox" title="What I work with">
+    <Section eyebrow="Toolbox" title="What I work with" description="The stack changes depending on the project, but these are the tools I reach for most.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {profile.skills.map((group) => (
           <div key={group.group}>
@@ -166,7 +164,7 @@ function OpenSourceStrip({ projects }: { projects: OpenSourceProject[] }) {
     <Section
       eyebrow="In the open"
       title="Open source"
-      description="I contribute back to the tools I use."
+      description="I believe everyone deserves access to good software, not just the people who can pay for it. A lot of the best tools I use were built by people who gave them away for free, often with more care than the paid alternatives. I try to put something back when I can."
       action={{ label: 'All contributions', to: '/opensource' }}
       muted
     >
@@ -200,26 +198,43 @@ function OpenSourceStrip({ projects }: { projects: OpenSourceProject[] }) {
 
 function ScoutingSection({ profile }: { profile?: Profile }) {
   if (!profile) return null
+  const { group, groupUrl, years, summary } = profile.scouting
+
+  const tags = [
+    'Section leader',
+    years ? `${years} years` : null,
+    ...profile.scouting.tags,
+  ].filter((t): t is string => Boolean(t))
+
   return (
     <Section>
-      <Card className="grid gap-6 p-8 md:grid-cols-[1fr_1.4fr] md:items-center">
+      <Card className="grid gap-8 p-8 md:grid-cols-[1fr_1.5fr] md:items-start">
         <div>
           <Badge>Scouting</Badge>
-          <h2 className="mt-4 text-h2">{profile.scouting.group}</h2>
-          <p className="mt-1 text-ink-secondary">
-            {profile.scouting.role}
-            {profile.scouting.years ? ` · ${profile.scouting.years} years` : ''}
+          <h2 className="mt-4 text-h2">{group}</h2>
+          <p className="mt-2 text-ink-secondary">
+            Volunteer group I help run and build for
           </p>
         </div>
-        <div className="space-y-4 text-ink-secondary">
-          <p>{profile.scouting.blurb}</p>
+        <div className="space-y-5">
+          <p className="text-ink-secondary">{summary}</p>
+          <ul className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
           <a
-            href={profile.scouting.groupUrl}
+            href={groupUrl}
             target="_blank"
             rel="noreferrer"
             className="inline-block text-sm font-medium text-teal hover:underline"
           >
-            Visit {profile.scouting.group} →
+            Visit {group} →
           </a>
         </div>
       </Card>

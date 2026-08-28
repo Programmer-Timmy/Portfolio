@@ -66,8 +66,12 @@ $site = [
     'spa' => [
         'enabled' => true,
         'routes' => [
-            '',
+            '',        // homepage
             'home',
+            // Add a route here when its page is migrated to React, e.g.
+            // 'about',
+            // 'projects',
+            // 'projects/{id}',
         ],
     ],
 
