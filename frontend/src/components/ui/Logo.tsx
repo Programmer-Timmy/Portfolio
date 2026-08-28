@@ -18,6 +18,10 @@ const toneClass: Record<NonNullable<LogoProps['tone']>, string> = {
   onDark: 'brightness-0 invert',
 }
 
+// public/ assets: prefix with BASE_URL so they resolve whether the app is
+// served from / (dev) or /app/ (prod build served by PHP).
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`
+
 /**
  * Brand logo. Assets live in /public/brand (English wordmark + universal
  * <TK/> icon). Never recolour outside navy/teal; keep clear space ≈ the
@@ -25,7 +29,7 @@ const toneClass: Record<NonNullable<LogoProps['tone']>, string> = {
  * until a dedicated light logo asset exists.
  */
 export function Logo({ variant = 'wordmark', tone = 'auto', className }: LogoProps) {
-  const src = variant === 'icon' ? '/brand/icon.svg' : '/brand/wordmark-full.png'
+  const src = asset(variant === 'icon' ? 'brand/icon.svg' : 'brand/wordmark-full.png')
   const alt =
     variant === 'icon'
       ? 'Tim van der Kloet'

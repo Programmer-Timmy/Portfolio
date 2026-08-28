@@ -8,7 +8,11 @@ import tailwindcss from '@tailwindcss/vite'
 // exactly like they will in production (single origin, no CORS).
 const PHP_ORIGIN = process.env.VITE_PHP_ORIGIN ?? 'http://localhost:8000'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // In the build, asset URLs are absolute under /app/ so PHP can serve
+  // index.html from any route (/, /projects, ...) and the browser still
+  // finds the JS/CSS. The dev server stays at the root.
+  base: command === 'build' ? '/app/' : '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -29,4 +33,4 @@ export default defineConfig({
     outDir: '../public/app',
     emptyOutDir: true,
   },
-})
+}))

@@ -56,6 +56,21 @@ $site = [
         'filterInUrl' => '', // empty string means no filter
     ],
 
+    /**
+     * React frontend (see /frontend). PHP stays the front controller: it runs
+     * session/SSO/maintenance/auth checks first, then for any route listed here
+     * it serves the built SPA shell (public/app/index.html) and React takes over
+     * client-side. Move a route into this list once its page is migrated.
+     * Uses the same {param} syntax as the router; '' is the homepage.
+     */
+    'spa' => [
+        'enabled' => true,
+        'routes' => [
+            '',
+            'home',
+        ],
+    ],
+
     // popup settings
     'showPopup' => false,
     'popupTitle' => 'Note',

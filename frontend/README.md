@@ -18,8 +18,30 @@ Concretely:
 - **Dev:** Vite proxies `/api`, `/img` and `/doc` to the PHP server
   (`VITE_PHP_ORIGIN`, default `http://localhost:8000`). Run PHP with
   `php -S localhost:8000 -t public public/router.php`.
-- **Prod:** `npm run build` outputs to `../public/app/`. Serve that from the same
-  domain as PHP.
+- **Prod:** `npm run build` outputs to `../public/app/` (asset URLs are absolute
+  under `/app/`). Serve `public/` from PHP as usual, nothing else to configure.
+
+## How PHP serves the SPA
+
+Every request still goes through `public/index.php` first, so session, SSO,
+maintenance and auth checks run before anything is sent. Then:
+
+1. `/api/*` -> the JSON API (`private/api/`).
+2. A path listed in `$site['spa']['routes']` (settings.php) -> PHP outputs the
+   built `public/app/index.html` and React takes over client-side (`Spa` class).
+3. Anything else -> the existing PHP view.
+
+So migrated and not-yet-migrated pages coexist on one origin. Links follow the
+same split: `AppLink` / `Button` render a client-side `<Link>` for a route in
+`src/lib/migrated.ts` and a plain `<a>` (full navigation to PHP) for the rest.
+
+### Migrating a page
+
+1. Build the page component and add its route in `src/router.tsx`.
+2. Add the path to `MIGRATED_ROUTES` in `src/lib/migrated.ts`.
+3. Add the same path to `$site['spa']['routes']` in `private/config/settings.php`.
+4. Add its `/api/...` endpoint if it needs data; type the response in `types.ts`.
+5. `npm run build`.
 
 ## REST API
 
@@ -84,9 +106,3 @@ Defined in `src/styles/index.css` under `@theme`, straight from `STYLEGUIDE.md`:
 - Text sizes: `text-h1` / `text-h2` / `text-h3`. Radius: `rounded-card`.
 
 Rule of thumb from the guide: **navy is for reading, teal is for clicking.**
-
-## Migrating a page
-
-1. Build the component in `src/pages/`.
-2. Add its `/api/...` endpoint in PHP if it needs data; type the response.
-3. Swap the `PlaceholderPage` entry in `src/router.tsx` for the real component.

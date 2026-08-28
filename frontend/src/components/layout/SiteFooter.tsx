@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
 import { Icon } from '@/components/ui/Icon'
+import { AppLink } from '@/components/ui/AppLink'
 import { NAV_ITEMS } from './nav-items'
 
 const SOCIAL = [
@@ -32,9 +32,12 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2 text-sm">
             {NAV_ITEMS.map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="text-white/70 transition-colors hover:text-teal-light">
+                <AppLink
+                  to={item.to}
+                  className="text-white/70 transition-colors hover:text-teal-light"
+                >
                   {item.label}
-                </Link>
+                </AppLink>
               </li>
             ))}
           </ul>

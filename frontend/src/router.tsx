@@ -2,20 +2,20 @@ import { createBrowserRouter } from 'react-router-dom'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { HomePage } from '@/pages/HomePage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
-import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
+/**
+ * Only routes React actually owns live here. Everything else is still served
+ * by the PHP views, and links to those pages do a full navigation (see
+ * `src/lib/migrated.ts` + `AppLink`).
+ *
+ * To migrate a page: add its route below, add the path to `MIGRATED_ROUTES`
+ * and to `$site['spa']['routes']` in private/config/settings.php.
+ */
 export const router = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: 'about', element: <PlaceholderPage title="About" /> },
-      { path: 'projects', element: <PlaceholderPage title="Projects" /> },
-      { path: 'projects/:id', element: <PlaceholderPage title="Project" /> },
-      { path: 'opensource', element: <PlaceholderPage title="Open Source" /> },
-      { path: 'opensource/:id', element: <PlaceholderPage title="Open Source Contribution" /> },
-      { path: 'videos', element: <PlaceholderPage title="Videos" /> },
-      { path: 'contact', element: <PlaceholderPage title="Contact" /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

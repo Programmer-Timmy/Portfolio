@@ -10,7 +10,7 @@ return [
     'name' => 'Tim van der Kloet',
     'headline' => 'Web development & technology',
     'summary' => 'I build practical software for clients, in the open, and for Scouting.',
-    'location' => 'Utrecht, Netherlands',
+    'location' => 'Hilversum, Netherlands',
     'birthDate' => '2005-08-03',
     'timezone' => 'Europe/Amsterdam',
 

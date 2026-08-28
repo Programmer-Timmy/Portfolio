@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
 import { cn } from '@/lib/cn'
 import { Container } from './Container'
+import { AppLink } from './AppLink'
 
 type SectionProps = {
   id?: string
@@ -50,12 +50,12 @@ export function Section({
               )}
             </div>
             {action && (
-              <Link
+              <AppLink
                 to={action.to}
                 className="text-sm font-medium text-teal hover:underline"
               >
                 {action.label} →
-              </Link>
+              </AppLink>
             )}
           </div>
         )}

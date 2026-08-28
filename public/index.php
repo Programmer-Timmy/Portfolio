@@ -99,6 +99,13 @@ if ($site['maintenance'] && !in_array($_SERVER['REMOTE_ADDR'], $allowedIPs)) {
     exit();
 }
 
+// Serve the React app for migrated routes. Auth + maintenance checks above
+// have already run, so this only sends the shell to allowed visitors. Falls
+// through to the PHP view if the build is missing.
+if (Spa::handles($uri) && Spa::render()) {
+    exit();
+}
+
 // Use Router to dispatch the request
 Router::dispatch();
 

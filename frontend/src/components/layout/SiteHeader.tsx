@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { cn } from '@/lib/cn'
 import { useTheme } from '@/lib/theme'
 import { Logo } from '@/components/ui/Logo'
 import { Container } from '@/components/ui/Container'
+import { AppLink } from '@/components/ui/AppLink'
 import { NAV_ITEMS } from './nav-items'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -32,9 +33,9 @@ export function SiteHeader() {
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.to === '/'} className={linkClass}>
+            <AppLink key={item.to} to={item.to} end={item.to === '/'} className={linkClass}>
               {item.label}
-            </NavLink>
+            </AppLink>
           ))}
         </nav>
 
@@ -67,7 +68,7 @@ export function SiteHeader() {
         >
           <Container className="flex flex-col py-2">
             {NAV_ITEMS.map((item) => (
-              <NavLink
+              <AppLink
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
@@ -79,7 +80,7 @@ export function SiteHeader() {
                 }
               >
                 {item.label}
-              </NavLink>
+              </AppLink>
             ))}
           </Container>
         </nav>

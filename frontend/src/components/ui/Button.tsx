@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, AnchorHTMLAttributes, ReactNode } from 'react'
-import { Link } from 'react-router-dom'
 import { cn } from '@/lib/cn'
+import { isMigrated } from '@/lib/migrated'
+import { Link } from 'react-router-dom'
 
 type Variant = 'primary' | 'secondary' | 'ghost'
 type Size = 'sm' | 'md' | 'lg'
@@ -54,11 +55,20 @@ export function Button(props: ButtonAsButton | ButtonAsLink | ButtonAsAnchor) {
   const classes = cn(base, variants[variant], sizes[size], className)
 
   if ('to' in props && props.to !== undefined) {
-    const { variant: _v, size: _s, className: _c, children: _ch, ...rest } = props
+    const { variant: _v, size: _s, className: _c, children: _ch, to, ...rest } = props
+    // Client-side transition only for routes React owns; otherwise a full
+    // navigation so PHP renders the (not-yet-migrated) page.
+    if (isMigrated(to)) {
+      return (
+        <Link to={to} className={classes} {...rest}>
+          {children}
+        </Link>
+      )
+    }
     return (
-      <Link className={classes} {...rest}>
+      <a href={to} className={classes} {...rest}>
         {children}
-      </Link>
+      </a>
     )
   }
 
