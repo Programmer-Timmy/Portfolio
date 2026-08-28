@@ -5,3 +5,8 @@
 
 public/img/
 node_modules/
+
+# React frontend build output (run `npm run build` in frontend/)
+public/app/
+frontend/node_modules/
+frontend/dist/

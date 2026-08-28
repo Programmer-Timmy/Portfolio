@@ -1,0 +1,120 @@
+@import 'tailwindcss';
+
+/* Self-hosted fonts (latin subset only — no layout shift, no third-party requests) */
+@import '@fontsource/poppins/latin-600.css';
+@import '@fontsource/poppins/latin-700.css';
+@import '@fontsource/poppins/latin-800.css';
+@import '@fontsource/inter/latin-400.css';
+@import '@fontsource/inter/latin-500.css';
+@import '@fontsource/inter/latin-600.css';
+@import '@fontsource/jetbrains-mono/latin-400.css';
+@import '@fontsource/jetbrains-mono/latin-500.css';
+
+/*
+  Dark mode is opt-in via <html data-theme="dark">, per the styleguide
+  (dashboards / status pages viewed at night). Marketing pages stay light.
+*/
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* -------------------------------------------------------------------------- */
+/*  Design tokens — derived from STYLEGUIDE.md (the <TK/> brand)              */
+/* -------------------------------------------------------------------------- */
+@theme {
+  /* Brand core — navy is for reading, teal is for clicking */
+  --color-navy: #1f2933;
+  --color-teal: #0b7f89;
+  --color-teal-light: #3fafb8;
+
+  /* Website neutrals */
+  --color-paper: #f7f9fa;
+  --color-surface: #ffffff;
+  --color-line: #e3e7ea;
+  --color-ink: #1f2933;
+  --color-ink-secondary: #5b6b76;
+  --color-ink-muted: #8a9aa5;
+
+  /* Semantic status — server / status pages / mail ONLY. Never brand-mixed. */
+  --color-status-up: #1b8a5a;
+  --color-status-degraded: #c97f0e;
+  --color-status-down: #c1382f;
+  --color-status-maintenance: #6b7280;
+
+  --color-status-up-bg: #e7f5ee;
+  --color-status-up-text: #0f5c3b;
+  --color-status-degraded-bg: #fbeedc;
+  --color-status-degraded-text: #8a5709;
+  --color-status-down-bg: #fbeae8;
+  --color-status-down-text: #82251e;
+  --color-status-maintenance-bg: #eef0f2;
+  --color-status-maintenance-text: #495057;
+
+  /* Typography */
+  --font-heading: 'Poppins', 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  --text-h1: 2.75rem; /* ~44px */
+  --text-h1--line-height: 1.1;
+  --text-h1--font-weight: 700;
+  --text-h2: 1.875rem; /* 30px */
+  --text-h2--line-height: 1.2;
+  --text-h2--font-weight: 700;
+  --text-h3: 1.3125rem; /* 21px */
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+
+  /* Shape — cards use 8–12px radius, no heavy shadows */
+  --radius-card: 0.625rem;
+
+  --shadow-card: 0 1px 2px rgb(31 41 51 / 0.04), 0 1px 3px rgb(31 41 51 / 0.06);
+}
+
+/* Dark-mode token overrides (styleguide §7) */
+[data-theme='dark'] {
+  --color-paper: #12181f;
+  --color-surface: #1b232c;
+  --color-line: #2b3540;
+  --color-ink: #e8edf0;
+  --color-ink-secondary: #8fa0ab;
+  --color-ink-muted: #6f7f8a;
+  --color-teal: #3fafb8;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Base                                                                     */
+/* -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  /* Focus ring in teal (styleguide §5 — form fields / interactive) */
+  :focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-teal) 22%, transparent);
+  }
+}
