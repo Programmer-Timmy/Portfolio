@@ -16,9 +16,6 @@ class MetaApi
         $profile = require __DIR__ . '/../../config/profile.php';
 
         $profile['age'] = self::yearsSince($profile['birthDate'] ?? null);
-        if (isset($profile['scouting']['since'])) {
-            $profile['scouting']['years'] = self::yearsSince($profile['scouting']['since']);
-        }
 
         return $profile;
     }

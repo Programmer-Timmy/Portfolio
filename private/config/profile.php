@@ -25,26 +25,33 @@ return [
             'organization' => 'BAM Infra',
             'current' => true,
         ],
+        [
+            'title' => 'Section leader, Beaver Scouts',
+            'organization' => 'Scouting Het ZuiderKruis',
+            'current' => true,
+        ],
     ],
 
     /**
-     * Scouting section on the home page. `summary` is the paragraph, `tags`
-     * are the chips beside it. `years` is filled in automatically from `since`.
-     * To add another thing you built for Scouting, just add a line to `tags`.
+     * "Who I work with" section on the home page. One entry per organisation
+     * you've built for. `kind` is the badge (Volunteer, Client, Freelance...).
+     * `tags` are the chips: put "Built pro bono" (or similar) there for work
+     * you did unpaid. Add an entry to list another client.
      */
-    'scouting' => [
-        'group' => 'Scouting Het ZuiderKruis',
-        'groupUrl' => 'https://www.zuiderkruis.nl/',
-        'role' => 'Section leader for the Beavers (youngest group)',
-        'since' => '2013-11-17',
-        'summary' => "Twelve years as a section leader for the Beavers, the youngest group. "
-            . "Alongside that I've built the soos, a site where members can order drinks and "
-            . "food during the bar evenings, and I'm currently working on an activities site "
-            . "where people can sign up and pay for camps and other events.",
-        'tags' => [
-            'Ordering site (the soos)',
-            'Activity & camp sign-ups',
-            'Online payments',
+    'clients' => [
+        [
+            'name' => 'Scouting Het ZuiderKruis',
+            'url' => 'https://www.zuiderkruis.nl/',
+            'kind' => 'Volunteer',
+            'summary' => "Twelve years as a section leader for the Beavers, the youngest group. "
+                . "I built the soos, where members order drinks and food on bar evenings, and "
+                . "I'm building an activities site where people sign up and pay for camps and events.",
+            'tags' => [
+                'Built pro bono',
+                'Ordering site (the soos)',
+                'Activity & camp sign-ups',
+                'Online payments',
+            ],
         ],
     ],
 

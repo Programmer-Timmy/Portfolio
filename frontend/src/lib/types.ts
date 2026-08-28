@@ -100,6 +100,15 @@ export type SkillGroup = {
   items: string[]
 }
 
+export type Client = {
+  name: string
+  url: string
+  /** Relationship badge, e.g. "Volunteer", "Client", "Freelance". */
+  kind: string
+  summary: string
+  tags: string[]
+}
+
 export type Profile = {
   name: string
   headline: string
@@ -109,15 +118,7 @@ export type Profile = {
   timezone: string
   age: number | null
   roles: { title: string; organization: string; current: boolean }[]
-  scouting: {
-    group: string
-    groupUrl: string
-    role: string
-    since: string
-    years: number | null
-    summary: string
-    tags: string[]
-  }
+  clients: Client[]
   bio: string[]
   cv: { label: string; url: string }
   socials: Social[]

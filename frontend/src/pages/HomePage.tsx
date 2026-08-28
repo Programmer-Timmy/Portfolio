@@ -7,7 +7,7 @@ import { Skeleton } from '@/components/ui/Skeleton'
 import { ProjectCard } from '@/components/ProjectCard'
 import { useApi } from '@/lib/useApi'
 import { useDocumentTitle } from '@/lib/useDocumentTitle'
-import type { OpenSourceProject, Profile, ProjectSummary } from '@/lib/types'
+import type { Client, OpenSourceProject, Profile, ProjectSummary } from '@/lib/types'
 
 export function HomePage() {
   useDocumentTitle()
@@ -53,7 +53,7 @@ export function HomePage() {
         projects={openSource.status === 'success' ? openSource.data : []}
       />
 
-      <ScoutingSection profile={profile.data} />
+      <ClientsSection profile={profile.data} />
 
       <Section className="pb-24">
         <Card className="flex flex-col items-start gap-6 p-8 sm:flex-row sm:items-center sm:justify-between">
@@ -113,15 +113,6 @@ function Hero({ profile, loading }: { profile?: Profile; loading: boolean }) {
                   <p className="text-sm text-ink-secondary">{role.organization}</p>
                 </li>
               ))}
-              <li>
-                <p className="font-medium">{profile.scouting.role}</p>
-                <p className="text-sm text-ink-secondary">
-                  {profile.scouting.group}
-                  {profile.scouting.years
-                    ? ` · ${profile.scouting.years} years`
-                    : ''}
-                </p>
-              </li>
             </ul>
           )}
         </Card>
@@ -196,48 +187,61 @@ function OpenSourceStrip({ projects }: { projects: OpenSourceProject[] }) {
   )
 }
 
-function ScoutingSection({ profile }: { profile?: Profile }) {
-  if (!profile) return null
-  const { group, groupUrl, years, summary } = profile.scouting
-
-  const tags = [
-    'Section leader',
-    years ? `${years} years` : null,
-    ...profile.scouting.tags,
-  ].filter((t): t is string => Boolean(t))
+function ClientsSection({ profile }: { profile?: Profile }) {
+  if (!profile || profile.clients.length === 0) return null
 
   return (
-    <Section>
-      <Card className="grid gap-8 p-8 md:grid-cols-[1fr_1.5fr] md:items-start">
-        <div>
-          <Badge>Scouting</Badge>
-          <h2 className="mt-4 text-h2">{group}</h2>
-          <p className="mt-2 text-ink-secondary">
-            Volunteer group I help run and build for
-          </p>
-        </div>
-        <div className="space-y-5">
-          <p className="text-ink-secondary">{summary}</p>
+    <Section
+      eyebrow="Who I work with"
+      title="Clients & organisations"
+      description="Groups I've built and shipped real software for, paid and unpaid."
+    >
+      <div className="space-y-6">
+        {profile.clients.map((client) => (
+          <ClientCard key={client.name} client={client} />
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+// Tags that signal unpaid work get the accent treatment so it reads clearly.
+const FREE_WORK = /\b(pro bono|for free|unpaid|volunteer|no charge)\b/i
+
+function ClientCard({ client }: { client: Client }) {
+  return (
+    <Card className="grid gap-8 p-8 md:grid-cols-[1fr_1.5fr] md:items-start">
+      <div>
+        <Badge>{client.kind}</Badge>
+        <h3 className="mt-4 text-h3">{client.name}</h3>
+      </div>
+      <div className="space-y-5">
+        <p className="text-ink-secondary">{client.summary}</p>
+        {client.tags.length > 0 && (
           <ul className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
+            {client.tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs"
+                className={
+                  FREE_WORK.test(tag)
+                    ? 'rounded-full bg-teal/12 px-2.5 py-1 text-xs font-medium text-teal'
+                    : 'rounded-full border border-line bg-surface px-2.5 py-1 text-xs'
+                }
               >
                 {tag}
               </li>
             ))}
           </ul>
-          <a
-            href={groupUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block text-sm font-medium text-teal hover:underline"
-          >
-            Visit {group} →
-          </a>
-        </div>
-      </Card>
-    </Section>
+        )}
+        <a
+          href={client.url}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-block text-sm font-medium text-teal hover:underline"
+        >
+          Visit {client.name} →
+        </a>
+      </div>
+    </Card>
   )
 }
