@@ -1,7 +1,9 @@
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
+import { useDocumentTitle } from '@/lib/useDocumentTitle'
 
 export function NotFoundPage() {
+  useDocumentTitle('Page not found')
   return (
     <Container as="section" className="py-28 text-center">
       <p className="font-mono text-sm uppercase tracking-widest text-teal">

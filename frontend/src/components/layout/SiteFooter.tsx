@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
+import { Icon } from '@/components/ui/Icon'
 import { NAV_ITEMS } from './nav-items'
 
 const SOCIAL = [
-  { label: 'GitHub', href: 'https://github.com/Programmer-Timmy' },
-  { label: 'CV', href: '/doc/CV.pdf' },
+  { label: 'GitHub', href: 'https://github.com/Programmer-Timmy', icon: 'fa-brands fa-github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tim-van-der-kloet', icon: 'fa-brands fa-linkedin-in' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@Tim-van-der-Kloet', icon: 'fa-brands fa-youtube' },
+  { label: 'Email', href: 'mailto:tim.vanderkloet@gmail.com', icon: 'fa-solid fa-envelope' },
+  { label: 'CV', href: '/doc/CV.pdf', icon: 'fa-solid fa-file-lines' },
 ]
 
 export function SiteFooter() {
@@ -16,7 +20,7 @@ export function SiteFooter() {
         <div>
           <Logo tone="onDark" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-            Web development &amp; technology. I build practical software — for
+            Web development &amp; technology. I build practical software for
             clients, in the open, and for Scouting.
           </p>
         </div>
@@ -45,10 +49,11 @@ export function SiteFooter() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="text-white/70 transition-colors hover:text-teal-light"
+                  className="inline-flex items-center gap-2.5 text-white/70 transition-colors hover:text-teal-light"
                   target="_blank"
                   rel="noreferrer"
                 >
+                  <Icon name={item.icon} className="w-4 text-center" />
                   {item.label}
                 </a>
               </li>

@@ -7,6 +7,14 @@ require_once __DIR__ . '/../private/routes.php';
 // Start a session
 session_start();
 
+// REST API. Everything under /api is handled by its own front controller
+// and returns JSON. Keep this before the page/admin/maintenance logic below.
+$apiPath = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+if ($apiPath === 'api' || str_starts_with($apiPath, 'api/')) {
+    require __DIR__ . '/../private/api/bootstrap.php';
+    exit();
+}
+
 // Global variables
 global $site;
 global $database;

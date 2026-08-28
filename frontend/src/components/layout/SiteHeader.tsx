@@ -26,7 +26,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-surface/85 backdrop-blur">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link to="/" aria-label="Tim van der Kloet — home" className="shrink-0">
+        <Link to="/" aria-label="Tim van der Kloet, home" className="shrink-0">
           <Logo className="h-8" />
         </Link>
 

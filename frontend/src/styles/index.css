@@ -1,6 +1,11 @@
 @import 'tailwindcss';
 
-/* Self-hosted fonts (latin subset only — no layout shift, no third-party requests) */
+/* Font Awesome (self-hosted, matches the icon set used on the PHP site) */
+@import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
+@import '@fortawesome/fontawesome-free/css/solid.min.css';
+@import '@fortawesome/fontawesome-free/css/brands.min.css';
+
+/* Self-hosted fonts (latin subset only, no layout shift, no third-party requests) */
 @import '@fontsource/poppins/latin-600.css';
 @import '@fontsource/poppins/latin-700.css';
 @import '@fontsource/poppins/latin-800.css';
@@ -17,10 +22,10 @@
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /* -------------------------------------------------------------------------- */
-/*  Design tokens — derived from STYLEGUIDE.md (the <TK/> brand)              */
+/*  Design tokens, derived from STYLEGUIDE.md (the <TK/> brand)               */
 /* -------------------------------------------------------------------------- */
 @theme {
-  /* Brand core — navy is for reading, teal is for clicking */
+  /* Brand core. Navy is for reading, teal is for clicking */
   --color-navy: #1f2933;
   --color-teal: #0b7f89;
   --color-teal-light: #3fafb8;
@@ -33,7 +38,7 @@
   --color-ink-secondary: #5b6b76;
   --color-ink-muted: #8a9aa5;
 
-  /* Semantic status — server / status pages / mail ONLY. Never brand-mixed. */
+  /* Semantic status: server / status pages / mail ONLY. Never brand-mixed. */
   --color-status-up: #1b8a5a;
   --color-status-degraded: #c97f0e;
   --color-status-down: #c1382f;
@@ -63,7 +68,7 @@
   --text-h3--line-height: 1.3;
   --text-h3--font-weight: 600;
 
-  /* Shape — cards use 8–12px radius, no heavy shadows */
+  /* Shape: cards use 8-12px radius, no heavy shadows */
   --radius-card: 0.625rem;
 
   --shadow-card: 0 1px 2px rgb(31 41 51 / 0.04), 0 1px 3px rgb(31 41 51 / 0.06);
@@ -107,7 +112,7 @@
     text-wrap: balance;
   }
 
-  /* Focus ring in teal (styleguide §5 — form fields / interactive) */
+  /* Focus ring in teal (styleguide §5, form fields / interactive) */
   :focus-visible {
     outline: 2px solid var(--color-teal);
     outline-offset: 2px;

@@ -18,10 +18,10 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/api': {
-        target: PHP_ORIGIN,
-        changeOrigin: true,
-      },
+      // API + backend-served assets (project images, CV) go to PHP in dev.
+      '/api': { target: PHP_ORIGIN, changeOrigin: true },
+      '/img': { target: PHP_ORIGIN, changeOrigin: true },
+      '/doc': { target: PHP_ORIGIN, changeOrigin: true },
     },
   },
   build: {

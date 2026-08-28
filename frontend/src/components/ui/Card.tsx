@@ -3,7 +3,7 @@ import { cn } from '@/lib/cn'
 
 type CardProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
-  /** Adds hover lift + teal border — use for cards that link somewhere. */
+  /** Adds hover lift + teal border. Use for cards that link somewhere. */
   interactive?: boolean
 }
 

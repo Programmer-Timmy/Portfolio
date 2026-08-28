@@ -4,9 +4,9 @@ type LogoProps = {
   /** `icon` = the <TK/> mark only, `wordmark` = mark + name. */
   variant?: 'icon' | 'wordmark'
   /**
-   * `auto`  — navy/teal art, flips to white in dark mode (default, for headers)
-   * `light` — always the navy/teal art (use on white/paper surfaces)
-   * `onDark` — always white (use on the navy footer / dark hero)
+   * `auto`   navy/teal art, flips to white in dark mode (default, for headers)
+   * `light`  always the navy/teal art (use on white/paper surfaces)
+   * `onDark` always white (use on the navy footer / dark hero)
    */
   tone?: 'auto' | 'light' | 'onDark'
   className?: string
@@ -29,7 +29,7 @@ export function Logo({ variant = 'wordmark', tone = 'auto', className }: LogoPro
   const alt =
     variant === 'icon'
       ? 'Tim van der Kloet'
-      : 'Tim van der Kloet — Web Development & Technology'
+      : 'Tim van der Kloet, Web Development and Technology'
 
   return (
     <img
