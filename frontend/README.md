@@ -37,11 +37,20 @@ same split: `AppLink` / `Button` render a client-side `<Link>` for a route in
 
 ### Migrating a page
 
-1. Build the page component and add its route in `src/router.tsx`.
-2. Add the path to `MIGRATED_ROUTES` in `src/lib/migrated.ts`.
-3. Add the same path to `$site['spa']['routes']` in `private/config/settings.php`.
-4. Add its `/api/...` endpoint if it needs data; type the response in `types.ts`.
-5. `npm run build`.
+Start from a template in `src/pages/templates/` (each has a checklist at the top):
+
+- `CollectionPageTemplate.tsx` — list / index pages (Projects, Open Source, Videos)
+- `RecordPageTemplate.tsx` — a single record or content page (About, Contact,
+  `/projects/:id`, an open-source item)
+
+Then:
+
+1. Copy the template to `src/pages/<Name>Page.tsx` and fill it in.
+2. Add its route in `src/router.tsx`.
+3. Add the path to `MIGRATED_ROUTES` in `src/lib/migrated.ts`.
+4. Add the same path to `$site['spa']['routes']` in `private/config/settings.php`.
+5. Add its `/api/...` endpoint if it needs data; type the response in `types.ts`.
+6. `npm run build`.
 
 ## REST API
 
