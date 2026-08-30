@@ -7,17 +7,18 @@ import { Skeleton } from '@/components/ui/Skeleton'
 import { ProjectCard } from '@/components/ProjectCard'
 import { useApi } from '@/lib/useApi'
 import { useDocumentTitle } from '@/lib/useDocumentTitle'
-import type { Client, OpenSourceProject, Profile, ProjectSummary } from '@/lib/types'
+import { profile } from '@/content/profile'
+import type { Client } from '@/content/profile'
+import type { OpenSourceProject, ProjectSummary } from '@/lib/types'
 
 export function HomePage() {
   useDocumentTitle()
-  const profile = useApi<Profile>('/profile')
   const featured = useApi<ProjectSummary[]>('/projects?featured=true')
   const openSource = useApi<OpenSourceProject[]>('/opensource')
 
   return (
     <>
-      <Hero profile={profile.data} loading={profile.status === 'loading'} />
+      <Hero />
 
       <Section
         eyebrow="Selected work"
@@ -47,13 +48,13 @@ export function HomePage() {
         )}
       </Section>
 
-      <SkillsSection profile={profile.data} />
+      <SkillsSection />
 
       <OpenSourceStrip
         projects={openSource.status === 'success' ? openSource.data : []}
       />
 
-      <ClientsSection profile={profile.data} />
+      <ClientsSection />
 
       <Section className="!py-0">
         <Card className="flex flex-col items-start gap-6 p-8 sm:flex-row sm:items-center sm:justify-between">
@@ -74,19 +75,17 @@ export function HomePage() {
   )
 }
 
-function Hero({ profile, loading }: { profile?: Profile; loading: boolean }) {
+function Hero() {
   return (
     <Container as="section" className="py-10 sm:py-28">
       <div className="grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
         <div>
-          <Badge>{profile?.headline ?? 'Web development & technology'}</Badge>
-          <h1 className="mt-5 max-w-2xl text-h1">
-            {profile?.summary ??
-              "Software that actually helps."}
-          </h1>
+          <Badge>{profile.headline}</Badge>
+          <h1 className="mt-5 max-w-2xl text-h1">{profile.summary}</h1>
           <p className="mt-5 max-w-xl text-lg text-ink-secondary">
-            I'm {profile?.name ?? 'Tim van der Kloet'}
-            {profile?.location ? `, based in ${profile.location}` : ', based in Hilversum, Netherlands'}. I build for clients, in the open, and for Scouting, and I care as much about how it's built as what it does.
+            I'm {profile.name}, based in {profile.location}. I build for clients,
+            in the open, and for Scouting, and I care as much about how it's
+            built as what it does.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button to="/projects">View projects</Button>
@@ -100,30 +99,21 @@ function Hero({ profile, loading }: { profile?: Profile; loading: boolean }) {
           <p className="font-mono text-xs uppercase tracking-widest text-teal">
             Currently
           </p>
-          {loading && (
-            <div className="mt-4 space-y-3">
-              <Skeleton className="h-5 w-4/5" />
-              <Skeleton className="h-5 w-3/5" />
-            </div>
-          )}
-          {profile && (
-            <ul className="mt-4 space-y-4">
-              {profile.roles.map((role) => (
-                <li key={role.title}>
-                  <p className="font-medium">{role.title}</p>
-                  <p className="text-sm text-ink-secondary">{role.organization}</p>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="mt-4 space-y-4">
+            {profile.roles.map((role) => (
+              <li key={role.title}>
+                <p className="font-medium">{role.title}</p>
+                <p className="text-sm text-ink-secondary">{role.organization}</p>
+              </li>
+            ))}
+          </ul>
         </Card>
       </div>
     </Container>
   )
 }
 
-function SkillsSection({ profile }: { profile?: Profile }) {
-  if (!profile) return null
+function SkillsSection() {
   return (
     <Section eyebrow="Toolbox" title="What I work with" description="The stack changes depending on the project, but these are the tools I reach for most.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -188,8 +178,8 @@ function OpenSourceStrip({ projects }: { projects: OpenSourceProject[] }) {
   )
 }
 
-function ClientsSection({ profile }: { profile?: Profile }) {
-  if (!profile || profile.clients.length === 0) return null
+function ClientsSection() {
+  if (profile.clients.length === 0) return null
 
   return (
     <Section
