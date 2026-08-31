@@ -73,6 +73,12 @@ $site = [
             'contact',
             'projects',      // project index
             'project/{id}',  // single project
+
+            // Admin SPA (React). PHP still runs the session gate in index.php
+            // before serving the shell for these. Add paths here as each admin
+            // screen ships.
+            'admin',
+            'admin/login',
         ],
     ],
 

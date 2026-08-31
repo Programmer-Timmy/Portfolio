@@ -1,3 +1,12 @@
+/*
+  Cascade layer order for the whole SPA. `mantine` sits between Tailwind's
+  `base` (preflight) and `utilities`: the admin app imports Mantine's
+  layer-wrapped styles (see src/admin/AdminApp.tsx), so its components win over
+  preflight while Tailwind utilities still win over Mantine. Public pages never
+  load any `@layer mantine` rules. This statement must precede `@import`.
+*/
+@layer theme, base, mantine, components, utilities;
+
 @import 'tailwindcss';
 
 /* Font Awesome (self-hosted, matches the icon set used on the PHP site) */

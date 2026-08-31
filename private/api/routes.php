@@ -21,6 +21,17 @@ $router->get('profile', [MetaApi::class, 'profile']);
 $router->get('skills', [MetaApi::class, 'skills']);
 $router->get('auth/session', [MetaApi::class, 'session']);
 
+// Auth. `auth/csrf` is exempt from the CSRF check (it issues the token);
+// `auth/login` is exempt too (no session yet) and guarded by a same-origin
+// check + throttle instead; `auth/logout` is CSRF-protected in bootstrap.php.
+$router->get('auth/csrf', [AuthApi::class, 'csrf']);
+$router->post('auth/login', [AuthApi::class, 'login']);
+$router->post('auth/logout', [AuthApi::class, 'logout']);
+
+// Admin. Everything under `admin/` requires an admin session (enforced
+// centrally in bootstrap.php) and CSRF on writes.
+$router->get('admin/stats', [Admin\DashboardApi::class, 'index']);
+
 $router->get('projects', [ProjectsApi::class, 'index']);
 $router->get('projects/{id}', [ProjectsApi::class, 'show']);
 

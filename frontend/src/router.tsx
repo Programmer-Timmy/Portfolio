@@ -14,6 +14,9 @@ import { ProjectPage } from '@/pages/ProjectPage'
  *
  * To migrate a page: add its route below, add the path to `MIGRATED_ROUTES`
  * and to `$site['spa']['routes']` in private/config/settings.php.
+ *
+ * The admin app (`/admin/*`) is a single lazy route: its Mantine + TanStack
+ * Query providers and CSS are code-split out of the public bundle.
  */
 export const router = createBrowserRouter([
   {
@@ -26,5 +29,12 @@ export const router = createBrowserRouter([
       { path: 'project/:id', element: <ProjectPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
+  },
+  {
+    path: 'admin/*',
+    lazy: async () => {
+      const { AdminApp } = await import('@/admin/AdminApp')
+      return { Component: AdminApp }
+    },
   },
 ])

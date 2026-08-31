@@ -7,12 +7,14 @@
  * When you migrate a page: add its path here AND to the PHP list.
  */
 // '/projects' is the list; '/project/{id}' (singular) is a single project.
+// '/admin' covers the whole admin SPA (prefix match below).
 export const MIGRATED_ROUTES: string[] = [
   '/',
   '/about',
   '/contact',
   '/projects',
   '/project',
+  '/admin',
 ]
 
 export function isMigrated(path: string): boolean {

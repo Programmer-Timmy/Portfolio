@@ -9,11 +9,26 @@ require_once __DIR__ . '/ApiException.php';
 require_once __DIR__ . '/ApiRequest.php';
 require_once __DIR__ . '/ApiResponse.php';
 require_once __DIR__ . '/ApiRouter.php';
-require_once __DIR__ . '/Support/Media.php';
-require_once __DIR__ . '/Support/Resource.php';
+
+foreach (glob(__DIR__ . '/Support/*.php') as $support) {
+    require_once $support;
+}
 
 foreach (glob(__DIR__ . '/Controllers/*.php') as $controller) {
     require_once $controller;
+}
+foreach (glob(__DIR__ . '/Controllers/Admin/*.php') as $controller) {
+    require_once $controller;
+}
+
+// Let the browser send DELETE/PUT/PATCH as a POST + header where a host or
+// proxy strips the real verb. Only honoured when the transport method is POST,
+// so it can never downgrade a GET.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+    $override = strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] ?? '');
+    if (in_array($override, ['PUT', 'PATCH', 'DELETE'], true)) {
+        $_SERVER['REQUEST_METHOD'] = $override;
+    }
 }
 
 // The SPA is same-origin in production; in debug we also allow the Vite dev
@@ -24,8 +39,8 @@ if (!empty($site['debug'])) {
         header('Access-Control-Allow-Origin: ' . $origin);
         header('Access-Control-Allow-Credentials: true');
         header('Vary: Origin');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With, X-CSRF-Token, X-HTTP-Method-Override');
     }
 }
 
@@ -38,6 +53,22 @@ $router = new ApiRouter();
 require __DIR__ . '/routes.php';
 
 try {
+    // Central gate for the authenticated surface. Path is derived the same way
+    // ApiRouter::dispatch() does. CSRF runs before the auth check so a write
+    // with a stale session gets 419 (client refetches the token and retries)
+    // rather than a confusing 401/403.
+    $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+    $guardPath = preg_replace('#^api/?#', '', trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/'));
+    $isWrite = !in_array($method, ['GET', 'HEAD', 'OPTIONS'], true);
+    $isAdminPath = $guardPath === 'admin' || str_starts_with($guardPath, 'admin/');
+
+    if ($isWrite && ($isAdminPath || $guardPath === 'auth/logout')) {
+        Csrf::verify();
+    }
+    if ($isAdminPath) {
+        Auth::requireAdmin();
+    }
+
     $router->dispatch();
 } catch (ApiException $e) {
     ApiResponse::sendError($e);

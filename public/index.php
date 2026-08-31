@@ -4,7 +4,16 @@ require_once __DIR__ . '/../private/autoload.php';
 require_once __DIR__ . '/../private/config/settings.php';
 require_once __DIR__ . '/../private/routes.php';
 
-// Start a session
+// Start a session. Harden the cookie before it is issued: Lax stops the
+// cross-site form POST that CSRF relies on, HttpOnly keeps JS out of it, and
+// Secure is on everywhere except local debug (which runs over plain http).
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'httponly' => true,
+    'samesite' => 'Lax',
+    'secure' => empty($site['debug']),
+]);
 session_start();
 
 // REST API. Everything under /api is handled by its own front controller
@@ -49,12 +58,14 @@ if ($site['admin']['enabled']) {
     $pageTemplate = __DIR__ . "/../private/views/pages$require.php";
 
     if (str_contains($require, $admin['filterInUrl']) && $require !== $site['redirect'] && $require !== '/404' && $require !== '/maintenance') {
-        if (file_exists($pageTemplate) || Router::isRoute($uri, true)) {
-            if (!isset($_SESSION[$admin['sessionName']])) {
+        // The React admin login lives at /admin/login and must stay reachable
+        // while logged out; everything else under /admin needs the session.
+        if (file_exists($pageTemplate) || Router::isRoute($uri, true) || Spa::handles($uri)) {
+            if (!isset($_SESSION[$admin['sessionName']]) && $require !== '/admin/login') {
                 if ($site['saveUrl']) {
                     $_SESSION['redirect'] = $requestedPage;
                 }
-                header('Location:/' . $site['redirect']);
+                header('Location:/admin/login');
                 exit();
             }
         } else {

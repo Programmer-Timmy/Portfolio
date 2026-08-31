@@ -50,4 +50,9 @@ class ApiException extends Exception
     {
         return new self(401, $message, 'unauthorized');
     }
+
+    public static function forbidden(string $message = 'You do not have access to this resource'): self
+    {
+        return new self(403, $message, 'forbidden');
+    }
 }
