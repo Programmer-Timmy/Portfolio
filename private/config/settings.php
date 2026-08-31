@@ -71,9 +71,8 @@ $site = [
             'home',
             'about',
             'contact',
-            'projects', // list page only; 'project/{id}' detail is still PHP
-            // Add a route here when its page is migrated to React, e.g.
-            // 'project/{id}',
+            'projects',      // project index
+            'project/{id}',  // single project
         ],
     ],
 

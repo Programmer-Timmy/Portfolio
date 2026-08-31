@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { ProjectSummary } from '@/lib/types'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -24,13 +25,12 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
 
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-heading text-lg font-semibold">
-          {/* Detail page is still served by PHP; full navigation, not a client route. */}
-          <a
-            href={`/project/${project.id}`}
+          <Link
+            to={`/project/${project.id}`}
             className="after:absolute after:inset-0 after:content-[''] hover:text-teal"
           >
             {project.name}
-          </a>
+          </Link>
         </h3>
 
         <p>

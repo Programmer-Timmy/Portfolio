@@ -5,6 +5,7 @@ import { NotFoundPage } from '@/pages/NotFoundPage'
 import { AboutPage } from '@/pages/AboutPage'
 import { ContactPage } from '@/pages/ContactPage'
 import { ProjectsPage } from '@/pages/ProjectsPage'
+import { ProjectPage } from '@/pages/ProjectPage'
 
 /**
  * Only routes React actually owns live here. Everything else is still served
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: 'about', element: <AboutPage /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'projects', element: <ProjectsPage /> },
+      { path: 'project/:id', element: <ProjectPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

@@ -6,9 +6,14 @@
  * Keep this in sync with `$site['spa']['routes']` in private/config/settings.php.
  * When you migrate a page: add its path here AND to the PHP list.
  */
-// '/projects' is the list page. The detail page ('/project/{id}', singular) is
-// still served by PHP, so keep it off this list.
-export const MIGRATED_ROUTES: string[] = ['/', '/about', '/contact', '/projects']
+// '/projects' is the list; '/project/{id}' (singular) is a single project.
+export const MIGRATED_ROUTES: string[] = [
+  '/',
+  '/about',
+  '/contact',
+  '/projects',
+  '/project',
+]
 
 export function isMigrated(path: string): boolean {
   const clean = path.split(/[?#]/)[0]
