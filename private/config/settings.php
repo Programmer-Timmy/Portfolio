@@ -68,8 +68,8 @@ $site = [
         'routes' => [
             '',        // homepage
             'home',
+            'about',
             // Add a route here when its page is migrated to React, e.g.
-            // 'about',
             // 'projects',
             // 'projects/{id}',
         ],
