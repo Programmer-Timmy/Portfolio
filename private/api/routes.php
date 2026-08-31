@@ -38,6 +38,12 @@ $router->get('admin/projects/{id}', [Admin\ProjectsApi::class, 'show']);
 $router->delete('admin/projects/{id}', [Admin\ProjectsApi::class, 'destroy']);
 $router->post('admin/projects/{id}/restore', [Admin\ProjectsApi::class, 'restore']);
 
+// GitHub proxy (token stays server-side).
+$router->get('admin/github/repo', [Admin\GitHubApi::class, 'repo']);
+$router->get('admin/github/languages', [Admin\GitHubApi::class, 'languages']);
+$router->get('admin/github/contributors', [Admin\GitHubApi::class, 'contributors']);
+$router->get('admin/github/user', [Admin\GitHubApi::class, 'user']);
+
 $router->get('projects', [ProjectsApi::class, 'index']);
 $router->get('projects/{id}', [ProjectsApi::class, 'show']);
 

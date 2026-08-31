@@ -80,6 +80,7 @@ $site = [
             'admin',
             'admin/login',
             'admin/projects',
+            'admin/_github-check', // TEMP (M3) — remove with the scratch page in M4
         ],
     ],
 

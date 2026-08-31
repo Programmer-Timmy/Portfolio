@@ -17,6 +17,7 @@ import { AdminShell } from './components/AdminShell'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { ProjectsListPage } from './pages/ProjectsListPage'
+import { GitHubTestPage } from './pages/_GitHubTestPage'
 import { AdminNotFound } from './pages/AdminNotFound'
 
 /**
@@ -40,6 +41,8 @@ export function AdminApp() {
               <Route element={<AdminShell />}>
                 <Route index element={<DashboardPage />} />
                 <Route path="projects" element={<ProjectsListPage />} />
+                {/* TEMP (M3): remove with pages/_GitHubTestPage.tsx once M4's form uses GitHubAutofill */}
+                <Route path="_github-check" element={<GitHubTestPage />} />
                 <Route path="*" element={<AdminNotFound />} />
               </Route>
             </Route>

@@ -43,6 +43,44 @@ export type LanguageOption = {
   color: string | null
 }
 
+export type GitHubRepo =
+  | { exists: false }
+  | {
+      exists: true
+      fullName: string
+      private: boolean
+      description: string | null
+      htmlUrl: string | null
+      defaultBranch: string | null
+    }
+
+export type GitHubLanguage = {
+  programmingLanguageId: number
+  name: string
+  color: string | null
+  percentage: number
+}
+
+export type GitHubLanguages = {
+  languages: GitHubLanguage[]
+  unmapped: string[]
+}
+
+export type GitHubContributor = {
+  id: number
+  login: string | null
+  avatarUrl: string | null
+  profileUrl: string | null
+  contributions: number
+}
+
+export type GitHubUser = {
+  id: number
+  login: string
+  avatarUrl: string | null
+  profileUrl: string | null
+}
+
 export type AdminStats = {
   projects: number
   projectsPinned: number
