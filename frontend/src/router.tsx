@@ -3,6 +3,7 @@ import { RootLayout } from '@/components/layout/RootLayout'
 import { HomePage } from '@/pages/HomePage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { AboutPage } from '@/pages/AboutPage'
+import { ContactPage } from '@/pages/ContactPage'
 
 /**
  * Only routes React actually owns live here. Everything else is still served
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
+      { path: 'contact', element: <ContactPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
