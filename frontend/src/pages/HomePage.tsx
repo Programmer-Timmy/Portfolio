@@ -21,7 +21,6 @@ export function HomePage() {
       <Hero />
 
       <Section
-        eyebrow="Selected work"
         title="Featured projects"
         description="A mix of client work and things I've built on the side, usually because I wanted to solve something or learn something new. Some are finished, some still in progress."
         action={{ label: 'All projects', to: '/projects' }}
@@ -80,7 +79,6 @@ function Hero() {
     <Container as="section" className="py-10 sm:py-28">
       <div className="grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
         <div>
-          <Badge>{profile.headline}</Badge>
           <h1 className="mt-5 max-w-2xl text-h1">{profile.summary}</h1>
           <p className="mt-5 max-w-xl text-lg text-ink-secondary">
             I'm {profile.name}, based in {profile.location}. I build for clients,
@@ -115,7 +113,7 @@ function Hero() {
 
 function SkillsSection() {
   return (
-    <Section eyebrow="Toolbox" title="What I work with" description="The stack changes depending on the project, but these are the tools I reach for most.">
+    <Section title="What I work with" description="The stack changes depending on the project, but these are the tools I reach for most.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {profile.skills.map((group) => (
           <div key={group.group}>
@@ -144,7 +142,6 @@ function OpenSourceStrip({ projects }: { projects: OpenSourceProject[] }) {
 
   return (
     <Section
-      eyebrow="In the open"
       title="Open source"
       description="I believe everyone deserves access to good software, not just the people who can pay for it. A lot of the best tools I use were built by people who gave them away for free, often with more care than the paid alternatives. I try to put something back when I can."
       action={{ label: 'All contributions', to: '/opensource' }}
@@ -183,7 +180,6 @@ function ClientsSection() {
 
   return (
     <Section
-      eyebrow="Who I work with"
       title="Clients & organisations"
       description="A few of the people and organisations I've built software for, some paid, some because I care about what they do."
     >

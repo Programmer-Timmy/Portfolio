@@ -13,7 +13,7 @@ export const contact = {
 
   /** Intro paragraphs shown above the form. */
   lead: [
-    "Questions, feedback, or an idea you want built - I'm happy to hear it. Fill in the " +
+    "Questions, feedback, or an idea you want built: I'm happy to hear it. Fill in the " +
       'form and it lands straight in my inbox, or reach me directly through any of the ' +
       'channels listed here.',
   ],
@@ -38,8 +38,7 @@ export const contact = {
     /** Shown in place of the form after a successful send. */
     successTitle: 'Message sent',
     successBody:
-      "Thanks, your message is on its way. I usually reply within a day or two - if it's " +
-      'urgent, email me directly.',
+      "Thanks for reaching out! I'll get back to you as soon as I can. In the meantime, feel free to check out my projects or follow me on social media.",
     /** Fallback when the API returns an error without per-field details. */
     genericError:
       'Something went wrong sending your message. Please try again in a moment, or email me directly.',

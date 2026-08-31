@@ -13,16 +13,17 @@ $database = [
  * email settings
  */
 $email = [
-    'host' => 'smtp.gmail.com',
+    'host' => '',
     'SMTPAuth' => true,
     'username' => '',
     'password' => '',
-    'encryption' => 'tls', // tls or ssl
-    'port' => 587, // 587 or 465
+    'SMTPSecure' => 'ssl', // tls or ssl
+    'port' => 465, // 587 or 465
     'from' => [
         'email' => '',
         'name' => ''
-    ]
+    ],
+    'to' => ''
 ];
 
 /**

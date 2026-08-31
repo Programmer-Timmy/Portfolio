@@ -3,10 +3,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../static/phpmailer/src/Exception.php';
-require '../static/phpmailer/src/PHPMailer.php';
-require '../static/phpmailer/src/SMTP.php';
-
+require __DIR__ . '/../../static/PHPMailer/src/Exception.php';
+require __DIR__ . '/../../static/PHPMailer/src/PHPMailer.php';
+require __DIR__ . '/../../static/PHPMailer/src/SMTP.php';
 class Mailer
 {
 
@@ -31,7 +30,7 @@ class Mailer
             $mail->SMTPSecure = $encryption;
             $mail->Port = $email['port'];
 
-            $mail->setFrom($email['form']['email'], $email['from']['name']);
+            $mail->setFrom($email['from']['email'], $email['from']['name']);
             $mail->addAddress($to);
             $mail->isHTML(true);
             $mail->Subject = $subject;

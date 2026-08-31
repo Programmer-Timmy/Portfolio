@@ -40,7 +40,7 @@ class ContactApi
         }
 
         $sent = Mailer::sendEmail(
-            $email['from']['email'],
+            $email['to'],
             'Portfolio contact from ' . $name,
             sprintf(
                 "<p><strong>From:</strong> %s &lt;%s&gt;</p><p>%s</p>",
