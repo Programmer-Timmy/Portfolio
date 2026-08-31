@@ -4,6 +4,7 @@ import { HomePage } from '@/pages/HomePage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { AboutPage } from '@/pages/AboutPage'
 import { ContactPage } from '@/pages/ContactPage'
+import { ProjectsPage } from '@/pages/ProjectsPage'
 
 /**
  * Only routes React actually owns live here. Everything else is still served
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'contact', element: <ContactPage /> },
+      { path: 'projects', element: <ProjectsPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
