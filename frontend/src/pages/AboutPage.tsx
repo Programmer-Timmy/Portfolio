@@ -8,9 +8,7 @@ export function AboutPage() {
   return (
     <>
       <AboutHeader />
-
-      {/* TODO: body sections - how I think about software, how I work,
-          outside of code, a quiet way to reach me. */}
+      <AboutBody />
     </>
   )
 }
@@ -38,6 +36,25 @@ function AboutHeader() {
           alt={about.photo.alt}
           className="aspect-[4/5] w-56 rounded-card border border-line object-cover md:ml-auto md:w-full md:max-w-xs"
         />
+      </div>
+    </Container>
+  )
+}
+
+function AboutBody() {
+  return (
+    <Container as="section" className="pb-24">
+      <div className="max-w-2xl divide-y divide-line border-t border-line">
+        {about.sections.map((section) => (
+          <section key={section.title} className="py-10">
+            <h2 className="text-h3">{section.title}</h2>
+            <div className="mt-4 space-y-4 text-ink-secondary">
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </Container>
   )
