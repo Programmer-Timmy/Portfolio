@@ -9,7 +9,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
   const languages = project.languages.slice(0, 3)
 
   return (
-    <Card interactive className="group relative flex flex-col overflow-hidden">
+    <Card interactive className="group relative flex flex-col overflow-hidden h-full">
       <div className="relative aspect-[16/10] overflow-hidden border-b border-line">
         <ProjectImage
           image={project.image}
@@ -54,7 +54,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
           </ul>
         )}
 
-        <div className="mt-4 flex gap-4 pt-1 text-sm">
+        <div className="mt-auto  flex gap-4 pt-5 text-sm">
           {project.links.repository && (
             <a
               href={project.links.repository}
