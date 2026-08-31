@@ -15,6 +15,12 @@ class Projects {
         }
     }
 
+    /** Every project including soft-deleted ones, for the admin list. */
+    public static function loadAllProjects() {
+        $results = Database::getAll('projects', ['*'], [], [], 'pinned DESC, date DESC');
+        return is_array($results) ? $results : [];
+    }
+
     public static function loadProject($id) {
         $results = Database::get('projects', ['*'], [], ['id' => $id, 'removed' => 0]);
         $results->project_languages = self::loadProjectLanguages($id);
@@ -238,6 +244,15 @@ class Projects {
             return "There was an error removing your project.";
         }
 
+    }
+
+    public static function restoreProject($id) {
+        try {
+            Database::update('projects', ['removed'], [0], ['id' => $id]);
+            return "";
+        } catch (Exception $e) {
+            return "There was an error restoring your project.";
+        }
     }
 
     public static function hardDeleteProject($id) {

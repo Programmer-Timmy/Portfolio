@@ -16,6 +16,7 @@ import { RequireAdmin } from './guard'
 import { AdminShell } from './components/AdminShell'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/DashboardPage'
+import { ProjectsListPage } from './pages/ProjectsListPage'
 import { AdminNotFound } from './pages/AdminNotFound'
 
 /**
@@ -38,6 +39,7 @@ export function AdminApp() {
             <Route element={<RequireAdmin />}>
               <Route element={<AdminShell />}>
                 <Route index element={<DashboardPage />} />
+                <Route path="projects" element={<ProjectsListPage />} />
                 <Route path="*" element={<AdminNotFound />} />
               </Route>
             </Route>

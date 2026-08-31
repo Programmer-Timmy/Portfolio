@@ -43,6 +43,76 @@ class Resource
         ]);
     }
 
+    /**
+     * A row in the admin projects table. Unlike `projectSummary` this always
+     * exposes the GitHub link (admins need to see private repos) and carries
+     * the `removed` flag.
+     */
+    public static function projectAdminRow(object $p): array
+    {
+        return [
+            'id' => (int) $p->id,
+            'name' => $p->name,
+            'image' => Media::image($p->img ?? null),
+            'links' => [
+                'repository' => !empty($p->github) ? $p->github : null,
+                'live' => !empty($p->path) ? $p->path : null,
+            ],
+            'flags' => [
+                'pinned' => (bool) ($p->pinned ?? false),
+                'inProgress' => (bool) ($p->in_progress ?? false),
+                'privateRepo' => (bool) ($p->private_repo ?? false),
+            ],
+            'removed' => (bool) ($p->removed ?? false),
+            'createdAt' => self::date($p->date ?? null),
+            'updatedAt' => self::date($p->updated ?? null),
+        ];
+    }
+
+    /**
+     * Everything the edit form needs: raw fields (not the public transforms),
+     * the description as delta ops, ordered image paths (cover first) plus
+     * client-ready image objects, languages and contributors.
+     */
+    public static function projectEditable(object $p): array
+    {
+        $gallery = Projects::loadProjectImg($p->id);
+        $paths = [$p->img];
+        foreach (self::listOf($gallery) as $img) {
+            if (!empty($img->img)) {
+                $paths[] = $img->img;
+            }
+        }
+        $paths = array_values(array_unique(array_filter($paths)));
+
+        $languages = array_map(static fn ($l) => [
+            'programmingLanguageId' => (int) $l->programming_languages_id,
+            'name' => $l->name,
+            'color' => $l->color ?? null,
+            'percentage' => isset($l->percentage) && $l->percentage !== null ? (float) $l->percentage : null,
+        ], self::listOf($p->project_languages ?? null));
+
+        return [
+            'id' => (int) $p->id,
+            'name' => $p->name,
+            'link' => $p->path ?? '',
+            'github' => $p->github ?? '',
+            'description' => self::delta($p->description ?? null),
+            'flags' => [
+                'pinned' => (bool) ($p->pinned ?? false),
+                'inProgress' => (bool) ($p->in_progress ?? false),
+                'privateRepo' => (bool) ($p->private_repo ?? false),
+            ],
+            'languages' => $languages,
+            'contributors' => array_map([self::class, 'contributor'], self::listOf($p->project_contributors ?? null)),
+            'imagePaths' => $paths,
+            'images' => array_values(array_filter(array_map(
+                static fn ($path) => Media::image($path),
+                $paths,
+            ))),
+        ];
+    }
+
     public static function language(object $l): array
     {
         return [

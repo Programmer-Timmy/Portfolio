@@ -31,6 +31,12 @@ $router->post('auth/logout', [AuthApi::class, 'logout']);
 // Admin. Everything under `admin/` requires an admin session (enforced
 // centrally in bootstrap.php) and CSRF on writes.
 $router->get('admin/stats', [Admin\DashboardApi::class, 'index']);
+$router->get('admin/languages', [Admin\MetaApi::class, 'languages']);
+
+$router->get('admin/projects', [Admin\ProjectsApi::class, 'index']);
+$router->get('admin/projects/{id}', [Admin\ProjectsApi::class, 'show']);
+$router->delete('admin/projects/{id}', [Admin\ProjectsApi::class, 'destroy']);
+$router->post('admin/projects/{id}/restore', [Admin\ProjectsApi::class, 'restore']);
 
 $router->get('projects', [ProjectsApi::class, 'index']);
 $router->get('projects/{id}', [ProjectsApi::class, 'show']);

@@ -1,7 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminApi, clearCsrfToken } from './lib/adminApi'
 import { qk } from './lib/queryKeys'
-import type { AdminSession, AdminStats, LoginResult } from './lib/types'
+import type {
+  AdminSession,
+  AdminStats,
+  LanguageOption,
+  LoginResult,
+  ProjectAdminRow,
+} from './lib/types'
 
 export function useSession() {
   return useQuery({
@@ -42,4 +48,41 @@ export function useStats() {
     queryKey: qk.stats,
     queryFn: () => adminApi.get<AdminStats>('/admin/stats'),
   })
+}
+
+export function useAdminProjects(includeRemoved: boolean) {
+  return useQuery({
+    queryKey: [...qk.projects, { includeRemoved }],
+    queryFn: () =>
+      adminApi.get<ProjectAdminRow[]>(
+        `/admin/projects${includeRemoved ? '?includeRemoved=1' : ''}`,
+      ),
+  })
+}
+
+export function useLanguageOptions() {
+  return useQuery({
+    queryKey: qk.languages,
+    queryFn: () => adminApi.get<LanguageOption[]>('/admin/languages'),
+    staleTime: 60 * 60_000,
+  })
+}
+
+function useProjectMutation(fn: (id: number) => Promise<unknown>) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: fn,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects })
+      qc.invalidateQueries({ queryKey: qk.stats })
+    },
+  })
+}
+
+export function useDeleteProject() {
+  return useProjectMutation((id) => adminApi.del<null>(`/admin/projects/${id}`))
+}
+
+export function useRestoreProject() {
+  return useProjectMutation((id) => adminApi.post<null>(`/admin/projects/${id}/restore`))
 }

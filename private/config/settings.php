@@ -79,6 +79,7 @@ $site = [
             // screen ships.
             'admin',
             'admin/login',
+            'admin/projects',
         ],
     ],
 
