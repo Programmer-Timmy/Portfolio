@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminApi, clearCsrfToken } from './lib/adminApi'
 import { isGitHubRepoUrl } from './lib/github'
 import { qk } from './lib/queryKeys'
+import type { ProjectFormOutput } from './lib/schemas'
 import type {
   AdminSession,
   AdminStats,
@@ -12,6 +13,7 @@ import type {
   LanguageOption,
   LoginResult,
   ProjectAdminRow,
+  ProjectEditable,
 } from './lib/types'
 
 export function useSession() {
@@ -80,6 +82,65 @@ function useProjectMutation(fn: (id: number) => Promise<unknown>) {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: qk.projects })
       qc.invalidateQueries({ queryKey: qk.stats })
+    },
+  })
+}
+
+export function useProject(id: string | undefined) {
+  return useQuery({
+    queryKey: qk.project(id ?? 'new'),
+    queryFn: () => adminApi.get<ProjectEditable>(`/admin/projects/${id}`),
+    enabled: !!id && id !== 'new',
+  })
+}
+
+function buildProjectFormData(values: ProjectFormOutput): FormData {
+  const fd = new FormData()
+  fd.append(
+    'payload',
+    JSON.stringify({
+      name: values.name,
+      link: values.link,
+      github: values.github,
+      pinned: values.pinned,
+      inProgress: values.inProgress,
+      privateRepo: values.privateRepo,
+      description: values.description,
+      languages: values.languages,
+      contributors: values.contributors,
+    }),
+  )
+  fd.append(
+    'imageState',
+    JSON.stringify({ images: values.existingImages, removed: values.removedImages }),
+  )
+  for (const file of values.newFiles) {
+    fd.append('images[]', file)
+  }
+  return fd
+}
+
+export function useCreateProject() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (values: ProjectFormOutput) =>
+      adminApi.postForm<ProjectEditable>('/admin/projects', buildProjectFormData(values)),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.projects })
+      qc.invalidateQueries({ queryKey: qk.stats })
+    },
+  })
+}
+
+export function useUpdateProject(id: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (values: ProjectFormOutput) =>
+      adminApi.postForm<ProjectEditable>(`/admin/projects/${id}`, buildProjectFormData(values)),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: qk.projects })
+      qc.invalidateQueries({ queryKey: qk.stats })
+      qc.setQueryData(qk.project(id), data)
     },
   })
 }

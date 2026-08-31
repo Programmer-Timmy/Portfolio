@@ -104,7 +104,13 @@ class Resource
                 'privateRepo' => (bool) ($p->private_repo ?? false),
             ],
             'languages' => $languages,
-            'contributors' => array_map([self::class, 'contributor'], self::listOf($p->project_contributors ?? null)),
+            'contributors' => array_map(static fn ($c) => [
+                'id' => (int) ($c->github_user_id ?? $c->id ?? 0),
+                'login' => $c->login ?? null,
+                'avatarUrl' => $c->avatar_url ?? null,
+                'profileUrl' => $c->html_url ?? null,
+                'contributions' => (int) ($c->contributions ?? 0),
+            ], self::listOf($p->project_contributors ?? null)),
             'imagePaths' => $paths,
             'images' => array_values(array_filter(array_map(
                 static fn ($path) => Media::image($path),

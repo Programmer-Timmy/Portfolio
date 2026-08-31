@@ -35,6 +35,8 @@ $router->get('admin/languages', [Admin\MetaApi::class, 'languages']);
 
 $router->get('admin/projects', [Admin\ProjectsApi::class, 'index']);
 $router->get('admin/projects/{id}', [Admin\ProjectsApi::class, 'show']);
+$router->post('admin/projects', [Admin\ProjectsApi::class, 'store']);
+$router->post('admin/projects/{id}', [Admin\ProjectsApi::class, 'update']);
 $router->delete('admin/projects/{id}', [Admin\ProjectsApi::class, 'destroy']);
 $router->post('admin/projects/{id}/restore', [Admin\ProjectsApi::class, 'restore']);
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   ActionIcon,
   Alert,
@@ -98,11 +99,9 @@ export function ProjectsListPage() {
             checked={showDeleted}
             onChange={(e) => setShowDeleted(e.currentTarget.checked)}
           />
-          <Tooltip label="Adding and editing projects arrives in the next step">
-            <Button leftSection={<IconPlus size={16} />} disabled>
-              Add project
-            </Button>
-          </Tooltip>
+          <Button component={Link} to="/admin/projects/new" leftSection={<IconPlus size={16} />}>
+            Add project
+          </Button>
         </Group>
       </Group>
 
@@ -220,8 +219,14 @@ export function ProjectsListPage() {
                   </Table.Td>
                   <Table.Td>
                     <Group gap={4} justify="flex-end" wrap="nowrap">
-                      <Tooltip label="Editing arrives in the next step">
-                        <ActionIcon variant="subtle" color="gray" disabled>
+                      <Tooltip label="Edit">
+                        <ActionIcon
+                          component={Link}
+                          to={`/admin/projects/${project.id}`}
+                          variant="subtle"
+                          color="gray"
+                          disabled={project.removed}
+                        >
                           <IconPencil size={16} />
                         </ActionIcon>
                       </Tooltip>

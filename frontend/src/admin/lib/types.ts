@@ -1,5 +1,8 @@
 /** Shapes returned by the admin + auth API. */
 
+import type { DeltaOp } from '@/lib/types'
+export type { DeltaOp }
+
 export type AdminSession = {
   authenticated: boolean
   admin: boolean
@@ -79,6 +82,34 @@ export type GitHubUser = {
   login: string
   avatarUrl: string | null
   profileUrl: string | null
+}
+
+export type ProjectLanguage = {
+  programmingLanguageId: number
+  name: string
+  color: string | null
+  percentage: number | null
+}
+
+export type ProjectContributor = {
+  id: number
+  login: string | null
+  avatarUrl: string | null
+  profileUrl: string | null
+  contributions: number
+}
+
+export type ProjectEditable = {
+  id: number
+  name: string
+  link: string
+  github: string
+  description: DeltaOp[] | null
+  flags: ProjectFlags
+  languages: ProjectLanguage[]
+  contributors: ProjectContributor[]
+  imagePaths: string[]
+  images: AdminImage[]
 }
 
 export type AdminStats = {

@@ -6,11 +6,11 @@
  */
 
 return [
-    // Upload settings
+    // Upload settings. The destination directory is $site['paths']['webroot'].'/img'
+    // (see private/config/settings.php), not configured here.
     'upload' => [
         'max_file_size' => 10485760, // 10MB in bytes
         'allowed_formats' => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-        'upload_path' => '../public_html/img/',
     ],
     
     // Optimization settings

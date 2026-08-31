@@ -4,6 +4,7 @@
 // admin entry — so the CSS never ships in the public bundle.
 import '@mantine/core/styles.layer.css'
 import '@mantine/notifications/styles.layer.css'
+import '@mantine/dropzone/styles.layer.css'
 
 import { MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
@@ -17,7 +18,7 @@ import { AdminShell } from './components/AdminShell'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { ProjectsListPage } from './pages/ProjectsListPage'
-import { GitHubTestPage } from './pages/_GitHubTestPage'
+import { ProjectFormPage } from './pages/ProjectFormPage'
 import { AdminNotFound } from './pages/AdminNotFound'
 
 /**
@@ -41,8 +42,8 @@ export function AdminApp() {
               <Route element={<AdminShell />}>
                 <Route index element={<DashboardPage />} />
                 <Route path="projects" element={<ProjectsListPage />} />
-                {/* TEMP (M3): remove with pages/_GitHubTestPage.tsx once M4's form uses GitHubAutofill */}
-                <Route path="_github-check" element={<GitHubTestPage />} />
+                <Route path="projects/new" element={<ProjectFormPage />} />
+                <Route path="projects/:id" element={<ProjectFormPage />} />
                 <Route path="*" element={<AdminNotFound />} />
               </Route>
             </Route>

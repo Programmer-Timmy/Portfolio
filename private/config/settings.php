@@ -80,8 +80,18 @@ $site = [
             'admin',
             'admin/login',
             'admin/projects',
-            'admin/_github-check', // TEMP (M3) — remove with the scratch page in M4
+            'admin/projects/new',
+            'admin/projects/{id}',
         ],
+    ],
+
+    /**
+     * Filesystem paths. `webroot` is the directory the server serves as `/`;
+     * project images are written under `webroot/img` and stored in the DB as
+     * `img/<file>`. Override if the deployed document root is not `public/`.
+     */
+    'paths' => [
+        'webroot' => dirname(__DIR__, 2) . '/public',
     ],
 
     // popup settings
