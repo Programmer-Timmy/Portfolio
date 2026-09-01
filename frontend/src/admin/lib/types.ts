@@ -112,6 +112,24 @@ export type ProjectEditable = {
   images: AdminImage[]
 }
 
+export type AdminVideo = {
+  id: number
+  title: string
+  youtubeId: string
+  url: string
+  embedUrl: string
+  thumbnailUrl: string
+  pinned: boolean
+  deleted: boolean
+  publishedAt: string | null
+}
+
+export type VideoSyncSummary = {
+  added: number
+  updated: number
+  deleted: number
+}
+
 export type AdminStats = {
   projects: number
   projectsPinned: number

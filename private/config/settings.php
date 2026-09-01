@@ -82,6 +82,7 @@ $site = [
             'admin/projects',
             'admin/projects/new',
             'admin/projects/{id}',
+            'admin/videos',
         ],
     ],
 

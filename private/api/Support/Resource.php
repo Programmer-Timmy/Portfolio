@@ -165,12 +165,15 @@ class Resource
     {
         return [
             'id' => (int) $v->id,
-            'title' => $v->title,
+            // YouTube snippet titles arrive HTML-entity-encoded (&#39; etc.);
+            // decode so JSON consumers get plain text.
+            'title' => html_entity_decode((string) $v->title, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
             'youtubeId' => $v->videoId,
             'url' => 'https://www.youtube.com/watch?v=' . $v->videoId,
             'embedUrl' => 'https://www.youtube.com/embed/' . $v->videoId,
             'thumbnailUrl' => 'https://i.ytimg.com/vi/' . $v->videoId . '/hqdefault.jpg',
             'pinned' => (bool) ($v->pinned ?? false),
+            'deleted' => (bool) ($v->deleted ?? false),
             'publishedAt' => self::date($v->date ?? null),
         ];
     }

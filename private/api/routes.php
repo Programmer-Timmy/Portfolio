@@ -46,6 +46,13 @@ $router->get('admin/github/languages', [Admin\GitHubApi::class, 'languages']);
 $router->get('admin/github/contributors', [Admin\GitHubApi::class, 'contributors']);
 $router->get('admin/github/user', [Admin\GitHubApi::class, 'user']);
 
+$router->get('admin/videos', [Admin\VideosApi::class, 'index']);
+$router->post('admin/videos/sync', [Admin\VideosApi::class, 'sync']);
+$router->post('admin/videos/{id}/pin', [Admin\VideosApi::class, 'pin']);
+$router->post('admin/videos/{id}/restore', [Admin\VideosApi::class, 'restore']);
+$router->patch('admin/videos/{id}', [Admin\VideosApi::class, 'update']);
+$router->delete('admin/videos/{id}', [Admin\VideosApi::class, 'destroy']);
+
 $router->get('projects', [ProjectsApi::class, 'index']);
 $router->get('projects/{id}', [ProjectsApi::class, 'show']);
 

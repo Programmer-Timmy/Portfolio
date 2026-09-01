@@ -4,6 +4,9 @@
  * Reads the repo-root `.env` (INI format, gitignored) once and memoizes it.
  * Single choke point for secrets so a token never has to be echoed into a
  * template again. Keys in use: GITHUB_TOKEN, API_KEY (YouTube), CHANNEL_ID.
+ *
+ * Lives in controllers/ (not api/Support/) so both the API and the CLI update
+ * scripts can autoload it.
  */
 class Env
 {
@@ -13,7 +16,7 @@ class Env
     public static function get(string $key, ?string $default = null): ?string
     {
         if (self::$values === null) {
-            $path = dirname(__DIR__, 3) . '/.env';
+            $path = dirname(__DIR__, 2) . '/.env';
             self::$values = is_file($path) ? (parse_ini_file($path) ?: []) : [];
         }
 

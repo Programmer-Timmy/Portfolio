@@ -6,6 +6,7 @@ import type { ProjectFormOutput } from './lib/schemas'
 import type {
   AdminSession,
   AdminStats,
+  AdminVideo,
   GitHubContributor,
   GitHubLanguages,
   GitHubRepo,
@@ -14,6 +15,7 @@ import type {
   LoginResult,
   ProjectAdminRow,
   ProjectEditable,
+  VideoSyncSummary,
 } from './lib/types'
 
 export function useSession() {
@@ -193,4 +195,71 @@ export function useGitHubUserLookup() {
     mutationFn: (login: string) =>
       adminApi.get<GitHubUser>(`/admin/github/user?login=${encodeURIComponent(login.trim())}`),
   })
+}
+
+// --- videos ----------------------------------------------------------------
+
+export function useAdminVideos(includeDeleted: boolean) {
+  return useQuery({
+    queryKey: [...qk.videos, { includeDeleted }],
+    queryFn: () =>
+      adminApi.get<AdminVideo[]>(
+        `/admin/videos${includeDeleted ? '?includeDeleted=1' : ''}`,
+      ),
+  })
+}
+
+export function useSyncVideos() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: () => adminApi.post<VideoSyncSummary>('/admin/videos/sync'),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.videos })
+      qc.invalidateQueries({ queryKey: qk.stats })
+    },
+  })
+}
+
+export function useToggleVideoPin() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (video: AdminVideo) => adminApi.post<AdminVideo>(`/admin/videos/${video.id}/pin`),
+    onMutate: async (video) => {
+      await qc.cancelQueries({ queryKey: qk.videos })
+      const prev = qc.getQueriesData<AdminVideo[]>({ queryKey: qk.videos })
+      qc.setQueriesData<AdminVideo[]>({ queryKey: qk.videos }, (old) =>
+        old?.map((v) => (v.id === video.id ? { ...v, pinned: !v.pinned } : v)),
+      )
+      return { prev }
+    },
+    onError: (_err, _video, ctx) => {
+      ctx?.prev.forEach(([key, data]) => qc.setQueryData(key, data))
+    },
+    onSettled: () => qc.invalidateQueries({ queryKey: qk.videos }),
+  })
+}
+
+function useVideoMutation<T>(fn: (id: number) => Promise<T>) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: fn,
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.videos }),
+  })
+}
+
+export function useRenameVideo() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (args: { id: number; title: string }) =>
+      adminApi.patch<AdminVideo>(`/admin/videos/${args.id}`, { title: args.title }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.videos }),
+  })
+}
+
+export function useDeleteVideo() {
+  return useVideoMutation((id) => adminApi.del<null>(`/admin/videos/${id}`))
+}
+
+export function useRestoreVideo() {
+  return useVideoMutation((id) => adminApi.post<null>(`/admin/videos/${id}/restore`))
 }

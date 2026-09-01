@@ -31,7 +31,7 @@ type NavItem = {
 const NAV: NavItem[] = [
   { label: 'Dashboard', to: '/admin', icon: IconLayoutDashboard, ready: true },
   { label: 'Projects', to: '/admin/projects', icon: IconFolder, ready: true },
-  { label: 'Videos', to: '/admin/videos', icon: IconVideo, ready: false },
+  { label: 'Videos', to: '/admin/videos', icon: IconVideo, ready: true },
   { label: 'Open source', to: '/admin/opensource', icon: IconGitPullRequest, ready: false },
 ]
 
