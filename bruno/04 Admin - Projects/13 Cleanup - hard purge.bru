@@ -1,0 +1,29 @@
+meta {
+  name: 13 Cleanup - hard purge
+  type: http
+  seq: 13
+}
+
+delete {
+  url: {{apiUrl}}/admin/projects/{{projectId}}?hard=1
+  body: none
+  auth: none
+}
+
+params:query {
+  hard: 1
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 204
+}
+
+docs {
+  `?hard=1` removes the row, its child records (images / languages / contributors)
+  and the uploaded image files. Leaves the DB exactly as it was before "05 Create".
+}

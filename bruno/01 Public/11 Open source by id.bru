@@ -1,0 +1,17 @@
+meta {
+  name: 11 Open source by id
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{apiUrl}}/opensource/{{publicOpenSourceId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.id: isNumber
+  res.body.data.pullRequests: isArray
+}

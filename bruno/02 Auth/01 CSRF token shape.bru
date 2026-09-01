@@ -1,0 +1,16 @@
+meta {
+  name: 01 CSRF token shape
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiUrl}}/auth/csrf
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.token: matches ^[a-f0-9]{64}$
+}

@@ -1,0 +1,17 @@
+meta {
+  name: 04 Auth session (anonymous)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{apiUrl}}/auth/session
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.authenticated: eq false
+  res.body.data.admin: eq false
+}

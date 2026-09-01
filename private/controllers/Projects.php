@@ -271,6 +271,38 @@ class Projects {
         }
     }
 
+    /** Permanently remove a project: child rows in one transaction, then its image files. */
+    public static function purgeProject($id) {
+        try {
+            $main = Database::get('projects', ['img'], [], ['id' => $id]);
+            $gallery = self::loadProjectImg($id);
+
+            $database = Database::beginTransaction();
+            Database::delete('project_images', ['project_id' => $id], $database);
+            Database::delete('project_languages', ['projects_id' => $id], $database);
+            Database::delete('project_contributors', ['projects_id' => $id], $database);
+            Database::delete('projects', ['id' => $id], $database);
+            $database->commit($database);
+
+            if ($main && !empty($main->img)) {
+                self::deleteImage($main->img);
+            }
+            if (is_array($gallery)) {
+                foreach ($gallery as $image) {
+                    if (!empty($image->img)) {
+                        self::deleteImage($image->img);
+                    }
+                }
+            }
+            return "";
+        } catch (Exception $e) {
+            if (isset($database)) {
+                $database->rollBack($database);
+            }
+            return "There was an error permanently deleting your project.";
+        }
+    }
+
     public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id, $privateRepo, $imageState = null) {
         $existingProject = Database::get('projects', ['img'], [], ['id' => $id]);
         if (!$existingProject) {

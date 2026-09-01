@@ -1,0 +1,29 @@
+meta {
+  name: 07 Update (multipart)
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{apiUrl}}/admin/projects/{{projectId}}
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:multipart-form {
+  payload: {"name":"Bruno Test","link":"https://example.org","github":"https://github.com/octocat/Hello-World","pinned":true,"inProgress":false,"privateRepo":false,"description":[{"insert":"Updated by the Bruno API test collection.\n"}],"languages":[],"contributors":[]}
+  imageState: {"images":[],"removed":[]}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.link: eq https://example.org
+  res.body.data.flags.pinned: eq true
+  res.body.data.flags.inProgress: eq false
+  res.body.data.languages: length 0
+}

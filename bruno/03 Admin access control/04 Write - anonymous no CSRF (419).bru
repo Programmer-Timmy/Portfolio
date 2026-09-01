@@ -1,0 +1,21 @@
+meta {
+  name: 04 Write - anonymous no CSRF (419)
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{apiUrl}}/admin/projects/0
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 419
+  res.body.error.code: eq csrf
+}
+
+docs {
+  No session, no token. CSRF is checked first, so this is 419 - not 401.
+  Project id 0 is never touched.
+}

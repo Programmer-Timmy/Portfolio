@@ -1,0 +1,20 @@
+meta {
+  name: 02 Stats - non-admin (403)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{apiUrl}}/admin/stats
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionUser}}
+}
+
+assert {
+  res.status: eq 403
+  res.body.error.code: eq forbidden
+}

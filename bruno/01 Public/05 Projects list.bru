@@ -1,0 +1,24 @@
+meta {
+  name: 05 Projects list
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{apiUrl}}/projects
+  body: none
+  auth: none
+}
+
+script:post-response {
+  const first = res.body && res.body.data && res.body.data[0];
+  if (first) bru.setVar('publicProjectId', first.id);
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+  res.body.meta.count: isNumber
+  res.body.meta.limit: eq 100
+  res.body.meta.featured: eq false
+}

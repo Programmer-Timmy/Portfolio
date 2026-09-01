@@ -1,0 +1,34 @@
+meta {
+  name: 17 Contact - honeypot (201)
+  type: http
+  seq: 17
+}
+
+post {
+  url: {{apiUrl}}/contact
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Spam Bot",
+    "email": "bot@example.com",
+    "message": "Buy cheap things at spam dot com right now today.",
+    "company": "definitely a bot"
+  }
+}
+
+assert {
+  res.status: eq 201
+  res.body.data.sent: eq true
+}
+
+docs {
+  A filled honeypot field (`company`) is accepted silently with 201 and no email
+  is sent - bots see success and don't retry.
+}

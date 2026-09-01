@@ -1,0 +1,20 @@
+meta {
+  name: 04 Get 404
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{apiUrl}}/admin/projects/999999
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 404
+  res.body.error.code: eq not_found
+}

@@ -1,0 +1,26 @@
+meta {
+  name: 2 CSRF token (admin)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{apiUrl}}/auth/csrf
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data.token) {
+    bru.setVar('csrfAdmin', res.body.data.token);
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.token: isDefined
+}

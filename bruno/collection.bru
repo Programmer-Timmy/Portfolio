@@ -1,0 +1,44 @@
+meta {
+  type: collection
+}
+
+headers {
+  Accept: application/json
+}
+
+script:pre-request {
+  // Every request carries its own identity via an explicit `Cookie` header
+  // (see the README). Wipe Bruno's shared cookie jar first so it can't leak a
+  // session from a previous request. No-op on builds without `bru.cookies`.
+  try { await bru.cookies.clear(); } catch (e) {}
+}
+
+docs {
+  # Portfolio API - Bruno collection
+
+  Full coverage of the JSON API in `private/api/`, including the authenticated
+  `/api/admin/*` surface and every failure mode (401 / 403 / 419 / 422 / 429 /
+  404 / 405).
+
+  ## Setup
+
+  1. Run the site:  `php -S localhost:8000 -t public public/router.php`  (+ MySQL).
+  2. Seed the test users:  `php bruno/seed-users.php`
+     (creates `bruno-admin` / `bruno-user`, password `bruno-dev-pw`).
+  3. Select the **Local** environment.
+  4. Bruno -> Preferences -> turn the **cookie jar OFF**. Identity is set per
+     request through an explicit `Cookie` header; the jar would fight that.
+  5. Run the **00 Setup** folder first (or use "Run Collection"). It logs in as
+     admin and as a non-admin and stashes `sessionAdmin` / `csrfAdmin` /
+     `sessionUser` / `csrfUser` as runtime variables that the rest of the
+     collection reads.
+
+  ## Teardown
+
+  `php bruno/seed-users.php --down`
+
+  If any test data lingers:
+
+      DELETE FROM projects WHERE name = 'Bruno Test';
+      DELETE FROM opensource_projects WHERE name = 'octocat/Hello-World';
+}

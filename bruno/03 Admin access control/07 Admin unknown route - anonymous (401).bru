@@ -1,0 +1,21 @@
+meta {
+  name: 07 Admin unknown route - anonymous (401)
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{apiUrl}}/admin/not-a-real-endpoint
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 401
+  res.body.error.code: eq unauthorized
+}
+
+docs {
+  The gate fires for any `/api/admin/*` path before routing, so an anonymous
+  request to a non-existent admin route is 401, not 404.
+}

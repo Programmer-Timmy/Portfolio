@@ -1,0 +1,41 @@
+meta {
+  name: 02 Add repository
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{apiUrl}}/admin/opensource
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:json {
+  {
+    "repoUrl": "{{testAddRepoUrl}}",
+    "username": "{{testAddRepoUser}}"
+  }
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data.id) {
+    bru.setVar('osId', res.body.data.id);
+  }
+}
+
+assert {
+  res.status: eq 201
+  res.body.data.name: eq octocat/Hello-World
+  res.body.data.pullRequestCount: isNumber
+}
+
+docs {
+  Idempotent: re-running returns the existing row (same id) rather than
+  duplicating it.
+}

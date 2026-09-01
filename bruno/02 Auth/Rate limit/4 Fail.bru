@@ -1,0 +1,27 @@
+meta {
+  name: 4 Fail
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{apiUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{throttleSid}}
+}
+
+body:json {
+  {
+    "username": "{{adminUsername}}",
+    "password": "wrong-4"
+  }
+}
+
+assert {
+  res.status: eq 401
+}

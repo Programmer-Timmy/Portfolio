@@ -1,0 +1,22 @@
+meta {
+  name: 03 Stats - admin (200)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{apiUrl}}/admin/stats
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.projects: isNumber
+  res.body.data.videos: isNumber
+  res.body.data.pullRequests: isNumber
+}

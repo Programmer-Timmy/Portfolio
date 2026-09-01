@@ -1,0 +1,32 @@
+meta {
+  name: 6 Blocked (429)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{apiUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{throttleSid}}
+}
+
+body:json {
+  {
+    "username": "{{adminUsername}}",
+    "password": "{{adminPassword}}"
+  }
+}
+
+assert {
+  res.status: eq 429
+  res.body.error.code: eq rate_limited
+}
+
+docs {
+  Even the correct password is refused now - the session is locked for 60 s.
+}

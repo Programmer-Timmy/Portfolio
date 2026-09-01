@@ -1,0 +1,21 @@
+meta {
+  name: 06 Projects list - featured
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{apiUrl}}/projects?featured=true
+  body: none
+  auth: none
+}
+
+params:query {
+  featured: true
+}
+
+assert {
+  res.status: eq 200
+  res.body.meta.featured: eq true
+  res.body.meta.limit: eq 3
+}

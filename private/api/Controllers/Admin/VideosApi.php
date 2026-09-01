@@ -76,7 +76,12 @@ class VideosApi
         $id = (int) $params['id'];
         self::assertExists($id);
 
-        Videos::softDelete($id);
+        // `?hard=1` drops the row for good; the default hides it (reversible).
+        if (ApiRequest::bool('hard')) {
+            Videos::delete($id);
+        } else {
+            Videos::softDelete($id);
+        }
 
         return ApiResponse::noContent();
     }

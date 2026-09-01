@@ -1,0 +1,25 @@
+meta {
+  name: 03 Repo - bad url (422)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{apiUrl}}/admin/github/repo?url=git@github.com:owner/repo.git
+  body: none
+  auth: none
+}
+
+params:query {
+  url: git@github.com:owner/repo.git
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.url: eq That doesn't look like a GitHub repository URL.
+}

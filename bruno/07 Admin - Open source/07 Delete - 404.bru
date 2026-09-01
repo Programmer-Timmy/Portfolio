@@ -1,0 +1,21 @@
+meta {
+  name: 07 Delete - 404
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{apiUrl}}/admin/opensource/999999
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 404
+  res.body.error.code: eq not_found
+}

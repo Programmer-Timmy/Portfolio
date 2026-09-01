@@ -1,0 +1,20 @@
+meta {
+  name: 08 Admin unknown route - admin (404)
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{apiUrl}}/admin/not-a-real-endpoint
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 404
+  res.body.error.code: eq not_found
+}

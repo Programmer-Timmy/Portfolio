@@ -1,0 +1,28 @@
+meta {
+  name: 05 Rename
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{apiUrl}}/admin/videos/{{videoId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:json {
+  {
+    "title": "Bruno rename test"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.title: eq Bruno rename test
+}

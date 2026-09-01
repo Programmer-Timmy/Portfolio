@@ -1,0 +1,17 @@
+meta {
+  name: 01 Health
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiUrl}}/health
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.status: eq ok
+  res.body.data.time: isDefined
+}

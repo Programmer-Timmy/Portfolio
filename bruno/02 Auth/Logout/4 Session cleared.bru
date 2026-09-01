@@ -1,0 +1,26 @@
+meta {
+  name: 4 Session cleared
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{apiUrl}}/auth/session
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{logoutSession}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.authenticated: eq false
+  res.body.data.admin: eq false
+}
+
+docs {
+  The old cookie is dead after logout (`session_regenerate_id(true)`), so the
+  session reports signed-out.
+}

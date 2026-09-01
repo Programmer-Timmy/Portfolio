@@ -1,0 +1,21 @@
+meta {
+  name: 05 Write - admin bad CSRF (419)
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{apiUrl}}/admin/projects/0
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: not-the-real-token
+}
+
+assert {
+  res.status: eq 419
+  res.body.error.code: eq csrf
+}

@@ -113,7 +113,12 @@ class ProjectsApi
         $id = (int) $params['id'];
         self::assertExists($id);
 
-        $error = Projects::deleteProject($id);
+        // `?hard=1` permanently removes the row, its child records and image
+        // files; the default is a reversible soft delete.
+        $error = ApiRequest::bool('hard')
+            ? Projects::purgeProject($id)
+            : Projects::deleteProject($id);
+
         if ($error !== '') {
             throw new ApiException(422, $error, 'operation_failed');
         }

@@ -1,0 +1,31 @@
+meta {
+  name: 16 Contact - validation (422)
+  type: http
+  seq: 16
+}
+
+post {
+  url: {{apiUrl}}/contact
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "",
+    "email": "not-an-email",
+    "message": "too short"
+  }
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.name: eq Please enter your name.
+  res.body.error.fields.email: eq Please enter a valid email address.
+  res.body.error.fields.message: eq Please enter a message of at least 10 characters.
+}

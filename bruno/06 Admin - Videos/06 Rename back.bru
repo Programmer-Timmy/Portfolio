@@ -1,0 +1,33 @@
+meta {
+  name: 06 Rename back
+  type: http
+  seq: 6
+}
+
+patch {
+  url: {{apiUrl}}/admin/videos/{{videoId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:json {
+  {
+    "title": "{{videoOrigTitle}}"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("title restored", function () {
+    expect(res.body.data.title).to.equal(bru.getVar("videoOrigTitle"));
+  });
+}

@@ -1,0 +1,25 @@
+meta {
+  name: 05 Languages
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{apiUrl}}/admin/github/languages?url={{testRepoUrl}}
+  body: none
+  auth: none
+}
+
+params:query {
+  url: {{testRepoUrl}}
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.languages: isArray
+  res.body.data.unmapped: isArray
+}

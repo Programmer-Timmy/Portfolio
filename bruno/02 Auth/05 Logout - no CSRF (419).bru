@@ -1,0 +1,20 @@
+meta {
+  name: 05 Logout - no CSRF (419)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{apiUrl}}/auth/logout
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 419
+  res.body.error.code: eq csrf
+}
+
+docs {
+  `auth/logout` is the one non-admin write that is CSRF-protected. No token -> 419.
+}

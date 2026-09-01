@@ -1,0 +1,27 @@
+meta {
+  name: 3 Fail
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{apiUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{throttleSid}}
+}
+
+body:json {
+  {
+    "username": "{{adminUsername}}",
+    "password": "wrong-3"
+  }
+}
+
+assert {
+  res.status: eq 401
+}

@@ -1,0 +1,17 @@
+meta {
+  name: 02 Profile
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{apiUrl}}/profile
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.name: isDefined
+  res.body.data.skills: isArray
+}

@@ -1,0 +1,17 @@
+meta {
+  name: 13 Videos list
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{apiUrl}}/videos
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+  res.body.meta.count: isNumber
+}
