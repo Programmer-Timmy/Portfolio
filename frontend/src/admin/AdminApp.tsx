@@ -20,6 +20,8 @@ import { DashboardPage } from './pages/DashboardPage'
 import { ProjectsListPage } from './pages/ProjectsListPage'
 import { ProjectFormPage } from './pages/ProjectFormPage'
 import { VideosListPage } from './pages/VideosListPage'
+import { OpenSourceListPage } from './pages/OpenSourceListPage'
+import { OpenSourceAddPage } from './pages/OpenSourceAddPage'
 import { AdminNotFound } from './pages/AdminNotFound'
 
 /**
@@ -46,6 +48,8 @@ export function AdminApp() {
                 <Route path="projects/new" element={<ProjectFormPage />} />
                 <Route path="projects/:id" element={<ProjectFormPage />} />
                 <Route path="videos" element={<VideosListPage />} />
+                <Route path="opensource" element={<OpenSourceListPage />} />
+                <Route path="opensource/new" element={<OpenSourceAddPage />} />
                 <Route path="*" element={<AdminNotFound />} />
               </Route>
             </Route>

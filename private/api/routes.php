@@ -53,6 +53,10 @@ $router->post('admin/videos/{id}/restore', [Admin\VideosApi::class, 'restore']);
 $router->patch('admin/videos/{id}', [Admin\VideosApi::class, 'update']);
 $router->delete('admin/videos/{id}', [Admin\VideosApi::class, 'destroy']);
 
+$router->get('admin/opensource', [Admin\OpenSourceApi::class, 'index']);
+$router->post('admin/opensource', [Admin\OpenSourceApi::class, 'store']);
+$router->delete('admin/opensource/{id}', [Admin\OpenSourceApi::class, 'destroy']);
+
 $router->get('projects', [ProjectsApi::class, 'index']);
 $router->get('projects/{id}', [ProjectsApi::class, 'show']);
 

@@ -130,6 +130,14 @@ export type VideoSyncSummary = {
   deleted: number
 }
 
+export type AdminOpenSourceProject = {
+  id: number
+  name: string
+  description: string | null
+  repositoryUrl: string | null
+  pullRequestCount: number | null
+}
+
 export type AdminStats = {
   projects: number
   projectsPinned: number

@@ -2,8 +2,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminApi, clearCsrfToken } from './lib/adminApi'
 import { isGitHubRepoUrl } from './lib/github'
 import { qk } from './lib/queryKeys'
-import type { ProjectFormOutput } from './lib/schemas'
+import type { OpenSourceValues, ProjectFormOutput } from './lib/schemas'
 import type {
+  AdminOpenSourceProject,
   AdminSession,
   AdminStats,
   AdminVideo,
@@ -262,4 +263,36 @@ export function useDeleteVideo() {
 
 export function useRestoreVideo() {
   return useVideoMutation((id) => adminApi.post<null>(`/admin/videos/${id}/restore`))
+}
+
+// --- open source ---------------------------------------------------------------
+
+export function useAdminOpenSource() {
+  return useQuery({
+    queryKey: qk.openSource,
+    queryFn: () => adminApi.get<AdminOpenSourceProject[]>('/admin/opensource'),
+  })
+}
+
+export function useAddOpenSource() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (values: OpenSourceValues) =>
+      adminApi.post<AdminOpenSourceProject>('/admin/opensource', values),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.openSource })
+      qc.invalidateQueries({ queryKey: qk.stats })
+    },
+  })
+}
+
+export function useDeleteOpenSource() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) => adminApi.del<null>(`/admin/opensource/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.openSource })
+      qc.invalidateQueries({ queryKey: qk.stats })
+    },
+  })
 }

@@ -136,6 +136,46 @@ class GitHub
         return $out;
     }
 
+    /**
+     * PRs authored by `$username` against `$owner/$repo`, via the search API.
+     *
+     * @return list<array{title:string,url:string,status:string,date:string,description:string}>
+     */
+    public static function authoredPullRequests(string $owner, string $repo, string $username): array
+    {
+        $username = trim($username);
+        if ($username === '' || !preg_match('#^[\w-]{1,39}$#', $username)) {
+            throw ApiException::validation(['username' => 'Enter a valid GitHub username.']);
+        }
+
+        $query = rawurlencode("repo:$owner/$repo is:pr author:$username");
+        [$status, $body] = self::request('/search/issues?per_page=100&q=' . $query);
+        self::assertOk($status);
+
+        $items = is_array($body['items'] ?? null) ? $body['items'] : [];
+        $out = [];
+        foreach ($items as $item) {
+            $prStatus = ucfirst((string) ($item['state'] ?? 'open'));
+            if (!empty($item['pull_request']['merged_at'])) {
+                $prStatus = 'Merged';
+            }
+
+            $description = (string) ($item['body'] ?? $item['title'] ?? '');
+            if (mb_strlen($description) > 500) {
+                $description = mb_substr($description, 0, 497) . '...';
+            }
+
+            $out[] = [
+                'title' => (string) ($item['title'] ?? ''),
+                'url' => (string) ($item['html_url'] ?? ''),
+                'status' => $prStatus,
+                'date' => date('Y-m-d H:i:s', strtotime((string) ($item['created_at'] ?? 'now'))),
+                'description' => $description,
+            ];
+        }
+        return $out;
+    }
+
     /** @return array{id:int,login:string,avatarUrl:?string,profileUrl:?string} */
     public static function user(string $login): array
     {

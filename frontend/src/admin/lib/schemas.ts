@@ -66,3 +66,18 @@ export const projectFormSchema = z
 
 export type ProjectFormValues = z.input<typeof projectFormSchema>
 export type ProjectFormOutput = z.output<typeof projectFormSchema>
+
+// --- open source ---------------------------------------------------------------
+
+export const openSourceSchema = z.object({
+  repoUrl: z
+    .string()
+    .trim()
+    .regex(GITHUB_REPO, 'Enter a GitHub repository URL (https://github.com/owner/repo).'),
+  username: z
+    .string()
+    .trim()
+    .regex(/^[\w-]{1,39}$/, 'Enter a valid GitHub username.'),
+})
+
+export type OpenSourceValues = z.infer<typeof openSourceSchema>
