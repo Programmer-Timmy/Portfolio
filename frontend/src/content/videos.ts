@@ -4,11 +4,9 @@
  */
 
 export const videos = {
-  eyebrow: 'Videos',
   title: 'Videos',
   lead:
-    'I fly a drone and cut the footage into short clips, mostly landscapes and Scouting camps. ' +
-    'Here is a selection. The rest are on my channel.',
+    'On vacations I try to fly with my drone, when I am allowed to... I turn these shots into short videos just because I like to show the beauty of other places and the outdoors.',
 
   source: {
     label: 'Visit my YouTube channel',

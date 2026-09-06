@@ -5,7 +5,6 @@
  */
 
 export const openSource = {
-  eyebrow: 'Open source',
   title: 'Open source',
   lead:
     'I think everyone deserves good software, not only the people who can pay for it. ' +
