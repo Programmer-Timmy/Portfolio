@@ -11,8 +11,9 @@ type TextLinkProps = {
 } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>
 
 /**
- * An inline link for use inside a paragraph of text. Styleguide: teal, with the
- * underline appearing on hover. Picks the right element automatically:
+ * An inline link for use inside a paragraph of text. Teal, always underlined but
+ * faintly, so it reads as a link at rest; the underline firms up on hover.
+ * Picks the right element automatically:
  *  - absolute URL  -> <a> opening in a new tab
  *  - mailto:/tel:  -> plain <a>
  *  - migrated path -> client-side <Link>
@@ -22,7 +23,8 @@ type TextLinkProps = {
  */
 export function TextLink({ to, children, className, ...rest }: TextLinkProps) {
   const classes = cn(
-    'font-medium text-teal underline-offset-2 hover:underline',
+    'font-medium text-teal underline decoration-teal/35 underline-offset-2',
+    'transition-[text-decoration-color] hover:decoration-teal',
     'focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal',
     className,
   )

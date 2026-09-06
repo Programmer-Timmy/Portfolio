@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 import { Container } from './Container'
-import { AppLink } from './AppLink'
+import { ArrowLink } from './ArrowLink'
 
 type SectionProps = {
   id?: string
@@ -49,14 +49,7 @@ export function Section({
                 <div className="mt-3 text-ink-secondary">{description}</div>
               )}
             </div>
-            {action && (
-              <AppLink
-                to={action.to}
-                className="text-sm font-medium text-teal hover:underline"
-              >
-                {action.label} →
-              </AppLink>
-            )}
+            {action && <ArrowLink to={action.to}>{action.label}</ArrowLink>}
           </div>
         )}
         {children}

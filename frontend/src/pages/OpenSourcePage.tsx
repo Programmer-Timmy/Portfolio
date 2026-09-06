@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui/Container'
 import { PageHeading } from '@/components/ui/PageHeading'
 import { Button } from '@/components/ui/Button'
+import { ArrowLink } from '@/components/ui/ArrowLink'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 import { Skeleton } from '@/components/ui/Skeleton'
@@ -18,7 +19,7 @@ export function OpenSourcePage() {
 
   return (
     <>
-      <PageHeading eyebrow={openSource.eyebrow} title={openSource.title}>
+      <PageHeading title={openSource.title}>
         {openSource.lead}
       </PageHeading>
 
@@ -74,7 +75,7 @@ function RepoCard({ project }: { project: OpenSourceProject }) {
       <h2 className="font-heading text-lg font-semibold">
         <Link
           to={`/opensource/${project.id}`}
-          className="after:absolute after:inset-0 after:content-[''] hover:text-teal"
+          className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-teal"
         >
           <Icon name="fa-brands fa-github" className="mr-2 text-ink-muted" />
           {project.name}
@@ -96,14 +97,9 @@ function RepoCard({ project }: { project: OpenSourceProject }) {
           </Badge>
         )}
         {project.repositoryUrl && (
-          <a
-            href={project.repositoryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative z-10 text-sm font-medium text-teal hover:underline"
-          >
-            Repository →
-          </a>
+          <ArrowLink to={project.repositoryUrl} className="relative z-10">
+            Repository
+          </ArrowLink>
         )}
       </div>
     </Card>

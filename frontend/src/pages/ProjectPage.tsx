@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { Icon } from '@/components/ui/Icon'
-import { AppLink } from '@/components/ui/AppLink'
+import { ArrowLink } from '@/components/ui/ArrowLink'
 import { ProjectImage } from '@/components/ProjectImage'
 import { DeltaContent } from '@/components/DeltaContent'
 import { useApi } from '@/lib/useApi'
@@ -32,13 +32,9 @@ export function ProjectPage() {
 
   return (
     <Container as="article" className="py-14 sm:py-20">
-      <AppLink
-        to="/projects"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-teal hover:underline"
-      >
-        <Icon name="fa-solid fa-arrow-left" />
+      <ArrowLink to="/projects" direction="back">
         All projects
-      </AppLink>
+      </ArrowLink>
 
       {query.status === 'loading' && <ProjectSkeleton />}
 

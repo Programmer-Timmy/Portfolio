@@ -14,7 +14,7 @@ export function Card({ children, className, interactive, ...rest }: CardProps) {
       className={cn(
         'rounded-card border border-line bg-surface shadow-card',
         interactive &&
-          'transition-colors transition-shadow hover:border-teal/40 hover:shadow-md',
+          'transition-[border-color,box-shadow] duration-200 hover:border-teal/45 hover:shadow-card-hover focus-within:border-teal/45',
         className,
       )}
       {...rest}

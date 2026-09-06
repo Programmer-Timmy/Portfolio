@@ -185,7 +185,7 @@ function ContactMethods() {
                                 {...(external
                                     ? {target: '_blank', rel: 'noopener noreferrer'}
                                     : {})}
-                                className="group -mx-2 flex items-center gap-3 rounded-lg px-2 py-2 hover:bg-teal/8"
+                                className="group -mx-2 flex items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-teal/8"
                             >
                                 <Icon
                                     name={social.icon}
@@ -195,7 +195,7 @@ function ContactMethods() {
                   <span className="block text-sm font-medium text-ink">
                     {social.label}
                   </span>
-                  <span className="block truncate text-sm text-ink-secondary group-hover:text-teal">
+                  <span className="block truncate text-sm text-ink-secondary transition-colors group-hover:text-teal">
                     {social.handle}
                   </span>
                 </span>

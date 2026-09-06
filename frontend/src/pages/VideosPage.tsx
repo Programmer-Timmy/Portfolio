@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { PageHeading } from '@/components/ui/PageHeading'
 import { Button } from '@/components/ui/Button'
+import { ArrowLink } from '@/components/ui/ArrowLink'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { Icon } from '@/components/ui/Icon'
 import { useApi } from '@/lib/useApi'
@@ -16,7 +17,7 @@ export function VideosPage() {
 
   return (
     <>
-      <PageHeading eyebrow={videos.eyebrow} title={videos.title}>
+      <PageHeading title={videos.title}>
         {videos.lead}
       </PageHeading>
 
@@ -91,10 +92,10 @@ function VideoCard({ video }: { video: Video }) {
               src={video.thumbnailUrl}
               alt=""
               loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              className="h-full w-full object-cover"
             />
-            <span className="absolute inset-0 flex items-center justify-center bg-navy/20 transition-colors group-hover:bg-navy/10">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-navy shadow-card">
+            <span className="absolute inset-0 flex items-center justify-center bg-navy/25 transition-colors group-hover:bg-navy/15">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-navy shadow-card transition-transform group-hover:scale-105">
                 <Icon name="fa-solid fa-play" className="ml-0.5 text-xl" />
               </span>
             </span>
@@ -103,14 +104,9 @@ function VideoCard({ video }: { video: Video }) {
       </div>
       <figcaption className="mt-3 flex items-start justify-between gap-3">
         <h2 className="font-heading text-base font-semibold">{video.title}</h2>
-        <a
-          href={video.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="shrink-0 text-sm font-medium text-teal hover:underline"
-        >
-          YouTube →
-        </a>
+        <ArrowLink to={video.url} className="shrink-0">
+          YouTube
+        </ArrowLink>
       </figcaption>
     </figure>
   )

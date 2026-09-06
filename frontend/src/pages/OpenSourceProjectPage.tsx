@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { Icon } from '@/components/ui/Icon'
-import { AppLink } from '@/components/ui/AppLink'
+import { ArrowLink } from '@/components/ui/ArrowLink'
 import { TextLink } from '@/components/ui/TextLink'
 import { useApi } from '@/lib/useApi'
 import { useDocumentTitle } from '@/lib/useDocumentTitle'
@@ -37,13 +37,9 @@ export function OpenSourceProjectPage() {
 
   return (
     <Container as="article" className="py-14 sm:py-20">
-      <AppLink
-        to="/opensource"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-teal hover:underline"
-      >
-        <Icon name="fa-solid fa-arrow-left" />
+      <ArrowLink to="/opensource" direction="back">
         {openSource.detail.backLabel}
-      </AppLink>
+      </ArrowLink>
 
       {query.status === 'loading' && (
         <div className="mt-6 space-y-4">

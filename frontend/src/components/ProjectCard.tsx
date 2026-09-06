@@ -14,7 +14,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
         <ProjectImage
           image={project.image}
           alt={project.name}
-          className="h-full w-full transition-transform duration-300 group-hover:scale-[1.03]"
+          className="h-full w-full"
         />
         {project.flags.inProgress && (
           <span className="absolute left-3 top-3">
@@ -27,7 +27,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
         <h3 className="font-heading text-lg font-semibold">
           <Link
             to={`/project/${project.id}`}
-            className="after:absolute after:inset-0 after:content-[''] hover:text-teal"
+            className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-teal"
           >
             {project.name}
           </Link>
@@ -60,7 +60,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
               href={project.links.repository}
               target="_blank"
               rel="noreferrer"
-              className="relative z-10 inline-flex items-center gap-1.5 text-ink-secondary hover:text-teal"
+              className="relative z-10 inline-flex items-center gap-1.5 text-ink-secondary transition-colors hover:text-teal"
             >
               <Icon name="fa-brands fa-github" />
               Code
@@ -71,7 +71,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
               href={project.links.live}
               target="_blank"
               rel="noreferrer"
-              className="relative z-10 inline-flex items-center gap-1.5 text-ink-secondary hover:text-teal"
+              className="relative z-10 inline-flex items-center gap-1.5 text-ink-secondary transition-colors hover:text-teal"
             >
               <Icon name="fa-solid fa-arrow-up-right-from-square" />
               Live
