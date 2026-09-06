@@ -59,7 +59,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
             <a
               href={project.links.repository}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="relative z-10 inline-flex items-center gap-1.5 text-ink-secondary transition-colors hover:text-teal"
             >
               <Icon name="fa-brands fa-github" />
@@ -70,7 +70,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
             <a
               href={project.links.live}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="relative z-10 inline-flex items-center gap-1.5 text-ink-secondary transition-colors hover:text-teal"
             >
               <Icon name="fa-solid fa-arrow-up-right-from-square" />

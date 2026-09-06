@@ -25,7 +25,7 @@ export function OpenSourcePage() {
 
       <Container as="section" className="pb-24">
         <div className="mb-8">
-          <Button href={openSource.source.url} variant="secondary" size="sm">
+          <Button href={openSource.source.url} variant="outline" size="sm">
             <Icon name="fa-brands fa-github" />
             {openSource.source.label}
           </Button>
@@ -44,7 +44,7 @@ export function OpenSourcePage() {
             <p className="font-medium text-ink">{openSource.errorTitle}</p>
             <p className="mt-1 text-sm text-ink-secondary">{query.error.message}</p>
             <div className="mt-4 flex justify-center">
-              <Button size="sm" variant="secondary" onClick={query.reload}>
+              <Button size="sm" variant="outline" onClick={query.reload}>
                 Try again
               </Button>
             </div>

@@ -23,8 +23,14 @@ export function useTheme() {
   const [theme, setTheme] = useState<Theme>(readInitialTheme)
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme
+    const el = document.documentElement
+    // Freeze transitions for a frame so the palette swaps instantly instead of
+    // every colour on the page cross-fading (and some getting stuck mid-fade).
+    el.classList.add('theme-switching')
+    el.dataset.theme = theme
     window.localStorage.setItem(STORAGE_KEY, theme)
+    const id = window.setTimeout(() => el.classList.remove('theme-switching'), 60)
+    return () => window.clearTimeout(id)
   }, [theme])
 
   return {

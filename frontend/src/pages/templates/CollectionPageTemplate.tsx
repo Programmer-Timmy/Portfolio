@@ -37,7 +37,7 @@ export function CollectionPageTemplate() {
       <Container as="section" className="pb-24">
         {/* Optional: a link out to the source of truth (GitHub, YouTube, ...) */}
         <div className="mb-8">
-          <Button href="https://github.com/Programmer-Timmy" variant="secondary" size="sm">
+          <Button href="https://github.com/Programmer-Timmy" variant="outline" size="sm">
             Related external link
           </Button>
         </div>
@@ -54,7 +54,7 @@ export function CollectionPageTemplate() {
           <div className="rounded-card border border-line bg-surface p-8 text-center">
             <p className="text-ink-secondary">{query.error.message}</p>
             <div className="mt-4 flex justify-center">
-              <Button size="sm" variant="secondary" onClick={query.reload}>
+              <Button size="sm" variant="outline" onClick={query.reload}>
                 Try again
               </Button>
             </div>

@@ -57,7 +57,7 @@ export function RecordPageTemplate() {
           </p>
           <div className="mt-4 flex justify-center gap-3">
             {query.error.status !== 404 && (
-              <Button size="sm" variant="secondary" onClick={query.reload}>
+              <Button size="sm" variant="outline" onClick={query.reload}>
                 Try again
               </Button>
             )}

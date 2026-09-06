@@ -39,6 +39,21 @@
   --color-teal: #0b7f89;
   --color-teal-light: #3fafb8;
 
+  /* Interactive fills: hand-picked darker steps for hover / press. Never lighten. */
+  --color-teal-hover: #096e77;
+  --color-teal-active: #06565e;
+
+  /* Secondary button fill: navy in light, a raised slate in dark (see below). */
+  --color-btn2: #1f2933;
+  --color-btn2-hover: #131a20;
+  --color-btn2-fg: #ffffff;
+
+  /* Destructive button (aliases the status-down red, kept separate so button
+     colour and status colour can drift apart later). */
+  --color-danger: #c1382f;
+  --color-danger-hover: #a72e26;
+  --color-danger-active: #8e261f;
+
   /* Website neutrals */
   --color-paper: #f7f9fa;
   --color-surface: #ffffff;
@@ -115,6 +130,13 @@
   --color-ink-secondary: #8fa0ab;
   --color-ink-muted: #6f7f8a;
   --color-teal: #3fafb8;
+  --color-teal-hover: #2f8f98;
+  --color-teal-active: #26757d;
+
+  /* Navy fill vanishes against the dark background, so secondary is a raised slate. */
+  --color-btn2: #33404a;
+  --color-btn2-hover: #3d4b56;
+  --color-btn2-fg: #e8edf0;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -153,6 +175,15 @@
 
   ::selection {
     background-color: color-mix(in srgb, var(--color-teal) 22%, transparent);
+  }
+
+  /* While the light/dark palette swaps, suppress every transition so colours
+     change instantly (see useTheme in src/lib/theme.ts). */
+  :root.theme-switching,
+  :root.theme-switching *,
+  :root.theme-switching *::before,
+  :root.theme-switching *::after {
+    transition: none !important;
   }
 
   /* Respect users who ask for less motion: keep state changes, drop the travel. */

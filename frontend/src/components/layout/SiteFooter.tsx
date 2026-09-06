@@ -53,7 +53,7 @@ export function SiteFooter() {
                   href={item.href}
                   className="inline-flex items-center gap-2.5 text-white/70 transition-colors hover:text-teal-light"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   <Icon name={item.icon} className="w-4 text-center" />
                   {item.label}

@@ -22,7 +22,7 @@ export function ProjectsPage() {
 
       <Container as="section" className="pb-24">
         <div className="mb-8">
-          <Button href={projects.source.url} variant="secondary" size="sm">
+          <Button href={projects.source.url} variant="outline" size="sm">
             <Icon name="fa-brands fa-github" />
             {projects.source.label}
           </Button>
@@ -41,7 +41,7 @@ export function ProjectsPage() {
             <p className="font-medium text-ink">{projects.errorTitle}</p>
             <p className="mt-1 text-sm text-ink-secondary">{query.error.message}</p>
             <div className="mt-4 flex justify-center">
-              <Button size="sm" variant="secondary" onClick={query.reload}>
+              <Button size="sm" variant="outline" onClick={query.reload}>
                 Try again
               </Button>
             </div>

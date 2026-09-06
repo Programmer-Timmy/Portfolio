@@ -223,7 +223,7 @@ function ClientCard({ client }: { client: Client }) {
         <a
           href={client.url}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="inline-block text-sm font-medium text-teal hover:underline"
         >
           Visit {client.name} →

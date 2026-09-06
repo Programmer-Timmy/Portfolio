@@ -23,7 +23,7 @@ export function VideosPage() {
 
       <Container as="section" className="pb-24">
         <div className="mb-8">
-          <Button href={videos.source.url} variant="secondary" size="sm">
+          <Button href={videos.source.url} variant="outline" size="sm">
             <Icon name="fa-brands fa-youtube" />
             {videos.source.label}
           </Button>
@@ -42,7 +42,7 @@ export function VideosPage() {
             <p className="font-medium text-ink">{videos.errorTitle}</p>
             <p className="mt-1 text-sm text-ink-secondary">{query.error.message}</p>
             <div className="mt-4 flex justify-center">
-              <Button size="sm" variant="secondary" onClick={query.reload}>
+              <Button size="sm" variant="outline" onClick={query.reload}>
                 Try again
               </Button>
             </div>

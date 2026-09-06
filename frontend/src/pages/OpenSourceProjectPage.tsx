@@ -58,7 +58,7 @@ export function OpenSourceProjectPage() {
           </p>
           <div className="mt-4 flex justify-center gap-3">
             {query.error.status !== 404 && (
-              <Button size="sm" variant="secondary" onClick={query.reload}>
+              <Button size="sm" variant="outline" onClick={query.reload}>
                 Try again
               </Button>
             )}
@@ -110,7 +110,7 @@ function RepoView({ project }: { project: OpenSourceDetail }) {
               <p className="text-sm text-ink-secondary">{project.description}</p>
             )}
             {project.repositoryUrl && (
-              <Button href={project.repositoryUrl} variant="secondary">
+              <Button href={project.repositoryUrl} variant="outline">
                 <Icon name="fa-brands fa-github" />
                 {openSource.detail.repoButton}
               </Button>
