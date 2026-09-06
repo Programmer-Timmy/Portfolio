@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
-type BadgeTone = 'brand' | 'up' | 'degraded' | 'down' | 'maintenance'
+export type BadgeTone = 'brand' | 'up' | 'degraded' | 'down' | 'maintenance'
 
 // Non-status badges use a teal tint (styleguide §5). Status tones map to the
 // semantic contrast variants (§2.3). Keep these OFF marketing content.

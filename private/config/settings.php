@@ -71,8 +71,11 @@ $site = [
             'home',
             'about',
             'contact',
-            'projects',      // project index
-            'project/{id}',  // single project
+            'projects',          // project index
+            'project/{id}',      // single project
+            'opensource',        // open-source index
+            'opensource/{id}',   // single open-source project
+            'videos',
 
             // Admin SPA (React). PHP still runs the session gate in index.php
             // before serving the shell for these. Add paths here as each admin
