@@ -110,6 +110,17 @@ if ($site['maintenance'] && !in_array($_SERVER['REMOTE_ADDR'], $allowedIPs)) {
     exit();
 }
 
+// Legacy portfolio, kept for history: /old/* re-dispatches the same Router
+// and views the SPA shadows, bypassing Spa::handles entirely. Noindexed so
+// it doesn't compete with the live pages for search ranking.
+if ($uri === 'old' || str_starts_with($uri, 'old/')) {
+    $legacyUri = trim(substr($uri, 3), '/');
+    $_SERVER['REQUEST_URI'] = '/' . $legacyUri . ($position !== false ? substr($requestedPage, $position) : '');
+    header('X-Robots-Tag: noindex, follow');
+    Router::dispatch();
+    exit();
+}
+
 // Serve the React app for migrated routes. Auth + maintenance checks above
 // have already run, so this only sends the shell to allowed visitors. Falls
 // through to the PHP view if the build is missing.
