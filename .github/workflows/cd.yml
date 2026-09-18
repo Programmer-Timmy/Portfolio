@@ -1,0 +1,81 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Assemble deploy payload
+        run: |
+          mkdir -p deploy
+          rsync -a \
+            --exclude 'img/' \
+            public/ deploy/public/
+          rsync -a \
+            --exclude 'config/settings.php' \
+            private/ deploy/private/
+
+      - name: Set up deploy SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          cat >> ~/.ssh/config <<EOF
+          Host 192.168.2.14
+            User timvanderkloet
+            IdentityFile ~/.ssh/deploy_key
+            StrictHostKeyChecking no
+          EOF
+
+      - name: Bring up WireGuard
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wireguard
+          sudo bash -c 'cat > /etc/wireguard/wg0.conf' <<EOF
+          [Interface]
+          PrivateKey = ${{ secrets.WG_CI_PRIVATE_KEY }}
+          Address = 10.0.0.5/32
+          DNS = 192.168.2.20
+          MTU = 1420
+
+          [Peer]
+          PublicKey = ${{ secrets.WG_SERVER_PUBLIC_KEY }}
+          Endpoint = wire.timvanderkloet.com:51820
+          AllowedIPs = 192.168.2.14/32
+          PersistentKeepalive = 21
+          EOF
+          sudo chmod 600 /etc/wireguard/wg0.conf
+          sudo wg-quick up wg0
+
+      - name: Deploy
+        run: |
+          rsync -avz --delete \
+            deploy/public/ timvanderkloet@192.168.2.14:/home/timvanderkloet/public-html/
+          rsync -avz --delete \
+            deploy/private/ timvanderkloet@192.168.2.14:/home/timvanderkloet/private/
+
+      - name: Tear down WireGuard
+        if: always()
+        run: sudo wg-quick down wg0
