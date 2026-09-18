@@ -18,7 +18,7 @@ export const about = {
 
   /** Intro paragraphs shown in the header, next to the photo. */
   lead: [
-    "I'm a software developer from Hilversum. I study Software Development at the HU in Utrecht and work as a junior digital engineer at BAM Infra.",
+    "I'm a software developer from the Netherlands. I study Software Development at the HU in Utrecht and work as a software developer intern at AFAS Software.",
     'Alongside that I build web apps, contribute to open source, and run a Beaver section at Scouting Het ZuiderKruis. Most of what I make starts as a way to solve a real problem for the people around me.',
   ],
 
@@ -53,6 +53,19 @@ export const about = {
       title: 'Outside of code',
       paragraphs: [
         'When I am not coding for work or for fun, I like to spend time at scouting. Most of the time I am buzzy managing things for the Beaver Colony, which I am the group leader of. I also am part of the "klusjesmannen" (handymen) within my scouting organisation, where we work on projects like making storage solutions fixing our boats and other things that need to be fixed or built. I also like to spend time on gaming, mostly factory building games like Satisfactory, but I also like to play other games like city or logistic building games. I also like to spend time with my friends and family, and I like to go out for a walk, preferably in the mountains',
+      ],
+    },
+    {
+      title: 'Where it started',
+      paragraphs: [
+        <>
+          This site itself is an example of building in small steps. The
+          version you're looking at is a React rebuild of a plain PHP site I
+          put together a while back, that was my first real build, and where
+          I taught myself most of what's in the sections above. It's still
+          up if you want to see where I started:{' '}
+          <TextLink to="/old">the original portfolio</TextLink>.
+        </>,
       ],
     },
     {

@@ -34,14 +34,18 @@ class Spa
     /**
      * Output the SPA shell. Returns false when the build is missing so the
      * caller can fall back to the existing PHP view.
+     *
+     * @param bool $notFound Send a real 404 status while still serving the
+     *   shell, so React Router's catch-all route renders the app's own
+     *   NotFoundPage instead of the retired PHP 404 view.
      */
-    public static function render(): bool
+    public static function render(bool $notFound = false): bool
     {
         if (!is_file(self::SHELL)) {
             return false;
         }
 
-        http_response_code(200);
+        http_response_code($notFound ? 404 : 200);
         header('Content-Type: text/html; charset=utf-8');
         // Shell is tiny and revalidated often during the migration.
         header('Cache-Control: no-cache');

@@ -67,7 +67,17 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-2 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Tim van der Kloet. All rights reserved.</p>
-          <p className="font-mono">Built with React &amp; Tailwind</p>
+          <p className="flex items-center gap-3">
+            <a
+              href="/old"
+              className="inline-flex items-center gap-1.5 text-white/50 transition-colors hover:text-teal-light"
+            >
+              <Icon name="fa-solid fa-clock-rotate-left" className="w-3.5 text-center" />
+              Original site
+            </a>
+            <span aria-hidden="true" className="text-white/20">·</span>
+            <span className="font-mono">Built with React &amp; Tailwind</span>
+          </p>
         </Container>
       </div>
     </footer>

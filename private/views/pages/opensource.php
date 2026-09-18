@@ -22,7 +22,7 @@ $projects = OpenSource::getAll();
                              style="background-color: #333; border: 1px solid #444;">
                         <div class="card-body">
                             <h2 class="h5 card-title">
-                                <a href="/opensource/<?= $project->id ?>" class="text-decoration-none stretched-link"
+                                <a href="/old/opensource/<?= $project->id ?>" class="text-decoration-none stretched-link"
                                    style="color: #55d6aa;">
                                     <i class="fa fa-github-alt me-2"></i><?= htmlspecialchars($project->name) ?>
                                 </a>

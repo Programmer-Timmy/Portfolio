@@ -128,6 +128,15 @@ if (Spa::handles($uri) && Spa::render()) {
     exit();
 }
 
+// Anything that isn't an SPA route and isn't one of the few remaining
+// PHP-only routes (login, the leftover admin add/edit forms, etc.) is a
+// genuine 404. Serve the SPA shell for it too, with a real 404 status, so
+// React Router's catch-all renders the app's own NotFoundPage instead of
+// the retired PHP 404 view. /old already exited above and never reaches here.
+if (!Router::isRoute($uri, true) && Spa::render(true)) {
+    exit();
+}
+
 // Use Router to dispatch the request
 Router::dispatch();
 
