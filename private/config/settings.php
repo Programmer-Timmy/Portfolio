@@ -68,7 +68,6 @@ $site = [
         'enabled' => true,
         'routes' => [
             '',        // homepage
-            'home',
             'about',
             'contact',
             'projects',          // project index

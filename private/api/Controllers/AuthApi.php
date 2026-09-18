@@ -65,6 +65,8 @@ class AuthApi
         $isAdmin = (int) ($user->admin ?? 0) === 1;
         if ($isAdmin) {
             $_SESSION[$site['admin']['sessionName'] ?? 'admin'] = (int) $user->id;
+        } else {
+            unset($_SESSION[$site['admin']['sessionName'] ?? 'admin']);
         }
 
         $redirect = $_SESSION['redirect'] ?? null;
