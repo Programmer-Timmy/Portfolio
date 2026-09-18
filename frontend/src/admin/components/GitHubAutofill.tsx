@@ -13,10 +13,10 @@ export type GitHubAutofillData = {
 }
 
 /**
- * Watches a GitHub repo URL and, when it resolves to a public repo, calls
- * `onApply` once with the fetched languages + contributors (and the private
- * flag). Private / missing repos still report their state so the form can
- * switch to manual entry. Pass a debounced, stable `onApply`.
+ * Watches a GitHub repo URL and, when it resolves to a repo the server token
+ * can read (public or private), calls `onApply` once with the fetched
+ * languages + contributors and the private flag. Missing repos show a hint so
+ * the form can switch to manual entry. Pass a debounced, stable `onApply`.
  */
 export function GitHubAutofill({
   url,
@@ -30,25 +30,21 @@ export function GitHubAutofill({
 
   const exists = repo.data?.exists === true
   const isPrivate = repo.data?.exists === true && repo.data.private
-  const isPublic = exists && !isPrivate
 
-  const languages = useGitHubLanguages(url, isPublic)
-  const contributors = useGitHubContributors(url, isPublic)
+  // The server-side GITHUB_TOKEN can read private repos it has access to, so
+  // languages + contributors are fetched for those too.
+  const languages = useGitHubLanguages(url, exists)
+  const contributors = useGitHubContributors(url, exists)
 
   const appliedFor = useRef<string | null>(null)
 
   useEffect(() => {
     if (!valid || !exists || appliedFor.current === url) return
 
-    if (isPrivate) {
-      appliedFor.current = url
-      onApply({ private: true, languages: [], contributors: [] })
-      return
-    }
     if (languages.data && contributors.data) {
       appliedFor.current = url
       onApply({
-        private: false,
+        private: isPrivate,
         languages: languages.data.languages,
         contributors: contributors.data,
       })
@@ -70,7 +66,7 @@ export function GitHubAutofill({
   }
 
   const loading =
-    repo.isFetching || (isPublic && (languages.isFetching || contributors.isFetching))
+    repo.isFetching || (exists && (languages.isFetching || contributors.isFetching))
   if (loading) {
     return (
       <Group gap="xs">
@@ -90,26 +86,20 @@ export function GitHubAutofill({
     )
   }
 
-  if (isPrivate) {
-    return (
-      <Group gap="xs">
-        <Badge color="gray" variant="light">
-          Private
-        </Badge>
-        <Text fz="sm" c="dimmed">
-          Private repo — languages and contributors won't autofill.
-        </Text>
-      </Group>
-    )
-  }
-
-  if (isPublic && languages.data && contributors.data) {
+  if (exists && languages.data && contributors.data) {
     return (
       <Stack gap={2}>
-        <Text fz="sm" c="teal">
-          Filled from GitHub: {languages.data.languages.length} languages,{' '}
-          {contributors.data.length} contributors.
-        </Text>
+        <Group gap="xs">
+          {isPrivate && (
+            <Badge color="gray" variant="light">
+              Private
+            </Badge>
+          )}
+          <Text fz="sm" c="teal">
+            Filled from GitHub: {languages.data.languages.length} languages,{' '}
+            {contributors.data.length} contributors.
+          </Text>
+        </Group>
         {languages.data.unmapped.length > 0 && (
           <Text fz="xs" c="dimmed">
             Not in the catalogue (counted as "Other"): {languages.data.unmapped.join(', ')}
