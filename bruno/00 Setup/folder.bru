@@ -1,0 +1,17 @@
+meta {
+  name: 00 Setup
+  seq: 1
+}
+
+docs {
+  Run this folder first (or "Run Collection"). It signs in as an admin and as a
+  non-admin and stashes, as runtime variables:
+
+    sessionAdmin / csrfAdmin   - admin PHPSESSID cookie + CSRF token
+    sessionUser  / csrfUser    - non-admin PHPSESSID cookie + CSRF token
+
+  Every later request sets its identity with an explicit `Cookie` header built
+  from these. Re-run this folder if the variables get cleared or a run 401s.
+
+  Requires `php bruno/seed-users.php` to have been run.
+}

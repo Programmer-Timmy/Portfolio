@@ -1,0 +1,22 @@
+meta {
+  name: 06 Get created
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{apiUrl}}/admin/projects/{{projectId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.name: eq Bruno Test
+  res.body.data.languages: length 1
+  res.body.data.imagePaths: length 2
+}

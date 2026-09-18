@@ -1,0 +1,29 @@
+meta {
+  name: 11 Sync from YouTube
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{apiUrl}}/admin/videos/sync
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.added: isNumber
+  res.body.data.updated: isNumber
+  res.body.data.deleted: isNumber
+}
+
+docs {
+  Calls the real YouTube Data API with the channel + key from `.env`. Idempotent
+  when the channel list hasn't changed (returns all zeros). If the key/channel is
+  missing this is 502 `youtube_unavailable` instead.
+}

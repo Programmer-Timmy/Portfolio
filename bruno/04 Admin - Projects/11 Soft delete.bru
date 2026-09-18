@@ -1,0 +1,20 @@
+meta {
+  name: 11 Soft delete
+  type: http
+  seq: 11
+}
+
+delete {
+  url: {{apiUrl}}/admin/projects/{{projectId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 204
+}

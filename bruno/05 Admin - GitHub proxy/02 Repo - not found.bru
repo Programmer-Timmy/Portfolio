@@ -1,0 +1,29 @@
+meta {
+  name: 02 Repo - not found
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{apiUrl}}/admin/github/repo?url={{testMissingRepoUrl}}
+  body: none
+  auth: none
+}
+
+params:query {
+  url: {{testMissingRepoUrl}}
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.exists: eq false
+}
+
+docs {
+  A repo GitHub doesn't know about is not an error - the endpoint returns
+  200 `{ exists: false }` so the form can fall back to manual entry.
+}

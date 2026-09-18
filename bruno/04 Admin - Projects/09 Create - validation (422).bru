@@ -1,0 +1,29 @@
+meta {
+  name: 09 Create - validation (422)
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{apiUrl}}/admin/projects
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:multipart-form {
+  payload: {"name":"This title is definitely longer than twenty","link":"not-a-url","github":"https://gitlab.com/x/y","description":[{"insert":"\n"}],"languages":[],"contributors":[]}
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.name: eq Keep the title to 20 characters or fewer.
+  res.body.error.fields.link: eq Enter a valid URL (including https://).
+  res.body.error.fields.github: eq Enter a GitHub repository URL.
+  res.body.error.fields.description: eq Add a description.
+}

@@ -1,0 +1,26 @@
+meta {
+  name: 01 List
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiUrl}}/admin/projects
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+script:post-response {
+  const first = res.body && res.body.data && res.body.data[0];
+  if (first) bru.setVar('adminProjectId', first.id);
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+  res.body.meta.count: isNumber
+}

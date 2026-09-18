@@ -1,0 +1,20 @@
+meta {
+  name: 14 Videos list - limit
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{apiUrl}}/videos?limit=2
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: 2
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: length 2
+}

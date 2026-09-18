@@ -1,0 +1,36 @@
+meta {
+  name: 05 Create (multipart)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{apiUrl}}/admin/projects
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:multipart-form {
+  payload: {"name":"Bruno Test","link":"https://example.com","github":"","pinned":false,"inProgress":true,"privateRepo":null,"description":[{"insert":"Created by the Bruno API test collection.\n"}],"languages":[{"programmingLanguageId":{{testLanguageId}},"percentage":100}],"contributors":[]}
+  imageState: {"images":[],"removed":[]}
+  images[]: @file(files/sample-cover.png||files/sample-2.png)
+}
+
+script:post-response {
+  const d = res.body && res.body.data;
+  if (d) {
+    bru.setVar('projectId', d.id);
+  }
+}
+
+assert {
+  res.status: eq 201
+  res.body.data.name: eq Bruno Test
+  res.body.data.flags.inProgress: eq true
+  res.body.data.imagePaths: isArray
+}

@@ -1,0 +1,30 @@
+meta {
+  name: 04 Add - bad username (422)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{apiUrl}}/admin/opensource
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:json {
+  {
+    "repoUrl": "{{testAddRepoUrl}}",
+    "username": "not a name"
+  }
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.username: eq Enter a valid GitHub username.
+}

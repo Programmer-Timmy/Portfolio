@@ -1,0 +1,20 @@
+meta {
+  name: 14 Verify purged (404)
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{apiUrl}}/admin/projects/{{projectId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 404
+  res.body.error.code: eq not_found
+}

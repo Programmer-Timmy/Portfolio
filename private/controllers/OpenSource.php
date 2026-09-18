@@ -25,99 +25,57 @@ class OpenSource {
         return false;
     }
 
-    public static function addProject($repoUrl, $username) {
-        // Parse repo
-        if (!preg_match('#github\.com/([^/]+)/([^/]+)#', $repoUrl, $matches)) {
-            return "Invalid GitHub URL. Format: https://github.com/owner/repo";
+    public static function addProject($repoUrl, $username): string {
+        $parsed = GitHub::parseRepo($repoUrl);
+        if (!$parsed) {
+            return "That doesn't look like a GitHub repository URL.";
         }
-        $owner = $matches[1];
-        $repo = $matches[2];
+        $owner = $parsed['owner'];
+        $repo = $parsed['repo'];
         $fullName = "$owner/$repo";
 
-        // Check if project exists
-        $project = Database::get('opensource_projects', ['id'], [], ['name' => $fullName]);
-        $projectId = $project ? $project->id : null;
+        $existing = Database::get('opensource_projects', ['id'], [], ['name' => $fullName]);
+        $projectId = $existing ? $existing->id : null;
 
         if (!$projectId) {
-            // Fetch repo description
-            $repoApiUrl = "https://api.github.com/repos/$owner/$repo";
-            $opts = [
-                'http' => [
-                    'method' => 'GET',
-                    'header' => [
-                        'User-Agent: Portfolio-App'
-                    ]
-                ]
-            ];
-            $context = stream_context_create($opts);
-            $repoResponse = @file_get_contents($repoApiUrl, false, $context);
-            $repoDesc = '';
-            
-            if ($repoResponse) {
-                $repoJson = json_decode($repoResponse, true);
-                $repoDesc = $repoJson['description'] ?? '';
+            $description = '';
+            try {
+                $meta = GitHub::repo($repoUrl);
+                $description = ($meta['exists'] ?? false) ? (string) ($meta['description'] ?? '') : '';
+            } catch (Throwable $e) {
+                // add it without a description
             }
 
             try {
-                $projectId = Database::insert('opensource_projects', 
-                    ['name', 'url', 'description'], 
-                    [$fullName, $repoUrl, $repoDesc]
+                $projectId = Database::insert('opensource_projects',
+                    ['name', 'url', 'description'],
+                    [$fullName, $repoUrl, $description]
                 );
             } catch (Exception $e) {
-                return "Error adding project: " . $e->getMessage();
+                return "Could not add the repository.";
             }
         }
 
-        // Fetch PRs
-        $apiUrl = "https://api.github.com/search/issues?q=repo:$owner/$repo+is:pr+author:$username";
-        
-        $opts = [
-            'http' => [
-                'method' => 'GET',
-                'header' => [
-                    'User-Agent: Portfolio-App'
-                ]
-            ]
-        ];
-        $context = stream_context_create($opts);
-        $response = @file_get_contents($apiUrl, false, $context);
-        
-        if (!$response) return "Project added, but failed to fetch PRs from GitHub API.";
-        
-        $json = json_decode($response, true);
-        if (!isset($json['items'])) return "Project added, but no PRs found.";
-        
-        $added = 0;
+        try {
+            $prs = GitHub::authoredPullRequests($owner, $repo, $username);
+        } catch (Throwable $e) {
+            return "Repository added, but fetching pull requests failed: " . $e->getMessage();
+        }
 
-        foreach ($json['items'] as $item) {
-            $url = $item['html_url'];
-            
-            // Check if PR exists
-            $exists = Database::get('opensource_prs', ['id'], [], ['url' => $url]);
-            if ($exists) continue;
-            
-            $title = $item['title'];
-            $status = ucfirst($item['state']);
-            if (isset($item['pull_request']['merged_at']) && $item['pull_request']['merged_at']) {
-                $status = 'Merged';
+        foreach ($prs as $pr) {
+            if (empty($pr['url']) || Database::get('opensource_prs', ['id'], [], ['url' => $pr['url']])) {
+                continue;
             }
-            
-            $date = date('Y-m-d H:i:s', strtotime($item['created_at']));
-            $description = $item['body'] ?? $title;
-            // Truncate description if too long
-            if (strlen($description) > 500) $description = substr($description, 0, 497) . '...';
-            
             try {
-                Database::insert('opensource_prs', 
-                    ['project_id', 'title', 'url', 'status', 'date', 'description'], 
-                    [$projectId, $title, $url, $status, $date, $description]
+                Database::insert('opensource_prs',
+                    ['project_id', 'title', 'url', 'status', 'date', 'description'],
+                    [$projectId, $pr['title'], $pr['url'], $pr['status'], $pr['date'], $pr['description']]
                 );
-                $added++;
             } catch (Exception $e) {
-                // Ignore
+                // skip this PR
             }
         }
-        
+
         return "";
     }
 

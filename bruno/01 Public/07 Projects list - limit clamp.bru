@@ -1,0 +1,20 @@
+meta {
+  name: 07 Projects list - limit clamp
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{apiUrl}}/projects?limit=999
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: 999
+}
+
+assert {
+  res.status: eq 200
+  res.body.meta.limit: eq 100
+}

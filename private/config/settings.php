@@ -13,16 +13,17 @@ $database = [
  * email settings
  */
 $email = [
-    'host' => 'smtp.gmail.com',
+    'host' => '',
     'SMTPAuth' => true,
     'username' => '',
     'password' => '',
-    'encryption' => 'tls', // tls or ssl
-    'port' => 587, // 587 or 465
+    'SMTPSecure' => 'ssl', // tls or ssl
+    'port' => 465, // 587 or 465
     'from' => [
         'email' => '',
         'name' => ''
-    ]
+    ],
+    'to' => ''
 ];
 
 /**
@@ -54,6 +55,49 @@ $site = [
         'enabled' => false,
         'sessionName' => 'userId', // the session name that will be used to store that the user is logged in check by isset function
         'filterInUrl' => '', // empty string means no filter
+    ],
+
+    /**
+     * React frontend (see /frontend). PHP stays the front controller: it runs
+     * session/SSO/maintenance/auth checks first, then for any route listed here
+     * it serves the built SPA shell (public/app/index.html) and React takes over
+     * client-side. Move a route into this list once its page is migrated.
+     * Uses the same {param} syntax as the router; '' is the homepage.
+     */
+    'spa' => [
+        'enabled' => true,
+        'routes' => [
+            '',        // homepage
+            'home',
+            'about',
+            'contact',
+            'projects',          // project index
+            'project/{id}',      // single project
+            'opensource',        // open-source index
+            'opensource/{id}',   // single open-source project
+            'videos',
+
+            // Admin SPA (React). PHP still runs the session gate in index.php
+            // before serving the shell for these. Add paths here as each admin
+            // screen ships.
+            'admin',
+            'admin/login',
+            'admin/projects',
+            'admin/projects/new',
+            'admin/projects/{id}',
+            'admin/videos',
+            'admin/opensource',
+            'admin/opensource/new',
+        ],
+    ],
+
+    /**
+     * Filesystem paths. `webroot` is the directory the server serves as `/`;
+     * project images are written under `webroot/img` and stored in the DB as
+     * `img/<file>`. Override if the deployed document root is not `public/`.
+     */
+    'paths' => [
+        'webroot' => dirname(__DIR__, 2) . '/public',
     ],
 
     // popup settings

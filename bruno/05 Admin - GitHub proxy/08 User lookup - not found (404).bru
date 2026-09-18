@@ -1,0 +1,24 @@
+meta {
+  name: 08 User lookup - not found (404)
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{apiUrl}}/admin/github/user?login=no-such-github-user-zzz9-abc
+  body: none
+  auth: none
+}
+
+params:query {
+  login: no-such-github-user-zzz9-abc
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 404
+  res.body.error.code: eq not_found
+}

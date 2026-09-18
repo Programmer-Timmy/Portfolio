@@ -1,0 +1,26 @@
+meta {
+  name: 03 Toggle pin
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{apiUrl}}/admin/videos/{{videoId}}/pin
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("pinned flag flipped", function () {
+    expect(res.body.data.pinned).to.equal(!bru.getVar("videoOrigPinned"));
+  });
+}

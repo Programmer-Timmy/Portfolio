@@ -1,0 +1,22 @@
+meta {
+  name: 08 Project by id
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{apiUrl}}/projects/{{publicProjectId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.id: isNumber
+  res.body.data.gallery: isArray
+  res.body.data.contributors: isArray
+}
+
+docs {
+  Uses `publicProjectId` captured by "05 Projects list". Run that first.
+}

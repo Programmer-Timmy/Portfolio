@@ -1,0 +1,26 @@
+meta {
+  name: 4 CSRF token (non-admin)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{apiUrl}}/auth/csrf
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionUser}}
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data.token) {
+    bru.setVar('csrfUser', res.body.data.token);
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.token: isDefined
+}

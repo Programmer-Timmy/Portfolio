@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/brand/icon.svg" />
+    <link rel="apple-touch-icon" href="/brand/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1F2933" />
+    <meta
+      name="description"
+      content="Tim van der Kloet. Web development and technology. Projects, open source work, and things I build for Scouting."
+    />
+    <title>Tim van der Kloet | Web Development & Technology</title>
+    <script>
+      // Set the theme before first paint so there is no light->dark flip on
+      // load (which also leaves transitioned colours stuck in some browsers).
+      // Must match readInitialTheme() in src/lib/theme.ts.
+      (function () {
+        try {
+          var s = localStorage.getItem('tk-theme')
+          var t =
+            s === 'light' || s === 'dark'
+              ? s
+              : window.matchMedia &&
+                  window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+          document.documentElement.setAttribute('data-theme', t)
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

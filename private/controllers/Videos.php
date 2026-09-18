@@ -35,92 +35,113 @@ class Videos
         Database::delete('videos', ["id" => $id]);
     }
 
-    public static function add(): void
+    /** Hide a video from the site without removing the record. */
+    public static function softDelete($id): void
     {
-        try {
-            $env = parse_ini_file(__DIR__ . '/../../.env');
-            if (!$env) {
-                throw new Exception('Failed to parse environment file.');
-            }
+        Database::update('videos', ['deleted'], [1], ['id' => $id]);
+    }
 
-            $API_Key = $env['API_KEY'];
-            $ChannelId = $env['CHANNEL_ID'];
-            $Max_Results = 30;
-
-            $apiUrl = 'https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=' . $ChannelId . '&maxResults=' . $Max_Results . '&key=' . $API_Key;
-            $apiData = @file_get_contents($apiUrl);
-
-            if (!$apiData) {
-                throw new Exception('Invalid API key or channel ID.');
-            }
-
-            $videoList = json_decode($apiData);
-
-            foreach ($videoList->items as $item) {
-                if ($item->id->kind !== 'youtube#video') {
-                    continue;
-                }
-
-                self::processVideoItem($item);
-            }
-
-            self::cleanupOldVideos($videoList->items);
-        } catch (Exception $e) {
-            error_log($e->getMessage());
-            echo $e->getMessage();
-        }
+    public static function restore($id): void
+    {
+        Database::update('videos', ['deleted'], [0], ['id' => $id]);
     }
 
     /**
+     * Pull the latest videos from the channel, upsert them, and prune ones that
+     * have dropped off the channel.
+     *
+     * @return array{added:int, updated:int, deleted:int}
+     * @throws Exception when the YouTube API can't be reached / is misconfigured
+     */
+    public static function add(): array
+    {
+        $apiKey = Env::get('API_KEY');
+        $channelId = Env::get('CHANNEL_ID');
+        if (!$apiKey || !$channelId) {
+            throw new Exception('The YouTube API key or channel id is not configured.');
+        }
+
+        $apiUrl = 'https://www.googleapis.com/youtube/v3/search?order=date&part=snippet'
+            . '&channelId=' . urlencode($channelId)
+            . '&maxResults=30&key=' . urlencode($apiKey);
+        $apiData = @file_get_contents($apiUrl);
+        if (!$apiData) {
+            throw new Exception('Could not reach the YouTube API. Check the API key and channel id.');
+        }
+
+        $videoList = json_decode($apiData);
+        if (!$videoList || !isset($videoList->items)) {
+            $message = $videoList->error->message ?? 'The YouTube API returned an unexpected response.';
+            throw new Exception($message);
+        }
+
+        $added = 0;
+        $updated = 0;
+        foreach ($videoList->items as $item) {
+            if (($item->id->kind ?? '') !== 'youtube#video') {
+                continue;
+            }
+            $result = self::processVideoItem($item);
+            if ($result === 'added') {
+                $added++;
+            } elseif ($result === 'updated') {
+                $updated++;
+            }
+        }
+
+        $deleted = self::cleanupOldVideos($videoList->items);
+
+        return ['added' => $added, 'updated' => $updated, 'deleted' => $deleted];
+    }
+
+    /**
+     * @return 'added'|'updated'|null
      * @throws ErrorException
      * @throws Exception
      */
-    private static function processVideoItem($item): void
+    private static function processVideoItem($item): ?string
     {
         $video = self::get($item->id->videoId);
-        $date = new DateTime($item->snippet->publishedAt);
-        $formattedDate = $date->format('Y-m-d H:i:s');
+        $formattedDate = (new DateTime($item->snippet->publishedAt))->format('Y-m-d H:i:s');
 
         if ($video) {
             if ($video->title !== $item->snippet->title) {
                 self::update($item->snippet->title, $video->id);
-                error_log("Video " . $video->videoId . " has been updated");
+                return 'updated';
             }
-        } else {
-            self::addVideo($item->snippet->title, $item->id->videoId, $formattedDate);
-            error_log('Added: ' . $item->snippet->title);
+            return null;
         }
+
+        self::addVideo($item->snippet->title, $item->id->videoId, $formattedDate);
+        return 'added';
     }
 
-    private static function cleanupOldVideos($videoItems): void
+    private static function cleanupOldVideos($videoItems): int
     {
-        $videos = self::getAll();
-        $videoIds = [];
+        $channelIds = [];
         foreach ($videoItems as $item) {
-            $videoIds[] = $item->id->videoId;
+            $channelIds[] = $item->id->videoId ?? null;
         }
 
-        foreach ($videos as $video) {
-            if (!in_array($video->videoId, $videoIds)) {
+        $deleted = 0;
+        foreach (self::getAll() as $video) {
+            if (!in_array($video->videoId, $channelIds, true)) {
                 self::delete($video->id);
-                error_log('Deleted video ID: ' . $video->id);
-            } else {
-                error_log('Match found for video ID: ' . $video->videoId . ', not deleting');
+                $deleted++;
             }
         }
+        return $deleted;
     }
 
-    public static function changePinned($id): void
+    /** @return object|null the updated row */
+    public static function changePinned($id): ?object
     {
         $video = self::getById($id);
         if (!$video) {
-            return;
+            return null;
         }
-        $pinned = 0;
-        if ($video->pinned == 0) {
-            $pinned = 1;
-        }
-        Database::update('videos', ['pinned'], [$pinned], ['id' => $id]);
+        Database::update('videos', ['pinned'], [$video->pinned ? 0 : 1], ['id' => $id]);
+        return self::getById($id);
     }
 
 }

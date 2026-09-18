@@ -1,0 +1,35 @@
+meta {
+  name: 04 Login - cross-site blocked (403)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{apiUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Sec-Fetch-Site: cross-site
+}
+
+body:json {
+  {
+    "username": "{{adminUsername}}",
+    "password": "{{adminPassword}}"
+  }
+}
+
+assert {
+  res.status: eq 403
+  res.body.error.code: eq forbidden
+  res.body.error.message: eq Request blocked (cross-site).
+}
+
+docs {
+  A browser sends `Sec-Fetch-Site` automatically; a value of `cross-site` means
+  another origin triggered the request, so login is refused before credentials
+  are checked. Absent / `same-origin` / `same-site` / `none` are allowed.
+}

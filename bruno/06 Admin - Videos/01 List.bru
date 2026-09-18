@@ -1,0 +1,30 @@
+meta {
+  name: 01 List
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiUrl}}/admin/videos
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+script:post-response {
+  const first = res.body && res.body.data && res.body.data[0];
+  if (first) {
+    bru.setVar('videoId', first.id);
+    bru.setVar('videoOrigTitle', first.title);
+    bru.setVar('videoOrigPinned', first.pinned);
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+  res.body.meta.count: isNumber
+}

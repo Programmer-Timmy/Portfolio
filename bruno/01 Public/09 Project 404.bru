@@ -1,0 +1,16 @@
+meta {
+  name: 09 Project 404
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{apiUrl}}/projects/999999
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+  res.body.error.code: eq not_found
+}

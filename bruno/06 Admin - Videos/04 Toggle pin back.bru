@@ -1,0 +1,26 @@
+meta {
+  name: 04 Toggle pin back
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{apiUrl}}/admin/videos/{{videoId}}/pin
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("pinned flag restored", function () {
+    expect(res.body.data.pinned).to.equal(bru.getVar("videoOrigPinned"));
+  });
+}

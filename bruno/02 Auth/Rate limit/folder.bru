@@ -1,0 +1,12 @@
+meta {
+  name: Rate limit
+  seq: 7
+}
+
+docs {
+  Demonstrates the login throttle: 5 failed attempts against one session lock
+  that session's login for 60 seconds.
+
+  RUN IN ORDER. After it runs, wait ~60 s before logging in again with that
+  session (00 Setup uses fresh sessions, so it is unaffected).
+}

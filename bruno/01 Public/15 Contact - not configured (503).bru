@@ -1,0 +1,33 @@
+meta {
+  name: 15 Contact - not configured (503)
+  type: http
+  seq: 15
+}
+
+post {
+  url: {{apiUrl}}/contact
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Bruno Tester",
+    "email": "bruno@example.com",
+    "message": "This is a valid contact message over ten characters."
+  }
+}
+
+assert {
+  res.status: eq 503
+  res.body.error.code: eq contact_unavailable
+}
+
+docs {
+  With SMTP unconfigured (`$email` blank in settings.php - the default) a valid
+  submission returns 503. Configure SMTP and this becomes 201 `{ sent: true }`.
+}

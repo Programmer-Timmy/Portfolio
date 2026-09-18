@@ -1,0 +1,26 @@
+meta {
+  name: 01 Repo - public
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiUrl}}/admin/github/repo?url={{testRepoUrl}}
+  body: none
+  auth: none
+}
+
+params:query {
+  url: {{testRepoUrl}}
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.exists: eq true
+  res.body.data.private: eq false
+  res.body.data.fullName: isDefined
+}

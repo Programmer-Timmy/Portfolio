@@ -1,0 +1,25 @@
+meta {
+  name: 07 User lookup
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{apiUrl}}/admin/github/user?login={{testGithubUser}}
+  body: none
+  auth: none
+}
+
+params:query {
+  login: {{testGithubUser}}
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.id: isNumber
+  res.body.data.login: isDefined
+}

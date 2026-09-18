@@ -1,0 +1,20 @@
+meta {
+  name: 09 Soft delete
+  type: http
+  seq: 9
+}
+
+delete {
+  url: {{apiUrl}}/admin/videos/{{videoId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 204
+}

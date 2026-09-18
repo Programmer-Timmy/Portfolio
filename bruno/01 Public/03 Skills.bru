@@ -1,0 +1,17 @@
+meta {
+  name: 03 Skills
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{apiUrl}}/skills
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+  res.body.meta: isUndefined
+}

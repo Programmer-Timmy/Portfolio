@@ -1,0 +1,26 @@
+meta {
+  name: 10 Create - no image (422)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{apiUrl}}/admin/projects
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:multipart-form {
+  payload: {"name":"No image","link":"","github":"","description":[{"insert":"A valid description here.\n"}],"languages":[],"contributors":[]}
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.images: eq Add at least one image.
+}

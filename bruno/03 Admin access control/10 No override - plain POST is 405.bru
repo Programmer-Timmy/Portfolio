@@ -1,0 +1,21 @@
+meta {
+  name: 10 No override - plain POST is 405
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{apiUrl}}/admin/videos/0
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 405
+  res.body.error.code: eq method_not_allowed
+}

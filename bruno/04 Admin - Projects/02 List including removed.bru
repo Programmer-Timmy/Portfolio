@@ -1,0 +1,24 @@
+meta {
+  name: 02 List including removed
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{apiUrl}}/admin/projects?includeRemoved=1
+  body: none
+  auth: none
+}
+
+params:query {
+  includeRemoved: 1
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+}

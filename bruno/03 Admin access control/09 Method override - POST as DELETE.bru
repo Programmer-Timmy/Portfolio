@@ -1,0 +1,28 @@
+meta {
+  name: 09 Method override - POST as DELETE
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{apiUrl}}/admin/videos/0
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+  X-HTTP-Method-Override: DELETE
+}
+
+assert {
+  res.status: eq 404
+  res.body.error.code: eq not_found
+}
+
+docs {
+  There is no `POST /api/admin/videos/{id}` route, so a plain POST here is 405.
+  `X-HTTP-Method-Override: DELETE` routes it to `VideosApi::destroy`, which 404s
+  on the non-existent id 0 - proving the override was applied.
+}

@@ -1,0 +1,25 @@
+meta {
+  name: 09 User lookup - bad username (422)
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{apiUrl}}/admin/github/user?login=not a username
+  body: none
+  auth: none
+}
+
+params:query {
+  login: not a username
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.login: eq Enter a valid GitHub username.
+}

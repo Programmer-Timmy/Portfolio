@@ -1,0 +1,20 @@
+meta {
+  name: 12 Restore
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{apiUrl}}/admin/projects/{{projectId}}/restore
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+assert {
+  res.status: eq 204
+}

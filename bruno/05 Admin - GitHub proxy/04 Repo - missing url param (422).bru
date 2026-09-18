@@ -1,0 +1,21 @@
+meta {
+  name: 04 Repo - missing url param (422)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{apiUrl}}/admin/github/repo
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.url: eq Provide a GitHub repository URL.
+}

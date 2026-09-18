@@ -1,0 +1,11 @@
+meta {
+  name: 05 Admin - GitHub proxy
+  seq: 6
+}
+
+docs {
+  Server-side GitHub lookups used by the project form. The GITHUB_TOKEN never
+  leaves the server; if it is missing / expired the proxy falls back to
+  unauthenticated calls (lower rate limit), so these still pass. Requires
+  "00 Setup" and network access to api.github.com.
+}

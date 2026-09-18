@@ -1,0 +1,26 @@
+meta {
+  name: 06 Write - non-admin valid CSRF (403)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{apiUrl}}/admin/videos/0/pin
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionUser}}
+  X-CSRF-Token: {{csrfUser}}
+}
+
+assert {
+  res.status: eq 403
+  res.body.error.code: eq forbidden
+}
+
+docs {
+  The non-admin passes CSRF (it has a real token for its own session) but fails
+  the admin check -> 403.
+}

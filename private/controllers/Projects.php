@@ -15,6 +15,12 @@ class Projects {
         }
     }
 
+    /** Every project including soft-deleted ones, for the admin list. */
+    public static function loadAllProjects() {
+        $results = Database::getAll('projects', ['*'], [], [], 'pinned DESC, date DESC');
+        return is_array($results) ? $results : [];
+    }
+
     public static function loadProject($id) {
         $results = Database::get('projects', ['*'], [], ['id' => $id, 'removed' => 0]);
         $results->project_languages = self::loadProjectLanguages($id);
@@ -78,9 +84,15 @@ class Projects {
     }
 
     public static function uploadImage($files) {
+        global $site;
         $urlArray = [];
         $count = 0;
-        
+
+        $imgDir = rtrim($site['paths']['webroot'], '/\\') . '/img';
+        if (!is_dir($imgDir)) {
+            @mkdir($imgDir, 0775, true);
+        }
+
         // Load image configuration
         $config = require __DIR__ . '/../config/image-config.php';
         $maxFileSize = $config['upload']['max_file_size'];
@@ -113,7 +125,7 @@ class Projects {
             
             // Generate unique filename
             $file_name_new = uniqid('', true) . '.' . $file_ext;
-            $file_destination = '../public_html/img/' . $file_name_new;
+            $file_destination = $imgDir . '/' . $file_name_new;
             
             // Move uploaded file
             if (!move_uploaded_file($file_tmp, $file_destination)) {
@@ -178,8 +190,9 @@ class Projects {
     }
 
     private static function deleteImage($img) {
-        $fullPath = '../public_html/' . $img;
-        
+        global $site;
+        $fullPath = rtrim($site['paths']['webroot'], '/\\') . '/' . ltrim($img, '/');
+
         // Load image configuration
         $config = require __DIR__ . '/../config/image-config.php';
         $responsiveWidths = $config['responsive_widths'];
@@ -240,12 +253,53 @@ class Projects {
 
     }
 
+    public static function restoreProject($id) {
+        try {
+            Database::update('projects', ['removed'], [0], ['id' => $id]);
+            return "";
+        } catch (Exception $e) {
+            return "There was an error restoring your project.";
+        }
+    }
+
     public static function hardDeleteProject($id) {
         try {
             Database::delete('projects', ['id' => $id]);
             return "";
         } catch (Exception $e) {
             return "There was an error removing your project.";
+        }
+    }
+
+    /** Permanently remove a project: child rows in one transaction, then its image files. */
+    public static function purgeProject($id) {
+        try {
+            $main = Database::get('projects', ['img'], [], ['id' => $id]);
+            $gallery = self::loadProjectImg($id);
+
+            $database = Database::beginTransaction();
+            Database::delete('project_images', ['project_id' => $id], $database);
+            Database::delete('project_languages', ['projects_id' => $id], $database);
+            Database::delete('project_contributors', ['projects_id' => $id], $database);
+            Database::delete('projects', ['id' => $id], $database);
+            $database->commit($database);
+
+            if ($main && !empty($main->img)) {
+                self::deleteImage($main->img);
+            }
+            if (is_array($gallery)) {
+                foreach ($gallery as $image) {
+                    if (!empty($image->img)) {
+                        self::deleteImage($image->img);
+                    }
+                }
+            }
+            return "";
+        } catch (Exception $e) {
+            if (isset($database)) {
+                $database->rollBack($database);
+            }
+            return "There was an error permanently deleting your project.";
         }
     }
 
@@ -410,7 +464,6 @@ class Projects {
             $database->commit($database);
 
         } catch (Exception $e) {
-            print_r($e);
             $database->rollBack($database);
             return "There was an error adding your project languages.";
         }
@@ -447,10 +500,10 @@ class Projects {
             $database->rollBack($database);
             return "There was an error adding your project contributors.";
         }
+        return "";
     }
 
     public static function addProjectContributors($contributors, $id) {
-        var_dump($id);
         $database = Database::beginTransaction();
         try {
             $contributors = json_decode($contributors, true);
@@ -468,7 +521,7 @@ class Projects {
             $database->rollBack($database);
             return "There was an error adding your project contributors.";
         }
-
+        return "";
     }
 
     private static function loadProjectContributors($id) {

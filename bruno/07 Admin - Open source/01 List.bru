@@ -1,0 +1,22 @@
+meta {
+  name: 01 List
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiUrl}}/admin/opensource
+  body: none
+  auth: none
+}
+
+headers {
+  Cookie: {{sessionAdmin}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+  res.body.meta.count: isNumber
+  res.body.meta.pullRequestTotal: isNumber
+}

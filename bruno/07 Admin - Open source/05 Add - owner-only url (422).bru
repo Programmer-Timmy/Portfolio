@@ -1,0 +1,35 @@
+meta {
+  name: 05 Add - owner-only url (422)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{apiUrl}}/admin/opensource
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Cookie: {{sessionAdmin}}
+  X-CSRF-Token: {{csrfAdmin}}
+}
+
+body:json {
+  {
+    "repoUrl": "https://github.com/octocat",
+    "username": "{{testAddRepoUser}}"
+  }
+}
+
+assert {
+  res.status: eq 422
+  res.body.error.code: eq validation_error
+  res.body.error.fields.repoUrl: eq Enter a GitHub repository URL.
+}
+
+docs {
+  A URL with no `/repo` fails the store-side check (which is stricter than the
+  GitHub-proxy parser - it wants exactly `github.com/owner/repo`).
+}

@@ -1,0 +1,13 @@
+meta {
+  name: 03 Admin access control
+  seq: 4
+}
+
+docs {
+  How the central gate in `bootstrap.php` behaves: CSRF is checked *before* auth,
+  so an unauthenticated write is 419 (not 401); a GET to any `/api/admin/*` path
+  is 401 (anon) or 403 (non-admin) before routing, so a bogus admin path only
+  404s for a real admin.
+
+  Requires "00 Setup".
+}

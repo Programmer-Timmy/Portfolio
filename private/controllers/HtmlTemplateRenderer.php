@@ -24,7 +24,7 @@ class HtmlTemplateRenderer {
                         <?php endif; ?>
                     </div>
 
-                    <a href="project/<?= $project->id ?>/">
+                    <a href="/old/project/<?= $project->id ?>/">
                         <?= ImageOptimizer::responsiveImage($project->img, htmlspecialchars($project->name), [
                             'class' => 'img-size',
                             'lazy' => true
