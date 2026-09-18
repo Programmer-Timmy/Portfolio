@@ -72,8 +72,10 @@ jobs:
       - name: Deploy
         run: |
           rsync -avz --delete \
+            --exclude 'img/' \
             deploy/public/ timvanderkloet@192.168.2.14:/home/timvanderkloet/public-html/
           rsync -avz --delete \
+            --exclude 'config/settings.php' \
             deploy/private/ timvanderkloet@192.168.2.14:/home/timvanderkloet/private/
 
       - name: Tear down WireGuard
