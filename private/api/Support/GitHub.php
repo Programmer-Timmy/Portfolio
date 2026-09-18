@@ -105,6 +105,9 @@ class GitHub
         return ['languages' => $mapped, 'unmapped' => $unmapped];
     }
 
+    /** Logins to drop from contributor lists even though GitHub reports them as regular users. */
+    private const EXCLUDED_LOGINS = ['claude', 'claude-code', 'copilot', 'github-copilot'];
+
     /** @return list<array{id:int,login:?string,avatarUrl:?string,profileUrl:?string,contributions:int}> */
     public static function contributors(string $url): array
     {
@@ -122,7 +125,11 @@ class GitHub
         $out = [];
         foreach ($body as $c) {
             $login = $c['login'] ?? '';
-            if (($c['type'] ?? '') === 'Bot' || str_contains($login, '[bot]')) {
+            if (
+                ($c['type'] ?? '') === 'Bot'
+                || str_contains($login, '[bot]')
+                || in_array(mb_strtolower($login), self::EXCLUDED_LOGINS, true)
+            ) {
                 continue;
             }
             $out[] = [

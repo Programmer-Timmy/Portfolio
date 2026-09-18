@@ -195,7 +195,7 @@ function Gallery({ images, name }: { images: ApiImage[]; name: string }) {
 
   return (
     <div>
-      <div className="aspect-[16/10] overflow-hidden rounded-card border border-line">
+      <div className="aspect-[16/9] overflow-hidden rounded-card border border-line">
         <ProjectImage image={current} alt={name} className="h-full w-full" />
       </div>
 
@@ -231,7 +231,7 @@ function ProjectSkeleton() {
       <Skeleton className="h-11 w-2/3" />
       <div className="mt-8 grid gap-10 lg:grid-cols-[1.7fr_1fr]">
         <div className="space-y-4">
-          <Skeleton className="aspect-[16/10] w-full rounded-card" />
+          <Skeleton className="aspect-[16/9] w-full rounded-card" />
           <Skeleton className="h-5 w-full" />
           <Skeleton className="h-5 w-5/6" />
           <Skeleton className="h-5 w-4/6" />
