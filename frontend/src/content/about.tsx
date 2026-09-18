@@ -25,7 +25,7 @@ export const about = {
   photo: {
     src: '/img/profielfoto.webp',
     srcSet:
-      '/img/profielfoto-400w.webp 400w, /img/profielfoto-800w.webp 800w, /img/profielfoto-1200w.webp 1200w',
+      '/img/profielfoto-400w.webp 400w, /img/profielfoto-800w.webp 800w, /img/profielfoto.webp 707w',
     alt: 'Tim van der Kloet',
   },
 
