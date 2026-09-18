@@ -56,7 +56,7 @@ jobs:
           sudo bash -c 'cat > /etc/wireguard/wg0.conf' <<EOF
           [Interface]
           PrivateKey = ${{ secrets.WG_CI_PRIVATE_KEY }}
-          Address = 10.0.0.5/32
+          Address = 10.0.0.4/32
           DNS = 192.168.2.20
           MTU = 1420
 
