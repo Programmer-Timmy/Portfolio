@@ -31,8 +31,15 @@ echo "Max width: {$maxWidth}px\n";
 echo "Quality: {$quality}%\n";
 echo "Responsive widths: " . implode(', ', $responsiveWidths) . "\n\n";
 
-// Find all images
-$images = glob($targetDir . '/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', GLOB_BRACE);
+// Find all images, but skip files this script generated itself
+// (name-thumb.webp, name-400w.jpg, ...) - otherwise every run reprocesses
+// its own output and the variant count explodes.
+$images = array_values(array_filter(
+    glob($targetDir . '/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', GLOB_BRACE),
+    function ($path) {
+        return !preg_match('/-(?:\d+w|thumb)$/', pathinfo($path, PATHINFO_FILENAME));
+    }
+));
 
 if (empty($images)) {
     echo "No images found in $targetDir\n";
