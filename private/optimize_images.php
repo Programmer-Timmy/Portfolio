@@ -104,6 +104,13 @@ foreach ($images as $imagePath) {
             $stats['final_size'] += filesize($imagePath);
         }
         
+        // Create the fixed-ratio thumbnail used in cards/grids
+        $pathInfo = pathinfo($imagePath);
+        $thumbPath = sprintf('%s/%s-thumb.webp', $pathInfo['dirname'], $pathInfo['filename']);
+        if (ImageOptimizer::fitToBox($imagePath, $thumbPath, 800, 500, $quality)) {
+            echo "  ✓ Thumbnail created\n";
+        }
+
         // Create responsive variants
         $currentDimensions = getimagesize($imagePath);
         list($currentWidth, $currentHeight) = $currentDimensions;

@@ -10,10 +10,13 @@ export function ProjectImage({
   image,
   alt,
   className,
+  thumbnail = false,
 }: {
   image: ApiImage | null
   alt: string
   className?: string
+  /** Use the fixed-ratio thumbnail (letterboxed, never cropped) for cards/grids. */
+  thumbnail?: boolean
 }) {
   const [failed, setFailed] = useState(false)
 
@@ -30,6 +33,19 @@ export function ProjectImage({
           &lt;TK/&gt;
         </span>
       </div>
+    )
+  }
+
+  if (thumbnail && image.thumb) {
+    return (
+      <img
+        src={image.thumb}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onError={() => setFailed(true)}
+        className={cn('object-contain', className)}
+      />
     )
   }
 

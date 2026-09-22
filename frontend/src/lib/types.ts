@@ -3,6 +3,8 @@
 export type ApiImage = {
   src: string
   webp?: string
+  /** Fixed-ratio (16:10) version, letterboxed on transparent so nothing is cropped. */
+  thumb?: string
   srcset?: string
   width?: number
   height?: number

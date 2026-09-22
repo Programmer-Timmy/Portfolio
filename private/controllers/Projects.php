@@ -152,6 +152,19 @@ class Projects {
                         ImageOptimizer::convertToWebP($file_destination, $config['optimization']['webp_quality']);
                     }
                     
+                    // Generate the fixed-ratio thumbnail used in cards/grids
+                    if (!empty($config['thumbnail'])) {
+                        $pathInfo = pathinfo($file_destination);
+                        $thumbPath = sprintf('%s/%s-thumb.webp', $pathInfo['dirname'], $pathInfo['filename']);
+                        ImageOptimizer::fitToBox(
+                            $file_destination,
+                            $thumbPath,
+                            $config['thumbnail']['width'],
+                            $config['thumbnail']['height'],
+                            $config['thumbnail']['quality']
+                        );
+                    }
+
                     // Generate responsive variants if enabled
                     if ($config['optimization']['create_responsive']) {
                         foreach ($responsiveWidths as $targetWidth) {

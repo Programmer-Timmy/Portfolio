@@ -7,7 +7,7 @@ class Media
     private const VARIANT_WIDTHS = [400, 800];
 
     /**
-     * @return array{src:string, webp?:string, srcset?:string, width?:int, height?:int}|null
+     * @return array{src:string, webp?:string, thumb?:string, srcset?:string, width?:int, height?:int}|null
      */
     public static function image(?string $path): ?array
     {
@@ -27,6 +27,11 @@ class Media
         $webp = $dir . $name . '.webp';
         if (is_file(self::PUBLIC_DIR . $webp)) {
             $result['webp'] = '/' . $webp;
+        }
+
+        $thumb = $dir . $name . '-thumb.webp';
+        if (is_file(self::PUBLIC_DIR . $thumb)) {
+            $result['thumb'] = '/' . $thumb;
         }
 
         $srcset = [];

@@ -25,6 +25,15 @@ return [
     
     // Responsive image widths
     'responsive_widths' => [400, 800, 1200],
+
+    // Fixed-ratio thumbnail used in cards and grids. The image is scaled to
+    // fit inside this box (never cropped) and padded with a transparent
+    // border, so it looks consistent wherever a thumbnail is shown.
+    'thumbnail' => [
+        'width' => 800,
+        'height' => 500,
+        'quality' => 85,
+    ],
     
     // Lazy loading settings
     'lazy_load' => [
