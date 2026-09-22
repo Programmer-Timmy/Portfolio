@@ -207,6 +207,69 @@ class ImageOptimizer
     }
     
     /**
+     * Fit an image into a fixed-size box without cropping it. The image is
+     * scaled down (never up) to fit inside the box and centered on a
+     * transparent canvas of exactly $width x $height, so every thumbnail
+     * has the same footprint regardless of the source's aspect ratio.
+     */
+    public static function fitToBox(string $sourcePath, string $destinationPath, int $width, int $height, int $quality = 85): bool
+    {
+        if (!file_exists($sourcePath)) {
+            return false;
+        }
+
+        $imageInfo = getimagesize($sourcePath);
+        if ($imageInfo === false) {
+            return false;
+        }
+
+        list($srcWidth, $srcHeight, $type) = $imageInfo;
+
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                $source = imagecreatefromjpeg($sourcePath);
+                break;
+            case IMAGETYPE_PNG:
+                $source = imagecreatefrompng($sourcePath);
+                break;
+            case IMAGETYPE_GIF:
+                $source = imagecreatefromgif($sourcePath);
+                break;
+            case IMAGETYPE_WEBP:
+                $source = imagecreatefromwebp($sourcePath);
+                break;
+            default:
+                return false;
+        }
+
+        if (!$source) {
+            return false;
+        }
+
+        $scale = min($width / $srcWidth, $height / $srcHeight, 1.0);
+        $fitWidth = (int) round($srcWidth * $scale);
+        $fitHeight = (int) round($srcHeight * $scale);
+        $offsetX = (int) (($width - $fitWidth) / 2);
+        $offsetY = (int) (($height - $fitHeight) / 2);
+
+        $destination = imagecreatetruecolor($width, $height);
+        imagealphablending($destination, false);
+        imagesavealpha($destination, true);
+        $transparent = imagecolorallocatealpha($destination, 0, 0, 0, 127);
+        imagefilledrectangle($destination, 0, 0, $width, $height, $transparent);
+
+        imagealphablending($destination, true);
+        imagecopyresampled($destination, $source, $offsetX, $offsetY, 0, 0, $fitWidth, $fitHeight, $srcWidth, $srcHeight);
+
+        $result = imagewebp($destination, $destinationPath, $quality);
+
+        imagedestroy($source);
+        imagedestroy($destination);
+
+        return $result;
+    }
+
+    /**
      * Convert image to WebP format
      */
     public static function convertToWebP(string $sourcePath, int $quality = 85): ?string

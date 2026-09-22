@@ -152,6 +152,19 @@ class Projects {
                         ImageOptimizer::convertToWebP($file_destination, $config['optimization']['webp_quality']);
                     }
                     
+                    // Generate the fixed-ratio thumbnail used in cards/grids
+                    if (!empty($config['thumbnail'])) {
+                        $pathInfo = pathinfo($file_destination);
+                        $thumbPath = sprintf('%s/%s-thumb.webp', $pathInfo['dirname'], $pathInfo['filename']);
+                        ImageOptimizer::fitToBox(
+                            $file_destination,
+                            $thumbPath,
+                            $config['thumbnail']['width'],
+                            $config['thumbnail']['height'],
+                            $config['thumbnail']['quality']
+                        );
+                    }
+
                     // Generate responsive variants if enabled
                     if ($config['optimization']['create_responsive']) {
                         foreach ($responsiveWidths as $targetWidth) {
@@ -209,7 +222,15 @@ class Projects {
                     unlink($webpPath);
                 }
             }
-            
+
+            // Delete the fixed-ratio thumbnail if it was created
+            if (!empty($config['thumbnail'])) {
+                $thumbPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '-thumb.webp';
+                if (file_exists($thumbPath)) {
+                    unlink($thumbPath);
+                }
+            }
+
             // Delete responsive variants if they were created
             if ($config['optimization']['create_responsive']) {
                 foreach ($responsiveWidths as $width) {

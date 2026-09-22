@@ -19,6 +19,11 @@ $quality = 85; // JPEG/WebP quality (1-100)
 $responsiveWidths = [400, 800, 1200, 1600]; // Widths for responsive images
 $targetDir = $argv[1] ?? $site['paths']['webroot'] . '/img';
 
+// Thumbnail dimensions/quality come from the same config the upload
+// pipeline uses, so batch-generated and newly uploaded thumbnails match.
+$imageConfig = require __DIR__ . '/config/image-config.php';
+$thumbConfig = $imageConfig['thumbnail'] ?? null;
+
 echo "Image Optimization Script\n";
 echo "=========================\n\n";
 echo "Target directory: $targetDir\n";
@@ -27,7 +32,7 @@ echo "Quality: {$quality}%\n";
 echo "Responsive widths: " . implode(', ', $responsiveWidths) . "\n\n";
 
 // Find all images
-$images = glob($targetDir . '/*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+$images = glob($targetDir . '/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', GLOB_BRACE);
 
 if (empty($images)) {
     echo "No images found in $targetDir\n";
@@ -105,6 +110,15 @@ foreach ($images as $imagePath) {
             $stats['final_size'] += filesize($imagePath);
         }
         
+        // Create the fixed-ratio thumbnail used in cards/grids
+        if ($thumbConfig) {
+            $pathInfo = pathinfo($imagePath);
+            $thumbPath = sprintf('%s/%s-thumb.webp', $pathInfo['dirname'], $pathInfo['filename']);
+            if (ImageOptimizer::fitToBox($imagePath, $thumbPath, $thumbConfig['width'], $thumbConfig['height'], $thumbConfig['quality'])) {
+                echo "  ✓ Thumbnail created\n";
+            }
+        }
+
         // Create responsive variants
         $currentDimensions = getimagesize($imagePath);
         list($currentWidth, $currentHeight) = $currentDimensions;

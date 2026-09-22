@@ -15,6 +15,7 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
           image={project.image}
           alt={project.name}
           className="h-full w-full"
+          thumbnail
         />
         {project.flags.inProgress && (
           <span className="absolute left-3 top-3">
