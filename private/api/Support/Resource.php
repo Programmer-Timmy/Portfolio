@@ -22,6 +22,7 @@ class Resource
                 'pinned' => (bool) ($p->pinned ?? false),
                 'inProgress' => (bool) ($p->in_progress ?? false),
                 'privateRepo' => (bool) ($p->private_repo ?? false),
+                'thumbFit' => (bool) ($p->thumb_fit ?? true),
             ],
             'createdAt' => self::date($p->date ?? null),
             'updatedAt' => self::date($p->updated ?? null),
@@ -62,6 +63,7 @@ class Resource
                 'pinned' => (bool) ($p->pinned ?? false),
                 'inProgress' => (bool) ($p->in_progress ?? false),
                 'privateRepo' => (bool) ($p->private_repo ?? false),
+                'thumbFit' => (bool) ($p->thumb_fit ?? true),
             ],
             'removed' => (bool) ($p->removed ?? false),
             'createdAt' => self::date($p->date ?? null),
@@ -102,6 +104,7 @@ class Resource
                 'pinned' => (bool) ($p->pinned ?? false),
                 'inProgress' => (bool) ($p->in_progress ?? false),
                 'privateRepo' => (bool) ($p->private_repo ?? false),
+                'thumbFit' => (bool) ($p->thumb_fit ?? true),
             ],
             'languages' => $languages,
             'contributors' => array_map(static fn ($c) => [

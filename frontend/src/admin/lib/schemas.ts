@@ -47,6 +47,7 @@ export const projectFormSchema = z
     pinned: z.boolean(),
     inProgress: z.boolean(),
     privateRepo: z.boolean().nullable(),
+    thumbFit: z.boolean(),
     description: z.array(z.any()).refine(deltaHasText, 'Add a description.'),
     languages: z.array(
       z.object({
