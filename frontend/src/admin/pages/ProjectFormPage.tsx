@@ -39,6 +39,7 @@ const EMPTY: ProjectFormValues = {
   pinned: false,
   inProgress: false,
   privateRepo: null,
+  thumbFit: true,
   description: [],
   languages: [],
   contributors: [],
@@ -55,6 +56,7 @@ function toFormValues(p: ProjectEditable): ProjectFormValues {
     pinned: p.flags.pinned,
     inProgress: p.flags.inProgress,
     privateRepo: p.flags.privateRepo,
+    thumbFit: p.flags.thumbFit,
     description: p.description ?? [],
     languages: p.languages.map((l) => ({
       programmingLanguageId: l.programmingLanguageId,
@@ -261,6 +263,18 @@ export function ProjectFormPage() {
               <Switch
                 label="Private repo"
                 checked={!!field.value}
+                onChange={(e) => field.onChange(e.currentTarget.checked)}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="thumbFit"
+            render={({ field }) => (
+              <Switch
+                label="Fit card thumbnail (don't crop)"
+                description="Off crops the image to fill the card instead"
+                checked={field.value}
                 onChange={(e) => field.onChange(e.currentTarget.checked)}
               />
             )}

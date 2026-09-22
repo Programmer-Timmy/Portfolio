@@ -27,6 +27,7 @@ export type ProjectFlags = {
   pinned: boolean
   inProgress: boolean
   privateRepo: boolean
+  thumbFit: boolean
 }
 
 export type ProjectAdminRow = {

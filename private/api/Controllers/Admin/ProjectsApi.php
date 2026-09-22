@@ -64,6 +64,7 @@ class ProjectsApi
             $payload['pinned'],
             $payload['inProgress'],
             $payload['privateRepo'],
+            $payload['thumbFit'],
         );
 
         if (!is_numeric($id)) {
@@ -97,6 +98,7 @@ class ProjectsApi
             $id,
             $payload['privateRepo'],
             $imageState,
+            $payload['thumbFit'],
         );
         if (is_string($error) && $error !== '') {
             throw new ApiException(422, $error, 'operation_failed');
@@ -206,6 +208,10 @@ class ProjectsApi
             'privateRepo' => array_key_exists('privateRepo', $data) && $data['privateRepo'] !== null
                 ? (!empty($data['privateRepo']) ? 1 : 0)
                 : null,
+            // Whether the card thumbnail fits the whole image (letterboxed) or
+            // crops to fill the box. Defaults on: most images look fine cropped,
+            // this is for the exceptions (logos, portrait shots, etc.).
+            'thumbFit' => array_key_exists('thumbFit', $data) ? (!empty($data['thumbFit']) ? 1 : 0) : 1,
             'languages' => is_array($data['languages'] ?? null) ? $data['languages'] : [],
             'contributors' => is_array($data['contributors'] ?? null) ? $data['contributors'] : [],
         ];

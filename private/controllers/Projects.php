@@ -41,7 +41,7 @@ class Projects {
         }
     }
 
-    public static function addProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $privateRepo) {
+    public static function addProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $privateRepo, $thumbFit = 1) {
         $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
 
@@ -57,7 +57,7 @@ class Projects {
         try {
             $database = Database::beginTransaction();
 
-            $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned', 'in_progress', 'private_repo'], [$name, $description, $date, $path, $github, $img[0], $pinned, $workInProcess, $privateRepo], $database);
+            $results = Database::insert('projects', ['name', 'description', 'date', 'path', 'github', 'img', 'pinned', 'in_progress', 'private_repo', 'thumb_fit'], [$name, $description, $date, $path, $github, $img[0], $pinned, $workInProcess, $privateRepo, $thumbFit], $database);
             array_shift($img);
             if ($results && !empty($img)) {
                 $id = $results;
@@ -324,7 +324,7 @@ class Projects {
         }
     }
 
-    public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id, $privateRepo, $imageState = null) {
+    public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id, $privateRepo, $imageState = null, $thumbFit = 1) {
         $existingProject = Database::get('projects', ['img'], [], ['id' => $id]);
         if (!$existingProject) {
             return "There was an error updating your project.";
@@ -412,8 +412,8 @@ class Projects {
 
             Database::update(
                 'projects',
-                ['name', 'description', 'path', 'github', 'img', 'pinned', 'in_progress', 'private_repo'],
-                [$name, $description, $path, $github, $mainImage, $pinned, $workInProcess, $privateRepo],
+                ['name', 'description', 'path', 'github', 'img', 'pinned', 'in_progress', 'private_repo', 'thumb_fit'],
+                [$name, $description, $path, $github, $mainImage, $pinned, $workInProcess, $privateRepo, $thumbFit],
                 ['id' => $id],
                 $database
             );

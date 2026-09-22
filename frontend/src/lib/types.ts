@@ -32,6 +32,8 @@ export type ProjectFlags = {
   pinned: boolean
   inProgress: boolean
   privateRepo: boolean
+  /** Card thumbnail fits the whole image (letterboxed) instead of cropping it. */
+  thumbFit: boolean
 }
 
 export type ProjectSummary = {

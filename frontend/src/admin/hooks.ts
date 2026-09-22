@@ -108,6 +108,7 @@ function buildProjectFormData(values: ProjectFormOutput): FormData {
       pinned: values.pinned,
       inProgress: values.inProgress,
       privateRepo: values.privateRepo,
+      thumbFit: values.thumbFit,
       description: values.description,
       languages: values.languages,
       contributors: values.contributors,
