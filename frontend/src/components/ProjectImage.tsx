@@ -44,7 +44,7 @@ export function ProjectImage({
         loading="lazy"
         decoding="async"
         onError={() => setFailed(true)}
-        className={cn('object-contain', className)}
+        className={cn('object-contain bg-white', className)}
       />
     )
   }
