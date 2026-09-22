@@ -209,9 +209,9 @@ class ProjectsApi
                 ? (!empty($data['privateRepo']) ? 1 : 0)
                 : null,
             // Whether the card thumbnail fits the whole image (letterboxed) or
-            // crops to fill the box. Defaults on: most images look fine cropped,
-            // this is for the exceptions (logos, portrait shots, etc.).
-            'thumbFit' => array_key_exists('thumbFit', $data) ? (!empty($data['thumbFit']) ? 1 : 0) : 1,
+            // crops to fill the box. Defaults off: most images look fine
+            // cropped, this is for the exceptions (logos, portrait shots, etc.).
+            'thumbFit' => array_key_exists('thumbFit', $data) ? (!empty($data['thumbFit']) ? 1 : 0) : 0,
             'languages' => is_array($data['languages'] ?? null) ? $data['languages'] : [],
             'contributors' => is_array($data['contributors'] ?? null) ? $data['contributors'] : [],
         ];

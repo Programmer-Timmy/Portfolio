@@ -41,7 +41,7 @@ class Projects {
         }
     }
 
-    public static function addProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $privateRepo, $thumbFit = 1) {
+    public static function addProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $privateRepo, $thumbFit = 0) {
         $date = date('Y-m-d H:i:s');
         $img = self::uploadImage($files);
 
@@ -324,7 +324,7 @@ class Projects {
         }
     }
 
-    public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id, $privateRepo, $imageState = null, $thumbFit = 1) {
+    public static function updateProject($name, $description, $path, $github, $files, $pinned, $workInProcess, $id, $privateRepo, $imageState = null, $thumbFit = 0) {
         $existingProject = Database::get('projects', ['img'], [], ['id' => $id]);
         if (!$existingProject) {
             return "There was an error updating your project.";

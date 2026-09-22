@@ -39,7 +39,7 @@ const EMPTY: ProjectFormValues = {
   pinned: false,
   inProgress: false,
   privateRepo: null,
-  thumbFit: true,
+  thumbFit: false,
   description: [],
   languages: [],
   contributors: [],
