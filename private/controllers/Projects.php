@@ -222,7 +222,15 @@ class Projects {
                     unlink($webpPath);
                 }
             }
-            
+
+            // Delete the fixed-ratio thumbnail if it was created
+            if (!empty($config['thumbnail'])) {
+                $thumbPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '-thumb.webp';
+                if (file_exists($thumbPath)) {
+                    unlink($thumbPath);
+                }
+            }
+
             // Delete responsive variants if they were created
             if ($config['optimization']['create_responsive']) {
                 foreach ($responsiveWidths as $width) {
