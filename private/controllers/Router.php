@@ -115,6 +115,10 @@ class Router {
         return self::$routePriorities[$pattern] ?? 0.80;
     }
 
+    public static function getRouteRobots(string $pattern): string {
+        return self::$routeSEO[$pattern]['robots'] ?? 'index, follow';
+    }
+
     public static function getCurrentSEO(): array {
         global $site;
         if (self::$currentRoute === null) {

@@ -5,7 +5,7 @@
  */
 
 export const projects = {
-  eyebrow: 'Work',
+  eyebrow: '',
   title: 'Projects',
   lead:
     "A selection of things I've built: web apps, internal tools, and side projects. " +

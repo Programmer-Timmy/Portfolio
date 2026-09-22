@@ -110,10 +110,30 @@ if ($site['maintenance'] && !in_array($_SERVER['REMOTE_ADDR'], $allowedIPs)) {
     exit();
 }
 
+// Legacy portfolio, kept for history: /old/* re-dispatches the same Router
+// and views the SPA shadows, bypassing Spa::handles entirely. Noindexed so
+// it doesn't compete with the live pages for search ranking.
+if ($uri === 'old' || str_starts_with($uri, 'old/')) {
+    $legacyUri = trim(substr($uri, 3), '/');
+    $_SERVER['REQUEST_URI'] = '/' . $legacyUri . ($position !== false ? substr($requestedPage, $position) : '');
+    header('X-Robots-Tag: noindex, follow');
+    Router::dispatch();
+    exit();
+}
+
 // Serve the React app for migrated routes. Auth + maintenance checks above
 // have already run, so this only sends the shell to allowed visitors. Falls
 // through to the PHP view if the build is missing.
 if (Spa::handles($uri) && Spa::render()) {
+    exit();
+}
+
+// Anything that isn't an SPA route and isn't one of the few remaining
+// PHP-only routes (login, the leftover admin add/edit forms, etc.) is a
+// genuine 404. Serve the SPA shell for it too, with a real 404 status, so
+// React Router's catch-all renders the app's own NotFoundPage instead of
+// the retired PHP 404 view. /old already exited above and never reaches here.
+if (!Router::isRoute($uri, true) && Spa::render(true)) {
     exit();
 }
 

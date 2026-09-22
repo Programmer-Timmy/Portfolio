@@ -10,5 +10,5 @@ http_response_code(404);
         deleted.</p>
     <p style="font-size: 20px; color: #777777">Please check the URL or navigate back to the home page.</p>
     <br>
-    <a href="/home" class="btn btn-primary">Go to Home</a>
+    <a href="/old/home" class="btn btn-primary">Go to Home</a>
 </main>

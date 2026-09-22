@@ -11,12 +11,13 @@
  */
 
 require_once __DIR__ . '/autoload.php';
-
+require_once __DIR__ . '/config/settings.php';
+global $site;
 // Configuration
 $maxWidth = 1600; // Maximum width for original images
 $quality = 85; // JPEG/WebP quality (1-100)
 $responsiveWidths = [400, 800, 1200, 1600]; // Widths for responsive images
-$targetDir = $argv[1] ?? '../public/img';
+$targetDir = $argv[1] ?? $site['paths']['webroot'] . '/img';
 
 echo "Image Optimization Script\n";
 echo "=========================\n\n";

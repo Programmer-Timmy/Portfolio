@@ -117,7 +117,7 @@ export function ProjectFormPage() {
       if (isEdit && !githubTouched.current) return
 
       setValue('privateRepo', data.private)
-      if (!data.private && data.languages.length > 0) {
+      if (data.languages.length > 0) {
         setValue(
           'languages',
           data.languages.map((l) => ({
@@ -127,7 +127,7 @@ export function ProjectFormPage() {
           { shouldValidate: true },
         )
       }
-      if (!data.private && data.contributors.length > 0) {
+      if (data.contributors.length > 0) {
         setValue('contributors', data.contributors, { shouldValidate: true })
       }
     },

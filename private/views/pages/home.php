@@ -10,7 +10,7 @@ $projects = Projects::loadProjects("3");
                 I have worked on multiple projects, some of which you can see below. If you want to see more projects, click the button below.
             </p>
         </div>
-        <a href="projects" class="btn btn-primary"> View More Projects</a>
+        <a href="/old/projects" class="btn btn-primary"> View More Projects</a>
     </header>
     <section class="borderp" style="color: red">
         <?php if ($projects): ?>
