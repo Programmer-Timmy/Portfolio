@@ -34,9 +34,9 @@ export function ProjectCard({ project }: { project: ProjectSummary }) {
           </Link>
         </h3>
 
-        <p>
-            <small>Small description coming soon</small>
-        </p>
+        {project.shortDescription && (
+          <p className="mt-1 text-sm text-ink-secondary">{project.shortDescription}</p>
+        )}
 
         {languages.length > 0 && (
           <ul className="mt-3 flex flex-wrap gap-1.5">

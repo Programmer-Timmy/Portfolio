@@ -106,6 +106,7 @@ export type ProjectEditable = {
   link: string
   github: string
   description: DeltaOp[] | null
+  shortDescription: string | null
   flags: ProjectFlags
   languages: ProjectLanguage[]
   contributors: ProjectContributor[]

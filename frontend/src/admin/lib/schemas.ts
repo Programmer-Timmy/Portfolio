@@ -49,6 +49,10 @@ export const projectFormSchema = z
     privateRepo: z.boolean().nullable(),
     thumbFit: z.boolean(),
     description: z.array(z.any()).refine(deltaHasText, 'Add a description.'),
+    shortDescription: z
+      .string()
+      .trim()
+      .max(160, 'Keep the short description to 160 characters or fewer.'),
     languages: z.array(
       z.object({
         programmingLanguageId: z.number().int().positive('Pick a language.'),

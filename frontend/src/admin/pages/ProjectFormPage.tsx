@@ -41,6 +41,7 @@ const EMPTY: ProjectFormValues = {
   privateRepo: null,
   thumbFit: false,
   description: [],
+  shortDescription: '',
   languages: [],
   contributors: [],
   existingImages: [],
@@ -58,6 +59,7 @@ function toFormValues(p: ProjectEditable): ProjectFormValues {
     privateRepo: p.flags.privateRepo,
     thumbFit: p.flags.thumbFit,
     description: p.description ?? [],
+    shortDescription: p.shortDescription ?? '',
     languages: p.languages.map((l) => ({
       programmingLanguageId: l.programmingLanguageId,
       percentage: l.percentage ?? 0,
@@ -280,6 +282,14 @@ export function ProjectFormPage() {
             )}
           />
         </Group>
+
+        <TextInput
+          label="Short description"
+          description="Shown on the project card in the overview."
+          maxLength={160}
+          error={errors.shortDescription?.message}
+          {...register('shortDescription')}
+        />
 
         <Controller
           control={control}

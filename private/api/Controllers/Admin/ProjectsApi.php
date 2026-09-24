@@ -21,7 +21,8 @@ use Resource;
  *
  * Create / update take a `multipart/form-data` body:
  *   payload      JSON { name, link, github, pinned, inProgress, privateRepo,
- *                       description: DeltaOp[]|null, languages: [...], contributors: [...] }
+ *                       description: DeltaOp[]|null, shortDescription: string|null,
+ *                       languages: [...], contributors: [...] }
  *   imageState   JSON { images: string[], removed: string[] }   (update only)
  *   images[]     the new image files
  */
@@ -58,6 +59,7 @@ class ProjectsApi
         $id = Projects::addProject(
             $payload['name'],
             $payload['description'],
+            $payload['shortDescription'],
             $payload['link'],
             $payload['github'],
             $files,
@@ -90,6 +92,7 @@ class ProjectsApi
         $error = Projects::updateProject(
             $payload['name'],
             $payload['description'],
+            $payload['shortDescription'],
             $payload['link'],
             $payload['github'],
             $files,
@@ -162,7 +165,8 @@ class ProjectsApi
 
     /**
      * @return array{name:string, link:string, github:string, description:string,
-     *   pinned:int, inProgress:int, privateRepo:?int, languages:array, contributors:array}
+     *   shortDescription:?string, pinned:int, inProgress:int, privateRepo:?int,
+     *   languages:array, contributors:array}
      */
     private static function payload(): array
     {
@@ -175,6 +179,7 @@ class ProjectsApi
         $name = trim((string) ($data['name'] ?? ''));
         $link = trim((string) ($data['link'] ?? ''));
         $github = trim((string) ($data['github'] ?? ''));
+        $shortDescription = trim((string) ($data['shortDescription'] ?? ''));
 
         $errors = [];
         if ($name === '') {
@@ -187,6 +192,9 @@ class ProjectsApi
         }
         if ($github !== '' && !preg_match('~^https?://(www\.)?github\.com/[\w.-]+/[\w.-]+/?$~i', $github)) {
             $errors['github'] = 'Enter a GitHub repository URL.';
+        }
+        if (mb_strlen($shortDescription) > 160) {
+            $errors['shortDescription'] = 'Keep the short description to 160 characters or fewer.';
         }
 
         $description = $data['description'] ?? null;
@@ -203,6 +211,7 @@ class ProjectsApi
             'link' => $link,
             'github' => $github,
             'description' => json_encode(is_array($description) ? $description : []),
+            'shortDescription' => $shortDescription !== '' ? $shortDescription : null,
             'pinned' => !empty($data['pinned']) ? 1 : 0,
             'inProgress' => !empty($data['inProgress']) ? 1 : 0,
             'privateRepo' => array_key_exists('privateRepo', $data) && $data['privateRepo'] !== null

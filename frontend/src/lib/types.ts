@@ -39,6 +39,7 @@ export type ProjectFlags = {
 export type ProjectSummary = {
   id: number
   name: string
+  shortDescription: string | null
   image: ApiImage | null
   languages: Language[]
   links: ProjectLinks
