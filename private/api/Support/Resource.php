@@ -12,6 +12,7 @@ class Resource
         return [
             'id' => (int) $p->id,
             'name' => $p->name,
+            'shortDescription' => $p->short_description ?? null,
             'image' => Media::image($p->img ?? null),
             'languages' => array_map([self::class, 'language'], self::listOf($p->project_languages ?? null)),
             'links' => [
@@ -100,6 +101,7 @@ class Resource
             'link' => $p->path ?? '',
             'github' => $p->github ?? '',
             'description' => self::delta($p->description ?? null),
+            'shortDescription' => $p->short_description ?? null,
             'flags' => [
                 'pinned' => (bool) ($p->pinned ?? false),
                 'inProgress' => (bool) ($p->in_progress ?? false),
