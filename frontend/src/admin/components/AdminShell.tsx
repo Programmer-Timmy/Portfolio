@@ -15,6 +15,7 @@ import {
   IconFolder,
   IconGitPullRequest,
   IconLayoutDashboard,
+  IconHeartbeat,
   IconLogout,
   IconVideo,
 } from '@tabler/icons-react'
@@ -33,6 +34,7 @@ const NAV: NavItem[] = [
   { label: 'Projects', to: '/admin/projects', icon: IconFolder, ready: true },
   { label: 'Videos', to: '/admin/videos', icon: IconVideo, ready: true },
   { label: 'Open source', to: '/admin/opensource', icon: IconGitPullRequest, ready: true },
+  { label: 'Status', to: '/admin/status', icon: IconHeartbeat, ready: true },
 ]
 
 export function AdminShell() {

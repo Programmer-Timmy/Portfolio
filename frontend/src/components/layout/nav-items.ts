@@ -6,5 +6,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Projects', to: '/projects' },
   { label: 'Open Source', to: '/opensource' },
   { label: 'Videos', to: '/videos' },
+  { label: 'Status', to: '/status' },
   { label: 'Contact', to: '/contact' },
 ]

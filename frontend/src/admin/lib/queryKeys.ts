@@ -7,4 +7,6 @@ export const qk = {
   languages: ['admin', 'languages'] as const,
   videos: ['admin', 'videos'] as const,
   openSource: ['admin', 'opensource'] as const,
+  status: ['admin', 'status'] as const,
+  statusPage: (slug: string) => ['admin', 'status', slug] as const,
 }

@@ -16,6 +16,7 @@ export const MIGRATED_ROUTES: string[] = [
   '/project',
   '/opensource',
   '/videos',
+  '/status',
   '/admin',
 ]
 
