@@ -141,6 +141,6 @@ export type StatusPage = {
   slug: string
   title: string
   groups: { name: string; monitors: StatusMonitor[] }[]
-  incidents: { id: number; title: string; content: string; createdDate: string }[]
+  incidents: { id: number; title: string; content: string; style: string; createdDate: string }[]
   maintenance: { id: number; title: string; description: string }[]
 }

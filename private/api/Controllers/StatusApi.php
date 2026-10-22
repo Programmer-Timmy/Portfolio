@@ -64,6 +64,7 @@ class StatusApi
                 'id' => (int) $i['id'],
                 'title' => (string) $i['title'],
                 'content' => (string) $i['content'],
+                'style' => (string) ($i['style'] ?? 'info'),
                 'createdDate' => (string) $i['createdDate'],
             ], $page['incidents'] ?? []),
             'maintenance' => array_map(static fn ($m) => [

@@ -9,7 +9,7 @@ export type StatusSource =
 const REFRESH_MS = 60_000
 
 export function useStatus() {
-  const [state, setState] = useState<{ sources: StatusSource[]; error?: string; loading: boolean }>({
+  const [state, setState] = useState<{ sources: StatusSource[]; error?: string; loading: boolean; updatedAt?: Date }>({
     sources: [],
     loading: true,
   })
@@ -28,7 +28,7 @@ export function useStatus() {
             ? { slug: slugs[i], page: result.value }
             : { slug: slugs[i], error: result.reason?.message ?? 'Unavailable.' },
         )
-        if (alive) setState({ sources, loading: false })
+        if (alive) setState({ sources, loading: false, updatedAt: new Date() })
       } catch (e) {
         if (alive) setState({ sources: [], error: (e as Error).message, loading: false })
       }
