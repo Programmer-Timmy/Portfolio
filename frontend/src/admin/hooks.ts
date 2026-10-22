@@ -6,6 +6,7 @@ import type { OpenSourceValues, ProjectFormOutput } from './lib/schemas'
 import type {
   AdminOpenSourceProject,
   AdminSession,
+  AdminStatusPage,
   AdminStats,
   AdminVideo,
   GitHubContributor,
@@ -16,6 +17,7 @@ import type {
   LoginResult,
   ProjectAdminRow,
   ProjectEditable,
+  StatusPayload,
   VideoSyncSummary,
 } from './lib/types'
 
@@ -295,6 +297,33 @@ export function useDeleteOpenSource() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: qk.openSource })
       qc.invalidateQueries({ queryKey: qk.stats })
+    },
+  })
+}
+
+export function useAdminStatusSlugs() {
+  return useQuery({
+    queryKey: qk.status,
+    queryFn: () => adminApi.get<string[]>('/admin/status'),
+  })
+}
+
+export function useAdminStatusPage(slug: string) {
+  return useQuery({
+    queryKey: qk.statusPage(slug),
+    queryFn: () => adminApi.get<AdminStatusPage>(`/admin/status/${slug}`),
+    retry: false,
+  })
+}
+
+export function useSaveStatus(slug: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: StatusPayload) =>
+      adminApi.put<AdminStatusPage>(`/admin/status/${slug}`, payload),
+    onSuccess: (page) => {
+      qc.setQueryData(qk.statusPage(slug), page)
+      qc.invalidateQueries({ queryKey: qk.status, exact: true })
     },
   })
 }

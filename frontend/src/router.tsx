@@ -9,6 +9,7 @@ import { ProjectPage } from '@/pages/ProjectPage'
 import { OpenSourcePage } from '@/pages/OpenSourcePage'
 import { OpenSourceProjectPage } from '@/pages/OpenSourceProjectPage'
 import { VideosPage } from '@/pages/VideosPage'
+import { StatusPage } from '@/pages/StatusPage'
 
 /**
  * Only routes React actually owns live here. Everything else is still served
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
       { path: 'opensource', element: <OpenSourcePage /> },
       { path: 'opensource/:id', element: <OpenSourceProjectPage /> },
       { path: 'videos', element: <VideosPage /> },
+      { path: 'status', element: <StatusPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

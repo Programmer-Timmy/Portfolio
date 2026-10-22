@@ -137,6 +137,15 @@
   --color-btn2: #33404a;
   --color-btn2-hover: #3d4b56;
   --color-btn2-fg: #e8edf0;
+
+  --color-status-up-bg: #12342a;
+  --color-status-up-text: #6fd6a5;
+  --color-status-degraded-bg: #3a2c12;
+  --color-status-degraded-text: #f0b45a;
+  --color-status-down-bg: #3d1f1d;
+  --color-status-down-text: #f2918a;
+  --color-status-maintenance-bg: #2b3540;
+  --color-status-maintenance-text: #b4bec6;
 }
 
 /* -------------------------------------------------------------------------- */

@@ -148,3 +148,17 @@ export type AdminStats = {
   openSourceProjects: number
   pullRequests: number
 }
+
+export type StatusAudience = 'hidden' | 'private' | 'public'
+
+export type AdminStatusPage = {
+  slug: string
+  title: string
+  audience: StatusAudience
+  groups: { name: string; monitors: { id: number; name: string; audience: StatusAudience }[] }[]
+}
+
+export type StatusPayload = {
+  page: StatusAudience
+  monitors: Record<number, StatusAudience>
+}

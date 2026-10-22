@@ -11,6 +11,8 @@
  *   GET  /api/opensource          contributed repos (with PR counts)
  *   GET  /api/opensource/{id}     single repo + pull requests
  *   GET  /api/videos              ?limit=6  -> collection
+ *   GET  /api/status              status page slugs the visitor may see
+ *   GET  /api/status/{slug}       one filtered Kuma status page
  *   POST /api/contact             { name, email, message }
  *
  * @var ApiRouter $router
@@ -46,6 +48,10 @@ $router->get('admin/github/languages', [Admin\GitHubApi::class, 'languages']);
 $router->get('admin/github/contributors', [Admin\GitHubApi::class, 'contributors']);
 $router->get('admin/github/user', [Admin\GitHubApi::class, 'user']);
 
+$router->get('admin/status', [Admin\StatusApi::class, 'index']);
+$router->get('admin/status/{slug}', [Admin\StatusApi::class, 'show']);
+$router->put('admin/status/{slug}', [Admin\StatusApi::class, 'update']);
+
 $router->get('admin/videos', [Admin\VideosApi::class, 'index']);
 $router->post('admin/videos/sync', [Admin\VideosApi::class, 'sync']);
 $router->post('admin/videos/{id}/pin', [Admin\VideosApi::class, 'pin']);
@@ -64,5 +70,8 @@ $router->get('opensource', [OpenSourceApi::class, 'index']);
 $router->get('opensource/{id}', [OpenSourceApi::class, 'show']);
 
 $router->get('videos', [VideosApi::class, 'index']);
+
+$router->get('status', [StatusApi::class, 'index']);
+$router->get('status/{slug}', [StatusApi::class, 'show']);
 
 $router->post('contact', [ContactApi::class, 'store']);

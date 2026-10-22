@@ -13,23 +13,35 @@ const tones: Record<BadgeTone, string> = {
   maintenance: 'bg-status-maintenance-bg text-status-maintenance-text',
 }
 
+const dots: Record<BadgeTone, string> = {
+  brand: 'bg-teal',
+  up: 'bg-status-up',
+  degraded: 'bg-status-degraded',
+  down: 'bg-status-down',
+  maintenance: 'bg-status-maintenance',
+}
+
 export function Badge({
   children,
   tone = 'brand',
+  dot,
   className,
 }: {
   children: ReactNode
   tone?: BadgeTone
+  dot?: boolean
   className?: string
 }) {
   return (
     <span
       className={cn(
         'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+        dot && 'gap-2 pl-2.5 pr-3',
         tones[tone],
         className,
       )}
     >
+      {dot && <span className={cn('size-2 rounded-full', dots[tone])} />}
       {children}
     </span>
   )

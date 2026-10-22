@@ -129,3 +129,18 @@ export type Profile = {
   socials: Social[]
   skills: SkillGroup[]
 }
+
+export type StatusMonitor = {
+  id: number
+  name: string
+  status: number | null
+  uptime: number | null
+}
+
+export type StatusPage = {
+  slug: string
+  title: string
+  groups: { name: string; monitors: StatusMonitor[] }[]
+  incidents: { id: number; title: string; content: string; style: string; createdDate: string }[]
+  maintenance: { id: number; title: string; description: string }[]
+}
